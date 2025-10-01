@@ -21,6 +21,12 @@ from camel.models import ModelFactory
 from camel.types import ModelPlatformType, ModelType
 from camel.toolkits.mcp_toolkit import MCPToolkit
 
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
 
 # ANSI color codes
 GREEN = "\033[92m"
@@ -212,7 +218,7 @@ class WeatherAnomalyCAMELAgent:
                     1) Identify top 3 anomalous features from data
                     2) get latest 5 historical data of the anomalous features only and then
                     3) Compare current vs historical for each anomalous parameter
-                    4) Based on your own analysis only (disregard the anomaly score), if you are confident >80%, send only anomalous parameter using your tool.
+                    4) Based on your own analysis only (disregard the anomaly score), if you are confident >80% , send only anomalous parameter using your tool.
                     If confidence ≤80%? Report "Possible false alarm"
                     Plan first. Execute systematically."""
 

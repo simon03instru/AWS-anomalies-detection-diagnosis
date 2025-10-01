@@ -26,7 +26,7 @@ class Config:
     OUTPUT_DIR = os.path.join(BASE_DIR, 'output')
     
     # MQTT Settings
-    MQTT_BROKER = "test.mosquitto.org"
+    MQTT_BROKER = "10.33.205.40"
     MQTT_PORT = 1883
     MQTT_TOPIC = "station/aws_diy_pakem"
     MQTT_QOS = 1

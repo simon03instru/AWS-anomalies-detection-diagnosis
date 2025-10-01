@@ -5,5 +5,7 @@ paho-mqtt>=1.6.0
 matplotlib>=3.5.0
 scikit-learn>=1.0.0
 
+
 mlflow
 camel-ai
+python-dotenv
