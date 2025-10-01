@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "weather_anomaly": {
+      "command": "python",
+      "args": [
+        "weather_anomaly_mcp_server.py"
+      ]
+    }
+  }
+}
