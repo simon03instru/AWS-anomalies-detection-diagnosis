@@ -3,6 +3,11 @@
 *.db
 __pycache__/
 
+# Model checkpoints
+.pth
+.ckpt
+.h5
+
 # Environment variables
 .env
 .env.local
