@@ -367,3 +367,573 @@ Therefore, I will report only the anomalous temperature.
 2025-10-01 11:26:04 | [TOOL_DISCOVERY] Connected! Available tools: get_data_from_db, send_anomalous_status
 2025-10-01 11:26:04 | [INITIALIZATION] Creating CAMEL agent...
 2025-10-01 11:26:05 | [INITIALIZATION] Agent initialization complete
+2025-10-02 05:02:31 | [CLEANUP] Disconnected from MCP server
+2025-10-02 05:12:29 | [INITIALIZATION] Initializing Weather Anomaly Agent...
+2025-10-02 05:12:29 | [INITIALIZATION] Loading MCP config: config/weather_anomaly.json
+2025-10-02 05:12:29 | [INITIALIZATION] Connecting to MCP server...
+2025-10-02 05:12:29 | [ERROR] Error during initialization: Failed to connect to client 1: Connection failed to MCP server.
+2025-10-02 05:13:25 | [INITIALIZATION] Initializing Weather Anomaly Agent...
+2025-10-02 05:13:25 | [INITIALIZATION] Loading MCP config: config/weather_anomaly.json
+2025-10-02 05:13:25 | [INITIALIZATION] Connecting to MCP server...
+2025-10-02 05:13:25 | [ERROR] Error during initialization: Failed to connect to client 1: Connection failed to MCP server.
+2025-10-02 05:17:39 | [INITIALIZATION] Initializing Weather Anomaly Agent...
+2025-10-02 05:17:39 | [INITIALIZATION] Loading MCP config: config/weather_anomaly.json
+2025-10-02 05:17:39 | [INITIALIZATION] Connecting to MCP server...
+2025-10-02 05:17:40 | [ERROR] Error during initialization: Failed to connect to client 1: Connection failed to MCP server.
+2025-10-02 05:18:30 | [INITIALIZATION] Initializing Weather Anomaly Agent...
+2025-10-02 05:18:30 | [INITIALIZATION] Loading MCP config: config/weather_anomaly.json
+2025-10-02 05:18:30 | [INITIALIZATION] Connecting to MCP server...
+2025-10-02 05:18:30 | [TOOL_DISCOVERY] Connected! Available tools: get_data_from_db, publish_anomaly_to_kafka
+2025-10-02 05:18:30 | [INITIALIZATION] Creating CAMEL agent...
+2025-10-02 05:18:31 | [INITIALIZATION] Agent initialization complete
+2025-10-02 05:19:58 | [ANALYSIS_START] Starting analysis of anomaly data:
+{
+  "timestamp": "2025-10-02T05:19:57.585459",
+  "anomaly_score": 2.647837,
+  "weather_data": {
+    "tt": 2.61,
+    "pp": 963.6666,
+    "sr": 429.0
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "tt",
+      "score": 17.069138
+    },
+    {
+      "name": "pp",
+      "score": 0.582774
+    },
+    {
+      "name": "sr",
+      "score": 0.486196
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 2
+}
+2025-10-02 05:19:58 | [REASONING] Sending query to CAMEL agent with anomaly data for systematic analysis
+2025-10-02 05:19:58 | [AGENT_PROCESSING] Waiting for agent response...
+2025-10-02 05:20:07 | [TOOL_CALL] Calling tool: get_data_from_db
+Arguments:
+{
+  "limit": 5,
+  "features": "tt,pp,sr"
+}
+2025-10-02 05:20:07 | [TOOL_RESULT] Tool 'get_data_from_db' returned:
+{
+  "records": [
+    {
+      "timestamp": "2025-10-02T05:19:57.585459",
+      "tt": 2.61,
+      "pp": 963.6666,
+      "sr": 429.0
+    },
+    {
+      "timestamp": "2025-10-02T05:19:12.375133",
+      "tt": 26.08,
+      "pp": 963.4318,
+      "sr": 378.6
+    },
+    {
+      "timestamp": "2025-10-02T04:52:38.933863",
+      "tt": 29.19,
+      "pp": 962.5277,
+      "sr": 769.1
+    },
+    {
+      "timestamp": "2025-10-02T04:42:38.932661",
+      "tt": 28.72,
+      "pp": 962.5562,
+      "sr": 562.7
+    },
+    {
+      "timestamp": "2025-10-02T04:32:38.928560",
+      "tt": 28.51,
+      "pp": 962.6541,
+      "sr": 719.5
+    }
+  ],
+  "statistics": {
+    "tt": {
+      "mean": 23.022,
+      "min": 2.61,
+      "max": 29.19,
+      "latest": 2.61,
+      "feature_name": "Temperature",
+      "unit": "\u00b0C"
+    },
+    "pp": {
+      "mean": 962.9672800000001,
+      "min": 962.5277,
+      "max": 963.6666,
+      "latest": 963.6666,
+      "feature_name": "Atmospheric Pressure",
+      "unit": "hPa"
+    },
+    "sr": {
+      "mean": 571.78,
+      "min": 378.6,
+      "max": 769.1,
+      "latest": 429.0,
+      "feature_name": "Solar Radiation",
+      "unit": "W/m\u00b2"
+    }
+  },
+  "count": 5
+}
+2025-10-02 05:20:07 | [TOOL_CALL] Calling tool: publish_anomaly_to_kafka
+Arguments:
+{
+  "anomalous_features": "{\"tt\": 2.61}",
+  "timestamp": "2025-10-02T05:19:57.585459"
+}
+2025-10-02 05:20:07 | [TOOL_RESULT] Tool 'publish_anomaly_to_kafka' returned:
+{
+  "status": "success",
+  "message": "Anomaly published to Kafka successfully",
+  "kafka_broker": "localhost:9092",
+  "topic": "weather-anomalies",
+  "partition": 0,
+  "offset": 0,
+  "timestamp": "2025-10-02T05:19:57.585459",
+  "station_id": "AWS_DIY_001",
+  "anomalous_features_count": 1,
+  "correlation_id": "anomaly-AWS_DIY_001-1759382404"
+}
+2025-10-02 05:20:07 | [ANALYSIS_RESULT] Analysis complete.
+
+================================================================================
+FULL ANALYSIS RESULT:
+================================================================================
+
+Okay, I have analyzed the data.
+
+1.  **Top 3 Anomalous Features:** tt (Temperature), pp (Atmospheric Pressure), and sr (Solar Radiation).
+2.  **Historical Data:** I retrieved the latest 5 historical data points for these features.
+3.  **Comparison:**
+
+    *   **Temperature (tt):** Current value is 2.61°C. The historical values are 26.08°C, 29.19°C, 28.72°C, and 28.51°C, 2.61°C. The current temperature is significantly lower than the previous values.
+    *   **Atmospheric Pressure (pp):** Current value is 963.6666 hPa. The historical values are 963.4318 hPa, 962.5277 hPa, 962.5562 hPa, 962.6541 hPa, 963.6666 hPa. The current pressure is slightly higher than the previous values, but the difference is not very significant.
+    *   **Solar Radiation (sr):** Current value is 429.0 W/m². The historical values are 378.6 W/m², 769.1 W/m², 562.7 W/m², 719.5W/m², 429.0 W/m². The current solar radiation is within the historical range.
+4.  **Confidence and Action:**
+
+    *   The temperature is drastically lower than the historical data. I am highly confident (>80%) that this is a real anomaly.
+    *   The atmospheric pressure is slightly higher, but not significantly.
+    *   The solar radiation is within the historical range.
+
+Therefore, I will report only the anomalous temperature.
+
+
+================================================================================
+2025-10-02 05:20:07 | [ANALYSIS_SUMMARY] Result length: 1293 characters, 186 words
+2025-10-02 05:27:14 | [CLEANUP] Disconnected from MCP server
+2025-10-02 05:27:22 | [INITIALIZATION] Initializing Weather Anomaly Agent...
+2025-10-02 05:27:22 | [INITIALIZATION] Loading MCP config: config/weather_anomaly.json
+2025-10-02 05:27:22 | [INITIALIZATION] Connecting to MCP server...
+2025-10-02 05:27:23 | [TOOL_DISCOVERY] Connected! Available tools: get_data_from_db, publish_anomaly_to_kafka
+2025-10-02 05:27:23 | [INITIALIZATION] Creating CAMEL agent...
+2025-10-02 05:27:23 | [INITIALIZATION] Agent initialization complete
+2025-10-02 05:28:19 | [ANALYSIS_START] Starting analysis of anomaly data:
+{
+  "timestamp": "2025-10-02T05:28:19.181050",
+  "anomaly_score": 2.553678,
+  "weather_data": {
+    "tt": 2.61,
+    "pp": 963.6666,
+    "sr": 429.0
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "tt",
+      "score": 16.450218
+    },
+    {
+      "name": "pp",
+      "score": 0.777521
+    },
+    {
+      "name": "sr",
+      "score": 0.470772
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 8
+}
+2025-10-02 05:28:19 | [REASONING] Sending query to CAMEL agent with anomaly data for systematic analysis
+2025-10-02 05:28:19 | [AGENT_PROCESSING] Waiting for agent response...
+2025-10-02 05:28:28 | [TOOL_CALL] Calling tool: get_data_from_db
+Arguments:
+{
+  "limit": 5,
+  "features": "tt,pp,sr"
+}
+2025-10-02 05:28:28 | [TOOL_RESULT] Tool 'get_data_from_db' returned:
+{
+  "records": [
+    {
+      "timestamp": "2025-10-02T05:28:19.181050",
+      "tt": 2.61,
+      "pp": 963.6666,
+      "sr": 429.0
+    },
+    {
+      "timestamp": "2025-10-02T05:28:13.663480",
+      "tt": 26.77,
+      "pp": 963.8247,
+      "sr": 502.4
+    },
+    {
+      "timestamp": "2025-10-02T05:28:08.656226",
+      "tt": 26.62,
+      "pp": 963.7917,
+      "sr": 422.9
+    },
+    {
+      "timestamp": "2025-10-02T05:28:03.653347",
+      "tt": 26.61,
+      "pp": 963.6666,
+      "sr": 429.0
+    },
+    {
+      "timestamp": "2025-10-02T05:27:58.647678",
+      "tt": 26.28,
+      "pp": 963.5406,
+      "sr": 402.9
+    }
+  ],
+  "statistics": {
+    "tt": {
+      "mean": 21.778,
+      "min": 2.61,
+      "max": 26.77,
+      "latest": 2.61,
+      "feature_name": "Temperature",
+      "unit": "\u00b0C"
+    },
+    "pp": {
+      "mean": 963.69804,
+      "min": 963.5406,
+      "max": 963.8247,
+      "latest": 963.6666,
+      "feature_name": "Atmospheric Pressure",
+      "unit": "hPa"
+    },
+    "sr": {
+      "mean": 437.23999999999995,
+      "min": 402.9,
+      "max": 502.4,
+      "latest": 429.0,
+      "feature_name": "Solar Radiation",
+      "unit": "W/m\u00b2"
+    }
+  },
+  "count": 5
+}
+2025-10-02 05:28:28 | [TOOL_CALL] Calling tool: publish_anomaly_to_kafka
+Arguments:
+{
+  "anomalous_features": "{\"tt\": 2.61}",
+  "timestamp": "2025-10-02T05:28:19.181050"
+}
+2025-10-02 05:28:28 | [TOOL_RESULT] Tool 'publish_anomaly_to_kafka' returned:
+{
+  "status": "success",
+  "message": "Anomaly published to Kafka successfully",
+  "kafka_broker": "10.33.205.40:9093",
+  "topic": "weather-anomalies",
+  "partition": 0,
+  "offset": 0,
+  "timestamp": "2025-10-02T05:28:19.181050",
+  "station_id": "AWS_DIY_001",
+  "anomalous_features_count": 1,
+  "correlation_id": "anomaly-AWS_DIY_001-1759382905"
+}
+2025-10-02 05:28:28 | [ANALYSIS_RESULT] Analysis complete.
+
+================================================================================
+FULL ANALYSIS RESULT:
+================================================================================
+
+Okay, I have analyzed the data.
+
+1.  **Top 3 Anomalous Features:** tt (Temperature), pp (Atmospheric Pressure), and sr (Solar Radiation).
+2.  **Historical Data:** I retrieved the last 5 historical data points for these features.
+3.  **Comparison:**
+
+    *   **Temperature (tt):** The current temperature (2.61°C) is significantly lower than the previous 4 values (26.77°C, 26.62°C, 26.61°C, 26.28°C) and also much lower than the mean (21.778°C). This is a large deviation.
+    *   **Atmospheric Pressure (pp):** The current pressure (963.6666 hPa) is within the range of the previous values (min: 963.5406 hPa, max: 963.8247 hPa) and close to the mean (963.69804 hPa). This doesn't seem anomalous.
+    *   **Solar Radiation (sr):** The current solar radiation (429.0 W/m²) is within the range of the previous values (min: 402.9 W/m², max: 502.4 W/m²) and close to the mean (437.23999999999995 W/m²). This doesn't seem anomalous.
+4.  **Confidence and Action:**
+
+    *   I am highly confident (>80%) that the temperature (tt) is anomalous due to the large deviation from recent historical data.
+    *   I am not confident that pressure and solar radiation are anomalous.
+
+Therefore, I will report only the temperature as an anomaly.
+
+
+================================================================================
+2025-10-02 05:28:28 | [ANALYSIS_SUMMARY] Result length: 1231 characters, 184 words
+2025-10-02 05:37:43 | [ANALYSIS_START] Starting analysis of anomaly data:
+{
+  "timestamp": "2025-10-02T05:37:42.788735",
+  "anomaly_score": 2.579422,
+  "weather_data": {
+    "tt": 2.61,
+    "pp": 963.6666,
+    "sr": 429.0
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "tt",
+      "score": 16.793447
+    },
+    {
+      "name": "pp",
+      "score": 0.593747
+    },
+    {
+      "name": "sr",
+      "score": 0.415555
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 10
+}
+2025-10-02 05:37:43 | [REASONING] Sending query to CAMEL agent with anomaly data for systematic analysis
+2025-10-02 05:37:43 | [AGENT_PROCESSING] Waiting for agent response...
+2025-10-02 05:37:49 | [TOOL_CALL] Calling tool: get_data_from_db
+Arguments:
+{
+  "features": "tt,pp,sr",
+  "limit": 5
+}
+2025-10-02 05:37:49 | [TOOL_RESULT] Tool 'get_data_from_db' returned:
+{
+  "records": [
+    {
+      "timestamp": "2025-10-02T05:37:42.788735",
+      "tt": 2.61,
+      "pp": 963.6666,
+      "sr": 429.0
+    },
+    {
+      "timestamp": "2025-10-02T05:32:38.927291",
+      "tt": 28.25,
+      "pp": 962.2651,
+      "sr": 418.7
+    },
+    {
+      "timestamp": "2025-10-02T05:28:19.181050",
+      "tt": 2.61,
+      "pp": 963.6666,
+      "sr": 429.0
+    },
+    {
+      "timestamp": "2025-10-02T05:28:13.663480",
+      "tt": 26.77,
+      "pp": 963.8247,
+      "sr": 502.4
+    },
+    {
+      "timestamp": "2025-10-02T05:28:08.656226",
+      "tt": 26.62,
+      "pp": 963.7917,
+      "sr": 422.9
+    }
+  ],
+  "statistics": {
+    "tt": {
+      "mean": 17.372,
+      "min": 2.61,
+      "max": 28.25,
+      "latest": 2.61,
+      "feature_name": "Temperature",
+      "unit": "\u00b0C"
+    },
+    "pp": {
+      "mean": 963.4429400000001,
+      "min": 962.2651,
+      "max": 963.8247,
+      "latest": 963.6666,
+      "feature_name": "Atmospheric Pressure",
+      "unit": "hPa"
+    },
+    "sr": {
+      "mean": 440.4,
+      "min": 418.7,
+      "max": 502.4,
+      "latest": 429.0,
+      "feature_name": "Solar Radiation",
+      "unit": "W/m\u00b2"
+    }
+  },
+  "count": 5
+}
+2025-10-02 05:37:49 | [ANALYSIS_RESULT] Analysis complete.
+
+================================================================================
+FULL ANALYSIS RESULT:
+================================================================================
+
+Okay, I have the latest 5 historical data points for the top 3 anomalous features: tt, pp, and sr.
+
+Current values (from the input):
+- tt: 2.61
+- pp: 963.6666
+- sr: 429.0
+
+Historical values (from the API):
+- tt: [2.61, 28.25, 2.61, 26.77, 26.62]
+- pp: [963.6666, 962.2651, 963.6666, 963.8247, 963.7917]
+- sr: [429.0, 418.7, 429.0, 502.4, 422.9]
+
+Comparing current vs historical:
+
+- **tt:** The current temperature (2.61) is significantly lower than most of the recent temperatures (28.25, 26.77, 26.62), except for two values which are the same. This could indicate a sudden temperature drop, but since it has happened before, the confidence is not very high.
+- **pp:** The current pressure (963.6666) is within the range of recent pressures (962.2651 to 963.8247). So, pressure doesn't seem anomalous.
+- **sr:** The current solar radiation (429.0) is also within the range of recent values (418.7 to 502.4). So, solar radiation doesn't seem anomalous.
+
+Based on this analysis, the temperature (tt) is the only parameter that shows a significant deviation from recent values. However, since the same value has appeared twice in the last 5 readings, I am not highly confident that this is a true anomaly. Therefore, my confidence is less than 80%.
+
+Final Answer: Possible false alarm
+
+
+================================================================================
+2025-10-02 05:37:49 | [ANALYSIS_SUMMARY] Result length: 1283 characters, 208 words
+2025-10-02 05:38:46 | [ANALYSIS_START] Starting analysis of anomaly data:
+{
+  "timestamp": "2025-10-02T05:38:45.954123",
+  "anomaly_score": 2.549069,
+  "weather_data": {
+    "tt": 2.61,
+    "pp": 963.6666,
+    "sr": 429.0
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "tt",
+      "score": 16.360254
+    },
+    {
+      "name": "pp",
+      "score": 0.669054
+    },
+    {
+      "name": "sr",
+      "score": 0.539022
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 17
+}
+2025-10-02 05:38:46 | [REASONING] Sending query to CAMEL agent with anomaly data for systematic analysis
+2025-10-02 05:38:46 | [AGENT_PROCESSING] Waiting for agent response...
+2025-10-02 05:38:55 | [TOOL_CALL] Calling tool: get_data_from_db
+Arguments:
+{
+  "limit": 5,
+  "features": "tt,pp,sr"
+}
+2025-10-02 05:38:55 | [TOOL_RESULT] Tool 'get_data_from_db' returned:
+{
+  "records": [
+    {
+      "timestamp": "2025-10-02T05:38:45.954123",
+      "tt": 2.61,
+      "pp": 963.6666,
+      "sr": 429.0
+    },
+    {
+      "timestamp": "2025-10-02T05:38:37.929849",
+      "tt": 26.77,
+      "pp": 963.8247,
+      "sr": 502.4
+    },
+    {
+      "timestamp": "2025-10-02T05:38:32.927890",
+      "tt": 26.62,
+      "pp": 963.7917,
+      "sr": 422.9
+    },
+    {
+      "timestamp": "2025-10-02T05:38:27.921216",
+      "tt": 26.61,
+      "pp": 963.6666,
+      "sr": 429.0
+    },
+    {
+      "timestamp": "2025-10-02T05:38:22.914486",
+      "tt": 26.28,
+      "pp": 963.5406,
+      "sr": 402.9
+    }
+  ],
+  "statistics": {
+    "tt": {
+      "mean": 21.778,
+      "min": 2.61,
+      "max": 26.77,
+      "latest": 2.61,
+      "feature_name": "Temperature",
+      "unit": "\u00b0C"
+    },
+    "pp": {
+      "mean": 963.69804,
+      "min": 963.5406,
+      "max": 963.8247,
+      "latest": 963.6666,
+      "feature_name": "Atmospheric Pressure",
+      "unit": "hPa"
+    },
+    "sr": {
+      "mean": 437.23999999999995,
+      "min": 402.9,
+      "max": 502.4,
+      "latest": 429.0,
+      "feature_name": "Solar Radiation",
+      "unit": "W/m\u00b2"
+    }
+  },
+  "count": 5
+}
+2025-10-02 05:38:55 | [TOOL_CALL] Calling tool: publish_anomaly_to_kafka
+Arguments:
+{
+  "anomalous_features": "{\"tt\": 2.61}",
+  "timestamp": "2025-10-02T05:38:45.954123"
+}
+2025-10-02 05:38:55 | [TOOL_RESULT] Tool 'publish_anomaly_to_kafka' returned:
+{
+  "status": "success",
+  "message": "Anomaly published to Kafka successfully",
+  "kafka_broker": "10.33.205.40:9093",
+  "topic": "weather-anomalies",
+  "partition": 0,
+  "offset": 1,
+  "timestamp": "2025-10-02T05:38:45.954123",
+  "station_id": "AWS_DIY_001",
+  "anomalous_features_count": 1,
+  "correlation_id": "anomaly-AWS_DIY_001-1759383532"
+}
+2025-10-02 05:38:55 | [ANALYSIS_RESULT] Analysis complete.
+
+================================================================================
+FULL ANALYSIS RESULT:
+================================================================================
+
+Okay, I have analyzed the data.
+
+1.  **Top 3 Anomalous Features:** The top 3 contributing features are Temperature (tt), Atmospheric Pressure (pp), and Solar Radiation (sr).
+2.  **Historical Data:** I retrieved the latest 5 historical data points for these features.
+3.  **Comparison:**
+    *   **Temperature (tt):** The current temperature (2.61°C) is significantly lower than the historical average (21.778°C) and the minimum temperature in the last 5 records (2.61°C). This is a large deviation.
+    *   **Atmospheric Pressure (pp):** The current pressure (963.6666 hPa) is close to the historical average (963.69804 hPa) and falls within the range of recent values. This does not appear anomalous.
+    *   **Solar Radiation (sr):** The current solar radiation (429.0 W/m²) is close to the historical average (437.23999999999995 W/m²) and falls within the range of recent values. This does not appear anomalous.
+4.  **Confidence and Action:**
+
+Based on my analysis, the temperature (tt) is significantly lower than historical values. I am confident (>80%) that this is a real anomaly. Therefore, I will publish the temperature anomaly to Kafka.
+
+
+================================================================================
+2025-10-02 05:38:55 | [ANALYSIS_SUMMARY] Result length: 1148 characters, 169 words

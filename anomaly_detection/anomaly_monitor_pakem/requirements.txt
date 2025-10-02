@@ -9,3 +9,4 @@ scikit-learn>=1.0.0
 mlflow
 camel-ai
 python-dotenv
+kafka-python

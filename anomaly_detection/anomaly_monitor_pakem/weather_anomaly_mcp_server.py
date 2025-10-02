@@ -191,13 +191,175 @@ async def get_data_from_db(
         return json.dumps({"error": f"Error retrieving data: {str(e)}"})
 
 
+# @mcp.tool()
+# async def send_anomalous_status(
+#     timestamp: str,
+#     anomalous_features: str
+# ) -> str:
+#     """
+#     Send anomalous weather status to MQTT broker with station metadata.
+    
+#     Parameters:
+#     - timestamp: Timestamp of the anomaly (ISO format, e.g., "2024-09-25T14:30:00")
+#     - anomalous_features: JSON string with format {"feature_code": value}
+#       Example: {"tt": 35.2, "rh": 25.0}
+    
+#     Returns:
+#     - Success message with confirmation details
+    
+#     Feature codes:
+#     - tt: Temperature, rh: Humidity, pp: Pressure, ws: Wind Speed, 
+#     - wd: Wind Direction, sr: Solar Radiation, rr: Rainfall
+#     """
+#     # Use fixed MQTT configuration
+#     mqtt_broker = DEFAULT_MQTT_BROKER
+#     mqtt_port = DEFAULT_MQTT_PORT
+#     mqtt_topic = DEFAULT_MQTT_TOPIC
+    
+#     try:
+#         # Parse anomalous features
+#         if isinstance(anomalous_features, str):
+#             features_data = json.loads(anomalous_features)
+#         else:
+#             features_data = anomalous_features
+            
+#         # Build anomalous features list with metadata
+#         processed_features = []
+#         for feature_code, current_value in features_data.items():
+#             feature_info = STATION_METADATA['features'].get(feature_code, {})
+            
+#             processed_feature = {
+#                 "feature": feature_info.get('name', feature_code.upper()),
+#                 "current_value": current_value,
+#                 #"unit": feature_info.get('unit', 'N/A'),
+#                 "sensor_brand": feature_info.get('brand', f'Unknown sensor for {feature_code}'),
+#                 #"sensor_range": feature_info.get('range', 'N/A')
+#             }
+#             processed_features.append(processed_feature)
+        
+#         # Build complete message with station metadata
+#         message = {
+#             "timestamp": timestamp,
+#             "station_metadata": {
+#                 "station_id": STATION_METADATA['station_info']['id'],
+#                 "location": STATION_METADATA['station_info']['location'],
+#                 "latitude": STATION_METADATA['station_info']['latitude'],
+#                 "longitude": STATION_METADATA['station_info']['longitude'],
+#                 "altitude": STATION_METADATA['station_info']['altitude'],
+#                 "last_calibration": STATION_METADATA['station_info']['last_calibration'],
+#                 "maintenance_contact": STATION_METADATA['station_info']['maintenance_contact']
+#             },
+#             "anomalous_features": processed_features
+#         }
+        
+#         message_json = json.dumps(message, indent=2)
+        
+#         # Try to send via MQTT
+#         try:
+#             import paho.mqtt.client as mqtt
+            
+#             client = mqtt.Client()
+            
+#             # Connection callback
+#             connection_result = {"success": False}
+#             def on_connect(client, userdata, flags, rc):
+#                 if rc == 0:
+#                     connection_result["success"] = True
+#                 else:
+#                     connection_result["error"] = f"Connection failed with code {rc}"
+            
+#             client.on_connect = on_connect
+            
+#             # Connect and publish
+#             client.connect(mqtt_broker, mqtt_port, 60)
+#             client.loop_start()
+            
+#             # Wait for connection
+#             import time
+#             timeout = 5
+#             start_time = time.time()
+#             while not connection_result["success"] and time.time() - start_time < timeout:
+#                 if "error" in connection_result:
+#                     raise Exception(connection_result["error"])
+#                 time.sleep(0.1)
+            
+#             if not connection_result["success"]:
+#                 raise Exception("Connection timeout")
+            
+#             # Publish message
+#             result = client.publish(mqtt_topic, message_json, qos=1)
+#             result.wait_for_publish(timeout=10)
+            
+#             client.loop_stop()
+#             client.disconnect()
+            
+#             if result.rc != mqtt.MQTT_ERR_SUCCESS:
+#                 raise Exception(f"Publish failed with return code: {result.rc}")
+            
+#             return json.dumps({
+#                 "status": "success",
+#                 "message": "Anomaly report sent to MQTT successfully",
+#                 "broker": mqtt_broker,
+#                 "topic": mqtt_topic,
+#                 "timestamp": timestamp,
+#                 "anomalous_features_count": len(processed_features),
+#                 "reported_features": list(features_data.keys())
+#             }, indent=2)
+            
+#         except ImportError:
+#             # Fallback: save to file if MQTT library not available
+#             fallback_file = f"mqtt_fallback_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+#             with open(fallback_file, "w") as f:
+#                 json.dump({
+#                     "timestamp": datetime.now().isoformat(),
+#                     "message": message,
+#                     "topic": mqtt_topic,
+#                     "broker": mqtt_broker
+#                 }, f, indent=2)
+            
+#             return json.dumps({
+#                 "status": "fallback",
+#                 "message": f"MQTT library not available. Message saved to {fallback_file}",
+#                 "file": fallback_file
+#             }, indent=2)
+            
+#     except json.JSONDecodeError as e:
+#         return json.dumps({
+#             "status": "error",
+#             "error": f"Invalid JSON format for anomalous_features: {str(e)}"
+#         })
+#     except Exception as e:
+#         # Fallback: save to file on any error
+#         fallback_file = f"mqtt_error_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+#         try:
+#             with open(fallback_file, "w") as f:
+#                 json.dump({
+#                     "timestamp": datetime.now().isoformat(),
+#                     "message": message if 'message' in locals() else anomalous_features,
+#                     "topic": mqtt_topic,
+#                     "broker": mqtt_broker,
+#                     "error": str(e)
+#                 }, f, indent=2)
+            
+#             return json.dumps({
+#                 "status": "error",
+#                 "error": str(e),
+#                 "fallback_file": fallback_file,
+#                 "message": f"MQTT failed, saved to {fallback_file}"
+#             })
+#         except:
+#             return json.dumps({
+#                 "status": "error",
+#                 "error": f"Failed to send MQTT and save fallback: {str(e)}"
+#             })
+
 @mcp.tool()
-async def send_anomalous_status(
+async def publish_anomaly_to_kafka(
     timestamp: str,
     anomalous_features: str
 ) -> str:
     """
-    Send anomalous weather status to MQTT broker with station metadata.
+    Publish confirmed anomaly to Kafka event broker with station metadata.
     
     Parameters:
     - timestamp: Timestamp of the anomaly (ISO format, e.g., "2024-09-25T14:30:00")
@@ -211,10 +373,9 @@ async def send_anomalous_status(
     - tt: Temperature, rh: Humidity, pp: Pressure, ws: Wind Speed, 
     - wd: Wind Direction, sr: Solar Radiation, rr: Rainfall
     """
-    # Use fixed MQTT configuration
-    mqtt_broker = DEFAULT_MQTT_BROKER
-    mqtt_port = DEFAULT_MQTT_PORT
-    mqtt_topic = DEFAULT_MQTT_TOPIC
+    # Fixed Kafka configuration (not exposed to agent)
+    kafka_broker = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "10.33.205.40:9093")
+    kafka_topic = os.getenv("KAFKA_TOPIC", "weather-anomalies")
     
     try:
         # Parse anomalous features
@@ -224,103 +385,96 @@ async def send_anomalous_status(
             features_data = anomalous_features
             
         # Build anomalous features list with metadata
-        processed_features = []
+        confirmed_anomalies = []
         for feature_code, current_value in features_data.items():
             feature_info = STATION_METADATA['features'].get(feature_code, {})
             
-            processed_feature = {
-                "feature": feature_info.get('name', feature_code.upper()),
-                "current_value": current_value,
-                #"unit": feature_info.get('unit', 'N/A'),
+            confirmed_anomaly = {
+                "parameter": feature_info.get('name', feature_code.upper()),
+                "parameter_code": feature_code,
+                "value": current_value,
                 "sensor_brand": feature_info.get('brand', f'Unknown sensor for {feature_code}'),
-                #"sensor_range": feature_info.get('range', 'N/A')
+                "sensor_range": feature_info.get('range', 'N/A')
             }
-            processed_features.append(processed_feature)
+            confirmed_anomalies.append(confirmed_anomaly)
         
-        # Build complete message with station metadata
-        message = {
+        # Build Kafka event payload
+        event_data = {
             "timestamp": timestamp,
+            "station_id": STATION_METADATA['station_info']['id'],
             "station_metadata": {
-                "station_id": STATION_METADATA['station_info']['id'],
                 "location": STATION_METADATA['station_info']['location'],
                 "latitude": STATION_METADATA['station_info']['latitude'],
                 "longitude": STATION_METADATA['station_info']['longitude'],
                 "altitude": STATION_METADATA['station_info']['altitude'],
-                "last_calibration": STATION_METADATA['station_info']['last_calibration'],
-                "maintenance_contact": STATION_METADATA['station_info']['maintenance_contact']
+                "sensor_info": {
+                    feature_code: {
+                        "brand": STATION_METADATA['features'][feature_code]['brand'],
+                        "last_calibration": STATION_METADATA['station_info']['last_calibration']
+                    }
+                    for feature_code in features_data.keys()
+                }
             },
-            "anomalous_features": processed_features
+            "confirmed_anomalies": confirmed_anomalies,
+            "validation_timestamp": datetime.now().isoformat()
         }
         
-        message_json = json.dumps(message, indent=2)
+        # Create Kafka event envelope
+        kafka_event = {
+            "event_type": "WEATHER_ANOMALY_CONFIRMED",
+            "timestamp": datetime.now().isoformat(),
+            "source": f"StationAgent-{STATION_METADATA['station_info']['id']}",
+            "data": event_data,
+            "correlation_id": f"anomaly-{STATION_METADATA['station_info']['id']}-{int(datetime.now().timestamp())}"
+        }
         
-        # Try to send via MQTT
+        # Try to publish to Kafka
         try:
-            import paho.mqtt.client as mqtt
+            from kafka import KafkaProducer
             
-            client = mqtt.Client()
+            producer = KafkaProducer(
+                bootstrap_servers=kafka_broker,
+                value_serializer=lambda v: json.dumps(v).encode('utf-8'),
+                key_serializer=lambda k: k.encode('utf-8') if k else None
+            )
             
-            # Connection callback
-            connection_result = {"success": False}
-            def on_connect(client, userdata, flags, rc):
-                if rc == 0:
-                    connection_result["success"] = True
-                else:
-                    connection_result["error"] = f"Connection failed with code {rc}"
+            # Publish with station_id as key for partitioning
+            future = producer.send(
+                kafka_topic,
+                key=STATION_METADATA['station_info']['id'],
+                value=kafka_event
+            )
             
-            client.on_connect = on_connect
+            # Wait for confirmation (with timeout)
+            record_metadata = future.get(timeout=10)
             
-            # Connect and publish
-            client.connect(mqtt_broker, mqtt_port, 60)
-            client.loop_start()
-            
-            # Wait for connection
-            import time
-            timeout = 5
-            start_time = time.time()
-            while not connection_result["success"] and time.time() - start_time < timeout:
-                if "error" in connection_result:
-                    raise Exception(connection_result["error"])
-                time.sleep(0.1)
-            
-            if not connection_result["success"]:
-                raise Exception("Connection timeout")
-            
-            # Publish message
-            result = client.publish(mqtt_topic, message_json, qos=1)
-            result.wait_for_publish(timeout=10)
-            
-            client.loop_stop()
-            client.disconnect()
-            
-            if result.rc != mqtt.MQTT_ERR_SUCCESS:
-                raise Exception(f"Publish failed with return code: {result.rc}")
+            producer.flush()
+            producer.close()
             
             return json.dumps({
                 "status": "success",
-                "message": "Anomaly report sent to MQTT successfully",
-                "broker": mqtt_broker,
-                "topic": mqtt_topic,
+                "message": "Anomaly published to Kafka successfully",
+                "kafka_broker": kafka_broker,
+                "topic": kafka_topic,
+                "partition": record_metadata.partition,
+                "offset": record_metadata.offset,
                 "timestamp": timestamp,
-                "anomalous_features_count": len(processed_features),
-                "reported_features": list(features_data.keys())
+                "station_id": STATION_METADATA['station_info']['id'],
+                "anomalous_features_count": len(confirmed_anomalies),
+                "correlation_id": kafka_event["correlation_id"]
             }, indent=2)
             
         except ImportError:
-            # Fallback: save to file if MQTT library not available
-            fallback_file = f"mqtt_fallback_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            # Fallback: save to file if Kafka library not available
+            fallback_file = f"kafka_fallback_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
             with open(fallback_file, "w") as f:
-                json.dump({
-                    "timestamp": datetime.now().isoformat(),
-                    "message": message,
-                    "topic": mqtt_topic,
-                    "broker": mqtt_broker
-                }, f, indent=2)
+                json.dump(kafka_event, f, indent=2)
             
             return json.dumps({
                 "status": "fallback",
-                "message": f"MQTT library not available. Message saved to {fallback_file}",
-                "file": fallback_file
+                "message": f"Kafka library not available. Event saved to {fallback_file}",
+                "file": fallback_file,
+                "install_command": "pip install kafka-python"
             }, indent=2)
             
     except json.JSONDecodeError as e:
@@ -330,14 +484,17 @@ async def send_anomalous_status(
         })
     except Exception as e:
         # Fallback: save to file on any error
-        fallback_file = f"mqtt_error_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        fallback_file = f"kafka_error_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         try:
+            error_event = kafka_event if 'kafka_event' in locals() else {
+                "error": "Failed to create event",
+                "anomalous_features": anomalous_features
+            }
+            
             with open(fallback_file, "w") as f:
                 json.dump({
                     "timestamp": datetime.now().isoformat(),
-                    "message": message if 'message' in locals() else anomalous_features,
-                    "topic": mqtt_topic,
-                    "broker": mqtt_broker,
+                    "event": error_event,
                     "error": str(e)
                 }, f, indent=2)
             
@@ -345,14 +502,13 @@ async def send_anomalous_status(
                 "status": "error",
                 "error": str(e),
                 "fallback_file": fallback_file,
-                "message": f"MQTT failed, saved to {fallback_file}"
+                "message": f"Kafka publish failed, saved to {fallback_file}"
             })
         except:
             return json.dumps({
                 "status": "error",
-                "error": f"Failed to send MQTT and save fallback: {str(e)}"
+                "error": f"Failed to publish to Kafka and save fallback: {str(e)}"
             })
-
 
 # Run the MCP server
 if __name__ == "__main__":
