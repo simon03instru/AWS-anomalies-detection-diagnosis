@@ -1,0 +1,19 @@
+# ==================== requirements.txt ====================
+# CAMEL AI Event-Driven Multi-Agent System
+# Python >= 3.8 required
+
+# Core CAMEL AI framework (includes OpenAI automatically)
+camel-ai[all]==0.2.1
+
+# Kafka client
+kafka-python==2.0.2
+
+# Optional: for better logging
+colorlog==6.8.2
+
+# Optional: for environment variables
+python-dotenv==1.0.1
+
+# Note: numpy, pandas, requests, pydantic are included with camel-ai[all]
+# Note: openai>=1.45.0 is included with camel-ai[all]
+
