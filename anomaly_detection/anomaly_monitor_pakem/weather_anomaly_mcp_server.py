@@ -45,11 +45,11 @@ STATION_METADATA = {
                'brand': 'Texas Electronics TR-525M', 'range': '0-100 mm/h'}
     },
     'station_info': {
-        'id': 'AWS_DIY_001',
+        'id': 'AWS_DIY_PAKEM',
         'latitude': -34.9285,
         'longitude': 138.6007,
         'altitude': 48.0,
-        'location': 'Adelaide, South Australia',
+        'location': 'DIY, Indonesia',
         'last_calibration': '2024-03-15',
         'calibration_interval': '6 months',
         'maintenance_contact': 'station-maintenance@weather.org'

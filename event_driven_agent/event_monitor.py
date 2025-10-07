@@ -3,6 +3,7 @@
 Weather Anomaly Event Monitor
 Simple real-time monitor for Kafka events from station agents.
 No event consumption - just monitoring for debugging/visibility.
+ENHANCED: Now displays trend analysis for each anomaly.
 """
 
 import json
@@ -21,6 +22,7 @@ YELLOW = "\033[93m"
 RED = "\033[91m"
 CYAN = "\033[96m"
 MAGENTA = "\033[95m"
+BLUE = "\033[94m"
 RESET = "\033[0m"
 BOLD = "\033[1m"
 DIM = "\033[2m"
@@ -118,8 +120,8 @@ class EventMonitor:
         # Display header
         print("=" * 80)
         print(f"{BOLD}{GREEN}EVENT #{self.event_count}{RESET} | "
-            f"{CYAN}Partition: {partition}{RESET} | "
-            f"{CYAN}Offset: {offset}{RESET}")
+              f"{CYAN}Partition: {partition}{RESET} | "
+              f"{CYAN}Offset: {offset}{RESET}")
         print(f"{DIM}Received: {timestamp.strftime('%Y-%m-%d %H:%M:%S')}{RESET}")
         print("-" * 80)
         
@@ -144,10 +146,13 @@ class EventMonitor:
             if metadata:
                 print(f"  Location: {metadata.get('location', 'N/A')}")
                 print(f"  Coordinates: {metadata.get('latitude', 'N/A')}, "
-                    f"{metadata.get('longitude', 'N/A')}")
+                      f"{metadata.get('longitude', 'N/A')}")
                 print(f"  Altitude: {metadata.get('altitude', 'N/A')}m")
             
-            # Anomalous features with sensor info
+            # Check if trend analysis is included
+            has_trends = data.get('has_trend_analysis', False)
+            
+            # Anomalous features with sensor info and trend analysis
             anomalies = data.get('confirmed_anomalies', [])
             if anomalies:
                 print(f"\n{RED}Confirmed Anomalies ({len(anomalies)}):{RESET}")
@@ -155,9 +160,12 @@ class EventMonitor:
                     param = anomaly.get('parameter', 'Unknown')
                     param_code = anomaly.get('parameter_code', '')
                     value = anomaly.get('value', 'N/A')
+                    unit = anomaly.get('unit', '')
                     sensor = anomaly.get('sensor_brand', 'Unknown')
+                    trend_analysis = anomaly.get('trend_analysis')
                     
-                    print(f"  {i}. {param}: {value}")
+                    print(f"\n  {BOLD}[{i}] {param} ({param_code}){RESET}")
+                    print(f"     Current Value: {BOLD}{value} {unit}{RESET}")
                     print(f"     Sensor: {sensor}")
                     
                     # Get calibration info from sensor_info
@@ -165,9 +173,49 @@ class EventMonitor:
                     if param_code in sensor_info:
                         last_cal = sensor_info[param_code].get('last_calibration', 'N/A')
                         print(f"     Last Calibration: {last_cal}")
+                    
+                    # Display trend analysis if available
+                    if trend_analysis:
+                        print(f"     {BLUE}📊 Trend Analysis:{RESET}")
+                        # Wrap long trend text for better readability
+                        trend_lines = self._wrap_text(trend_analysis, 70)
+                        for line in trend_lines:
+                            print(f"        {line}")
+                    elif has_trends:
+                        print(f"     {DIM}(No trend analysis for this feature){RESET}")
+                
+                # Summary indicator
+                if has_trends:
+                    trends_provided = sum(1 for a in anomalies if a.get('trend_analysis'))
+                    print(f"\n  {GREEN}✓{RESET} Trend analysis provided for "
+                          f"{trends_provided}/{len(anomalies)} anomalies")
+                else:
+                    print(f"\n  {YELLOW}⚠{RESET} No trend analysis included in this event")
         
         print("=" * 80)
         print()
+    
+    def _wrap_text(self, text: str, width: int = 70) -> list:
+        """Wrap text to specified width while preserving words"""
+        words = text.split()
+        lines = []
+        current_line = []
+        current_length = 0
+        
+        for word in words:
+            if current_length + len(word) + 1 <= width:
+                current_line.append(word)
+                current_length += len(word) + 1
+            else:
+                if current_line:
+                    lines.append(' '.join(current_line))
+                current_line = [word]
+                current_length = len(word)
+        
+        if current_line:
+            lines.append(' '.join(current_line))
+        
+        return lines if lines else [text]
     
     def _print_summary(self):
         """Print monitoring summary"""

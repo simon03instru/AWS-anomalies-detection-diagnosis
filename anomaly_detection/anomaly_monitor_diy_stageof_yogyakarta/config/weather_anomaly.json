@@ -3,10 +3,10 @@
     "weather_anomaly_tools": {
       "command": "python3",
       "args": [
-        "/home/ubuntu/running/anomaly_detection/anomaly_monitor_pakem/weather_anomaly_mcp_server.py"
+        "./weather_anomaly_mcp_server.py"
       ],
       "env": {
-        "PYTHONPATH": "/home/ubuntu/running/anomaly_detection/anomaly_monitor_pakem"
+        "PYTHONPATH": "."
       }
     }
   }

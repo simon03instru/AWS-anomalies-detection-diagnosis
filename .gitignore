@@ -37,3 +37,17 @@ ENV/
 # OS files
 .DS_Store
 Thumbs.db
+
+# File
+*.csv
+*.db
+*.json
+*.pkl
+*.txt
+*.log
+*.pth
+
+# Ignore specific files
+/src/config.py
+/src/train.py
+/src/evaluate.py

@@ -11,3 +11,680 @@
 2025-10-03 07:14:49 | [TOOL_DISCOVERY] Connected! Available tools: get_data_from_db, publish_anomaly_to_kafka
 2025-10-03 07:14:49 | [INITIALIZATION] Creating CAMEL agent...
 2025-10-03 07:14:50 | [INITIALIZATION] Agent initialization complete
+2025-10-03 09:04:51 | [CLEANUP] Disconnected from MCP server
+2025-10-03 09:05:02 | [INITIALIZATION] Initializing Weather Anomaly Agent...
+2025-10-03 09:05:02 | [INITIALIZATION] Loading MCP config: config/weather_anomaly.json
+2025-10-03 09:05:02 | [INITIALIZATION] Connecting to MCP server...
+2025-10-03 09:05:03 | [TOOL_DISCOVERY] Connected! Available tools: get_data_from_db, publish_anomaly_to_kafka
+2025-10-03 09:05:03 | [INITIALIZATION] Creating CAMEL agent...
+2025-10-03 09:05:04 | [INITIALIZATION] Agent initialization complete
+2025-10-03 09:19:03 | [CLEANUP] Disconnected from MCP server
+2025-10-03 09:19:10 | [INITIALIZATION] Initializing Weather Anomaly Agent...
+2025-10-03 09:19:10 | [INITIALIZATION] Loading MCP config: config/weather_anomaly.json
+2025-10-03 09:19:10 | [INITIALIZATION] Connecting to MCP server...
+2025-10-03 09:19:10 | [TOOL_DISCOVERY] Connected! Available tools: get_data_from_db, publish_anomaly_to_kafka
+2025-10-03 09:19:10 | [INITIALIZATION] Creating CAMEL agent...
+2025-10-03 09:19:11 | [INITIALIZATION] Agent initialization complete
+2025-10-03 09:22:13 | [ANALYSIS_START] Starting analysis of anomaly data:
+{
+  "timestamp": "2025-10-03T09:22:12.834490",
+  "anomaly_score": 3.452751,
+  "weather_data": {
+    "tt": 5.09,
+    "pp": 1006.87,
+    "wd": 268.6
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "tt",
+      "score": 13.833771
+    },
+    {
+      "name": "pp",
+      "score": 10.23301
+    },
+    {
+      "name": "wd",
+      "score": 0.068051
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 4
+}
+2025-10-03 09:22:13 | [REASONING] Sending query to CAMEL agent with anomaly data for systematic analysis
+2025-10-03 09:22:13 | [AGENT_PROCESSING] Waiting for agent response...
+2025-10-03 09:22:22 | [TOOL_CALL] Calling tool: get_data_from_db
+Arguments:
+{
+  "limit": 5,
+  "features": "tt,pp,wd"
+}
+2025-10-03 09:22:22 | [TOOL_RESULT] Tool 'get_data_from_db' returned:
+{
+  "records": [
+    {
+      "timestamp": "2025-10-03T09:22:12.834490",
+      "tt": 5.09,
+      "pp": 1006.87,
+      "wd": 268.6
+    },
+    {
+      "timestamp": "2025-10-03T09:21:46.941070",
+      "tt": 25.9,
+      "pp": 995.8222,
+      "wd": 218.5
+    },
+    {
+      "timestamp": "2025-10-03T09:20:46.940773",
+      "tt": 26.21,
+      "pp": 995.6922,
+      "wd": 213.3
+    },
+    {
+      "timestamp": "2025-10-03T09:19:46.939319",
+      "tt": 26.56,
+      "pp": 995.6237,
+      "wd": 195.5
+    },
+    {
+      "timestamp": "2025-10-03T09:18:46.939360",
+      "tt": 26.8,
+      "pp": 995.4945,
+      "wd": 198.7
+    }
+  ],
+  "statistics": {
+    "tt": {
+      "mean": 22.112000000000002,
+      "min": 5.09,
+      "max": 26.8,
+      "latest": 5.09,
+      "feature_name": "Temperature",
+      "unit": "\u00b0C"
+    },
+    "pp": {
+      "mean": 997.9005199999999,
+      "min": 995.4945,
+      "max": 1006.87,
+      "latest": 1006.87,
+      "feature_name": "Atmospheric Pressure",
+      "unit": "hPa"
+    },
+    "wd": {
+      "mean": 218.92000000000002,
+      "min": 195.5,
+      "max": 268.6,
+      "latest": 268.6,
+      "feature_name": "Wind Direction",
+      "unit": "\u00b0"
+    }
+  },
+  "count": 5
+}
+2025-10-03 09:22:22 | [TOOL_CALL] Calling tool: publish_anomaly_to_kafka
+Arguments:
+{
+  "anomalous_features": "{\"tt\": 5.09, \"pp\": 1006.87}",
+  "timestamp": "2025-10-03T09:22:12.834490"
+}
+2025-10-03 09:22:22 | [TOOL_RESULT] Tool 'publish_anomaly_to_kafka' returned:
+{
+  "status": "success",
+  "message": "Anomaly published to Kafka successfully",
+  "kafka_broker": "10.33.205.40:9093",
+  "topic": "weather-anomalies",
+  "partition": 0,
+  "offset": 14,
+  "timestamp": "2025-10-03T09:22:12.834490",
+  "station_id": "AWS_DIY_STAGEOF_Yogyakarta",
+  "anomalous_features_count": 2,
+  "correlation_id": "anomaly-AWS_DIY_STAGEOF_Yogyakarta-1759483339"
+}
+2025-10-03 09:22:22 | [ANALYSIS_RESULT] Analysis complete.
+
+================================================================================
+FULL ANALYSIS RESULT:
+================================================================================
+
+Okay, I have analyzed the data.
+
+1.  **Top 3 Anomalous Features:** The top 3 contributing features are Temperature (tt), Atmospheric Pressure (pp), and Wind Direction (wd).
+2.  **Historical Data:** I retrieved the latest 5 historical data points for these features.
+3.  **Comparison:**
+    *   **Temperature (tt):** The current temperature (5.09°C) is significantly lower than the historical average (22.11°C) and the minimum of the last 5 values (5.09°C). This is a large drop and likely anomalous.
+    *   **Atmospheric Pressure (pp):** The current pressure (1006.87 hPa) is higher than the historical average (997.90 hPa) and the maximum of the last 5 values (1006.87 hPa). This is a significant increase and likely anomalous.
+    *   **Wind Direction (wd):** The current wind direction (268.6°) is within the range of the last 5 values (min: 195.5, max: 268.6). While it's the highest value in the last 5 records, it's not significantly different to warrant an anomaly.
+4.  **Confidence:** Based on the comparison, I am highly confident (>80%) that the temperature and pressure are anomalous. The wind direction seems within a reasonable range of recent values.
+
+Therefore, I will publish the temperature and pressure as anomalous features.
+
+
+================================================================================
+2025-10-03 09:22:22 | [ANALYSIS_SUMMARY] Result length: 1245 characters, 189 words
+2025-10-03 11:39:40 | [ANALYSIS_START] Starting analysis of anomaly data:
+{
+  "timestamp": "2025-10-03T11:39:39.475985",
+  "anomaly_score": 12.36789,
+  "weather_data": {
+    "rr": 10.0,
+    "pp": 1005.83,
+    "ws": 0.0
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "rr",
+      "score": 76.688454
+    },
+    {
+      "name": "pp",
+      "score": 8.959151
+    },
+    {
+      "name": "ws",
+      "score": 0.621583
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 142
+}
+2025-10-03 11:39:40 | [REASONING] Sending query to CAMEL agent with anomaly data for systematic analysis
+2025-10-03 11:39:40 | [AGENT_PROCESSING] Waiting for agent response...
+2025-10-03 11:39:53 | [ERROR] Error during analysis: Unable to process messages: Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 50\nPlease retry in 6.395176491s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.0-flash-exp', 'location': 'global'}, 'quotaValue': '50'}]}, {'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '6s'}]}}]
+
+Details:
+Traceback (most recent call last):
+  File "/home/ubuntu/running/anomaly_detection/anomaly_monitor_diy_stageof_yogyakarta/station_agent.py", line 278, in analyze
+    response = await self.agent.astep(BaseMessage.make_user_message(
+  File "/home/ubuntu/running/anomaly_detection/anomaly_monitor_pakem/venv/lib/python3.10/site-packages/camel/agents/chat_agent.py", line 1622, in astep
+    return await self._astep_non_streaming_task(
+  File "/home/ubuntu/running/anomaly_detection/anomaly_monitor_pakem/venv/lib/python3.10/site-packages/camel/agents/chat_agent.py", line 1676, in _astep_non_streaming_task
+    response = await self._aget_model_response(
+  File "/home/ubuntu/running/anomaly_detection/anomaly_monitor_pakem/venv/lib/python3.10/site-packages/camel/agents/chat_agent.py", line 1937, in _aget_model_response
+    raise ModelProcessingError(
+camel.models.model_manager.ModelProcessingError: Unable to process messages: Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 50\nPlease retry in 6.395176491s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.0-flash-exp', 'location': 'global'}, 'quotaValue': '50'}]}, {'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '6s'}]}}]
+
+2025-10-03 11:43:56 | [CLEANUP] Disconnected from MCP server
+2025-10-03 11:44:05 | [INITIALIZATION] Initializing Weather Anomaly Agent...
+2025-10-03 11:44:05 | [INITIALIZATION] Loading MCP config: config/weather_anomaly.json
+2025-10-03 11:44:05 | [INITIALIZATION] Connecting to MCP server...
+2025-10-03 11:44:06 | [TOOL_DISCOVERY] Connected! Available tools: get_data_from_db, publish_anomaly_to_kafka
+2025-10-03 11:44:06 | [INITIALIZATION] Creating CAMEL agent...
+2025-10-03 11:44:09 | [INITIALIZATION] Agent initialization complete
+2025-10-03 11:44:15 | [ANALYSIS_START] Starting analysis of anomaly data:
+{
+  "timestamp": "2025-10-03T11:44:14.716314",
+  "anomaly_score": 15.204895,
+  "weather_data": {
+    "rr": 10.0,
+    "tt": 2.37,
+    "pp": 1005.83
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "rr",
+      "score": 78.624695
+    },
+    {
+      "name": "tt",
+      "score": 17.632433
+    },
+    {
+      "name": "pp",
+      "score": 9.244967
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 1
+}
+2025-10-03 11:44:15 | [REASONING] Sending query to CAMEL agent with anomaly data for systematic analysis
+2025-10-03 11:44:15 | [AGENT_PROCESSING] Waiting for agent response...
+2025-10-03 11:44:51 | [TOOL_CALL] Calling tool: get_data_from_db
+Arguments:
+{
+  "features": "rr,tt,pp",
+  "limit": 5
+}
+2025-10-03 11:44:51 | [TOOL_RESULT] Tool 'get_data_from_db' returned:
+{
+  "records": [
+    {
+      "timestamp": "2025-10-03T11:44:14.716314",
+      "rr": 10.0,
+      "tt": 2.37,
+      "pp": 1005.83
+    },
+    {
+      "timestamp": "2025-10-03T11:43:47.058973",
+      "rr": 0.0,
+      "tt": 25.89,
+      "pp": 996.3764
+    },
+    {
+      "timestamp": "2025-10-03T11:42:47.057369",
+      "rr": 0.0,
+      "tt": 26.06,
+      "pp": 996.2692
+    },
+    {
+      "timestamp": "2025-10-03T11:41:47.056453",
+      "rr": 0.0,
+      "tt": 26.25,
+      "pp": 996.2154
+    },
+    {
+      "timestamp": "2025-10-03T11:40:47.055708",
+      "rr": 0.0,
+      "tt": 26.42,
+      "pp": 996.1701
+    }
+  ],
+  "statistics": {
+    "rr": {
+      "mean": 2.0,
+      "min": 0.0,
+      "max": 10.0,
+      "latest": 10.0,
+      "feature_name": "Rainfall",
+      "unit": "mm"
+    },
+    "tt": {
+      "mean": 21.398,
+      "min": 2.37,
+      "max": 26.42,
+      "latest": 2.37,
+      "feature_name": "Temperature",
+      "unit": "\u00b0C"
+    },
+    "pp": {
+      "mean": 998.17222,
+      "min": 996.1701,
+      "max": 1005.83,
+      "latest": 1005.83,
+      "feature_name": "Atmospheric Pressure",
+      "unit": "hPa"
+    }
+  },
+  "count": 5
+}
+2025-10-03 11:44:51 | [TOOL_CALL] Calling tool: publish_anomaly_to_kafka
+Arguments:
+{
+  "timestamp": "2025-10-03T11:44:14.716314",
+  "anomalous_features": "{\"rr\": 10.0, \"tt\": 2.37, \"pp\": 1005.83}"
+}
+2025-10-03 11:44:51 | [TOOL_RESULT] Tool 'publish_anomaly_to_kafka' returned:
+{
+  "status": "success",
+  "message": "Anomaly published to Kafka successfully",
+  "kafka_broker": "10.33.205.40:9093",
+  "topic": "weather-anomalies",
+  "partition": 0,
+  "offset": 32,
+  "timestamp": "2025-10-03T11:44:14.716314",
+  "station_id": "AWS_DIY_STAGEOF_Yogyakarta",
+  "anomalous_features_count": 3,
+  "correlation_id": "anomaly-AWS_DIY_STAGEOF_Yogyakarta-1759491882"
+}
+2025-10-03 11:44:51 | [ANALYSIS_RESULT] Analysis complete.
+
+================================================================================
+FULL ANALYSIS RESULT:
+================================================================================
+
+The anomaly has been successfully published to the Kafka event broker. Here are the details:
+
+- **Timestamp of Anomaly:** 2025-10-03T11:44:14.716314
+- **Anomalous Features:** Rainfall (10.0 mm), Temperature (2.37°C), Atmospheric Pressure (1005.83 hPa)
+- **Kafka Broker:** 10.33.205.40:9093
+- **Topic:** weather-anomalies
+- **Partition:** 0
+- **Offset:** 32
+- **Station ID:** AWS_DIY_STAGEOF_Yogyakarta
+- **Anomalous Features Count:** 3
+- **Correlation ID:** anomaly-AWS_DIY_STAGEOF_Yogyakarta-1759491882
+
+This anomaly was identified based on significant deviations in rainfall, temperature, and atmospheric pressure compared to recent historical data.
+
+================================================================================
+2025-10-03 11:44:51 | [ANALYSIS_SUMMARY] Result length: 651 characters, 77 words
+2025-10-03 11:55:00 | [CLEANUP] Disconnected from MCP server
+2025-10-03 11:55:09 | [INITIALIZATION] Initializing Weather Anomaly Agent...
+2025-10-03 11:55:09 | [INITIALIZATION] Loading MCP config: config/weather_anomaly.json
+2025-10-03 11:55:09 | [INITIALIZATION] Connecting to MCP server...
+2025-10-03 11:55:10 | [TOOL_DISCOVERY] Connected! Available tools: get_data_from_db, publish_anomaly_to_kafka
+2025-10-03 11:55:10 | [INITIALIZATION] Creating CAMEL agent...
+2025-10-03 11:55:10 | [INITIALIZATION] Agent initialization complete
+2025-10-03 11:57:15 | [ANALYSIS_START] Starting analysis of anomaly data:
+{
+  "timestamp": "2025-10-03T11:57:14.499286",
+  "anomaly_score": 15.363238,
+  "weather_data": {
+    "rr": 10.0,
+    "tt": 2.37,
+    "pp": 1005.83
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "rr",
+      "score": 80.546013
+    },
+    {
+      "name": "tt",
+      "score": 17.531651
+    },
+    {
+      "name": "pp",
+      "score": 8.729376
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 3
+}
+2025-10-03 11:57:15 | [REASONING] Sending query to CAMEL agent with anomaly data for systematic analysis
+2025-10-03 11:57:15 | [AGENT_PROCESSING] Waiting for agent response...
+2025-10-03 11:57:45 | [TOOL_CALL] Calling tool: get_data_from_db
+Arguments:
+{
+  "features": "rr,tt,pp",
+  "limit": 10
+}
+2025-10-03 11:57:45 | [TOOL_RESULT] Tool 'get_data_from_db' returned:
+{
+  "records": [
+    {
+      "timestamp": "2025-10-03T11:57:14.499286",
+      "rr": 10.0,
+      "tt": 2.37,
+      "pp": 1005.83
+    },
+    {
+      "timestamp": "2025-10-03T11:56:47.068791",
+      "rr": 0.0,
+      "tt": 24.73,
+      "pp": 998.3362
+    },
+    {
+      "timestamp": "2025-10-03T11:55:47.067621",
+      "rr": 0.0,
+      "tt": 24.84,
+      "pp": 998.1298
+    },
+    {
+      "timestamp": "2025-10-03T11:54:47.067207",
+      "rr": 0.0,
+      "tt": 24.98,
+      "pp": 997.8898
+    },
+    {
+      "timestamp": "2025-10-03T11:53:47.066672",
+      "rr": 0.0,
+      "tt": 25.13,
+      "pp": 997.7588
+    },
+    {
+      "timestamp": "2025-10-03T11:52:47.065579",
+      "rr": 0.0,
+      "tt": 25.2,
+      "pp": 997.704
+    },
+    {
+      "timestamp": "2025-10-03T11:51:47.065181",
+      "rr": 0.0,
+      "tt": 25.26,
+      "pp": 997.7162
+    },
+    {
+      "timestamp": "2025-10-03T11:50:47.063383",
+      "rr": 0.0,
+      "tt": 25.29,
+      "pp": 997.6029
+    },
+    {
+      "timestamp": "2025-10-03T11:49:47.062635",
+      "rr": 0.0,
+      "tt": 25.3,
+      "pp": 997.5233
+    },
+    {
+      "timestamp": "2025-10-03T11:48:47.061575",
+      "rr": 0.0,
+      "tt": 25.38,
+      "pp": 997.3582
+    }
+  ],
+  "statistics": {
+    "rr": {
+      "mean": 1.0,
+      "min": 0.0,
+      "max": 10.0,
+      "latest": 10.0,
+      "feature_name": "Rainfall",
+      "unit": "mm"
+    },
+    "tt": {
+      "mean": 22.848,
+      "min": 2.37,
+      "max": 25.38,
+      "latest": 2.37,
+      "feature_name": "Temperature",
+      "unit": "\u00b0C"
+    },
+    "pp": {
+      "mean": 998.58492,
+      "min": 997.3582,
+      "max": 1005.83,
+      "latest": 1005.83,
+      "feature_name": "Atmospheric Pressure",
+      "unit": "hPa"
+    }
+  },
+  "count": 10
+}
+2025-10-03 11:57:45 | [TOOL_CALL] Calling tool: publish_anomaly_to_kafka
+Arguments:
+{
+  "timestamp": "2025-10-03T11:57:14.499286",
+  "anomalous_features": "{\"rr\": 10.0, \"tt\": 2.37}",
+  "trend_analysis": "{\"rr\": \"Rainfall spiked from 0 mm to 10 mm abruptly, a significant deviation from the consistent zero values observed historically.\", \"tt\": \"Temperature dropped sharply from around 25\u00b0C to 2.37\u00b0C, a drastic and unusual change compared to historical patterns.\"}"
+}
+2025-10-03 11:57:45 | [TOOL_RESULT] Tool 'publish_anomaly_to_kafka' returned:
+{
+  "status": "success",
+  "message": "Anomaly published to Kafka successfully",
+  "kafka_broker": "10.33.205.40:9093",
+  "topic": "weather-anomalies",
+  "partition": 0,
+  "offset": 33,
+  "timestamp": "2025-10-03T11:57:14.499286",
+  "station_id": "AWS_DIY_STAGEOF_Yogyakarta",
+  "anomalous_features_count": 2,
+  "trend_analysis_included": true,
+  "correlation_id": "anomaly-AWS_DIY_STAGEOF_Yogyakarta-1759492656"
+}
+2025-10-03 11:57:45 | [ANALYSIS_RESULT] Analysis complete.
+
+================================================================================
+FULL ANALYSIS RESULT:
+================================================================================
+
+The weather anomaly has been successfully published with the following details:
+
+- **Timestamp**: 2025-10-03T11:57:14.499286
+- **Anomalous Features**: Rainfall (10.0 mm) and Temperature (2.37°C)
+- **Trend Analysis**:
+  - **Rainfall**: Spiked from 0 mm to 10 mm abruptly, a significant deviation from the consistent zero values observed historically.
+  - **Temperature**: Dropped sharply from around 25°C to 2.37°C, a drastic and unusual change compared to historical patterns.
+
+This anomaly was confirmed and published based on the significant deviations observed in both rainfall and temperature compared to their historical data.
+
+================================================================================
+2025-10-03 11:57:45 | [ANALYSIS_SUMMARY] Result length: 631 characters, 86 words
+2025-10-03 12:21:52 | [ANALYSIS_START] Starting analysis of anomaly data:
+{
+  "timestamp": "2025-10-03T12:21:51.641530",
+  "anomaly_score": 3.349514,
+  "weather_data": {
+    "tt": 2.6,
+    "sr": 1000.0,
+    "ws": 0.338
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "tt",
+      "score": 18.15333
+    },
+    {
+      "name": "sr",
+      "score": 5.053288
+    },
+    {
+      "name": "ws",
+      "score": 0.19426
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 30
+}
+2025-10-03 12:21:52 | [REASONING] Sending query to CAMEL agent with anomaly data for systematic analysis
+2025-10-03 12:21:52 | [AGENT_PROCESSING] Waiting for agent response...
+2025-10-03 12:22:26 | [TOOL_CALL] Calling tool: get_data_from_db
+Arguments:
+{
+  "features": "tt,sr,ws",
+  "limit": 10
+}
+2025-10-03 12:22:26 | [TOOL_RESULT] Tool 'get_data_from_db' returned:
+{
+  "records": [
+    {
+      "timestamp": "2025-10-03T12:21:51.641530",
+      "tt": 2.6,
+      "sr": 1000.0,
+      "ws": 0.338
+    },
+    {
+      "timestamp": "2025-10-03T12:21:47.086229",
+      "tt": 22.36,
+      "sr": 0.0,
+      "ws": 0.491
+    },
+    {
+      "timestamp": "2025-10-03T12:20:47.085406",
+      "tt": 22.49,
+      "sr": 0.0,
+      "ws": 0.421
+    },
+    {
+      "timestamp": "2025-10-03T12:20:39.167453",
+      "tt": 22.6,
+      "sr": 1000.0,
+      "ws": 0.338
+    },
+    {
+      "timestamp": "2025-10-03T12:19:47.084079",
+      "tt": 22.6,
+      "sr": 0.0,
+      "ws": 0.338
+    },
+    {
+      "timestamp": "2025-10-03T12:18:47.083431",
+      "tt": 22.76,
+      "sr": 0.0,
+      "ws": 0.45
+    },
+    {
+      "timestamp": "2025-10-03T12:17:47.082678",
+      "tt": 22.83,
+      "sr": 0.0,
+      "ws": 0.744
+    },
+    {
+      "timestamp": "2025-10-03T12:16:47.082148",
+      "tt": 22.83,
+      "sr": 0.0,
+      "ws": 0.701
+    },
+    {
+      "timestamp": "2025-10-03T12:15:47.081924",
+      "tt": 22.83,
+      "sr": 0.0,
+      "ws": 0.707
+    },
+    {
+      "timestamp": "2025-10-03T12:14:47.081013",
+      "tt": 22.88,
+      "sr": 0.0,
+      "ws": 0.806
+    }
+  ],
+  "statistics": {
+    "tt": {
+      "mean": 20.677999999999997,
+      "min": 2.6,
+      "max": 22.88,
+      "latest": 2.6,
+      "feature_name": "Temperature",
+      "unit": "\u00b0C"
+    },
+    "sr": {
+      "mean": 200.0,
+      "min": 0.0,
+      "max": 1000.0,
+      "latest": 1000.0,
+      "feature_name": "Solar Radiation",
+      "unit": "W/m\u00b2"
+    },
+    "ws": {
+      "mean": 0.5334000000000001,
+      "min": 0.338,
+      "max": 0.806,
+      "latest": 0.338,
+      "feature_name": "Wind Speed",
+      "unit": "m/s"
+    }
+  },
+  "count": 10
+}
+2025-10-03 12:22:26 | [TOOL_CALL] Calling tool: publish_anomaly_to_kafka
+Arguments:
+{
+  "timestamp": "2025-10-03T12:21:51.641530",
+  "anomalous_features": "{\"tt\": 2.6, \"sr\": 1000.0}",
+  "trend_analysis": "{\"tt\": \"Temperature dropped sharply by approximately 20\u00b0C from recent averages, a significant deviation from typical patterns.\", \"sr\": \"Solar radiation spiked to 1000 W/m\u00b2, matching a previous peak, suggesting possible periodic high radiation levels under certain conditions.\"}"
+}
+2025-10-03 12:22:26 | [TOOL_RESULT] Tool 'publish_anomaly_to_kafka' returned:
+{
+  "status": "success",
+  "message": "Anomaly published to Kafka successfully",
+  "kafka_broker": "10.33.205.40:9093",
+  "topic": "weather-anomalies",
+  "partition": 0,
+  "offset": 34,
+  "timestamp": "2025-10-03T12:21:51.641530",
+  "station_id": "AWS_DIY_STAGEOF_Yogyakarta",
+  "anomalous_features_count": 2,
+  "trend_analysis_included": true,
+  "correlation_id": "anomaly-AWS_DIY_STAGEOF_Yogyakarta-1759494137"
+}
+2025-10-03 12:22:26 | [ANALYSIS_RESULT] Analysis complete.
+
+================================================================================
+FULL ANALYSIS RESULT:
+================================================================================
+
+The anomaly has been successfully published with the following details:
+
+- **Timestamp**: 2025-10-03T12:21:51.641530
+- **Anomalous Features**: Temperature (2.6°C) and Solar Radiation (1000 W/m²)
+- **Trend Analysis**:
+  - **Temperature**: Dropped sharply by approximately 20°C from recent averages, a significant deviation from typical patterns.
+  - **Solar Radiation**: Spiked to 1000 W/m², matching a previous peak, suggesting possible periodic high radiation levels under certain conditions.
+- **Kafka Broker**: 10.33.205.40:9093
+- **Topic**: weather-anomalies
+- **Station ID**: AWS_DIY_STAGEOF_Yogyakarta
+
+This analysis confirms the anomalies in temperature and solar radiation based on historical data and their deviation from normal patterns.
+
+================================================================================
+2025-10-03 12:22:26 | [ANALYSIS_SUMMARY] Result length: 747 characters, 93 words
+2025-10-03 12:29:24 | [CLEANUP] Disconnected from MCP server
