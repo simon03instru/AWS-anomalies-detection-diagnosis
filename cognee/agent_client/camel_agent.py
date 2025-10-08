@@ -23,6 +23,16 @@ from camel.messages import BaseMessage
 from camel.models import ModelFactory
 from camel.types import ModelPlatformType, ModelType
 
+# Use local LLM
+ollama_model = ModelFactory.create(
+    model_platform=ModelPlatformType.OLLAMA,
+    model_type="gpt-oss:120b",
+    url="http://10.33.205.34:11112/v1",
+    model_config_dict={
+        "temperature": 0,
+        "max_tokens": 16384,  # Use max_tokens instead of num_ctx
+    },
+)
 
 class CAMELCogneeAgent:
     """CAMEL agent with direct async MCP tool access."""
@@ -109,7 +119,7 @@ class CAMELCogneeAgent:
                 role_name="Cognee Assistant",
                 content=system_message
             ),
-            model=model,
+            model=ollama_model,
         )
         
         print(f"CAMEL Agent initialized\n")
