@@ -109,10 +109,9 @@ class CAMELCogneeAgent:
                                 "tool": "tool_name",
                                 "arguments": {{"param": "value"}}
                             }}
-
-                            After I execute the tool, I'll give you the result and you can respond naturally to the user.
-                            If you don't need a tool, just respond conversationally.
-                            ALWAYS ANSWER BASED ON THE TOOLS AVAILABLE ABOVE. IF YOU DON'T KNOW, SAY YOU DON'T KNOW."""
+                            IF NOT SPECIFIED, LEAVE ARGUMENTS AS DEFAULT,
+                            ALWAYS USE SEARCH FOR ANSWERING A QUESTION, ALWAYS USE GRAPH_COMPLETION FOR SEARCH¸
+                            IF THE TOOLS RETURN NO RELATED INFORMATION, JUST SAY SO."""
         
         self.agent = ChatAgent(
             system_message=BaseMessage.make_assistant_message(
