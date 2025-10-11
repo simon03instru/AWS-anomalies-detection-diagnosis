@@ -94,29 +94,6 @@ def setup_workforce():
     ##======================== Sensor Agent (sensor_knowledge dataset) ========================
     print("\n[2/5] Setting up Sensor Agent with Cognee Tools...")
     
-    sensor_agent_prompt = """You are a Sensor Specification Expert with access to a knowledge graph containing sensor specifications and technical documentation.
-
-    **AVAILABLE TOOLS:**
-    - add_to_sensor_knowledge: Add new sensor information to the knowledge base
-    - search_sensor_knowledge: Search for sensor information (automatically uses sensor_knowledge dataset)
-
-    **YOUR PRIMARY JOB: Call search tool ONCE, then answer immediately.**
-
-    WORKFLOW:
-    1. User asks a question → Call 'search_sensor_knowledge' tool with the query
-    2. Get results → Provide answer based on results
-    3. STOP - Never call search again
-    4. If user explicitly asks to add info → Call 'add_to_sensor_knowledge'
-    5. If user ask to add content of a file, just use the file path as the data to add
-
-    RULES:
-    - Call search tool EXACTLY ONCE per question
-    - After getting search results, you MUST provide an answer immediately
-    - DO NOT call search multiple times
-    - DO NOT try different queries
-    - If no results found, say "No information found in sensor knowledge base"
-    - Answer format: Direct and detailed, factual response based on search results
-    CRITICAL: After one search call, you must respond with text, not another tool call."""
 
     # Get sensor-specific tools (bound to sensor_knowledge dataset)
     sensor_tools = get_cognee_tools(
@@ -129,7 +106,7 @@ def setup_workforce():
     # sensor_tools = get_sensor_tools()
     
     sensor_agent = ChatAgent(
-        system_message=sensor_agent_prompt,
+        system_message=SENSOR_AGENT_PROMPT,
         tools=sensor_tools,
         model=ollama_model,
     )
@@ -137,34 +114,7 @@ def setup_workforce():
     
     ##======================== Maintenance Agent (maintenance_knowledge dataset) ========================
     print("\n[3/5] Setting up Maintenance Agent with Cognee Tools...")
-    
-    maintenance_agent_prompt = """You are a Maintenance Expert with access to a knowledge graph containing maintenance  procedures.
 
-        **AVAILABLE TOOLS:**
-        - add_to_maintenance_knowledge: Add new maintenance related information to the knowledge base
-        - search_maintenance_knowledge: Search maintenance related information (automatically uses maintenance_knowledge dataset)
-
-        **YOUR PRIMARY JOB: Call search tool ONCE, then answer immediately.**
-
-        WORKFLOW:
-        1. User asks about maintenance related information → Call 'search_maintenance_knowledge' tool with the query
-        2. Get results → Provide answer based on results
-        3. STOP - Never call search again
-        4. If user explicitly asks to add info → Call 'add_to_maintenance_knowledge'
-        5. If user ask to add content of a file, just use the file path as the data to add
-
-        RULES:
-        - Call search tool EXACTLY ONCE per question
-        - After getting search results, you MUST provide an answer immediately
-        - DO NOT call search multiple times
-        - DO NOT try different queries
-        - If no results found, say "No maintenance information found in maintenance knowledge base "
-        - Answer format: Direct, factual response based on search results
-        - Include specific equipment IDs, dates, and actions when available
-        - All operations automatically use the 'maintenance_knowledge' dataset
-        - You cannot access other datasets - only maintenance_knowledge
-
-        CRITICAL: After one search call, you must respond with text, not another tool call."""
 
     # Get maintenance-specific tools (bound to maintenance_knowledge dataset)
     maintenance_tools = get_cognee_tools(
@@ -177,7 +127,7 @@ def setup_workforce():
     # maintenance_tools = get_maintenance_tools()
     
     maintenance_agent = ChatAgent(
-        system_message=maintenance_agent_prompt,
+        system_message=MAINTENANCE_AGENT_PROMPT,
         tools=maintenance_tools,
         model=ollama_model,
     )
@@ -186,37 +136,9 @@ def setup_workforce():
     ##======================== Task Agent ========================
     print("\n[4/5] Setting up Task Agent...")
     
-    task_agent_prompt = """You are a Task Decomposition Agent. Your job is to break down user queries into simple, natural subtasks.
-
-    **CRITICAL RULES:**
-    1. Keep subtasks SHORT and CONVERSATIONAL (1-2 sentences max)
-    2. NEVER add JSON schemas, data structures, or formatting requirements
-    3. Focus only on WHAT information is needed
-    4. Let worker agents decide their own output format
-    5. Use natural language, not technical specifications
-
-    **Available Workers:**
-    - Weather Analyst: Retrieves weather data (temperature, precipitation, wind, etc.)
-    - Sensor Monitor: Searches sensor specifications and technical documentation
-    - Maintenance Expert: Searches maintenance related information,repair histories, and equipment records
-
-        **Examples:**
-        ✅ GOOD: "Get precipitation data for latitude -16.52, longitude 13.41 on January 15, 2025"
-        ✅ GOOD: "Search for information about HMP155 sensor specifications"
-        ✅ GOOD: "Check maintenance logs for equipment serviced in the last week"
-        ✅ GOOD: "Find the last maintenance date for sensor HMP155"
-        ✅ GOOD: "Add this sensor spec to knowledge base: [spec details]"
-        ❌ BAD: "Using meteorological data sources, retrieve precipitation with format {...}"
-
-    **Agent Selection Guide:**
-    - Weather questions → Weather Analyst
-    - Sensor specs, operational ranges, technical details 
-    - Maintenance related history, repairs, service records, equipment status
-
-    When a query only needs one agent, create just ONE subtask."""
 
     task_agent = ChatAgent(
-        system_message=task_agent_prompt,
+        system_message=TASK_AGENT_PROMPT,
         model=ollama_model,
     )
     print("✓ Task Agent ready")
@@ -224,42 +146,9 @@ def setup_workforce():
     ##======================== Coordinator Agent ========================
     print("\n[5/5] Setting up Coordinator Agent...")
     
-    coordinator_agent_prompt = """You are a Workforce Coordinator. Your job is to:
-1. Assign subtasks to the appropriate worker agents
-2. Collect their responses
-3. Synthesize a clear, natural language final answer
-
-**CRITICAL RULES:**
-1. Provide responses in NATURAL LANGUAGE, not JSON
-2. Synthesize information from multiple workers into a coherent answer
-3. Be conversational and helpful
-4. Focus on answering the user's original question directly
-
-**Available Workers:**
-- Weather Analyst: Weather data queries
-- Sensor Monitor: Sensor specifications and technical documentation
-  → Has access ONLY to sensor_knowledge dataset
-  → Can search and add sensor information
-- Maintenance Expert: Maintenance logs and equipment history
-  → Has access ONLY to maintenance_knowledge dataset
-  → Can search and add maintenance records
-
-**Dataset Isolation:**
-- Sensor Monitor cannot access maintenance data
-- Maintenance Expert cannot access sensor data
-- Each agent operates within their own knowledge domain
-
-**Response Format:**
-- Start with a direct answer to the user's question
-- Include relevant details from worker responses
-- Keep it concise but complete
-- Use natural paragraphs
-- If information spans multiple domains, clearly separate the findings
-
-Keep responses human-friendly and conversational!"""
 
     coordinator_agent = ChatAgent(
-        system_message=coordinator_agent_prompt,
+        system_message=COORDINATOR_AGENT_PROMPT,
         model=ollama_model,
     )
     print("✓ Coordinator Agent ready")
@@ -270,7 +159,7 @@ Keep responses human-friendly and conversational!"""
     print("="*70)
     
     workforce = Workforce(
-        description='Multi-Agent Weather, Sensor, and Maintenance System with Dataset Isolation',
+        description='Workforce for analyzing the anomaly of weather sensor data and provide report to the user',
         coordinator_agent=coordinator_agent,
         task_agent=task_agent,
         graceful_shutdown_timeout=15.0,
@@ -284,12 +173,12 @@ Keep responses human-friendly and conversational!"""
         description='Retrieves and analyzes weather data including temperature, precipitation, wind, and other meteorological parameters'
     ).add_single_agent_worker(
         worker=sensor_agent,
-        description='Searches and manages sensor specifications and technical documentation. BOUND TO sensor_knowledge dataset only. Cannot access maintenance or other datasets.'
+        description='Searches and manages sensor specifications and technical documentation'
     ).add_single_agent_worker(
         worker=maintenance_agent,
-        description='Searches and manages maintenance logs, repair histories, equipment status, and service records. BOUND TO maintenance_knowledge dataset only. Cannot access sensor or other datasets.'
+        description='Searches and manages maintenance related information, maintenance logs, repair histories, equipment status, and service records'
     )
-    
+
     print("\n✓ Workforce ready:")
     print("   - Weather Analyst: Weather data analysis")
     print("   - Sensor Monitor: Sensor specs (sensor_knowledge dataset only)")
