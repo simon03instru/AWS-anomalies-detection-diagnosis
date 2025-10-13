@@ -51,6 +51,7 @@ load_dotenv()
 # Suppress model output logs
 os.environ['CAMEL_VERBOSE'] = 'false'
 
+
 # Initialize local LLM model
 ollama_model = ModelFactory.create(
     model_platform=ModelPlatformType.OLLAMA,

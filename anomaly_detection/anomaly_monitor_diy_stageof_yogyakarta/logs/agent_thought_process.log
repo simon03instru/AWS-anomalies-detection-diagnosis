@@ -688,3 +688,380 @@ This analysis confirms the anomalies in temperature and solar radiation based on
 ================================================================================
 2025-10-03 12:22:26 | [ANALYSIS_SUMMARY] Result length: 747 characters, 93 words
 2025-10-03 12:29:24 | [CLEANUP] Disconnected from MCP server
+2025-10-11 03:29:45 | [INITIALIZATION] Initializing Weather Anomaly Agent...
+2025-10-11 03:29:45 | [INITIALIZATION] Loading MCP config: config/weather_anomaly.json
+2025-10-11 03:29:45 | [INITIALIZATION] Connecting to MCP server...
+2025-10-11 03:29:46 | [TOOL_DISCOVERY] Connected! Available tools: get_data_from_db, publish_anomaly_to_kafka
+2025-10-11 03:29:46 | [INITIALIZATION] Creating CAMEL agent...
+2025-10-11 03:29:47 | [INITIALIZATION] Agent initialization complete
+2025-10-11 03:30:34 | [CLEANUP] Disconnected from MCP server
+2025-10-11 03:34:03 | [INITIALIZATION] Initializing Weather Anomaly Agent...
+2025-10-11 03:34:03 | [INITIALIZATION] Loading MCP config: config/weather_anomaly.json
+2025-10-11 03:34:03 | [INITIALIZATION] Connecting to MCP server...
+2025-10-11 03:34:04 | [TOOL_DISCOVERY] Connected! Available tools: get_data_from_db, publish_anomaly_to_kafka
+2025-10-11 03:34:04 | [INITIALIZATION] Creating CAMEL agent...
+2025-10-11 03:34:05 | [INITIALIZATION] Agent initialization complete
+2025-10-11 03:36:30 | [ANALYSIS_START] Starting analysis of anomaly data:
+{
+  "timestamp": "2025-10-11T03:36:29.465138",
+  "anomaly_score": 3.448441,
+  "weather_data": {
+    "tt": 2.6,
+    "sr": 1000.0,
+    "pp": 997.9151
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "tt",
+      "score": 18.722878
+    },
+    {
+      "name": "sr",
+      "score": 5.029803
+    },
+    {
+      "name": "pp",
+      "score": 0.190929
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 1
+}
+2025-10-11 03:36:30 | [REASONING] Sending query to CAMEL agent with anomaly data for systematic analysis
+2025-10-11 03:36:30 | [AGENT_PROCESSING] Waiting for agent response...
+2025-10-11 03:36:55 | [TOOL_CALL] Calling tool: get_data_from_db
+Arguments:
+{
+  "features": "tt,sr,pp",
+  "limit": 10
+}
+2025-10-11 03:36:55 | [TOOL_RESULT] Tool 'get_data_from_db' returned:
+{
+  "records": [
+    {
+      "timestamp": "2025-10-11T03:36:29.465138",
+      "tt": 2.6,
+      "sr": 1000.0,
+      "pp": 997.9151
+    },
+    {
+      "timestamp": "2025-10-10T05:18:54.636918",
+      "tt": 27.05,
+      "sr": 0.0,
+      "pp": 996.0381
+    },
+    {
+      "timestamp": "2025-10-10T05:17:54.635957",
+      "tt": 27.16,
+      "sr": 0.0,
+      "pp": 995.8594
+    },
+    {
+      "timestamp": "2025-10-10T05:16:54.635463",
+      "tt": 27.22,
+      "sr": 0.0,
+      "pp": 995.6824
+    },
+    {
+      "timestamp": "2025-10-10T05:15:54.634702",
+      "tt": 27.3,
+      "sr": 0.0,
+      "pp": 995.4719
+    },
+    {
+      "timestamp": "2025-10-10T05:14:54.633846",
+      "tt": 27.36,
+      "sr": 0.0,
+      "pp": 995.165
+    },
+    {
+      "timestamp": "2025-10-10T05:13:54.633033",
+      "tt": 27.52,
+      "sr": 0.0,
+      "pp": 995.0964
+    },
+    {
+      "timestamp": "2025-10-10T05:12:54.632895",
+      "tt": 27.67,
+      "sr": 0.0,
+      "pp": 995.0448
+    },
+    {
+      "timestamp": "2025-10-10T05:11:54.631613",
+      "tt": 27.76,
+      "sr": 2.5,
+      "pp": 994.8814
+    },
+    {
+      "timestamp": "2025-10-10T05:10:54.631245",
+      "tt": 27.91,
+      "sr": 10.9,
+      "pp": 994.7351
+    }
+  ],
+  "statistics": {
+    "tt": {
+      "mean": 24.955,
+      "min": 2.6,
+      "max": 27.91,
+      "latest": 2.6,
+      "feature_name": "Temperature",
+      "unit": "\u00b0C"
+    },
+    "sr": {
+      "mean": 101.34,
+      "min": 0.0,
+      "max": 1000.0,
+      "latest": 1000.0,
+      "feature_name": "Solar Radiation",
+      "unit": "W/m\u00b2"
+    },
+    "pp": {
+      "mean": 995.58896,
+      "min": 994.7351,
+      "max": 997.9151,
+      "latest": 997.9151,
+      "feature_name": "Atmospheric Pressure",
+      "unit": "hPa"
+    }
+  },
+  "count": 10
+}
+2025-10-11 03:36:55 | [TOOL_CALL] Calling tool: publish_anomaly_to_kafka
+Arguments:
+{
+  "anomalous_features": "{\"tt\": 2.6, \"sr\": 1000.0}",
+  "timestamp": "2025-10-11T03:36:29.465138",
+  "trend_analysis": "{\"tt\": \"Temperature dropped sharply from ~27\u00b0C to 2.6\u00b0C within 24 hours, a ~24\u00b0C decrease far exceeding typical variation.\", \"sr\": \"Solar radiation spiked from near 0 to 1000 W/m\u00b2 within a short period, an increase of >1000% and far above the 5\u2011hour average of ~100 W/m\u00b2.\"}"
+}
+2025-10-11 03:36:55 | [TOOL_RESULT] Tool 'publish_anomaly_to_kafka' returned:
+{
+  "status": "success",
+  "message": "Anomaly published to Kafka successfully",
+  "kafka_broker": "10.33.205.40:9093",
+  "topic": "weather-anomalies",
+  "partition": 0,
+  "offset": 35,
+  "timestamp": "2025-10-11T03:36:29.465138",
+  "station_id": "AWS_DIY_STAGEOF_Yogyakarta",
+  "anomalous_features_count": 2,
+  "trend_analysis_included": true,
+  "correlation_id": "anomaly-AWS_DIY_STAGEOF_Yogyakarta-1760153808"
+}
+2025-10-11 03:36:55 | [ANALYSIS_RESULT] Analysis complete.
+
+================================================================================
+FULL ANALYSIS RESULT:
+================================================================================
+
+**Investigation Process**
+
+**1. Identify top‑3 anomalous features**  
+- Temperature (tt) – score 18.72  
+- Solar Radiation (sr) – score 5.03  
+- Atmospheric Pressure (pp) – score 0.19  
+
+**2. Retrieve latest 10 records for these features** – done via `get_data_from_db`.
+
+**3. Analyze each feature**
+
+| Feature | Current value | Recent historical range (last 10 records) | Deviation & pattern | Anomalous? |
+|---------|---------------|-------------------------------------------|---------------------|------------|
+| **tt** (°C) | **2.6** | 27.91 → 27.05 °C (all ~27 °C) | Drop of ~24 °C within ~24 h (sharp spike‑down). Normal daily variation is <5 °C. | **Yes** |
+| **sr** (W/m²) | **1000** | 0 → 10.9 W/m² (near‑zero night values) | Rise from ~0 to 1000 W/m² in <24 h (massive spike‑up). Typical 5‑hour average ≈ 100 W/m²; max in record set is 1000 W/m² (current). | **Yes** |
+| **pp** (hPa) | **997.9** | 994.7 → 997.9 hPa (range ≈ 3 hPa) | Current value is the highest in the set but only ~2 hPa above mean; variation well within normal pressure fluctuations (±5 hPa). | **No** |
+
+**4. Generate trend insights**
+
+- **tt:** “Temperature dropped sharply from ~27 °C to 2.6 °C within 24 hours, a ~24 °C decrease far exceeding typical variation.”
+- **sr:** “Solar radiation spiked from near 0 to 1000 W/m² within a short period, an increase of >1000 % and far above the 5‑hour average of ~100 W/m².”
+
+**5. Decision**  
+Confidence that **tt** and **sr** are genuine anomalies > 80 %; **pp** is within normal bounds, so it is excluded.
+
+**6. Publish confirmed anomalies** – executed via `publish_anomaly_to_kafka` with the above trend analysis.
+
+================================================================================
+2025-10-11 03:36:55 | [ANALYSIS_SUMMARY] Result length: 1643 characters, 267 words
+2025-10-11 03:39:06 | [ANALYSIS_START] Starting analysis of anomaly data:
+{
+  "timestamp": "2025-10-11T03:39:06.023479",
+  "anomaly_score": 3.284975,
+  "weather_data": {
+    "tt": 2.6,
+    "sr": 1000.0,
+    "pp": 997.9151
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "tt",
+      "score": 17.322538
+    },
+    {
+      "name": "sr",
+      "score": 5.305845
+    },
+    {
+      "name": "pp",
+      "score": 0.15747
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 2
+}
+2025-10-11 03:39:06 | [REASONING] Sending query to CAMEL agent with anomaly data for systematic analysis
+2025-10-11 03:39:06 | [AGENT_PROCESSING] Waiting for agent response...
+2025-10-11 03:39:26 | [TOOL_CALL] Calling tool: get_data_from_db
+Arguments:
+{
+  "features": "tt,sr,pp",
+  "limit": 10
+}
+2025-10-11 03:39:26 | [TOOL_RESULT] Tool 'get_data_from_db' returned:
+{
+  "records": [
+    {
+      "timestamp": "2025-10-11T03:39:06.023479",
+      "tt": 2.6,
+      "sr": 1000.0,
+      "pp": 997.9151
+    },
+    {
+      "timestamp": "2025-10-11T03:36:29.465138",
+      "tt": 2.6,
+      "sr": 1000.0,
+      "pp": 997.9151
+    },
+    {
+      "timestamp": "2025-10-10T05:18:54.636918",
+      "tt": 27.05,
+      "sr": 0.0,
+      "pp": 996.0381
+    },
+    {
+      "timestamp": "2025-10-10T05:17:54.635957",
+      "tt": 27.16,
+      "sr": 0.0,
+      "pp": 995.8594
+    },
+    {
+      "timestamp": "2025-10-10T05:16:54.635463",
+      "tt": 27.22,
+      "sr": 0.0,
+      "pp": 995.6824
+    },
+    {
+      "timestamp": "2025-10-10T05:15:54.634702",
+      "tt": 27.3,
+      "sr": 0.0,
+      "pp": 995.4719
+    },
+    {
+      "timestamp": "2025-10-10T05:14:54.633846",
+      "tt": 27.36,
+      "sr": 0.0,
+      "pp": 995.165
+    },
+    {
+      "timestamp": "2025-10-10T05:13:54.633033",
+      "tt": 27.52,
+      "sr": 0.0,
+      "pp": 995.0964
+    },
+    {
+      "timestamp": "2025-10-10T05:12:54.632895",
+      "tt": 27.67,
+      "sr": 0.0,
+      "pp": 995.0448
+    },
+    {
+      "timestamp": "2025-10-10T05:11:54.631613",
+      "tt": 27.76,
+      "sr": 2.5,
+      "pp": 994.8814
+    }
+  ],
+  "statistics": {
+    "tt": {
+      "mean": 22.424,
+      "min": 2.6,
+      "max": 27.76,
+      "latest": 2.6,
+      "feature_name": "Temperature",
+      "unit": "\u00b0C"
+    },
+    "sr": {
+      "mean": 200.25,
+      "min": 0.0,
+      "max": 1000.0,
+      "latest": 1000.0,
+      "feature_name": "Solar Radiation",
+      "unit": "W/m\u00b2"
+    },
+    "pp": {
+      "mean": 995.90696,
+      "min": 994.8814,
+      "max": 997.9151,
+      "latest": 997.9151,
+      "feature_name": "Atmospheric Pressure",
+      "unit": "hPa"
+    }
+  },
+  "count": 10
+}
+2025-10-11 03:39:26 | [TOOL_CALL] Calling tool: publish_anomaly_to_kafka
+Arguments:
+{
+  "anomalous_features": "{\"tt\":2.6,\"sr\":1000.0}",
+  "timestamp": "2025-10-11T03:39:06.023479",
+  "trend_analysis": "{\"tt\":\"Temperature dropped ~24\u00b0C over ~22 hours, reaching the lowest recent value and far below the 22.4\u00b0C average.\",\"sr\":\"Solar radiation spiked to 1000\u202fW/m\u00b2 at 03:39, a full\u2011sun level during pre\u2011dawn hours, far above the typical nighttime value of 0\u202fW/m\u00b2.\"}"
+}
+2025-10-11 03:39:26 | [TOOL_RESULT] Tool 'publish_anomaly_to_kafka' returned:
+{
+  "status": "success",
+  "message": "Anomaly published to Kafka successfully",
+  "kafka_broker": "10.33.205.40:9093",
+  "topic": "weather-anomalies",
+  "partition": 0,
+  "offset": 36,
+  "timestamp": "2025-10-11T03:39:06.023479",
+  "station_id": "AWS_DIY_STAGEOF_Yogyakarta",
+  "anomalous_features_count": 2,
+  "trend_analysis_included": true,
+  "correlation_id": "anomaly-AWS_DIY_STAGEOF_Yogyakarta-1760153959"
+}
+2025-10-11 03:39:26 | [ANALYSIS_RESULT] Analysis complete.
+
+================================================================================
+FULL ANALYSIS RESULT:
+================================================================================
+
+**Investigation Process**
+
+**1. Identify top‑3 anomalous features**  
+- Temperature (tt) – score 17.32  
+- Solar Radiation (sr) – score 5.31  
+- Atmospheric Pressure (pp) – score 0.16  
+
+**2. Retrieve latest 10 records for these features** – done via `get_data_from_db`.
+
+**3. Analyze each feature**
+
+| Feature | Current value (2025‑10‑11 03:39) | Recent historical range (last 10 records) | Deviation & pattern |
+|--------|--------------------------------|--------------------------------------------|----------------------|
+| **tt** (°C) | **2.6** | 2.6 (min) – 27.76 (max); mean ≈ 22.4 °C | Sudden drop to the minimum observed value, ~24 °C below the recent mean. The two latest records (03:39 & 03:36) are both 2.6 °C, indicating a rapid cooling event. |
+| **sr** (W/m²) | **1000** | 0 – 1000 W/m²; mean ≈ 200 W/m²; most recent night‑time values are 0 W/m² | Spike to the sensor’s maximum (full‑sun) during pre‑dawn hours, a dramatic increase from the typical nighttime value of 0 W/m². |
+| **pp** (hPa) | **997.9151** | 994.88 – 997.92 hPa; mean ≈ 995.91 hPa | Slightly above recent max but within normal variation (≈ 2 hPa above mean). No clear abnormal pattern. |
+
+**4. Generate trend insights**
+
+- **tt:** “Temperature dropped ~24 °C over ~22 hours, reaching the lowest recent value and far below the 22.4 °C average.”
+- **sr:** “Solar radiation spiked to 1000 W/m² at 03:39, a full‑sun level during pre‑dawn hours, far above the typical nighttime value of 0 W/m².”
+
+**5. Decision**  
+Both temperature and solar radiation show deviations well beyond normal variability (confidence > 80%). Atmospheric pressure does not meet the anomaly threshold, so it is excluded.
+
+**6. Publish confirmed anomalies** – performed via `publish_anomaly_to_kafka` with the above trend analysis.
+
+================================================================================
+2025-10-11 03:39:26 | [ANALYSIS_SUMMARY] Result length: 1783 characters, 276 words
