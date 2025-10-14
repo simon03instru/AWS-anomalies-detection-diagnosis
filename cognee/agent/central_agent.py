@@ -601,8 +601,8 @@ Anomalous measurements with initial analysis:
 
 Please investigate further:
 1. What are the current weather conditions at this location and how do they compare?
-2. Are these sensor readings within the operational range of the equipment?
-3. Check if there's any recent maintenance history that might explain this anomaly
+2. Are these sensor readings within the operational range of the equipment and is the sensor sensitivity matched to the value?
+3. Check if there's any recent maintenance history that might explain this anomaly and what maintenance can be recommended.
 4. Consider the initial analysis provided and provide a comprehensive assessment with recommendations"""
         
         return query
