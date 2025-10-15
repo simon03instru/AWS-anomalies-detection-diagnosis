@@ -43,10 +43,10 @@ load_dotenv()
 # Initialize local LLM model
 ollama_model = ModelFactory.create(
     model_platform=ModelPlatformType.OLLAMA,
-    model_type="gpt-oss:120b",
+    model_type="gpt-oss:20b",
     url="http://10.33.205.34:11440/v1",
     model_config_dict={
-        "temperature": 0,
+        "temperature": 0.5,
         "max_tokens": 16384,
     },
 )
@@ -199,27 +199,6 @@ def interactive_mode(workforce):
     
     print("\n" + "="*70)
     print("INTERACTIVE WORKFORCE MODE")
-    print("="*70)
-    print("\n💡 Example queries:")
-    print("\n  Weather queries:")
-    print("  - What is the temperature at latitude -16.52, longitude 13.41 on Jan 15?")
-    print("  - Get precipitation data for location X on date Y")
-    print("\n  Sensor queries (sensor_knowledge dataset):")
-    print("  - What is the operational range of HMP155 sensor?")
-    print("  - Search for sensor anomaly reports")
-    print("  - What are the specifications of sensor X?")
-    print("  - Add this sensor info: [sensor details]")
-    print("\n  Maintenance queries (maintenance_knowledge dataset):")
-    print("  - When was the last maintenance on equipment ABC?")
-    print("  - Show maintenance history for sensor HMP155")
-    print("  - What repairs were done last week?")
-    print("  - What is the maintenance schedule for device XYZ?")
-    print("  - Add this maintenance record: [maintenance details]")
-    print("\n  Combined queries:")
-    print("  - What was the weather on Jan 15 and was sensor HMP155 maintained that day?")
-    print("  - Check sensor specs and recent maintenance for HMP155")
-    print("\n  ℹ️  Note: Sensor and Maintenance agents operate in isolated datasets")
-    print("\nType 'quit' or 'exit' to stop")
     print("="*70)
     
     while True:

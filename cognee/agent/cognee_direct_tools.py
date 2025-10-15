@@ -104,26 +104,39 @@ def create_agent_search_tool(dataset_name: str):
     Create a 'search' tool bound to a specific dataset.
     Uses Cognee's built-in dataset isolation.
     
+    FIXED: Returns ONLY the search_result text, not the full chunks/graphs.
+    
     Args:
         dataset_name: The dataset name (e.g., "sensor_knowledge")
     """
     async def _async_search(query: str):
         """Internal async implementation."""
         # Search ONLY in the specified dataset
-        # With ENABLE_BACKEND_ACCESS_CONTROL=true, this enforces isolation
         results = await cognee.search(
             query,
-            datasets=[dataset_name]  # Critical: specify datasets parameter
+            datasets=[dataset_name]
         )
         
-        # Format results
+        # No results
         if not results:
             return f"No information found in {dataset_name} for query: '{query}'"
         
-        # Extract useful information from results
+        # FIXED: Extract ONLY the search_result field, ignore graphs/chunks
         formatted_results = []
+        
         for result in results:
-            if hasattr(result, 'text'):
+            # If result is a dict with 'search_result' field
+            if isinstance(result, dict) and 'search_result' in result:
+                search_results = result['search_result']
+                
+                # search_result is a list of strings
+                if isinstance(search_results, list):
+                    formatted_results.extend(search_results)
+                else:
+                    formatted_results.append(str(search_results))
+            
+            # Fallback: try other common fields
+            elif hasattr(result, 'text'):
                 formatted_results.append(result.text)
             elif hasattr(result, 'content'):
                 formatted_results.append(result.content)
@@ -132,24 +145,32 @@ def create_agent_search_tool(dataset_name: str):
                     formatted_results.append(result['text'])
                 elif 'content' in result:
                     formatted_results.append(result['content'])
-                else:
-                    formatted_results.append(str(result))
-            else:
-                formatted_results.append(str(result))
         
-        return "\n\n".join(formatted_results) if formatted_results else str(results)
+        # Return clean text without graphs/chunks
+        if formatted_results:
+            # Limit total length to prevent parsing issues
+            combined = "\n\n".join(formatted_results)
+            
+            # Truncate if too long (max 3000 chars)
+            MAX_LENGTH = 3000
+            if len(combined) > MAX_LENGTH:
+                combined = combined[:MAX_LENGTH] + f"\n\n[Results truncated - showing first {MAX_LENGTH} characters]"
+            
+            return combined
+        else:
+            return f"Found results but unable to extract text from {dataset_name}"
     
     def agent_search(query: str):
         f"""Search the {dataset_name} knowledge base.
         
         Only searches within the {dataset_name} dataset.
-        Cannot access data from other datasets due to access control.
+        Returns only the relevant text answers, not raw data structures.
         
         Args:
             query: The search query text
         
         Returns:
-            Search results from the knowledge base
+            Clean search results as text
         """
         return async_to_sync(_async_search)(query=query)
     
@@ -225,6 +246,7 @@ def get_cognee_tools(
     print(f"   → Creating Cognee tools for dataset: {dataset_name}")
     print(f"   → Access control enabled: ENABLE_BACKEND_ACCESS_CONTROL=true")
     print(f"   → Dataset isolation enforced by Cognee")
+    print(f"   → Search returns clean text only (no graphs/chunks)")
     
     # Create tools
     add_func = create_agent_add_tool(dataset_name)

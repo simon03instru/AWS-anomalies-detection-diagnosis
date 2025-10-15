@@ -1,5 +1,5 @@
 """
-kafka_workforce.py with Comprehensive Logging
+kafka_workforce.py with Comprehensive Logging and Error Debugging
 
 Kafka-driven multi-agent workforce system with detailed logging of:
 - Agent interactions and decision-making
@@ -7,6 +7,7 @@ Kafka-driven multi-agent workforce system with detailed logging of:
 - Message exchanges between agents
 - Final output synthesis
 - Complete execution flow
+- DETAILED ERROR TRACKING AND DEBUGGING
 """
 
 # Standard library imports
@@ -40,22 +41,26 @@ from tools import *
 from prompt_template import *
 from cognee_direct_tools import get_cognee_tools
 
-# Suppress async warnings and verbose logs
+# Configure logging - ENABLE DEBUG MODE FOR CAMEL
 warnings.filterwarnings('ignore', category=RuntimeWarning)
 logging.getLogger('asyncio').setLevel(logging.CRITICAL)
-logging.getLogger('camel').setLevel(logging.ERROR)
-logging.getLogger('WorkforceLogger').setLevel(logging.ERROR)
+
+# ENABLE CAMEL DEBUG LOGGING TO SEE INTERNAL ERRORS
+logging.basicConfig(level=logging.INFO)
+logging.getLogger('camel').setLevel(logging.DEBUG)
+logging.getLogger('camel.societies.workforce').setLevel(logging.DEBUG)
+logging.getLogger('WorkforceLogger').setLevel(logging.DEBUG)
 
 load_dotenv()
 os.environ['CAMEL_VERBOSE'] = 'false'
 
 
 # ============================================================================
-# Comprehensive Logging System
+# Comprehensive Logging System with Error Tracking
 # ============================================================================
 
 class WorkforceLogger:
-    """Detailed logger for multi-agent interactions"""
+    """Detailed logger for multi-agent interactions with enhanced error tracking"""
     
     def __init__(self, log_dir: Path):
         self.log_dir = log_dir
@@ -69,6 +74,14 @@ class WorkforceLogger:
         self.agent_call_count = {}
         self.tool_call_count = {}
         self.current_depth = 0
+        
+        # Timing
+        self.agent_start_time = None
+        self.task_start_time = None
+        
+        # Error tracking
+        self.error_count = 0
+        self.errors = []
     
     def start_anomaly_log(self, anomaly_id: str, anomaly_data: dict) -> Path:
         """Start a new detailed log file for an anomaly"""
@@ -83,6 +96,8 @@ class WorkforceLogger:
         self.agent_call_count = {}
         self.tool_call_count = {}
         self.current_depth = 0
+        self.error_count = 0
+        self.errors = []
         
         # Write header
         self._write_section("DETAILED ANOMALY PROCESSING LOG")
@@ -103,6 +118,8 @@ class WorkforceLogger:
             self._write_separator()
             self._write_section("PROCESSING SUMMARY")
             self._write(f"Total Processing Time: {processing_time:.2f} seconds")
+            self._write(f"Total Errors: {self.error_count}")
+            
             self._write(f"\nAgent Call Statistics:")
             for agent, count in self.agent_call_count.items():
                 self._write(f"  - {agent}: {count} calls")
@@ -110,6 +127,15 @@ class WorkforceLogger:
             self._write(f"\nTool Call Statistics:")
             for tool, count in self.tool_call_count.items():
                 self._write(f"  - {tool}: {count} calls")
+            
+            if self.errors:
+                self._write(f"\n⚠️  ERRORS ENCOUNTERED ({len(self.errors)}):")
+                for idx, error in enumerate(self.errors, 1):
+                    self._write(f"\n  Error #{idx}:")
+                    self._write(f"    Type: {error['type']}")
+                    self._write(f"    Message: {error['message']}")
+                    self._write(f"    Location: {error['location']}")
+                    self._write(f"    Time: {error['time']}")
             
             self._write_separator()
             self._write("END OF LOG")
@@ -120,6 +146,7 @@ class WorkforceLogger:
     
     def log_workforce_start(self, query: str):
         """Log the start of workforce processing"""
+        self.task_start_time = datetime.now()
         self._write_section("WORKFORCE PROCESSING STARTED")
         self._write("Initial Query:")
         self._write(query)
@@ -128,6 +155,7 @@ class WorkforceLogger:
     def log_agent_call(self, agent_name: str, input_msg: str, call_number: int):
         """Log when an agent is called"""
         self.agent_call_count[agent_name] = self.agent_call_count.get(agent_name, 0) + 1
+        self.agent_start_time = datetime.now()
         
         self._write_section(f"AGENT CALL #{call_number}: {agent_name}")
         self._write(f"Agent: {agent_name}")
@@ -137,10 +165,19 @@ class WorkforceLogger:
         self._write(self._indent(input_msg, 2))
     
     def log_agent_response(self, agent_name: str, output_msg: str, terminated: bool):
-        """Log agent response"""
+        """Log agent response with timing"""
+        elapsed = 0
+        if self.agent_start_time:
+            elapsed = (datetime.now() - self.agent_start_time).total_seconds()
+        
         self._write(f"\nOutput Message:")
         self._write(self._indent(output_msg, 2))
         self._write(f"\nTerminated: {terminated}")
+        self._write(f"Elapsed Time: {elapsed:.2f}s")
+        
+        if elapsed > 30:
+            self._write(f"⚠️  WARNING: Slow response ({elapsed:.2f}s)")
+        
         self._write_separator()
     
     def log_tool_call(self, tool_name: str, args: tuple, kwargs: dict, call_number: int):
@@ -186,9 +223,82 @@ class WorkforceLogger:
     
     def log_tool_error(self, tool_name: str, error: Exception):
         """Log tool execution error"""
+        import traceback
+        
+        self.error_count += 1
+        error_info = {
+            'type': type(error).__name__,
+            'message': str(error),
+            'location': f'Tool: {tool_name}',
+            'time': datetime.now().strftime('%H:%M:%S.%f')[:-3],
+            'traceback': traceback.format_exc()
+        }
+        self.errors.append(error_info)
+        
         self._write(f"\n❌ ERROR in {tool_name}:")
-        self._write(self._indent(str(error), 2))
+        self._write(self._indent(f"Type: {type(error).__name__}", 2))
+        self._write(self._indent(f"Message: {str(error)}", 2))
+        self._write(f"\nTraceback:")
+        self._write(self._indent(traceback.format_exc(), 2))
         self._write_separator(char="-")
+    
+    def log_agent_error(self, agent_name: str, error: Exception, input_msg: str = None):
+        """Log agent execution error with full context"""
+        import traceback
+        
+        self.error_count += 1
+        error_info = {
+            'type': type(error).__name__,
+            'message': str(error),
+            'location': f'Agent: {agent_name}',
+            'time': datetime.now().strftime('%H:%M:%S.%f')[:-3],
+            'traceback': traceback.format_exc()
+        }
+        self.errors.append(error_info)
+        
+        self._write_section(f"❌ AGENT FAILURE: {agent_name}", char="!")
+        self._write(f"Error Type: {type(error).__name__}")
+        self._write(f"Error Message: {str(error)}")
+        
+        if input_msg:
+            self._write(f"\nInput Message (first 500 chars):")
+            self._write(self._indent(input_msg[:500], 2))
+            if len(input_msg) > 500:
+                self._write(f"  ... (truncated {len(input_msg) - 500} characters)")
+        
+        self._write(f"\nFull Traceback:")
+        self._write(self._indent(traceback.format_exc(), 2))
+        self._write_separator(char="!")
+    
+    def log_workforce_error(self, error: Exception, context: str = None):
+        """Log workforce-level error"""
+        import traceback
+        
+        self.error_count += 1
+        error_info = {
+            'type': type(error).__name__,
+            'message': str(error),
+            'location': f'Workforce: {context}' if context else 'Workforce',
+            'time': datetime.now().strftime('%H:%M:%S.%f')[:-3],
+            'traceback': traceback.format_exc()
+        }
+        self.errors.append(error_info)
+        
+        self._write_section("❌❌❌ WORKFORCE TASK FAILURE ❌❌❌", char="!")
+        if context:
+            self._write(f"Context: {context}")
+        self._write(f"Error Type: {type(error).__name__}")
+        self._write(f"Error Message: {str(error)}")
+        self._write(f"\nFull Traceback:")
+        self._write(self._indent(traceback.format_exc(), 2))
+        self._write_section("❌❌❌ END FAILURE LOG ❌❌❌", char="!")
+    
+    def log_stdout_capture(self, output: str):
+        """Log captured stdout from workforce"""
+        if output and output.strip():
+            self._write_section("STDOUT CAPTURE", char="-")
+            self._write(output)
+            self._write_separator(char="-")
     
     def log_decision_point(self, decision_maker: str, decision: str, reasoning: str = None):
         """Log decision points in the workflow"""
@@ -246,11 +356,11 @@ workforce_logger = None
 
 
 # ============================================================================
-# Logged Agent Wrapper
+# Logged Agent Wrapper with Enhanced Error Handling
 # ============================================================================
 
 class LoggedChatAgent(ChatAgent):
-    """ChatAgent wrapper with comprehensive logging"""
+    """ChatAgent wrapper with comprehensive logging and error tracking"""
     
     def __init__(self, *args, agent_name: str = "Agent", **kwargs):
         super().__init__(*args, **kwargs)
@@ -258,7 +368,7 @@ class LoggedChatAgent(ChatAgent):
         self.call_count = 0
     
     def step(self, input_message: BaseMessage, *args, **kwargs):
-        """Logged step method"""
+        """Logged step method with error tracking"""
         self.call_count += 1
         global workforce_logger
         
@@ -285,8 +395,13 @@ class LoggedChatAgent(ChatAgent):
             return result
             
         except Exception as e:
-            workforce_logger._write(f"\n❌ ERROR in {self.agent_name}: {str(e)}")
-            workforce_logger._write_separator()
+            # Log the error with full context
+            workforce_logger.log_agent_error(self.agent_name, e, input_content)
+            
+            # Also print to console for immediate visibility
+            print(f"\n❌ {self.agent_name} failed: {type(e).__name__}: {e}")
+            
+            # Re-raise to let workforce handle it
             raise
 
 
@@ -295,7 +410,7 @@ class LoggedChatAgent(ChatAgent):
 # ============================================================================
 
 def log_tool(tool_func: Callable, tool_name: str = None) -> Callable:
-    """Decorator to log tool function calls"""
+    """Decorator to log tool function calls with error handling"""
     
     actual_tool_name = tool_name or tool_func.__name__
     tool_call_counter = {'count': 0}
@@ -326,6 +441,10 @@ def log_tool(tool_func: Callable, tool_name: str = None) -> Callable:
             
         except Exception as e:
             workforce_logger.log_tool_error(actual_tool_name, e)
+            
+            # Print to console for immediate visibility
+            print(f"\n❌ Tool {actual_tool_name} failed: {type(e).__name__}: {e}")
+            
             raise
     
     return logged_wrapper
@@ -489,6 +608,7 @@ def setup_workforce():
     print("\n✓ Workforce ready with comprehensive logging:")
     print("   - All agent interactions logged")
     print("   - All tool calls logged with full details")
+    print("   - All errors captured with stack traces")
     print("   - Decision trees captured")
     print("   - Final output synthesis logged")
     print("="*70)
@@ -498,11 +618,11 @@ def setup_workforce():
 
 
 # ============================================================================
-# Event Monitor
+# Event Monitor with Enhanced Error Handling
 # ============================================================================
 
 class EventMonitor:
-    """Monitor Kafka events with comprehensive logging"""
+    """Monitor Kafka events with comprehensive logging and error tracking"""
     
     def __init__(self, 
                  workforce: Workforce,
@@ -518,6 +638,7 @@ class EventMonitor:
         self.consumer = None
         self.running = False
         self.processed_count = 0
+        self.failed_count = 0
         
         # Setup logging
         self.log_dir = Path(log_dir)
@@ -639,19 +760,54 @@ Please investigate further:
             
             print("\n🔄 Activating workforce (all interactions will be logged)...\n")
             
-            # Process through workforce
-            import io, contextlib
-            f = io.StringIO()
-            with contextlib.redirect_stdout(f):
-                result = self.workforce.process_task(Task(content=query))
+            # Process through workforce with comprehensive error handling
+            result_text = None
             
-            result_text = result.result if result.result else "No result"
+            try:
+                # Capture stdout for debugging
+                import io, contextlib
+                f = io.StringIO()
+                
+                with contextlib.redirect_stdout(f):
+                    result = self.workforce.process_task(Task(content=query))
+                
+                # Log captured stdout
+                stdout_output = f.getvalue()
+                if stdout_output and stdout_output.strip():
+                    workforce_logger.log_stdout_capture(stdout_output)
+                    print("\n📝 Captured workforce stdout:")
+                    print(stdout_output)
+                
+                # Get result
+                result_text = result.result if result.result else "No result generated"
+                
+            except Exception as task_error:
+                # LOG THE ACTUAL ERROR WITH FULL DETAILS
+                workforce_logger.log_workforce_error(task_error, "process_task")
+                
+                print(f"\n❌❌❌ WORKFORCE TASK FAILED ❌❌❌")
+                print(f"Error Type: {type(task_error).__name__}")
+                print(f"Error Message: {str(task_error)}")
+                print(f"📁 Full error details logged to: {log_file.name}")
+                
+                # Print stack trace to console
+                import traceback
+                print("\nStack Trace:")
+                traceback.print_exc()
+                
+                # Set result to error message
+                result_text = f"ERROR: Task processing failed - {type(task_error).__name__}: {str(task_error)}"
+                
+                # Increment failed count
+                self.failed_count += 1
+                self._log_to_session(f"FAILED: {station} - {type(task_error).__name__}: {str(task_error)}")
             
-            # Log final output
+            # Log final output (even if it's an error message)
             output_summary = {
                 'length': len(result_text),
                 'word_count': len(result_text.split()),
-                'line_count': len(result_text.split('\n'))
+                'line_count': len(result_text.split('\n')),
+                'is_error': result_text.startswith('ERROR:')
             }
             workforce_logger.log_final_output(result_text, output_summary)
             
@@ -665,20 +821,33 @@ Please investigate further:
             print(result_text)
             print("="*70)
             
-            self.processed_count += 1
+            if not result_text.startswith('ERROR:'):
+                self.processed_count += 1
+                self._log_to_session(f"SUCCESS: {station} - {processing_time:.2f}s")
             
-            print(f"\n📊 Processed: {self.processed_count}")
+            print(f"\n📊 Statistics:")
+            print(f"   Successful: {self.processed_count}")
+            print(f"   Failed: {self.failed_count}")
+            print(f"   Processing time: {processing_time:.2f}s")
             print(f"📁 Detailed log: {log_file.name}")
-            print(f"   → All agent calls, tool calls, and decisions logged")
+            print(f"   → Check this file for full error details and stack traces")
             
         except Exception as e:
-            print(f"\n❌ Error: {e}")
+            # Catch any errors in the processing logic itself
+            print(f"\n❌ Unexpected error in process_anomaly: {e}")
             import traceback
             traceback.print_exc()
             
             if workforce_logger and workforce_logger.current_log_handle:
+                workforce_logger._write("\n\n❌❌❌ UNEXPECTED ERROR IN PROCESSING LOGIC ❌❌❌")
+                workforce_logger._write(f"Error: {e}")
+                workforce_logger._write(traceback.format_exc())
+                
                 processing_time = (datetime.now() - start_time).total_seconds()
                 workforce_logger.end_anomaly_log(processing_time)
+            
+            self.failed_count += 1
+            self._log_to_session(f"UNEXPECTED ERROR: {e}")
     
     def start_monitoring(self):
         if not self.connect():
@@ -691,6 +860,7 @@ Please investigate further:
         print("="*70)
         print(f"Topic: '{self.topic}'")
         print(f"Logs: {self.log_dir.absolute()}")
+        print(f"Debug Mode: ENABLED (CAMEL internal logs visible)")
         print("Press Ctrl+C to stop")
         print("="*70)
         
@@ -713,14 +883,22 @@ Please investigate further:
         if self.consumer:
             self.consumer.close()
         
-        print(f"\n✓ Session complete: {self.processed_count} anomalies processed")
+        print(f"\n✓ Session complete:")
+        print(f"   Successful: {self.processed_count}")
+        print(f"   Failed: {self.failed_count}")
+        print(f"   Total: {self.processed_count + self.failed_count}")
         print(f"📁 Logs: {self.log_dir.absolute()}")
 
 
 def main():
     try:
         print("\n" + "="*70)
-        print("KAFKA WORKFORCE WITH COMPREHENSIVE LOGGING")
+        print("KAFKA WORKFORCE WITH COMPREHENSIVE ERROR LOGGING")
+        print("="*70)
+        print("✓ CAMEL debug logging ENABLED")
+        print("✓ Full error tracking and stack traces")
+        print("✓ Tool call monitoring")
+        print("✓ Agent interaction logging")
         print("="*70)
         
         # Setup workforce
@@ -738,7 +916,7 @@ def main():
         monitor.start_monitoring()
         
     except Exception as e:
-        print(f"\n❌ Error: {e}")
+        print(f"\n❌ Fatal error: {e}")
         import traceback
         traceback.print_exc()
         sys.exit(1)
