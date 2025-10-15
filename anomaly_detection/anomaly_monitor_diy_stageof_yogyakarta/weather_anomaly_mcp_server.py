@@ -403,11 +403,11 @@ async def publish_anomaly_to_kafka(
             
             confirmed_anomaly = {
                 "parameter": feature_info.get('name', feature_code.upper()),
-                "parameter_code": feature_code,
+                #"parameter_code": feature_code,
                 "value": current_value,
-                "unit": feature_info.get('unit', 'N/A'),
+                #"unit": feature_info.get('unit', 'N/A'),
                 "sensor_brand": feature_info.get('brand', f'Unknown sensor for {feature_code}'),
-                "sensor_range": feature_info.get('range', 'N/A')
+                #"sensor_range": feature_info.get('range', 'N/A')
             }
             
             # Add trend analysis if available

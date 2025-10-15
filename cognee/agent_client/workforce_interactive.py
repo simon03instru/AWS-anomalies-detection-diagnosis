@@ -74,39 +74,10 @@ def setup_workforce():
     ##======================== Sensor Agent ========================
     print("\n[2/4] Setting up Sensor Agent with Cognee Tools...")
     
-    # Update sensor agent prompt to prevent looping
-    sensor_agent_prompt = """You are a Sensor Specification Expert with access to a knowledge graph.
-
-**CRITICAL: STOP AFTER ONE SEARCH**
-
-Your workflow when user ask a question:
-1. User asks a question
-2. Call the 'search' tool ONCE
-3. Read the results
-4. Provide your answer IMMEDIATELY
-5. STOP - Do not search again
-
-Your workflow when user want you to add to your knowledge base:
-1. User asks you to add information
-2. Call the 'cognify' tool ONCE
-3. STOP - Do not cognify again
-
-Rules:
-- Maximum ONE search call per question
-- If results are found: Answer based on those results
-- If no results: Say "I don't have information about that"
-- NEVER call search multiple times
-- NEVER try different search queries
-- After getting results, you MUST answer, not search again
-
-
-Do NOT keep searching. One search, one answer.
-Just return what you found from search tool, do not retry to call it and do not debate the answer."""
-
     sensor_tools = get_cognee_tools()
     
     sensor_agent = ChatAgent(
-        system_message=sensor_agent_prompt,
+        system_message=SENSOR_AGENT_PROMPT,
         tools=sensor_tools,
         model=ollama_model,
     )
@@ -117,23 +88,21 @@ Just return what you found from search tool, do not retry to call it and do not 
     
     task_agent_prompt = """You are a Task Decomposition Agent. Your job is to break down user queries into simple, natural subtasks.
 
-**CRITICAL RULES:**
-1. Keep subtasks SHORT and CONVERSATIONAL (1-2 sentences max)
-2. NEVER add JSON schemas, data structures, or formatting requirements
-3. Focus only on WHAT information is needed
-4. Let worker agents decide their own output format
-5. Use natural language, not technical specifications
+    **CRITICAL RULES:**
+    1. Keep subtasks SHORT and CONVERSATIONAL (1-2 sentences max)
+    2. NEVER add JSON schemas, data structures, or formatting requirements
+    3. Focus only on WHAT information is needed
+    4. Let worker agents decide their own output format
+    5. Use natural language, not technical specifications
 
-**Available Workers:**
-- Weather Analyst: Retrieves weather data (temperature, precipitation, wind, etc.)
-- Sensor Monitor: Searches sensor specifications and knowledge base
+    **Available Workers:**
+    - Weather Analyst: Retrieves weather data (temperature, precipitation, wind, etc.)
+    - Sensor Monitor: Searches sensor technical documentation and knowledge base
+    - Maintenance Specialist: Handles sensor maintenance related queries
 
-**Examples:**
-✅ GOOD: "Get precipitation data for latitude -16.52, longitude 13.41 on January 15, 2025"
-✅ GOOD: "Search for information about HMP155 sensor specifications"
-❌ BAD: "Using meteorological data sources, retrieve precipitation with format {...}"
+    
 
-When a query only needs one agent, create just ONE subtask."""
+    When a query only needs one agent, create just ONE subtask."""
 
     task_agent = ChatAgent(
         system_message=task_agent_prompt,
@@ -145,27 +114,28 @@ When a query only needs one agent, create just ONE subtask."""
     print("\n[4/4] Setting up Coordinator Agent...")
     
     coordinator_agent_prompt = """You are a Workforce Coordinator. Your job is to:
-1. Assign subtasks to the appropriate worker agents
-2. Collect their responses
-3. Synthesize a clear, natural language final answer
 
-**CRITICAL RULES:**
-1. Provide responses in NATURAL LANGUAGE, not JSON
-2. Synthesize information from multiple workers into a coherent answer
-3. Be conversational and helpful
-4. Focus on answering the user's original question directly
+        1. Assign subtasks to the appropriate worker agents
+        2. Collect their responses
+        3. Synthesize a clear, natural language final answer
 
-**Available Workers:**
-- Weather Analyst: Weather data queries
-- Sensor Monitor: Sensor and knowledge base queries
+        **CRITICAL RULES:**
+        1. Provide responses in NATURAL LANGUAGE, not JSON
+        2. Synthesize information from multiple workers into a coherent answer
+        3. Be conversational and helpful
+        4. Focus on answering the user's original question directly
 
-**Response Format:**
-- Start with a direct answer to the user's question
-- Include relevant details from worker responses
-- Keep it concise but complete
-- Use natural paragraphs
+        **Available Workers:**
+        - Weather Analyst: Weather data queries
+        - Sensor Monitor: Sensor and knowledge base queries
 
-Keep responses human-friendly and conversational!"""
+        **Response Format:**
+        - Start with a direct answer to the user's question
+        - Include relevant details from worker responses
+        - Keep it concise but complete
+        - Use natural paragraphs
+
+        Keep responses human-friendly and conversational!"""
 
     coordinator_agent = ChatAgent(
         system_message=coordinator_agent_prompt,

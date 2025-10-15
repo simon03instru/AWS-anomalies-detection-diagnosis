@@ -1,5 +1,5 @@
 """
-kafka_workforce.py with Comprehensive Logging and Error Debugging
+kafka_workforce.py with Comprehensive Logging and New JSON Format Support
 
 Kafka-driven multi-agent workforce system with detailed logging of:
 - Agent interactions and decision-making
@@ -8,6 +8,8 @@ Kafka-driven multi-agent workforce system with detailed logging of:
 - Final output synthesis
 - Complete execution flow
 - DETAILED ERROR TRACKING AND DEBUGGING
+
+Updated to support WEATHER_ANOMALY_CONFIRMED event format
 """
 
 # Standard library imports
@@ -86,7 +88,9 @@ class WorkforceLogger:
     def start_anomaly_log(self, anomaly_id: str, anomaly_data: dict) -> Path:
         """Start a new detailed log file for an anomaly"""
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S_%f')
-        station = anomaly_data.get('station_name', 'Unknown').replace(' ', '_')
+        
+        # Extract station name from new format
+        station = anomaly_data.get('data', {}).get('station_id', 'Unknown').replace(' ', '_')
         filename = f"detailed_{timestamp}_{station}.log"
         
         self.current_log_file = self.log_dir / filename
@@ -102,6 +106,8 @@ class WorkforceLogger:
         # Write header
         self._write_section("DETAILED ANOMALY PROCESSING LOG")
         self._write(f"Anomaly ID: {anomaly_id}")
+        self._write(f"Event Type: {anomaly_data.get('event_type', 'N/A')}")
+        self._write(f"Correlation ID: {anomaly_data.get('correlation_id', 'N/A')}")
         self._write(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         self._write(f"Log File: {filename}")
         self._write_separator()
@@ -618,7 +624,7 @@ def setup_workforce():
 
 
 # ============================================================================
-# Event Monitor with Enhanced Error Handling
+# Event Monitor with Enhanced Error Handling - UPDATED FOR NEW FORMAT
 # ============================================================================
 
 class EventMonitor:
@@ -691,69 +697,143 @@ class EventMonitor:
             print(f"❌ Kafka error: {e}")
             return False
     
-    def format_anomaly_query(self, anomaly_data: dict) -> str:
-        timestamp = anomaly_data.get('timestamp', 'unknown')
-        features = anomaly_data.get('anomalous_features', {})
-        station = anomaly_data.get('station_name', 'Unknown')
-        location = anomaly_data.get('location', {})
-        analyses = anomaly_data.get('analysis', {})
+    def format_anomaly_query(self, event_data: dict) -> str:
+        """
+        Format query from new WEATHER_ANOMALY_CONFIRMED event structure
         
-        feature_descriptions = []
-        feature_map = {
-            'tt': 'Temperature', 'rh': 'Relative Humidity', 'pp': 'Precipitation',
-            'ws': 'Wind Speed', 'wd': 'Wind Direction', 'sr': 'Solar Radiation',
-            'rr': 'Rainfall Rate'
+        Expected structure:
+        {
+          "event_type": "WEATHER_ANOMALY_CONFIRMED",
+          "timestamp": "2025-10-15T13:07:26.090310",
+          "source": "StationAgent-AWS_DIY_STAGEOF_YOGYAKARTA",
+          "data": {
+            "timestamp": "2025-10-14T04:42:36.239425",
+            "station_id": "AWS_DIY_STAGEOF_YOGYAKARTA",
+            "station_metadata": {...},
+            "confirmed_anomalies": [
+              {
+                "parameter": "Temperature",
+                "value": -999,
+                "sensor_brand": "Vaisala HMP155",
+                "trend_analysis": "..."
+              }
+            ],
+            "validation_timestamp": "2025-10-15T13:07:26.090287",
+            "has_trend_analysis": true
+          },
+          "correlation_id": "anomaly-AWS_DIY_STAGEOF_YOGYAKARTA-1760533646"
         }
+        """
         
-        for code, value in features.items():
-            name = feature_map.get(code, code)
-            analysis = analyses.get(code, 'No analysis available')
-            feature_descriptions.append(
-                f"{name} ({code}): {value}\n  Analysis: {analysis}"
-            )
+        # Extract data section
+        data = event_data.get('data', {})
         
-        query = f"""Analyze the following weather anomaly detected at {station}:
+        # Basic info
+        event_timestamp = data.get('timestamp', 'unknown')
+        station_id = data.get('station_id', 'Unknown')
+        
+        # Station metadata
+        metadata = data.get('station_metadata', {})
+        location = metadata.get('location', 'Unknown')
+        latitude = metadata.get('latitude', 'N/A')
+        longitude = metadata.get('longitude', 'N/A')
+        altitude = metadata.get('altitude', 'N/A')
+        
+        # Confirmed anomalies
+        confirmed_anomalies = data.get('confirmed_anomalies', [])
+        
+        # Build anomaly descriptions
+        anomaly_descriptions = []
+        for idx, anomaly in enumerate(confirmed_anomalies, 1):
+            parameter = anomaly.get('parameter', 'Unknown')
+            value = anomaly.get('value', 'N/A')
+            sensor_brand = anomaly.get('sensor_brand', 'N/A')
+            trend_analysis = anomaly.get('trend_analysis', 'No analysis available')
+            
+            anomaly_desc = f"""Anomaly #{idx}: {parameter}
+  Value: {value}
+  Sensor Brand: {sensor_brand}
+  Trend Analysis: {trend_analysis}"""
+            
+            anomaly_descriptions.append(anomaly_desc)
+        
+        # Build complete query
+        query = f"""Analyze the following weather anomaly detected at {station_id}:
 
-Time: {timestamp}
-Location: Latitude {location.get('latitude', 'N/A')}, Longitude {location.get('longitude', 'N/A')}
+Event Detection Time: {event_timestamp}
+Station: {station_id}
+Location: {location}
+Coordinates: Latitude {latitude}, Longitude {longitude}, Altitude {altitude}m
 
-Anomalous measurements with initial analysis:
-{chr(10).join('- ' + desc for desc in feature_descriptions)}
+{len(confirmed_anomalies)} Confirmed Anomal{"y" if len(confirmed_anomalies) == 1 else "ies"} with Trend Analysis:
+{chr(10).join(anomaly_descriptions)}
+
+Validation Timestamp: {data.get('validation_timestamp', 'N/A')}
+Correlation ID: {event_data.get('correlation_id', 'N/A')}
 
 Please investigate further:
-1. What are the current weather conditions at this location and how do they compare?
-2. Are these sensor readings within the operational range of the equipment and is the sensor sensitivity matched to the value?
-3. Check if there's any recent maintenance history that might explain this anomaly and what maintenance can be recommended.
-4. Consider the initial analysis provided and provide a comprehensive assessment with recommendations"""
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the observed values?
+3. Check if there's any maintenance information that might explain these anomalies and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes."""
         
         return query
     
-    def process_anomaly(self, anomaly_data: dict):
+    def extract_anomaly_summary(self, event_data: dict) -> dict:
+        """Extract summary information for logging"""
+        data = event_data.get('data', {})
+        confirmed_anomalies = data.get('confirmed_anomalies', [])
+        
+        return {
+            'station_id': data.get('station_id', 'Unknown'),
+            'event_type': event_data.get('event_type', 'Unknown'),
+            'timestamp': data.get('timestamp', 'Unknown'),
+            'anomaly_count': len(confirmed_anomalies),
+            'parameters': [a.get('parameter', 'Unknown') for a in confirmed_anomalies],
+            'correlation_id': event_data.get('correlation_id', 'N/A')
+        }
+    
+    def process_anomaly(self, event_data: dict):
+        """Process anomaly event in new format"""
         global workforce_logger
         start_time = datetime.now()
         
         try:
-            timestamp = anomaly_data.get('timestamp', 'unknown')
-            station = anomaly_data.get('station_name', 'Unknown')
-            features = list(anomaly_data.get('anomalous_features', {}).keys())
+            # Validate event type
+            event_type = event_data.get('event_type')
+            if event_type != 'WEATHER_ANOMALY_CONFIRMED':
+                print(f"\n⚠️  Skipping non-anomaly event: {event_type}")
+                return
             
-            anomaly_id = f"{station}_{timestamp}".replace(' ', '_').replace(':', '-')
+            # Extract summary info
+            summary = self.extract_anomaly_summary(event_data)
+            station_id = summary['station_id']
+            parameters = summary['parameters']
+            anomaly_count = summary['anomaly_count']
+            
+            # Create anomaly ID
+            data = event_data.get('data', {})
+            timestamp = data.get('timestamp', 'unknown')
+            anomaly_id = f"{station_id}_{timestamp}".replace(' ', '_').replace(':', '-')
             
             print("\n" + "="*70)
             print(f"🚨 ANOMALY DETECTED - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
             print("="*70)
-            print(f"Station: {station}")
-            print(f"Timestamp: {timestamp}")
-            print(f"Features: {features}")
+            print(f"Station: {station_id}")
+            print(f"Event Timestamp: {timestamp}")
+            print(f"Anomaly Count: {anomaly_count}")
+            print(f"Parameters: {', '.join(parameters)}")
+            print(f"Correlation ID: {summary['correlation_id']}")
             print("="*70)
             
             # Start detailed log
-            log_file = workforce_logger.start_anomaly_log(anomaly_id, anomaly_data)
+            log_file = workforce_logger.start_anomaly_log(anomaly_id, event_data)
             
-            self._log_to_session(f"New anomaly from {station} - Features: {features}")
+            self._log_to_session(f"New anomaly from {station_id} - {anomaly_count} parameter(s): {', '.join(parameters)}")
             
             # Format query
-            query = self.format_anomaly_query(anomaly_data)
+            query = self.format_anomaly_query(event_data)
             
             # Log workforce start
             workforce_logger.log_workforce_start(query)
@@ -800,7 +880,7 @@ Please investigate further:
                 
                 # Increment failed count
                 self.failed_count += 1
-                self._log_to_session(f"FAILED: {station} - {type(task_error).__name__}: {str(task_error)}")
+                self._log_to_session(f"FAILED: {station_id} - {type(task_error).__name__}: {str(task_error)}")
             
             # Log final output (even if it's an error message)
             output_summary = {
@@ -823,7 +903,7 @@ Please investigate further:
             
             if not result_text.startswith('ERROR:'):
                 self.processed_count += 1
-                self._log_to_session(f"SUCCESS: {station} - {processing_time:.2f}s")
+                self._log_to_session(f"SUCCESS: {station_id} - {processing_time:.2f}s - {anomaly_count} anomalies")
             
             print(f"\n📊 Statistics:")
             print(f"   Successful: {self.processed_count}")
@@ -859,6 +939,7 @@ Please investigate further:
         print("🎯 COMPREHENSIVE LOGGING MONITORING ACTIVE")
         print("="*70)
         print(f"Topic: '{self.topic}'")
+        print(f"Expected Event Type: WEATHER_ANOMALY_CONFIRMED")
         print(f"Logs: {self.log_dir.absolute()}")
         print(f"Debug Mode: ENABLED (CAMEL internal logs visible)")
         print("Press Ctrl+C to stop")
@@ -894,11 +975,13 @@ def main():
     try:
         print("\n" + "="*70)
         print("KAFKA WORKFORCE WITH COMPREHENSIVE ERROR LOGGING")
+        print("UPDATED FOR WEATHER_ANOMALY_CONFIRMED EVENT FORMAT")
         print("="*70)
         print("✓ CAMEL debug logging ENABLED")
         print("✓ Full error tracking and stack traces")
         print("✓ Tool call monitoring")
         print("✓ Agent interaction logging")
+        print("✓ Support for multiple anomalies per event")
         print("="*70)
         
         # Setup workforce
