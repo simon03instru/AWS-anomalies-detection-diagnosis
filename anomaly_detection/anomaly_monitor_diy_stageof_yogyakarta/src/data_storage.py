@@ -143,25 +143,32 @@ class WeatherDataStorage:
         else:
             return self._get_from_csv(limit)
     
+    
     def _get_from_sqlite(self, limit: int) -> pd.DataFrame:
-        """Get data from SQLite database"""
+        """Get data from SQLite database - ordered by insertion order (ID), not timestamp"""
         conn = sqlite3.connect(self.db_path)
         
         query = '''
             SELECT timestamp, tt, rh, pp, ws, wd, sr, rr
             FROM weather_data
-            ORDER BY timestamp DESC
+            ORDER BY id DESC
             LIMIT ?
         '''
         
         df = pd.read_sql_query(query, conn, params=(limit,))
         conn.close()
         
-        # Convert timestamp and reverse order (oldest first)
-        df['timestamp'] = pd.to_datetime(df['timestamp'])
+        if len(df) == 0:
+            return df
+        
+        # Parse timestamps flexibly (handles mixed formats)
+        df['timestamp'] = pd.to_datetime(df['timestamp'], format='mixed', utc=False)
+        
+        # Reverse order so oldest is first (chronological order)
         df = df.iloc[::-1].reset_index(drop=True)
         
         return df
+
     
     def _get_from_csv(self, limit: int) -> pd.DataFrame:
         """Get data from CSV file"""

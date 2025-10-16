@@ -232,16 +232,20 @@ class WeatherAnomalyAgent:
                             2) RETRIEVE: Get latest 20 records for ALL parameters using get_data_from_db(features="tt,rh,pp,ws,wd,sr,rr", limit=20)
 
                             3) CORRELATION CHECK: For each anomalous feature, check correlations with other parameters:
+                            - If there is invalid data (e.g., -999), flag as potential sensor issue (do not check correlation)
                             - tt (Temperature): Should correlate negatively with rh, positively with sr
                             - rh (Humidity): Should correlate negatively with tt, positively with rr
                             - ws (Wind Speed): Should correlate negatively with pp
                             - pp (Pressure): Should correlate negatively with ws
                             - Broken correlations may indicate sensor failure
+                            - wd (Wind Direction) can change rapidly, so ignore correlation and do not publish the anomaly, However check if the value is not valid (0-360 degrees)
+                            - If wd is invalid, flag as potential sensor issue
 
                             4) ANALYZE: Compare current vs historical (each record = 10 min interval):
                             - Deviation magnitude and direction
                             - Pattern: spike/drop/gradual over how many intervals
                             - Correlation status with related parameters
+                            
 
                             5) DECIDE: Confidence >80% → Publish, else report "Possible false alarm"
 
