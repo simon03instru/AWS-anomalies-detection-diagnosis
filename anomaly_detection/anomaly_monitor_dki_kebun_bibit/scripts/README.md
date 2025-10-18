@@ -29,3 +29,22 @@ output/
 # OS
 .DS_Store
 Thumbs.db
+
+python evaluate.py \
+  --dataset /home/ubuntu/running/anomaly_detection/anomaly_monitor_dki_kebun_bibit/dataset/dataset.csv \
+  --test-data /home/ubuntu/running/anomaly_detection/anomaly_monitor_dki_kebun_bibit/dataset/synthetic_data_with_anomalies.csv \
+  --checkpoint /home/ubuntu/running/anomaly_detection/anomaly_monitor_dki_kebun_bibit/checkpoints/all_checkpoint.pth \
+  --threshold 0.8 \
+  --apply-adjustment \
+  --apply-lag \
+  --lag-tolerance 10
+
+
+python test_generator.py \
+  --dataset /home/ubuntu/running/anomaly_detection/anomaly_monitor_dki_kebun_bibit/dataset/dataset.csv \
+  --output synthetic_data_with_anomalies.csv \
+  --n-anomalies 80 \
+  --min-duration 1 \
+  --max-duration 3 \
+  --min-gap 20\
+  --seed 42
