@@ -16,7 +16,7 @@ import pickle
 
 # Add your models directory
 sys.path.append(os.path.join(os.path.dirname(__file__), 'models'))
-from anomaly_detector import AnomalyDetectionEngine  # Import your engine
+from anomaly_detector_test import AnomalyDetectionEngine  # Import your engine
 
 
 class AnomalyDetectionEvaluator:
@@ -120,8 +120,9 @@ class AnomalyDetectionEvaluator:
                                          apply_lag=apply_lag, 
                                          lag_tolerance=lag_tolerance)
         
-        # Generate plots
-        self._plot_confusion_matrix(plot_dir)
+        # Generate plots (pass adjustment flags to confusion matrix)
+        self._plot_confusion_matrix(plot_dir, apply_adjustment=apply_adjustment, 
+                                   apply_lag=apply_lag, lag_tolerance=lag_tolerance)
         self._plot_roc_curve(plot_dir)
         self._plot_pr_curve(plot_dir)
         self._plot_score_distribution(plot_dir)
@@ -181,22 +182,21 @@ class AnomalyDetectionEvaluator:
     
     def _apply_lag_tolerance(self, gt: np.ndarray, pred: np.ndarray, lag_tolerance: int = 1) -> np.ndarray:
         """
-        Apply lag tolerance: Convert predictions that occur within lag_tolerance timesteps
-        AFTER a ground truth anomaly into correct detections (to account for detection delay).
+        Apply lag tolerance: Allow detections within lag_tolerance timesteps AFTER 
+        a ground truth anomaly to be counted as true positives (to account for detection delay).
         
-        This handles:
-        - Lagged detections after anomaly ends (e.g., GT=[3,4], Pred=5 with lag=1 → TP)
-        - Detections within anomalous segments (already TP)
+        This handles the "residual effect" where the model continues to flag anomalies
+        shortly after the true anomaly has ended due to the temporal nature of the data.
         
         Args:
-            gt: ground truth labels
-            pred: predictions
+            gt: ground truth labels (0 or 1)
+            pred: predictions (0 or 1)
             lag_tolerance: number of timesteps after anomaly to allow detection (default: 1)
         
         Returns:
-            adjusted_pred: predictions adjusted for lag tolerance
+            adjusted_gt: ground truth with lag windows extended
         """
-        adjusted_pred = pred.copy()
+        adjusted_gt = gt.copy()
         
         # Find all GT anomalous segments
         gt_segments = []
@@ -211,32 +211,21 @@ class AnomalyDetectionEvaluator:
             else:
                 i += 1
         
-        # For each GT segment, check predictions within lag tolerance window AFTER segment
+        # For each GT segment, extend the "acceptable detection window"
         for seg_start, seg_end in gt_segments:
-            # Check if there's a detection in the segment itself
-            detection_in_segment = np.any(pred[seg_start:seg_end + 1] == 1)
-            
-            # Also check for lagged detections after the segment ends
+            # Define the lag window AFTER the segment ends
             lag_window_start = seg_end + 1
             lag_window_end = min(len(gt) - 1, seg_end + lag_tolerance)
             
-            detection_in_lag_window = False
+            # Convert any predictions in the lag window from FP to TP
+            # by extending the ground truth anomaly segment
             if lag_window_start <= lag_window_end:
-                detection_in_lag_window = np.any(pred[lag_window_start:lag_window_end + 1] == 1)
-            
-            # If detection found either in segment or in lag window after segment
-            if detection_in_segment or detection_in_lag_window:
-                # Mark entire GT segment as detected (TP)
-                for j in range(seg_start, seg_end + 1):
-                    adjusted_pred[j] = 1
-                
-                # Also mark lagged detections as TP (convert FP to TP)
-                if lag_window_start <= lag_window_end:
-                    for j in range(lag_window_start, lag_window_end + 1):
-                        if pred[j] == 1:
-                            adjusted_pred[j] = 1
+                for j in range(lag_window_start, lag_window_end + 1):
+                    if pred[j] == 1 and gt[j] == 0:
+                        # This is a lagged detection - should be treated as TP
+                        adjusted_gt[j] = 1
         
-        return adjusted_pred
+        return adjusted_gt
     
     def _calculate_metrics(self, apply_adjustment: bool = False, apply_lag: bool = False, 
                           lag_tolerance: int = 1) -> Dict:
@@ -249,48 +238,50 @@ class AnomalyDetectionEvaluator:
             lag_tolerance: Lag tolerance in timesteps
         """
         predictions_to_use = self.predictions.copy()
+        ground_truth_to_use = self.ground_truth.copy()
         
-        # Apply adjustments if requested
-        if apply_adjustment:
-            self.logger.info("Applying adjustment strategy...")
-            predictions_to_use = self._apply_adjustment_strategy(self.ground_truth, predictions_to_use)
-        
+        # Apply lag tolerance first (adjusts ground truth)
         if apply_lag:
             self.logger.info(f"Applying lag tolerance adjustment (tolerance={lag_tolerance})...")
-            predictions_to_use = self._apply_lag_tolerance(self.ground_truth, predictions_to_use, lag_tolerance)
+            ground_truth_to_use = self._apply_lag_tolerance(ground_truth_to_use, predictions_to_use, lag_tolerance)
         
-        # Find indices of FP and FN
-        fp_indices = np.where((predictions_to_use == 1) & (self.ground_truth == 0))[0]
-        fn_indices = np.where((predictions_to_use == 0) & (self.ground_truth == 1))[0]
+        # Then apply segment adjustment (adjusts predictions)
+        if apply_adjustment:
+            self.logger.info("Applying adjustment strategy...")
+            predictions_to_use = self._apply_adjustment_strategy(ground_truth_to_use, predictions_to_use)
+        
+        # Find indices of FP and FN using adjusted labels
+        fp_indices = np.where((predictions_to_use == 1) & (ground_truth_to_use == 0))[0]
+        fn_indices = np.where((predictions_to_use == 0) & (ground_truth_to_use == 1))[0]
         
         # Get anomaly scores for FP and FN
         fp_scores = self.scores[fp_indices]
         fn_scores = self.scores[fn_indices]
         
-        # Basic metrics
-        tn, fp, fn, tp = confusion_matrix(self.ground_truth, predictions_to_use).ravel()
+        # Basic metrics using adjusted labels
+        tn, fp, fn, tp = confusion_matrix(ground_truth_to_use, predictions_to_use).ravel()
         
         accuracy = (tp + tn) / (tp + tn + fp + fn)
-        precision = precision_score(self.ground_truth, self.predictions, zero_division=0)
-        recall = recall_score(self.ground_truth, self.predictions, zero_division=0)
-        f1 = f1_score(self.ground_truth, self.predictions, zero_division=0)
+        precision = precision_score(ground_truth_to_use, predictions_to_use, zero_division=0)
+        recall = recall_score(ground_truth_to_use, predictions_to_use, zero_division=0)
+        f1 = f1_score(ground_truth_to_use, predictions_to_use, zero_division=0)
         specificity = tn / (tn + fp) if (tn + fp) > 0 else 0
         
         # Advanced metrics
-        mcc = matthews_corrcoef(self.ground_truth, self.predictions)
+        mcc = matthews_corrcoef(ground_truth_to_use, predictions_to_use)
         
-        # ROC-AUC
+        # ROC-AUC (use original ground truth for score-based metrics)
         roc_auc = roc_auc_score(self.ground_truth, self.scores) if len(np.unique(self.ground_truth)) > 1 else 0
         
-        # PR-AUC
+        # PR-AUC (use original ground truth)
         pr_auc = average_precision_score(self.ground_truth, self.scores) if len(np.unique(self.ground_truth)) > 1 else 0
         
         # Cohen's Kappa
-        kappa = cohen_kappa_score(self.ground_truth, self.predictions)
+        kappa = cohen_kappa_score(ground_truth_to_use, predictions_to_use)
         
         # Anomaly-specific metrics
-        n_anomalies_true = np.sum(self.ground_truth)
-        n_anomalies_pred = np.sum(self.predictions)
+        n_anomalies_true = np.sum(ground_truth_to_use)
+        n_anomalies_pred = np.sum(predictions_to_use)
         detection_rate = tp / n_anomalies_true if n_anomalies_true > 0 else 0
         false_positive_rate = fp / (tn + fp) if (tn + fp) > 0 else 0
         
@@ -314,9 +305,10 @@ class AnomalyDetectionEvaluator:
                 'FN': int(fn)
             },
             'dataset_stats': {
-                'total_samples': len(self.ground_truth),
+                'total_samples': len(ground_truth_to_use),
                 'true_anomalies': int(n_anomalies_true),
-                'predicted_anomalies': int(n_anomalies_pred)
+                'predicted_anomalies': int(n_anomalies_pred),
+                'original_true_anomalies': int(np.sum(self.ground_truth))
             },
             'fp_indices': fp_indices.tolist(),
             'fn_indices': fn_indices.tolist(),
@@ -326,19 +318,47 @@ class AnomalyDetectionEvaluator:
         
         return metrics
     
-    def _plot_confusion_matrix(self, plot_dir: str):
-        """Plot confusion matrix"""
-        cm = confusion_matrix(self.ground_truth, self.predictions)
+    def _plot_confusion_matrix(self, plot_dir: str, apply_adjustment: bool = False,
+                              apply_lag: bool = False, lag_tolerance: int = 1):
+        """Plot confusion matrix after applying adjustments"""
+        predictions_to_use = self.predictions.copy()
+        ground_truth_to_use = self.ground_truth.copy()
+        
+        # Apply the same adjustments as in metrics calculation
+        if apply_lag:
+            ground_truth_to_use = self._apply_lag_tolerance(ground_truth_to_use, predictions_to_use, lag_tolerance)
+        
+        if apply_adjustment:
+            predictions_to_use = self._apply_adjustment_strategy(ground_truth_to_use, predictions_to_use)
+        
+        # Calculate confusion matrix with adjusted labels
+        cm = confusion_matrix(ground_truth_to_use, predictions_to_use)
+        
+        # Create plot
         plt.figure(figsize=(8, 6))
         sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
                    xticklabels=['Normal', 'Anomaly'],
                    yticklabels=['Normal', 'Anomaly'])
-        plt.title('Confusion Matrix')
+        
+        # Add title with adjustment info
+        title = 'Confusion Matrix'
+        if apply_adjustment or apply_lag:
+            title += ' (After Adjustments)'
+            adjustments = []
+            if apply_lag:
+                adjustments.append(f'Lag Tolerance={lag_tolerance}')
+            if apply_adjustment:
+                adjustments.append('Segment Adjustment')
+            title += f'\n[{", ".join(adjustments)}]'
+        
+        plt.title(title)
         plt.ylabel('True Label')
         plt.xlabel('Predicted Label')
         plt.tight_layout()
         plt.savefig(os.path.join(plot_dir, 'confusion_matrix.png'), dpi=300)
         plt.close()
+        
+        self.logger.info(f"Confusion matrix saved (adjustments applied: lag={apply_lag}, segment={apply_adjustment})")
     
     def _plot_roc_curve(self, plot_dir: str):
         """Plot ROC curve"""

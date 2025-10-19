@@ -34,7 +34,7 @@ python evaluate.py \
   --dataset /home/ubuntu/running/anomaly_detection/anomaly_monitor_diy_univ_gm/dataset/dataset.csv \
   --test-data /home/ubuntu/running/anomaly_detection/anomaly_monitor_diy_univ_gm/dataset/synthetic_data_with_anomalies.csv \
   --checkpoint /home/ubuntu/running/anomaly_detection/anomaly_monitor_diy_univ_gm/checkpoints/all_checkpoint.pth \
-  --threshold 0.7 \
+  --threshold 0.4 \
   --apply-adjustment \
   --apply-lag \
   --lag-tolerance 10
