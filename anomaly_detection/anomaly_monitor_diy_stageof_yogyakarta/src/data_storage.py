@@ -25,7 +25,7 @@ class WeatherDataStorage:
             conn = sqlite3.connect(self.db_path)
             cursor = conn.cursor()
             
-            # Create table for weather data
+            # Create table for weather data (NO raw_data column)
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS weather_data (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,10 +37,62 @@ class WeatherDataStorage:
                     wd REAL,
                     sr REAL,
                     rr REAL,
-                    raw_data TEXT,
                     created_at TEXT DEFAULT CURRENT_TIMESTAMP
                 )
             ''')
+            
+            # Check if id column exists (for migration from old schema)
+            cursor.execute("PRAGMA table_info(weather_data)")
+            columns = {row[1] for row in cursor.fetchall()}
+            
+            if 'id' not in columns:
+                self.logger.warning("Migrating old table schema - adding id column...")
+                try:
+                    # Create new table with id column
+                    cursor.execute('''
+                        CREATE TABLE weather_data_new (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            timestamp TEXT NOT NULL,
+                            tt REAL,
+                            rh REAL,
+                            pp REAL,
+                            ws REAL,
+                            wd REAL,
+                            sr REAL,
+                            rr REAL,
+                            created_at TEXT DEFAULT CURRENT_TIMESTAMP
+                        )
+                    ''')
+                    
+                    # Copy data from old table
+                    cursor.execute('''
+                        INSERT INTO weather_data_new (timestamp, tt, rh, pp, ws, wd, sr, rr, created_at)
+                        SELECT timestamp, tt, rh, pp, ws, wd, sr, rr, COALESCE(created_at, CURRENT_TIMESTAMP)
+                        FROM weather_data
+                    ''')
+                    
+                    # Drop old table and rename new one
+                    cursor.execute('DROP TABLE weather_data')
+                    cursor.execute('ALTER TABLE weather_data_new RENAME TO weather_data')
+                    
+                    self.logger.info("Migration completed successfully")
+                except Exception as e:
+                    self.logger.warning(f"Could not migrate old table: {e}. Recreating...")
+                    cursor.execute('DROP TABLE IF EXISTS weather_data')
+                    cursor.execute('''
+                        CREATE TABLE weather_data (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            timestamp TEXT NOT NULL,
+                            tt REAL,
+                            rh REAL,
+                            pp REAL,
+                            ws REAL,
+                            wd REAL,
+                            sr REAL,
+                            rr REAL,
+                            created_at TEXT DEFAULT CURRENT_TIMESTAMP
+                        )
+                    ''')
             
             # Create index on timestamp for faster queries
             cursor.execute('''
@@ -87,8 +139,8 @@ class WeatherDataStorage:
         cursor = conn.cursor()
         
         cursor.execute('''
-            INSERT INTO weather_data (timestamp, tt, rh, pp, ws, wd, sr, rr, raw_data)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO weather_data (timestamp, tt, rh, pp, ws, wd, sr, rr)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
             timestamp.isoformat(),
             data.get('tt'),
@@ -97,8 +149,7 @@ class WeatherDataStorage:
             data.get('ws'),
             data.get('wd'),
             data.get('sr'),
-            data.get('rr'),
-            json.dumps(data)
+            data.get('rr')
         ))
         
         conn.commit()
@@ -106,7 +157,7 @@ class WeatherDataStorage:
     
     def _save_to_csv(self, data: Dict, timestamp: datetime):
         """Save data to CSV file"""
-        # Prepare row data
+        # Prepare row data (matching CSV columns)
         row_data = {
             'timestamp': timestamp.isoformat(),
             'tt': data.get('tt'),
@@ -214,4 +265,3 @@ class WeatherDataStorage:
             
         except Exception as e:
             self.logger.error(f"Error cleaning up old data: {e}")
-

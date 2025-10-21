@@ -91,25 +91,12 @@ class ThoughtProcessLogger:
         args_str = json.dumps(arguments, indent=2)
         content = f"Calling tool: {tool_name}\nArguments:\n{args_str}"
         self.log_step("TOOL_CALL", content)
-
-    def log_tool_result(self, tool_name: str, result: str, truncate: int = 200):
-        """Log tool result to file - skip detailed logging for get_data_from_db"""
-        # Skip detailed logging for database queries (too verbose)
-        if tool_name == "get_data_from_db":
-            # Just log a summary for database queries
-            try:
-                result_data = json.loads(result) if isinstance(result, str) else result
-                record_count = len(result_data.get("records", [])) if isinstance(result_data, dict) else 0
-                result_preview = f"[Database query returned {record_count} records, {len(result)} characters total]"
-            except:
-                result_preview = f"[Database query executed - {len(result)} characters returned]"
-        else:
-            # For other tools, show a preview
-            result_preview = result[:truncate] + "..." if len(result) > truncate else result
-        
-        content = f"Tool '{tool_name}' returned: {result_preview}"
+    
+    def log_tool_result(self, tool_name: str, result: str, truncate: int = 5000):
+        """Log tool result to file"""
+        result_preview = result[:truncate] + "..." if len(result) > truncate else result
+        content = f"Tool '{tool_name}' returned:\n{result_preview}"
         self.log_step("TOOL_RESULT", content)
-
     
     def log_reasoning(self, reasoning: str):
         """Log agent's reasoning to file"""
@@ -245,12 +232,11 @@ class WeatherAnomalyAgent:
                             2) RETRIEVE: Get latest 20 records for ALL parameters using get_data_from_db(features="tt,rh,pp,ws,wd,sr,rr", limit=20)
 
                             3) CORRELATION CHECK: For each anomalous feature, check correlations with other parameters:
-                            - If there is invalid data (e.g., -9999), flag as potential sensor issue (do not check correlation) and publish as anomaly
+                            - If there is invalid data (e.g., -999), flag as potential sensor issue (do not check correlation)
                             - tt (Temperature): Should correlate negatively with rh, positively with sr
                             - rh (Humidity): Should correlate negatively with tt, positively with rr
                             - ws (Wind Speed): Should correlate negatively with pp
                             - pp (Pressure): Should correlate negatively with ws
-                            - sr (Solar Radiation) can change rapidly due to clouds, however if it is low while tt is high and rh is low, it may indicate sensor issue. In nighttime low sr is expected.
                             - Broken correlations may indicate sensor failure
                             - wd (Wind Direction) can change rapidly, so ignore correlation and do not publish the anomaly, However check if the value is not valid (0-360 degrees)
                             - If wd is invalid, flag as potential sensor issue
@@ -260,6 +246,7 @@ class WeatherAnomalyAgent:
                             - Pattern: spike/drop/gradual over how many intervals
                             - Correlation status with related parameters
                             
+
                             5) DECIDE: Confidence >80% → Publish, else report "Possible false alarm"
 
                             6) PUBLISH: Use publish_anomaly_to_kafka with:

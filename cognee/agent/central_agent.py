@@ -774,7 +774,7 @@ Correlation ID: {event_data.get('correlation_id', 'N/A')}
 Please investigate further:
 1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
 2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the observed values?
-3. Check if there's any maintenance information that might explain these anomalies and what maintenance actions should be recommended.
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
 4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
 5. If multiple anomalies are present, analyze potential correlations or common causes."""
         
@@ -1012,3 +1012,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n\n👋 Exiting...")
         sys.exit(0)
+
+
