@@ -16,7 +16,7 @@ async def main():
     # ============================================
     # ADJUST PATH
     # ============================================
-    EXPERIMENT_DIR = "/home/ubuntu/running/agent_evalaution/eval_data/gpt_4o_mini/exp_2"
+    EXPERIMENT_DIR = "/home/ubuntu/running/agent_evalaution/experiment/gpt_oss_20b/exp_1"
     
     QUERY_FILE = f"{EXPERIMENT_DIR}/query.txt"
     RESPONSE_FILE = f"{EXPERIMENT_DIR}/response.txt"

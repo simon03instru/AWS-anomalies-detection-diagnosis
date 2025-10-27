@@ -18,8 +18,8 @@ def get_weather_param(
         longitude: The longitude of the location (e.g., 13.41)
         start_time: The start time in ISO format (e.g., '2025-07-25T03:00:00Z')
         end_time: The end time in ISO format (e.g., '2025-07-25T03:15:00Z')
-        parameters: A list of weather parameters to retrieve 
-                   (e.g., ['temperature_2m', 'precipitation', 'relative_humidity_2m'])
+        parameters: A list of weather parameters to retrieve. Available parameters include: temperature_2m, precipitation, relative_humidity_2m, windspeed_10m, direct_radiation, winddirection_10m, surface_pressure
+                   
     
     Returns:
         A dictionary containing the requested weather parameters and their values for the time range.

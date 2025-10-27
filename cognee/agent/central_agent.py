@@ -34,9 +34,10 @@ from camel.societies.workforce import Workforce
 from camel.agents import ChatAgent
 from camel.toolkits import FunctionTool
 from camel.models import ModelFactory
-from camel.types import ModelPlatformType
+from camel.types import ModelPlatformType, ModelType
 from camel.tasks import Task
 from camel.messages import BaseMessage
+from camel.configs import ChatGPTConfig
 
 # Import your existing modules
 from tools import *
@@ -203,11 +204,151 @@ class WorkforceLogger:
             self._write(f"\nKeyword Arguments:")
             self._write(self._indent(json.dumps(kwargs, indent=2, default=str), 2))
     
+    def save_experiment_files(self, query: str, response: str, anomaly_id: str, cognee_log_dir: Path = None):
+        """
+        Save query, response, and context to separate text files in experiment folder.
+        Context contains only sentence chunks (not full documents) for easy evaluation.
+        
+        Args:
+            query: The initial query/task
+            response: The final output/comprehensive report
+            anomaly_id: Unique identifier for this task
+            cognee_log_dir: Directory containing cognee logs
+        """
+        # Create experiment directory
+        experiment_dir = Path("experiment")
+        experiment_dir.mkdir(exist_ok=True)
+        
+        # Create subdirectory for this task
+        task_dir = experiment_dir / anomaly_id
+        task_dir.mkdir(exist_ok=True)
+        
+        # 1. Save query
+        query_file = task_dir / "query.txt"
+        with open(query_file, 'w', encoding='utf-8') as f:
+            f.write(query)
+        
+        # 2. Save response
+        response_file = task_dir / "response.txt"
+        with open(response_file, 'w', encoding='utf-8') as f:
+            f.write(response)
+        
+        # 3. Save context (sentence chunks only - NO weather API)
+        context_file = task_dir / "context.txt"
+        with open(context_file, 'w', encoding='utf-8') as f:
+            f.write("="*80 + "\n")
+            f.write("CONTEXT - SENTENCE CHUNKS FROM RAG\n")
+            f.write("="*80 + "\n\n")
+            
+            # Get sentence chunks from RAG
+            context_content = self._extract_sentence_chunks_for_context(cognee_log_dir)
+            f.write(context_content)
+        
+        print(f"\n📁 Experiment files saved:")
+        print(f"   → {query_file}")
+        print(f"   → {response_file}")
+        print(f"   → {context_file}")
+        
+        return task_dir
+    
+    def _extract_sentence_chunks_for_context(self, cognee_log_dir: Path = None) -> str:
+        """
+        Extract ONLY sentence chunks from RAG for context file.
+        No document chunks, no weather API - just sentence chunks for easy evaluation.
+        
+        Returns formatted string with sentence chunks.
+        """
+        if cognee_log_dir is None:
+            cognee_log_dir = Path("cognee_evaluation_logs")
+        
+        context_parts = []
+        
+        if not cognee_log_dir.exists():
+            context_parts.append("[No RAG logs found]\n")
+            return ''.join(context_parts)
+        
+        # Find the latest log file
+        log_files = sorted(cognee_log_dir.glob("chunk_retrieval_*.jsonl"))
+        if not log_files:
+            context_parts.append("[No RAG chunk retrieval logs found]\n")
+            return ''.join(context_parts)
+        
+        latest_log = log_files[-1]
+        
+        # Read all entries from the log file
+        entries = []
+        try:
+            with open(latest_log, 'r') as f:
+                for line in f:
+                    if line.strip():
+                        entries.append(json.loads(line))
+        except Exception as e:
+            context_parts.append(f"[Error reading RAG logs: {e}]\n")
+            return ''.join(context_parts)
+        
+        if not entries:
+            context_parts.append("[No RAG queries logged]\n")
+            return ''.join(context_parts)
+        
+        # Extract sentence chunks for each RAG query
+        for idx, entry in enumerate(entries, 1):
+            query = entry.get('query', 'N/A')
+            node_sets = entry.get('node_sets', [])
+            dataset = entry.get('dataset_name', 'N/A')
+            num_results = entry.get('num_results', 0)
+            
+            context_parts.append(f"RAG Query #{idx}:\n")
+            context_parts.append(f"  Query: {query}\n")
+            context_parts.append(f"  Dataset: {dataset}\n")
+            context_parts.append(f"  Node Sets: {', '.join(node_sets)}\n")
+            context_parts.append(f"  Results: {num_results}\n\n")
+            
+            if num_results > 0:
+                chunks_data = entry.get('chunks_data', [])
+                context_parts.append("  Retrieved Sentence Chunks:\n")
+                context_parts.append("  " + "-"*76 + "\n")
+                
+                for chunk_idx, chunk in enumerate(chunks_data, 1):
+                    # Extract search_result (sentence chunks) instead of full DocumentChunk
+                    sentence_chunk = None
+                    
+                    # First try to get from search_result field
+                    if 'search_result' in chunk and chunk['search_result']:
+                        search_result = chunk['search_result']
+                        if isinstance(search_result, list) and search_result:
+                            sentence_chunk = search_result[0]
+                        else:
+                            sentence_chunk = search_result
+                    
+                    # Fallback to raw_data if search_result not found
+                    elif 'raw_data' in chunk:
+                        raw = chunk['raw_data']
+                        if isinstance(raw, dict) and 'search_result' in raw:
+                            sr = raw['search_result']
+                            if isinstance(sr, list) and sr:
+                                sentence_chunk = sr[0]
+                            else:
+                                sentence_chunk = sr
+                    
+                    if sentence_chunk:
+                        context_parts.append(f"\n  {chunk_idx}. {sentence_chunk}\n")
+                    else:
+                        context_parts.append(f"\n  {chunk_idx}. [No sentence extracted]\n")
+                
+                context_parts.append("\n")
+            else:
+                context_parts.append("  No sentence chunks retrieved\n\n")
+            
+            context_parts.append("\n")
+        
+        return ''.join(context_parts)
+    
     def log_tool_result(self, tool_name: str, result: Any, execution_time: float):
         """Log tool execution result"""
         result_str = str(result)
         result_len = len(result_str)
         
+        # Log result
         self._write(f"\nExecution Time: {execution_time:.3f} seconds")
         self._write(f"Result Length: {result_len} characters")
         self._write(f"\nResult:")
@@ -226,6 +367,7 @@ class WorkforceLogger:
             self._write(self._indent(result_str[:2000] if result_len > 2000 else result_str, 2))
         
         self._write_separator(char="-")
+    
     
     def log_tool_error(self, tool_name: str, error: Exception):
         """Log tool execution error"""
@@ -324,6 +466,103 @@ class WorkforceLogger:
             self._write(f"\n\nOutput Statistics:")
             for key, value in summary.items():
                 self._write(f"  - {key}: {value}")
+        
+        self._write_separator()
+    
+    def log_rag_chunks(self, cognee_log_dir: Path = None):
+        """
+        Log RAG chunks retrieved during this task from cognee logs.
+        Reads the latest cognee chunk retrieval log and formats it nicely.
+        """
+        if cognee_log_dir is None:
+            cognee_log_dir = Path("cognee_evaluation_logs")
+        
+        if not cognee_log_dir.exists():
+            self._write("\n[No RAG chunks logged - cognee_evaluation_logs directory not found]")
+            return
+        
+        # Find the latest log file
+        log_files = sorted(cognee_log_dir.glob("chunk_retrieval_*.jsonl"))
+        if not log_files:
+            self._write("\n[No RAG chunks logged - no chunk retrieval logs found]")
+            return
+        
+        latest_log = log_files[-1]
+        
+        # Read all entries from the log file
+        entries = []
+        try:
+            with open(latest_log, 'r') as f:
+                for line in f:
+                    if line.strip():
+                        entries.append(json.loads(line))
+        except Exception as e:
+            self._write(f"\n[Error reading RAG chunk logs: {e}]")
+            return
+        
+        if not entries:
+            self._write("\n[No RAG queries logged in this session]")
+            return
+        
+        self._write_section("DOCUMENT CHUNKS RETRIEVED FROM RAG")
+        self._write(f"Total RAG Queries: {len(entries)}")
+        self._write(f"Log File: {latest_log.name}")
+        self._write_separator(char="-")
+        
+        # Log each query and its chunks
+        for idx, entry in enumerate(entries, 1):
+            query = entry.get('query', 'N/A')
+            node_sets = entry.get('node_sets', [])
+            dataset = entry.get('dataset_name', 'N/A')
+            num_results = entry.get('num_results', 0)
+            
+            self._write(f"\nQuery #{idx}:")
+            self._write(f"  Query: {query}")
+            self._write(f"  Dataset: {dataset}")
+            self._write(f"  Node Sets: {', '.join(node_sets)}")
+            self._write(f"  Results: {num_results}")
+            
+            if num_results > 0:
+                chunks_data = entry.get('chunks_data', [])
+                self._write(f"  \n  Document Chunks:")
+                
+                for chunk_idx, chunk in enumerate(chunks_data, 1):
+                    # Extract DocumentChunk text from raw_data.graphs
+                    chunk_text = None
+                    
+                    if 'raw_data' in chunk:
+                        raw = chunk['raw_data']
+                        
+                        # Navigate to graphs -> dataset_name -> nodes
+                        if isinstance(raw, dict) and 'graphs' in raw:
+                            graphs = raw['graphs']
+                            
+                            # Get the dataset name
+                            dataset = raw.get('dataset_name', dataset)
+                            
+                            if dataset in graphs and 'nodes' in graphs[dataset]:
+                                nodes = graphs[dataset]['nodes']
+                                
+                                # Find DocumentChunk nodes and extract text
+                                for node in nodes:
+                                    if node.get('type') == 'DocumentChunk':
+                                        if 'attributes' in node and 'text' in node['attributes']:
+                                            chunk_text = node['attributes']['text']
+                                            break  # Use first DocumentChunk found
+                    
+                    if chunk_text:
+                        # Don't truncate - show full document chunk
+                        # But add line breaks for readability
+                        chunk_text = chunk_text.strip()
+                        
+                        self._write(f"    {chunk_idx}. {chunk_text}")
+                        self._write("")  # Empty line after each chunk
+                    else:
+                        self._write(f"    {chunk_idx}. [No DocumentChunk text found]")
+            else:
+                self._write(f"  No chunks retrieved")
+            
+            self._write("")  # Empty line between queries
         
         self._write_separator()
     
@@ -489,14 +728,20 @@ def create_logged_tools(tools_list: list, context_name: str = "tool") -> list:
 # Model Setup
 # ============================================================================
 
+# ollama_model = ModelFactory.create(
+#     model_platform=ModelPlatformType.OLLAMA,
+#     model_type="gpt-oss:120b",
+#     url="http://10.33.205.34:11112/v1",
+#     model_config_dict={
+#         "temperature": 0,
+#         "max_tokens": 8192,
+#     },
+# )
+
 ollama_model = ModelFactory.create(
-    model_platform=ModelPlatformType.OLLAMA,
-    model_type="gpt-oss:120b",
-    url="http://10.33.205.34:11440/v1",
-    model_config_dict={
-        "temperature": 0,
-        "max_tokens": 16384,
-    },
+    model_platform=ModelPlatformType.OPENAI,
+    model_type=ModelType.GPT_4O_MINI,
+    model_config_dict=ChatGPTConfig(temperature=0.2).as_dict(),
 )
 
 
@@ -773,7 +1018,7 @@ Correlation ID: {event_data.get('correlation_id', 'N/A')}
 
 Please investigate further:
 1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
-2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the observed values?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
 3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
 4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
 5. If multiple anomalies are present, analyze potential correlations or common causes."""
@@ -893,6 +1138,16 @@ Please investigate further:
             
             processing_time = (datetime.now() - start_time).total_seconds()
             
+            # Log RAG chunks retrieved during this task
+            workforce_logger.log_rag_chunks()
+            
+            # Save experiment files (query, response, context)
+            workforce_logger.save_experiment_files(
+                query=query,
+                response=result_text,
+                anomaly_id=anomaly_id
+            )
+            
             # End log
             workforce_logger.end_anomaly_log(processing_time)
             
@@ -922,6 +1177,9 @@ Please investigate further:
                 workforce_logger._write("\n\n❌❌❌ UNEXPECTED ERROR IN PROCESSING LOGIC ❌❌❌")
                 workforce_logger._write(f"Error: {e}")
                 workforce_logger._write(traceback.format_exc())
+                
+                # Log RAG chunks even in error case
+                workforce_logger.log_rag_chunks()
                 
                 processing_time = (datetime.now() - start_time).total_seconds()
                 workforce_logger.end_anomaly_log(processing_time)
@@ -1012,5 +1270,3 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n\n👋 Exiting...")
         sys.exit(0)
-
-

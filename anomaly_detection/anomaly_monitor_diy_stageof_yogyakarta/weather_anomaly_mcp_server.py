@@ -42,7 +42,7 @@ STATION_METADATA = {
         'sr': {'name': 'Solar Radiation', 'unit': 'W/m²', 'sensor': 'pyranometer', 
                'brand': 'Kipp & Zonen CMP3', 'range': '0-1500 W/m²'},
         'rr': {'name': 'Rainfall', 'unit': 'mm', 'sensor': 'rain gauge', 
-               'brand': 'Texas Electronics TR-525M', 'range': '0-100 mm/h'}
+               'brand': 'HyQuest TB4', 'range': '0-100 mm/h'}
     },
     'station_info': {
         'id': 'AWS_DIY_STAGEOF_YOGYAKARTA',

@@ -34,10 +34,10 @@ python evaluate.py \
   --dataset /home/ubuntu/running/anomaly_detection/anomaly_monitor_diy_stageof_yogyakarta/dataset/dataset.csv \
   --test-data /home/ubuntu/running/anomaly_detection/anomaly_monitor_diy_stageof_yogyakarta/dataset/synthetic_data_with_anomalies.csv \
   --checkpoint /home/ubuntu/running/anomaly_detection/anomaly_monitor_diy_stageof_yogyakarta/checkpoints/all_checkpoint.pth \
-  --threshold 0.3 \
+  --threshold 0.3548 \
   --apply-adjustment \
   --apply-lag \
-  --lag-tolerance 10
+  --lag-tolerance 20
 
 
 python test_generator.py \

@@ -172,7 +172,7 @@ class WeatherAnomalyAgent:
         self.agent = None
         
         if self.thought_logger:
-            self.thought_logger.log_step("INITIALIZATION", "Initializing Weather Anomaly Agent...")
+            self.thought_logger.log_step("INITIALIZATION", "Initializing Weather Anomaly Agent Stageof Yogyakarta...")
     
     async def initialize(self):
         """Initialize MCP toolkit and CAMEL agent asynchronously"""
@@ -206,7 +206,7 @@ class WeatherAnomalyAgent:
             self.agent = self._create_agent(tools)
             
             if self.thought_logger:
-                self.thought_logger.log_step("INITIALIZATION", "Agent initialization complete")
+                self.thought_logger.log_step("INITIALIZATION", "Agent DIY Yogyakarta initialization complete")
             
             return True
             
@@ -237,52 +237,69 @@ class WeatherAnomalyAgent:
             #     model_config_dict={"temperature": self.temperature}
             # )
             
-            system_message = """You are a weather sensor Anomaly Investigation Agent. Systematically analyze sensor anomalies and publish confirmed ones.
+            system_message = """You are a weather sensor Anomaly Investigation Agent to publish findings of a potential sensor malfunction. Systematically analyze sensor anomalies and publish confirmed ones.
 
-                            PROCESS:
-                            1) IDENTIFY: Extract top 3 anomalous features from provided data
+                PROCESS:
+                1) IDENTIFY: Extract top 3 anomalous features from provided data
 
-                            2) RETRIEVE: Get latest 20 records for ALL parameters using get_data_from_db(features="tt,rh,pp,ws,wd,sr,rr", limit=20)
+                2) RETRIEVE: Get latest 20 records for ALL parameters using get_data_from_db(features="tt,rh,pp,ws,wd,sr,rr", limit=20)
 
-                            3) CORRELATION CHECK: For each anomalous feature, check correlations with other parameters:
-                            - If there is invalid data (e.g., -9999), flag as potential sensor issue (do not check correlation) and publish as anomaly
-                            - tt (Temperature): Should correlate negatively with rh, positively with sr
-                            - rh (Humidity): Should correlate negatively with tt, positively with rr
-                            - ws (Wind Speed): Should correlate negatively with pp
-                            - pp (Pressure): Should correlate negatively with ws
-                            - sr (Solar Radiation) can change rapidly due to clouds, however if it is low while tt is high and rh is low, it may indicate sensor issue. In nighttime low sr is expected.
-                            - Broken correlations may indicate sensor failure
-                            - wd (Wind Direction) can change rapidly, so ignore correlation and do not publish the anomaly, However check if the value is not valid (0-360 degrees)
-                            - If wd is invalid, flag as potential sensor issue
+                3) IMMEDIATE SENSOR FAULT CHECK:
+                - Invalid sentinels (e.g., -9999, 9999): PUBLISH immediately
+                - Physically impossible values: PUBLISH immediately
+                    * rh: must be 0-100%, values at exact 0% or 100% are highly suspicious
+                    * wd: must be 0-360°
+                    * tt: must be within reasonable range for location (-50°C to 60°C)
+                    * ws: cannot be negative
+                    * pp: typical range 950-1050 hPa
+                - Stuck readings: same exact value for >6 intervals (60min): PUBLISH immediately
 
-                            4) ANALYZE: Compare current vs historical (each record = 10 min interval):
-                            - Deviation magnitude and direction
-                            - Pattern: spike/drop/gradual over how many intervals
-                            - Correlation status with related parameters
-                            
-                            5) DECIDE: Confidence >80% → Publish, else report "Possible false alarm"
+                4) CORRELATION CHECK (secondary validation):
+                For features not caught above, check correlations:
+                - tt (Temperature): Should correlate negatively with rh, positively with sr
+                - rh (Humidity): Should correlate negatively with tt, positively with rr
+                - ws (Wind Speed): Should correlate negatively with pp
+                - pp (Pressure): Should correlate negatively with ws
+                - sr (Solar Radiation): can change rapidly (300 units/10min is normal); low at night is expected
+                - wd (Wind Direction): can change rapidly; do NOT use correlation; only check range (0-360°)
+                
+                Note: Broken correlations SUPPORT anomaly detection but intact correlations do NOT rule out sensor faults
 
-                            6) PUBLISH: Use publish_anomaly_to_kafka with:
-                            - anomalous_features: {feature_code: value}
-                            - trend_analysis: {feature_code: "SHORT analysis (1-2 sentences) including: magnitude, timeframe in minutes, correlation status"}
+                5) ANALYZE: Compare current vs historical (each record = 10 min interval):
+                - Deviation magnitude and direction
+                - Pattern: spike/drop/gradual/stuck over how many intervals
+                - Correlation status with related parameters
 
-                            EXAMPLE:
-                            {
-                            "tt": "Rose 4.2°C over 30min (3 intervals), 20% above max. Correlation with rh intact (negative as expected).",
-                            "ws": "Dropped to 0.6 m/s suddenly, 88% below avg. Correlation with pp broken (expected negative, observed positive) - possible sensor issue."
-                            }
+                6) DECIDE: 
+                Publish anomaly if you are CONFIDENT > 80% based on:
+                - Sentinel values or physically impossible 
+                - Stuck readings (>6 intervals) 
+                - Large deviation (>3 std dev) 
+                
 
-                            RULES:
-                            - Only publish the weather parameter that your analysis confirms anomaly (ignore input scores)
-                            - Always include correlation status in trend_analysis
-                            - Keep analysis concise: magnitude + timeframe + correlation
-                            """
+                7) PUBLISH: Use send_anomalous_status with:
+                - anomalous_features: {feature_code: value}
+                - trend_analysis: {feature_code: "SHORT analysis including: type of fault, magnitude, timeframe, correlation status"}
+
+                EXAMPLE:
+                {
+                "wd": "Invalid sentinel value -9999.0° - sensor communication failure",
+                "rh": "Physically impossible 0% reading - sensor fault. Expected 48-56%, dropped 100% instantly. Correlation with tt appears intact but this doesn't rule out sensor malfunction.",
+                "ws": "Stuck at 0.6 m/s for 60min (6 intervals), 88% below avg. Correlation with pp broken - sensor likely stuck/failed."
+                }
+
+                CRITICAL RULES:
+                - ALWAYS publish confirmed sensor faults only - avoid false alarms
+                - ALWAYS publish sentinel values (-9999, 9999, etc.) - these are definitive sensor faults
+                - ALWAYS publish physically impossible values (rh=0%, rh=100%, wd outside 0-360°)
+                - ALWAYS publish stuck readings (same value >6 intervals)
+                - Intact correlations do NOT prove sensor is working - a broken sensor can show correlation by coincidence
+                - For wind direction (wd): only check if value is valid (0-360°); ignore all other analyses
+                - Only report "Possible false alarm" when deviation is moderate AND correlations are intact AND value is physically possible
+                """
 
             agent = ChatAgent(
-                system_message=BaseMessage.make_assistant_message(
-                    role_name="Weather Anomaly Investigator",
-                    content=system_message
-                ),
+                system_message=system_message,
                 model=ollama_model,
                 tools=[*tools]  # Unpack the tools list
             )
