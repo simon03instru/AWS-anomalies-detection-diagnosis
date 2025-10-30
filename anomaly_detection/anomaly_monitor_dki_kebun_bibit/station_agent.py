@@ -36,6 +36,16 @@ CYAN = "\033[96m"
 RESET = "\033[0m"
 BOLD = "\033[1m"
 
+# Initialize local LLM model
+ollama_model = ModelFactory.create(
+    model_platform=ModelPlatformType.OLLAMA,
+    model_type="gpt-oss:120b",
+    url="http://10.33.205.34:11440/v1",
+    model_config_dict={
+        "temperature": 0,
+        "max_tokens": 16384,
+    },
+)
 
 class ThoughtProcessLogger:
     """Silent logger that only writes to file"""
@@ -81,12 +91,25 @@ class ThoughtProcessLogger:
         args_str = json.dumps(arguments, indent=2)
         content = f"Calling tool: {tool_name}\nArguments:\n{args_str}"
         self.log_step("TOOL_CALL", content)
-    
-    def log_tool_result(self, tool_name: str, result: str, truncate: int = 5000):
-        """Log tool result to file"""
-        result_preview = result[:truncate] + "..." if len(result) > truncate else result
-        content = f"Tool '{tool_name}' returned:\n{result_preview}"
+
+    def log_tool_result(self, tool_name: str, result: str, truncate: int = 200):
+        """Log tool result to file - skip detailed logging for get_data_from_db"""
+        # Skip detailed logging for database queries (too verbose)
+        if tool_name == "get_data_from_db":
+            # Just log a summary for database queries
+            try:
+                result_data = json.loads(result) if isinstance(result, str) else result
+                record_count = len(result_data.get("records", [])) if isinstance(result_data, dict) else 0
+                result_preview = f"[Database query returned {record_count} records, {len(result)} characters total]"
+            except:
+                result_preview = f"[Database query executed - {len(result)} characters returned]"
+        else:
+            # For other tools, show a preview
+            result_preview = result[:truncate] + "..." if len(result) > truncate else result
+        
+        content = f"Tool '{tool_name}' returned: {result_preview}"
         self.log_step("TOOL_RESULT", content)
+
     
     def log_reasoning(self, reasoning: str):
         """Log agent's reasoning to file"""
@@ -129,7 +152,7 @@ class ThoughtProcessLogger:
             json.dump(summary, f, indent=2)
 
 
-class WeatherAnomalyCAMELAgent:
+class WeatherAnomalyAgent:
     """Weather Anomaly Investigation Agent using CAMEL AI with MCP server tools"""
     
     def __init__(
@@ -149,7 +172,7 @@ class WeatherAnomalyCAMELAgent:
         self.agent = None
         
         if self.thought_logger:
-            self.thought_logger.log_step("INITIALIZATION", "Initializing Weather Anomaly Agent...")
+            self.thought_logger.log_step("INITIALIZATION", "Initializing Weather Anomaly Agent DKLI Kebun Bibit...")
     
     async def initialize(self):
         """Initialize MCP toolkit and CAMEL agent asynchronously"""
@@ -198,36 +221,86 @@ class WeatherAnomalyCAMELAgent:
     def _create_agent(self, tools):
         """Create the CAMEL agent with MCP tools."""
         try:
-            platform_map = {
-                "gemini": ModelPlatformType.GEMINI,
-                "openai": ModelPlatformType.OPENAI,
-                "anthropic": ModelPlatformType.ANTHROPIC,
-                "ollama": ModelPlatformType.OLLAMA,
-            }
+
+            # platform_map = {
+            #     "gemini": ModelPlatformType.GEMINI,
+            #     "openai": ModelPlatformType.OPENAI,
+            #     "anthropic": ModelPlatformType.ANTHROPIC,
+            #     "ollama": ModelPlatformType.OLLAMA,
+            # }
             
-            platform_type = platform_map.get(self.model_platform.lower(), ModelPlatformType.OPENAI)
+            # platform_type = platform_map.get(self.model_platform.lower(), ModelPlatformType.OPENAI)
             
-            model = ModelFactory.create(
-                model_platform=platform_type,
-                model_type=self.model_type,
-                model_config_dict={"temperature": self.temperature}
-            )
+            # model = ModelFactory.create(
+            #     model_platform=platform_type,
+            #     model_type=self.model_type,
+            #     model_config_dict={"temperature": self.temperature}
+            # )
             
-            system_message = """
-                     Steps:
-                    1) Identify top 3 anomalous features from data
-                    2) get latest 5 historical data of the anomalous features only and then
-                    3) Compare current vs historical for each anomalous parameter
-                    4) Based on your own analysis only (disregard the anomaly score), if you are confident >80% , send only anomalous parameter using your tool.
-                    If confidence ≤80%? Report "Possible false alarm"
-                    Plan first. Execute systematically."""
+            system_message = """You are a weather sensor Anomaly Investigation Agent to publish findings of a potential sensor malfunction. Systematically analyze sensor anomalies and publish confirmed ones.
+
+                PROCESS:
+                1) IDENTIFY: Extract top 3 anomalous features from provided data. Timestamp in received data is UTC, and local time is UTC+7.
+
+                2) RETRIEVE: Get latest 20 records for ALL parameters using get_data_from_db(features="tt,rh,pp,ws,wd,sr,rr", limit=20)
+
+                3) IMMEDIATE SENSOR FAULT CHECK:
+                - Invalid sentinels (e.g., -9999, 9999): PUBLISH immediately
+                - Physically impossible values: PUBLISH immediately
+                    * rh: must be 0-100%, values at exact 0% or 100% are highly suspicious
+                    * wd: must be 0-360°
+                    * tt: must be within reasonable range for location (-50°C to 60°C)
+                    * ws: cannot be negative
+                    * pp: typical range 950-1050 hPa
+                - Stuck readings: same exact value for >6 intervals (60min): PUBLISH immediately
+
+                4) CORRELATION CHECK (secondary validation):
+                For features not caught above, check correlations:
+                - tt (Temperature): Should correlate negatively with rh, positively with sr
+                - rh (Humidity): Should correlate negatively with tt, positively with rr
+                - ws (Wind Speed): Should correlate negatively with pp
+                - pp (Pressure): Should correlate negatively with ws
+                - sr (Solar Radiation): can change rapidly (300 units/10min is normal); low at night is expected
+                - wd (Wind Direction): can change rapidly; do NOT use correlation; only check range (0-360°)
+                
+                Note: Broken correlations SUPPORT anomaly detection but intact correlations do NOT rule out sensor faults
+
+                5) ANALYZE: Compare current vs historical (each record = 10 min interval):
+                - Deviation magnitude and direction
+                - Pattern: spike/drop/gradual/stuck over how many intervals
+                - Correlation status with related parameters
+
+                6) DECIDE: 
+                Publish anomaly if you are CONFIDENT > 80% based on:
+                - Sentinel values or physically impossible 
+                - Stuck readings (>6 intervals) 
+                - Large deviation (>3 std dev) 
+                
+
+                7) PUBLISH: Use send_anomalous_status with:
+                - anomalous_features: {feature_code: value}
+                - trend_analysis: {feature_code: "SHORT analysis including: type of fault, magnitude, timeframe, correlation status"}
+
+                EXAMPLE:
+                {
+                "wd": "Invalid sentinel value -9999.0° - sensor communication failure",
+                "rh": "Physically impossible 0% reading - sensor fault. Expected 48-56%, dropped 100% instantly. Correlation with tt appears intact but this doesn't rule out sensor malfunction.",
+                "ws": "Stuck at 0.6 m/s for 60min (6 intervals), 88% below avg. Correlation with pp broken - sensor likely stuck/failed."
+                }
+
+                CRITICAL RULES:
+                - ALWAYS publish confirmed sensor faults only - avoid false alarms
+                - ALWAYS publish sentinel values (-9999, 9999, etc.) - these are definitive sensor faults
+                - ALWAYS publish physically impossible values (rh=0%, rh=100%, wd outside 0-360°)
+                - ALWAYS publish stuck readings (same value >6 intervals)
+                - Intact correlations do NOT prove sensor is working - a broken sensor can show correlation by coincidence
+                - For wind direction (wd): only check if value is valid (0-360°); ignore all other analyses
+                - Only report "Possible false alarm" when deviation is moderate AND correlations are intact AND value is physically possible
+                """
 
             agent = ChatAgent(
-                system_message=BaseMessage.make_assistant_message(
-                    role_name="Weather Anomaly Investigator",
-                    content=system_message
-                ),
-                model=model,
+                system_message=system_message,
+                model=ollama_model,
                 tools=[*tools]  # Unpack the tools list
             )
             
@@ -367,7 +440,7 @@ async def run_agent(args):
         
         print(f"{CYAN}Initializing agent...{RESET}")
         
-        agent = WeatherAnomalyCAMELAgent(
+        agent = WeatherAnomalyAgent(
             mcp_config_path=args.mcp_config,
             model_platform=args.model_platform,
             model_type=args.model_type,

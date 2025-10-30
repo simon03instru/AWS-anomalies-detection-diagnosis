@@ -172,7 +172,7 @@ class WeatherAnomalyAgent:
         self.agent = None
         
         if self.thought_logger:
-            self.thought_logger.log_step("INITIALIZATION", "Initializing Weather Anomaly Agent Stageof Yogyakarta...")
+            self.thought_logger.log_step("INITIALIZATION", "Initializing Weather Anomaly Agent DIY Stageof...")
     
     async def initialize(self):
         """Initialize MCP toolkit and CAMEL agent asynchronously"""
@@ -206,7 +206,7 @@ class WeatherAnomalyAgent:
             self.agent = self._create_agent(tools)
             
             if self.thought_logger:
-                self.thought_logger.log_step("INITIALIZATION", "Agent DIY Yogyakarta initialization complete")
+                self.thought_logger.log_step("INITIALIZATION", "Agent initialization complete")
             
             return True
             
@@ -240,7 +240,7 @@ class WeatherAnomalyAgent:
             system_message = """You are a weather sensor Anomaly Investigation Agent to publish findings of a potential sensor malfunction. Systematically analyze sensor anomalies and publish confirmed ones.
 
                 PROCESS:
-                1) IDENTIFY: Extract top 3 anomalous features from provided data
+                1) IDENTIFY: Extract top 3 anomalous features from provided data. Timestamp in received data is UTC, and local time is UTC+7.
 
                 2) RETRIEVE: Get latest 20 records for ALL parameters using get_data_from_db(features="tt,rh,pp,ws,wd,sr,rr", limit=20)
 

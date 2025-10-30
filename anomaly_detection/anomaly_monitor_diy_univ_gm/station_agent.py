@@ -91,12 +91,25 @@ class ThoughtProcessLogger:
         args_str = json.dumps(arguments, indent=2)
         content = f"Calling tool: {tool_name}\nArguments:\n{args_str}"
         self.log_step("TOOL_CALL", content)
-    
-    def log_tool_result(self, tool_name: str, result: str, truncate: int = 5000):
-        """Log tool result to file"""
-        result_preview = result[:truncate] + "..." if len(result) > truncate else result
-        content = f"Tool '{tool_name}' returned:\n{result_preview}"
+
+    def log_tool_result(self, tool_name: str, result: str, truncate: int = 200):
+        """Log tool result to file - skip detailed logging for get_data_from_db"""
+        # Skip detailed logging for database queries (too verbose)
+        if tool_name == "get_data_from_db":
+            # Just log a summary for database queries
+            try:
+                result_data = json.loads(result) if isinstance(result, str) else result
+                record_count = len(result_data.get("records", [])) if isinstance(result_data, dict) else 0
+                result_preview = f"[Database query returned {record_count} records, {len(result)} characters total]"
+            except:
+                result_preview = f"[Database query executed - {len(result)} characters returned]"
+        else:
+            # For other tools, show a preview
+            result_preview = result[:truncate] + "..." if len(result) > truncate else result
+        
+        content = f"Tool '{tool_name}' returned: {result_preview}"
         self.log_step("TOOL_RESULT", content)
+
     
     def log_reasoning(self, reasoning: str):
         """Log agent's reasoning to file"""
@@ -159,7 +172,7 @@ class WeatherAnomalyAgent:
         self.agent = None
         
         if self.thought_logger:
-            self.thought_logger.log_step("INITIALIZATION", "Initializing Weather Anomaly Agent...")
+            self.thought_logger.log_step("INITIALIZATION", "Initializing Weather Anomaly Agent UGM...")
     
     async def initialize(self):
         """Initialize MCP toolkit and CAMEL agent asynchronously"""
@@ -193,7 +206,7 @@ class WeatherAnomalyAgent:
             self.agent = self._create_agent(tools)
             
             if self.thought_logger:
-                self.thought_logger.log_step("INITIALIZATION", "Agent initialization complete")
+                self.thought_logger.log_step("INITIALIZATION", "Agent DIY Yogyakarta initialization complete")
             
             return True
             
@@ -224,45 +237,70 @@ class WeatherAnomalyAgent:
             #     model_config_dict={"temperature": self.temperature}
             # )
             
-            system_message = """You are a Weather Anomaly Investigation Agent. Your role is to systematically analyze 
-                            weather anomalies, verify them against historical data, and publish confirmed anomalies with trend insights.
+            system_message = """You are a weather sensor Anomaly Investigation Agent to publish findings of a potential sensor malfunction. Systematically analyze sensor anomalies and publish confirmed ones.
 
-                            INVESTIGATION PROCESS:
-                            1) IDENTIFY: Extract top 3 anomalous features from the provided data based on anomaly scores
-                            2) RETRIEVE: Get latest 10 historical records for ONLY those anomalous features using get_data_from_db
-                            3) ANALYZE: For each anomalous feature, compare current vs historical values:
-                                - Identify: deviation magnitude, direction of change, pattern (spike/drop/gradual)
-                                - Assess: Is this truly anomalous or within normal variation?
-                            4) GENERATE TREND INSIGHTS: For each confirmed anomaly, write a SHORT trend summary (1-2 sentences):
-                                - Example: "Temperature rose 3.5°C above 5-hour average, exceeding normal range by 15%"
-                                - Example: "Humidity dropped 18% in 2 hours, unusual compared to typical 5% variation"
-                                - Include: magnitude of change, timeframe, comparison to normal patterns
-                            5) DECIDE: Based on YOUR OWN ANALYSIS (not just anomaly scores):
-                                - If confidence >80% it's a real anomaly → Publish using publish_anomaly_to_kafka with trend analysis
-                                - If confidence ≤80% → Report "Possible false alarm" with reasoning
-                            6) PUBLISH: Use publish_anomaly_to_kafka with:
-                                - anomalous_features: JSON dict of {feature_code: current_value}
-                                - trend_analysis: JSON dict of {feature_code: "short trend insight"}
+                PROCESS:
+                1) IDENTIFY: Extract top 3 anomalous features from provided data. Timestamp in received data is UTC, and local time is UTC+7.
 
-                            IMPORTANT RULES:
-                                - Only publish features YOU confirm as anomalous (ignore provided anomaly scores in your decision)
-                                - Always include trend_analysis parameter when publishing
-                                - Keep trend insights concise but informative (1-2 sentences per feature)
-                                - Focus on: magnitude, direction, timeframe, and comparison to historical patterns
-                                - Think systematically and show your reasoning at each step
+                2) RETRIEVE: Get latest 20 records for ALL parameters using get_data_from_db(features="tt,rh,pp,ws,wd,sr,rr", limit=20)
 
-                                Example trend analysis format:
-                                {
-                                "tt": "Temperature increased 4.2°C over 3 hours, 20% above historical maximum for this period",
-                                "rh": "Humidity declined sharply from 65% to 25%, representing a 40% drop in 2 hours"
-                                }
-                                """
+                3) IMMEDIATE SENSOR FAULT CHECK:
+                - Invalid sentinels (e.g., -9999, 9999): PUBLISH immediately
+                - Physically impossible values: PUBLISH immediately
+                    * rh: must be 0-100%, values at exact 0% or 100% are highly suspicious
+                    * wd: must be 0-360°
+                    * tt: must be within reasonable range for location (-50°C to 60°C)
+                    * ws: cannot be negative
+                    * pp: typical range 950-1050 hPa
+                    * rr : cannot be negative and sudden large jumps (>10mm) are anomalous
+                - Stuck readings: same exact value for >6 intervals (60min): PUBLISH immediately
+
+                4) CORRELATION CHECK (secondary validation):
+                For features not caught above, check correlations:
+                - tt (Temperature): Should correlate negatively with rh, positively with sr
+                - rh (Humidity): Should correlate negatively with tt, positively with rr
+                - ws (Wind Speed): Should correlate negatively with pp
+                - pp (Pressure): Should correlate negatively with ws
+                - sr (Solar Radiation): can change rapidly (300 units/10min is normal); low at night is expected
+                - wd (Wind Direction): can change rapidly; do NOT use correlation; only check range (0-360°)
+                
+                Note: Broken correlations SUPPORT anomaly detection but intact correlations do NOT rule out sensor faults
+
+                5) ANALYZE: Compare current vs historical (each record = 10 min interval):
+                - Deviation magnitude and direction
+                - Pattern: spike/drop/gradual/stuck over how many intervals
+                - Correlation status with related parameters
+
+                6) DECIDE: 
+                Publish anomaly if you are CONFIDENT > 80% based on:
+                - Sentinel values or physically impossible 
+                - Stuck readings (>6 intervals) 
+                - Large deviation (>3 std dev) 
+                
+
+                7) PUBLISH: Use send_anomalous_status with:
+                - anomalous_features: {feature_code: value}
+                - trend_analysis: {feature_code: "SHORT analysis including: type of fault, magnitude, timeframe, correlation status"}
+
+                EXAMPLE:
+                {
+                "wd": "Invalid sentinel value -9999.0° - sensor communication failure",
+                "rh": "Physically impossible 0% reading - sensor fault. Expected 48-56%, dropped 100% instantly. Correlation with tt appears intact but this doesn't rule out sensor malfunction.",
+                "ws": "Stuck at 0.6 m/s for 60min (6 intervals), 88% below avg. Correlation with pp broken - sensor likely stuck/failed."
+                }
+
+                CRITICAL RULES:
+                - ALWAYS publish confirmed sensor faults only - avoid false alarms
+                - ALWAYS publish sentinel values (-9999, 9999, etc.) - these are definitive sensor faults
+                - ALWAYS publish physically impossible values (rh=0%, rh=100%, wd outside 0-360°)
+                - ALWAYS publish stuck readings (same value >6 intervals)
+                - Intact correlations do NOT prove sensor is working - a broken sensor can show correlation by coincidence
+                - For wind direction (wd): only check if value is valid (0-360°); ignore all other analyses
+                - Only report "Possible false alarm" when deviation is moderate AND correlations are intact AND value is physically possible
+                """
 
             agent = ChatAgent(
-                system_message=BaseMessage.make_assistant_message(
-                    role_name="Weather Anomaly Investigator",
-                    content=system_message
-                ),
+                system_message=system_message,
                 model=ollama_model,
                 tools=[*tools]  # Unpack the tools list
             )

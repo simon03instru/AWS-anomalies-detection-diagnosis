@@ -85,25 +85,22 @@ LLM_CONFIGS = [
             "max_tokens": 8192,
         }
     },
-    {
-        "name": "gpt_4_nano",
-        "display_name": "GPT 4 Nano",
+    # {
+    #     "name": "gpt_4_nano",
+    #     "display_name": "GPT 4 Nano",
+    #     "model_platform": ModelPlatformType.OPENAI,
+    #     "model_type": ModelType.GPT_4_1_NANO,
+    #     "url": None,
+    #     "model_config_dict": ChatGPTConfig(temperature=0.2).as_dict()
+    # },
+       {
+        "name": "gpt_4_1_mini",
+        "display_name": "GPT 4 1 Mini",
         "model_platform": ModelPlatformType.OPENAI,
-        "model_type": ModelType.GPT_4_1_NANO,
+        "model_type": ModelType.GPT_4_1_MINI,
         "url": None,
         "model_config_dict": ChatGPTConfig(temperature=0.2).as_dict()
     },
-    # {
-    #     "name": "Other Model",
-    #     "display_name": "Other Model",
-    #     "model_platform": ModelPlatformType.OLLAMA,
-    #     "model_type": "MFDoom/deepseek-r1-tool-calling:70b",
-    #     "url": "http://10.33.205.34:11112/v1",
-    #     "model_config_dict": {
-    #         "temperature": 0,
-    #         "max_tokens": 8192,
-    #     }
-    # },
 ]
 
 

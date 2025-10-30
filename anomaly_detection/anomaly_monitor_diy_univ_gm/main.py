@@ -8,9 +8,11 @@ import os
 import asyncio
 import argparse
 
-# Add src directory to Python path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'models'))
+
+# OPTION 1: Add current directory to path (if station_agent.py is in same directory as main.py)
+sys.path.insert(0, os.path.dirname(__file__))
 
 from config import Config
 from main_monitor import WeatherAnomalyMonitor

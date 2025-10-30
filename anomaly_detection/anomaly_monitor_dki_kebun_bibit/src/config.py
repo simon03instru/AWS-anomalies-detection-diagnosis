@@ -58,7 +58,7 @@ class Config:
     
     # FIXED THRESHOLD SETTINGS
     USE_FIXED_THRESHOLD = True
-    FIXED_THRESHOLD = 1.0
+    FIXED_THRESHOLD = 0.798
     
     # Backup settings
     ANOMALY_THRESHOLD_PERCENTILE = 95.0

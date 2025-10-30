@@ -34,7 +34,7 @@ STATION_METADATA = {
         'rh': {'name': 'Relative Humidity', 'unit': '%', 'sensor': 'hygrometer', 
                'brand': 'Vaisala HMP155', 'range': '0-100%'},
         'pp': {'name': 'Atmospheric Pressure', 'unit': 'hPa', 'sensor': 'barometer', 
-               'brand': 'Vaisala PTB330', 'range': '850-1100 hPa'},
+               'brand': 'Vaisala PTB110', 'range': '850-1100 hPa'},
         'ws': {'name': 'Wind Speed', 'unit': 'm/s', 'sensor': 'anemometer', 
                'brand': 'Young 05103-L', 'range': '0-50 m/s'},
         'wd': {'name': 'Wind Direction', 'unit': '°', 'sensor': 'wind vane', 
@@ -42,12 +42,12 @@ STATION_METADATA = {
         'sr': {'name': 'Solar Radiation', 'unit': 'W/m²', 'sensor': 'pyranometer', 
                'brand': 'Kipp & Zonen CMP3', 'range': '0-1500 W/m²'},
         'rr': {'name': 'Rainfall', 'unit': 'mm', 'sensor': 'rain gauge', 
-               'brand': 'Texas Electronics TR-525M', 'range': '0-100 mm/h'}
+               'brand': 'HYQUEST TB4', 'range': '0-100 mm/h'}
     },
     'station_info': {
         'id': 'AWS_DIY_UGM',
-        'latitude': -34.9285,
-        'longitude': 138.6007,
+        'latitude': -7.768469,
+        'longitude': 110.38192,
         'altitude': 48.0,
         'location': 'UGM Yogyakarta, Indonesia',
         'last_calibration': '2024-03-15',

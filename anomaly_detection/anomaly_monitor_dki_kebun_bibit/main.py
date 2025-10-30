@@ -8,13 +8,15 @@ import os
 import asyncio
 import argparse
 
-# Add src directory to Python path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'models'))
 
+# OPTION 1: Add current directory to path (if station_agent.py is in same directory as main.py)
+sys.path.insert(0, os.path.dirname(__file__))
+
 from config import Config
 from main_monitor import WeatherAnomalyMonitor
-from station_agent import WeatherAnomalyCAMELAgent, ThoughtProcessLogger
+from station_agent import WeatherAnomalyAgent, ThoughtProcessLogger
 
 
 async def initialize_with_agent():
@@ -27,11 +29,11 @@ async def initialize_with_agent():
     
     # Create CAMEL agent
     print("  → Creating CAMEL agent...")
-    agent = WeatherAnomalyCAMELAgent(
+    agent = WeatherAnomalyAgent(
         mcp_config_path="config/weather_anomaly.json",
-        model_platform="openai",
-        model_type="gpt-4-turbo",
-        temperature=0.0,
+        #model_platform="openai",
+        #model_type="gpt-4-turbo",
+        #temperature=0.0,
         thought_logger=thought_logger
     )
     

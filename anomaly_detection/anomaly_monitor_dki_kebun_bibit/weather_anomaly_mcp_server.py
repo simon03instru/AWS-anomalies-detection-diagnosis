@@ -34,7 +34,7 @@ STATION_METADATA = {
         'rh': {'name': 'Relative Humidity', 'unit': '%', 'sensor': 'hygrometer', 
                'brand': 'Vaisala HMP155', 'range': '0-100%'},
         'pp': {'name': 'Atmospheric Pressure', 'unit': 'hPa', 'sensor': 'barometer', 
-               'brand': 'Vaisala PTB330', 'range': '850-1100 hPa'},
+               'brand': 'Vaisala PTB110', 'range': '850-1100 hPa'},
         'ws': {'name': 'Wind Speed', 'unit': 'm/s', 'sensor': 'anemometer', 
                'brand': 'Young 05103-L', 'range': '0-50 m/s'},
         'wd': {'name': 'Wind Direction', 'unit': '°', 'sensor': 'wind vane', 
@@ -42,7 +42,7 @@ STATION_METADATA = {
         'sr': {'name': 'Solar Radiation', 'unit': 'W/m²', 'sensor': 'pyranometer', 
                'brand': 'Kipp & Zonen CMP3', 'range': '0-1500 W/m²'},
         'rr': {'name': 'Rainfall', 'unit': 'mm', 'sensor': 'rain gauge', 
-               'brand': 'Texas Electronics TR-525M', 'range': '0-100 mm/h'}
+               'brand': 'HyQuest TB4', 'range': '0-100 mm/h'}
     },
     'station_info': {
         'id': 'AWS_DKI_KebunBibit',
@@ -356,15 +356,19 @@ async def get_data_from_db(
 @mcp.tool()
 async def publish_anomaly_to_kafka(
     timestamp: str,
-    anomalous_features: str
+    anomalous_features: str,
+    trend_analysis: str = None
 ) -> str:
     """
-    Publish confirmed anomaly to Kafka event broker with station metadata.
+    Publish confirmed anomaly to Kafka event broker with station metadata and trend analysis.
     
     Parameters:
     - timestamp: Timestamp of the anomaly (ISO format, e.g., "2024-09-25T14:30:00")
     - anomalous_features: JSON string with format {"feature_code": value}
       Example: {"tt": 35.2, "rh": 25.0}
+    - trend_analysis: Optional JSON string with trend insights for each anomalous feature
+      Example: {"tt": "Rising 3.5°C over last 5 hours, exceeding normal range",
+                "rh": "Dropped 15% in 2 hours, unusual for this time period"}
     
     Returns:
     - Success message with confirmation details
@@ -383,19 +387,33 @@ async def publish_anomaly_to_kafka(
             features_data = json.loads(anomalous_features)
         else:
             features_data = anomalous_features
+        
+        # Parse trend analysis if provided
+        trend_data = {}
+        if trend_analysis:
+            if isinstance(trend_analysis, str):
+                trend_data = json.loads(trend_analysis)
+            else:
+                trend_data = trend_analysis
             
-        # Build anomalous features list with metadata
+        # Build anomalous features list with metadata and trends
         confirmed_anomalies = []
         for feature_code, current_value in features_data.items():
             feature_info = STATION_METADATA['features'].get(feature_code, {})
             
             confirmed_anomaly = {
                 "parameter": feature_info.get('name', feature_code.upper()),
-                "parameter_code": feature_code,
+                #"parameter_code": feature_code,
                 "value": current_value,
+                #"unit": feature_info.get('unit', 'N/A'),
                 "sensor_brand": feature_info.get('brand', f'Unknown sensor for {feature_code}'),
-                "sensor_range": feature_info.get('range', 'N/A')
+                #"sensor_range": feature_info.get('range', 'N/A')
             }
+            
+            # Add trend analysis if available
+            if feature_code in trend_data:
+                confirmed_anomaly["trend_analysis"] = trend_data[feature_code]
+            
             confirmed_anomalies.append(confirmed_anomaly)
         
         # Build Kafka event payload
@@ -416,7 +434,8 @@ async def publish_anomaly_to_kafka(
                 }
             },
             "confirmed_anomalies": confirmed_anomalies,
-            "validation_timestamp": datetime.now().isoformat()
+            "validation_timestamp": datetime.now().isoformat(),
+            "has_trend_analysis": bool(trend_data)
         }
         
         # Create Kafka event envelope
@@ -461,6 +480,7 @@ async def publish_anomaly_to_kafka(
                 "timestamp": timestamp,
                 "station_id": STATION_METADATA['station_info']['id'],
                 "anomalous_features_count": len(confirmed_anomalies),
+                "trend_analysis_included": bool(trend_data),
                 "correlation_id": kafka_event["correlation_id"]
             }, indent=2)
             
@@ -480,7 +500,7 @@ async def publish_anomaly_to_kafka(
     except json.JSONDecodeError as e:
         return json.dumps({
             "status": "error",
-            "error": f"Invalid JSON format for anomalous_features: {str(e)}"
+            "error": f"Invalid JSON format: {str(e)}"
         })
     except Exception as e:
         # Fallback: save to file on any error
