@@ -3,12 +3,13 @@ RAGAS Batch Evaluation - All Experiments with Multiple Runs
 Evaluates all experiments in gpt_oss_120b, gpt_oss_20b, and gpt_4_nano folders
 Runs each experiment 3 times and saves results to eval_result.txt
 Includes Faithfulness and Answer Relevancy metrics with FLEXIBLE CHUNKING
+MODIFIED TO USE: GPT-4o Mini
 """
 
 import asyncio
 from ragas.dataset_schema import SingleTurnSample
 from ragas.metrics import AnswerRelevancy, Faithfulness
-from langchain_ollama import OllamaLLM, OllamaEmbeddings
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 import os
 from dotenv import load_dotenv
 from pathlib import Path
@@ -24,12 +25,12 @@ load_dotenv()
 BASE_DIR = "/home/ubuntu/running/agent_evaluation/experiment"
 FOLDERS = ["gpt_oss_120b", "gpt_oss_20b", "gpt_4_1_mini"]
 NUM_EXPERIMENTS = 20  # exp_1 to exp_20
-NUM_RUNS = 2  # Run each experiment 3 times
+NUM_RUNS = 2 # Run each experiment 2 times
 
-# LOCAL LLM SERVER CONFIG
-LOCAL_LLM_HOST = "http://10.33.205.34:11112"
-LOCAL_LLM_MODEL = "gpt-oss:120b"
-EMBEDDING_MODEL = "nomic-embed-text"
+# OPENAI CONFIG
+OPENAI_MODEL = "gpt-4o-mini"
+EMBEDDING_MODEL = "text-embedding-3-small"
+# Make sure to set OPENAI_API_KEY in your .env file
 
 # Evaluation parameters
 MAX_CONTEXTS = 20
@@ -321,21 +322,31 @@ async def evaluate_single_experiment(folder_name, exp_num, run_num, llm, embeddi
             retrieved_contexts=contexts
         )
         
-        # Evaluate Faithfulness
+        # Evaluate Faithfulness with retry
         f_score = None
-        try:
-            faithfulness = Faithfulness(llm=llm)
-            f_score = await faithfulness.single_turn_ascore(sample)
-        except Exception as e:
-            print(f"      Faithfulness failed: {str(e)[:100]}")
+        for attempt in range(3):  # Try up to 3 times
+            try:
+                faithfulness = Faithfulness(llm=llm)
+                f_score = await faithfulness.single_turn_ascore(sample)
+                break  # Success, exit retry loop
+            except Exception as e:
+                if attempt == 2:  # Last attempt
+                    print(f"      Faithfulness failed after 3 attempts: {str(e)[:100]}")
+                else:
+                    await asyncio.sleep(1)  # Wait before retry
         
-        # Evaluate Answer Relevancy
+        # Evaluate Answer Relevancy with retry
         r_score = None
-        try:
-            relevancy = AnswerRelevancy(llm=llm, embeddings=embeddings)
-            r_score = await relevancy.single_turn_ascore(sample)
-        except Exception as e:
-            print(f"      Relevancy failed: {str(e)[:100]}")
+        for attempt in range(3):  # Try up to 3 times
+            try:
+                relevancy = AnswerRelevancy(llm=llm, embeddings=embeddings)
+                r_score = await relevancy.single_turn_ascore(sample)
+                break  # Success, exit retry loop
+            except Exception as e:
+                if attempt == 2:  # Last attempt
+                    print(f"      Relevancy failed after 3 attempts: {str(e)[:100]}")
+                else:
+                    await asyncio.sleep(1)  # Wait before retry
         
         status = "SUCCESS" if all([f_score is not None, r_score is not None]) else "PARTIAL"
         
@@ -365,15 +376,14 @@ async def evaluate_single_experiment(folder_name, exp_num, run_num, llm, embeddi
 
 async def main():
     print("\n" + "="*70)
-    print("🚀 RAGAS BATCH EVALUATION - FLEXIBLE CHUNKING")
+    print("🚀 RAGAS BATCH EVALUATION - GPT-4o Mini")
     print("="*70)
     print(f"Base Directory: {BASE_DIR}")
     print(f"Folders: {', '.join(FOLDERS)}")
     print(f"Experiments per folder: {NUM_EXPERIMENTS}")
     print(f"Runs per experiment: {NUM_RUNS}")
     print(f"Total evaluations: {len(FOLDERS) * NUM_EXPERIMENTS * NUM_RUNS}")
-    print(f"\nLLM: {LOCAL_LLM_MODEL}")
-    print(f"Host: {LOCAL_LLM_HOST}")
+    print(f"\nLLM: {OPENAI_MODEL}")
     print(f"Embedding: {EMBEDDING_MODEL}")
     print(f"Metrics: Faithfulness, Relevancy")
     print(f"\n📊 CHUNKING STRATEGY: {CHUNKING_STRATEGY.upper()}")
@@ -393,18 +403,23 @@ async def main():
     print(f"   - Max contexts: {MAX_CONTEXTS}")
     print("="*70 + "\n")
     
+    # Verify OpenAI API Key
+    if not os.getenv("OPENAI_API_KEY"):
+        raise ValueError("OPENAI_API_KEY not found in environment variables. Please set it in your .env file.")
+    
     # Setup LLM and Embeddings
-    print("🤖 Setting up LLM and embeddings...\n")
-    llm = OllamaLLM(
-        model=LOCAL_LLM_MODEL,
-        base_url=LOCAL_LLM_HOST,
+    print("🤖 Setting up GPT-4o Mini and embeddings...\n")
+    llm = ChatOpenAI(
+        model=OPENAI_MODEL,
         temperature=0,
-        num_ctx=16000,
+        max_tokens=16384,  # GPT-4o mini supports up to 16,384 output tokens
+        model_kwargs={
+            "response_format": {"type": "json_object"}  # Force JSON output
+        }
     )
     
-    embeddings = OllamaEmbeddings(
-        model=EMBEDDING_MODEL,
-        base_url=LOCAL_LLM_HOST
+    embeddings = OpenAIEmbeddings(
+        model=EMBEDDING_MODEL
     )
     
     # Store all results
@@ -453,7 +468,7 @@ async def main():
     # ============================================
     # SAVE RESULTS TO FILE
     # ============================================
-    output_file = Path(BASE_DIR) / "eval_result.txt"
+    output_file = Path(BASE_DIR) / "eval_result_gpt4o.txt"
     
     print(f"\n{'='*70}")
     print(f"💾 SAVING RESULTS TO: {output_file}")
@@ -462,11 +477,11 @@ async def main():
     with open(output_file, 'w') as f:
         # Write header
         f.write("="*70 + "\n")
-        f.write(f"RAGAS BATCH EVALUATION RESULTS ({CHUNKING_STRATEGY.upper()} CHUNKING)\n")
+        f.write(f"RAGAS BATCH EVALUATION RESULTS - GPT-4o Mini ({CHUNKING_STRATEGY.upper()} CHUNKING)\n")
         f.write("="*70 + "\n")
         f.write(f"Evaluation Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         f.write(f"Total Duration: {total_duration:.2f} seconds ({total_duration/60:.1f} minutes)\n")
-        f.write(f"LLM Model: {LOCAL_LLM_MODEL}\n")
+        f.write(f"LLM Model: {OPENAI_MODEL}\n")
         f.write(f"Embedding Model: {EMBEDDING_MODEL}\n")
         f.write(f"Metrics: Faithfulness, Relevancy\n")
         f.write(f"Chunking Strategy: {CHUNKING_STRATEGY}\n")
