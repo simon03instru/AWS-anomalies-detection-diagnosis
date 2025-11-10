@@ -728,21 +728,21 @@ def create_logged_tools(tools_list: list, context_name: str = "tool") -> list:
 # Model Setup
 # ============================================================================
 
-# ollama_model = ModelFactory.create(
-#     model_platform=ModelPlatformType.OLLAMA,
-#     model_type="gpt-oss:120b",
-#     url="http://10.33.205.34:11112/v1",
-#     model_config_dict={
-#         "temperature": 0,
-#         "max_tokens": 8192,
-#     },
-# )
-
 ollama_model = ModelFactory.create(
-    model_platform=ModelPlatformType.OPENAI,
-    model_type=ModelType.GPT_4O_MINI,
-    model_config_dict=ChatGPTConfig(temperature=0.2).as_dict(),
+    model_platform=ModelPlatformType.OLLAMA,
+    model_type="gpt-oss:120b",
+    url="http://10.33.205.34:11112/v1",
+    model_config_dict={
+        "temperature": 0,
+        "max_tokens": 8192,
+    },
 )
+
+# ollama_model = ModelFactory.create(
+#     model_platform=ModelPlatformType.OPENAI,
+#     model_type=ModelType.GPT_4O_MINI,
+#     model_config_dict=ChatGPTConfig(temperature=0.2).as_dict(),
+# )
 
 
 def initialize_cognee():

@@ -249,7 +249,7 @@ def create_agent_search_tool(dataset_name: str):
         results = await cognee.search(
             query_text=query,
             node_name=node_sets,
-            top_k=3  # Always return top 5 results
+            top_k=5  # Always return top 5 results
         )
         
         # No results

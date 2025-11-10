@@ -31,7 +31,8 @@ CONSIDERATION:
 - Because weather data from API is satellite-based, it may differ from ground sensor data due to local microclimates and conditions. Thus, allow for some discrepancies between weather data and sensor readings.
 Especially rainfall rates, which can vary significantly.
 
-[Include detailed JSON data only if specifically requested]"
+[Include detailed JSON data only if specifically requested]
+
 """
 
 
@@ -45,7 +46,8 @@ SENSOR_AGENT_PROMPT = """You are a Sensor Specification Expert with access to a 
 
     WORKFLOW:
     1. User asks a question → Call 'search_sensor_knowledge' tool with the query (with node_set if available : e.g., temperature_humidity_sensor, pressure_sensor)
-    Always include node_set based on the sensor type mentioned in the user query. Available node_sets: temperature_humidity_sensor, pressure_sensor, solar_radiation_sensor, wind_sensor, rain_sensor
+    Always include node_set based on the sensor type mentioned in the user query. Available node_sets: temperature_humidity_sensor, pressure_sensor, solar_radiation_sensor, wind_sensor, rain_sensor, general_maintenance
+    To find general datalogger and station specification, use node_set 'general_maintenance'.
     Dont search node_set other than the available node_sets listed above.
     2. Get results → Provide answer based on results
     3. STOP - Never call search again
@@ -71,7 +73,8 @@ MAINTENANCE_AGENT_PROMPT = """You are a Maintenance Expert with access to a know
 
         WORKFLOW:
         1. User asks about maintenance related information → Call 'search_maintenance_knowledge' tool with the query
-        Always include node_set based on the sensor type mentioned in the user query. Available node_sets: temperature_humidity_sensor, pressure_sensor, solar_radiation_sensor, wind_sensor, rain_sensor
+        Always include node_set based on the sensor type mentioned in the user query. Available node_sets: temperature_humidity_sensor, pressure_sensor, solar_radiation_sensor, wind_sensor, rain_sensor, general_maintenance
+        To find troubleshooting of datalogger and station issues, use node_set 'general_maintenance'.
         Dont search node_set other than the available node_sets listed above.
         2. Get results → Provide answer based on results (do not debate the answer)
         3. STOP - Never call search again
@@ -89,7 +92,7 @@ MAINTENANCE_AGENT_PROMPT = """You are a Maintenance Expert with access to a know
         - All operations automatically use the 'maintenance_knowledge' dataset
         - You cannot access other datasets - only maintenance_knowledge
 
-        CRITICAL: After one search call, you must respond with text, not another tool call."""
+        CRITICAL: After one search call, you must respond with text, not another tool call.'"""
 
 TASK_AGENT_PROMPT = """You are a Task Decomposition Agent for a Weather Anomaly Investigation System. You receive anomaly alerts in JSON format and create investigation subtasks.
 
@@ -262,6 +265,7 @@ ALWAYS RESPOND IN THIS FORMAT:
 ✅ GOOD: "Cuaca aktual menunjukkan suhu 28.8°C (normal), namun sensor melaporkan -9999°C—kode error di luar rentang operasional (-80°C hingga +60°C). Ini mengindikasikan kegagalan sensor (koneksi kabel atau elemen rusak), bukan anomali cuaca."
 
 REMEMBER: Brevity is mandatory. Each section should be information-dense but concise. Long explanations are prohibited.
+
 """
 
 

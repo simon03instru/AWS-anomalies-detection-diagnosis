@@ -34,7 +34,7 @@ STATION_METADATA = {
         'rh': {'name': 'Relative Humidity', 'unit': '%', 'sensor': 'hygrometer', 
                'brand': 'Vaisala HMP155', 'range': '0-100%'},
         'pp': {'name': 'Atmospheric Pressure', 'unit': 'hPa', 'sensor': 'barometer', 
-               'brand': 'Vaisala PTB110', 'range': '850-1100 hPa'},
+               'brand': 'BaroVue', 'range': '850-1100 hPa'},
         'ws': {'name': 'Wind Speed', 'unit': 'm/s', 'sensor': 'anemometer', 
                'brand': 'Young 05103-L', 'range': '0-50 m/s'},
         'wd': {'name': 'Wind Direction', 'unit': '°', 'sensor': 'wind vane', 

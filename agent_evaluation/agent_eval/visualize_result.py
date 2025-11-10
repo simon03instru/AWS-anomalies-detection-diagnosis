@@ -3,9 +3,16 @@ import numpy as np
 import seaborn as sns
 import pandas as pd
 
-# Set style
-plt.style.use('seaborn-v0_8-darkgrid')
+# Set style for clean white background
+plt.style.use('default')  # Changed from 'seaborn-v0_8-darkgrid'
+sns.set_style("white")  # Changed to white background
 sns.set_palette("husl")
+
+# Remove all grid backgrounds
+plt.rcParams['axes.facecolor'] = 'white'
+plt.rcParams['figure.facecolor'] = 'white'
+plt.rcParams['axes.edgecolor'] = 'black'
+plt.rcParams['axes.linewidth'] = 1.5
 
 # CORRECTED DATA - Experiment 13 for gpt_oss_120b has 0.7915 relevancy
 
@@ -114,16 +121,19 @@ relevancy_std = [stats_120b['std_relev'], stats_20b['std_relev'], stats_4_1_mini
 avg_contexts = [stats_120b['avg_contexts'], stats_20b['avg_contexts'], stats_4_1_mini['avg_contexts']]
 
 # Create comprehensive visualization
-fig = plt.figure(figsize=(20, 12))
+fig = plt.figure(figsize=(20, 12), facecolor='white')
 colors_scatter = ['#FF6B6B', '#4ECDC4', '#45B7D1']
 
 # 1. Bar chart comparing average metrics (ONLY Faithfulness and Relevancy)
 ax1 = plt.subplot(2, 3, 1)
+ax1.set_facecolor('white')
 x = np.arange(len(models))
 width = 0.35
 
-bars1 = ax1.bar(x - width/2, faithfulness, width, label='Faithfulness', alpha=0.8, color='#FF6B6B')
-bars2 = ax1.bar(x + width/2, relevancy, width, label='Relevancy', alpha=0.8, color='#4ECDC4')
+bars1 = ax1.bar(x - width/2, faithfulness, width, label='Faithfulness', alpha=0.8, 
+                color='#FF6B6B', edgecolor='black', linewidth=1.2)
+bars2 = ax1.bar(x + width/2, relevancy, width, label='Relevancy', alpha=0.8, 
+                color='#4ECDC4', edgecolor='black', linewidth=1.2)
 
 ax1.set_ylabel('Score', fontsize=12, fontweight='bold')
 ax1.set_title('Average Performance Comparison', fontsize=14, fontweight='bold')
@@ -131,7 +141,9 @@ ax1.set_xticks(x)
 ax1.set_xticklabels(model_labels, rotation=15, ha='right')
 ax1.legend()
 ax1.set_ylim([0, 1])
-ax1.grid(axis='y', alpha=0.3)
+ax1.grid(axis='y', alpha=0.3, color='gray', linestyle='-', linewidth=0.5)
+ax1.spines['top'].set_visible(False)
+ax1.spines['right'].set_visible(False)
 
 # Add value labels on bars with std
 for bars, vals, stds in [(bars1, faithfulness, faithfulness_std), 
@@ -143,6 +155,7 @@ for bars, vals, stds in [(bars1, faithfulness, faithfulness_std),
 
 # 2. Radar chart (ONLY Faithfulness, Relevancy, Efficiency)
 ax2 = plt.subplot(2, 3, 2, projection='polar')
+ax2.set_facecolor('white')
 categories = ['Faithfulness', 'Relevancy', 'Efficiency\n(inv. contexts)']
 N = len(categories)
 
@@ -164,10 +177,11 @@ ax2.set_xticklabels(categories, size=10)
 ax2.set_ylim(0, 1)
 ax2.set_title('Multi-Dimensional Performance', fontsize=14, fontweight='bold', pad=20)
 ax2.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1))
-ax2.grid(True)
+ax2.grid(True, color='gray', alpha=0.3)
 
 # 3. Box plot for faithfulness distribution
 ax3 = plt.subplot(2, 3, 3)
+ax3.set_facecolor('white')
 faithfulness_data = [
     stats_120b['faithfulness'],
     stats_20b['faithfulness'],
@@ -180,43 +194,58 @@ bp = ax3.boxplot(faithfulness_data, labels=model_labels, patch_artist=True,
 for patch, color in zip(bp['boxes'], colors_scatter):
     patch.set_facecolor(color)
     patch.set_alpha(0.6)
+    patch.set_edgecolor('black')
+    patch.set_linewidth(1.2)
+
+# Style the boxplot lines
+for element in ['whiskers', 'fliers', 'means', 'medians', 'caps']:
+    plt.setp(bp[element], color='black', linewidth=1.2)
 
 ax3.set_ylabel('Faithfulness Score', fontsize=12, fontweight='bold')
 ax3.set_title('Faithfulness Distribution Across Experiments', fontsize=14, fontweight='bold')
 ax3.tick_params(axis='x', rotation=15)
-ax3.grid(axis='y', alpha=0.3)
+ax3.grid(axis='y', alpha=0.3, color='gray', linestyle='-', linewidth=0.5)
 ax3.set_ylim([0, 1.05])
+ax3.spines['top'].set_visible(False)
+ax3.spines['right'].set_visible(False)
 
 # 4. Scatter plot: Faithfulness vs Relevancy
 ax4 = plt.subplot(2, 3, 4)
+ax4.set_facecolor('white')
 markers = ['o', 's', '^']
 
 for i, (stat, label, color, marker) in enumerate(zip(
     [stats_120b, stats_20b, stats_4_1_mini],
     model_labels, colors_scatter, markers
 )):
-    ax4.scatter(stat['faithfulness'], stat['relevancy'], label=label, alpha=0.6, s=100,
-               color=color, marker=marker, edgecolors='black', linewidth=0.5)
+    ax4.scatter(stat['faithfulness'], stat['relevancy'], label=label, alpha=0.7, s=100,
+               color=color, marker=marker, edgecolors='black', linewidth=1.5)
 
 ax4.set_xlabel('Faithfulness', fontsize=12, fontweight='bold')
 ax4.set_ylabel('Relevancy', fontsize=12, fontweight='bold')
 ax4.set_title('Faithfulness vs Relevancy (All Experiments)', fontsize=14, fontweight='bold')
 ax4.legend()
-ax4.grid(True, alpha=0.3)
+ax4.grid(True, alpha=0.3, color='gray', linestyle='-', linewidth=0.5)
 ax4.set_xlim([0, 1.05])
 ax4.set_ylim([0.35, 0.85])
+ax4.spines['top'].set_visible(False)
+ax4.spines['right'].set_visible(False)
 
 # Add quadrant lines
-ax4.axvline(x=0.7, color='gray', linestyle='--', alpha=0.5)
-ax4.axhline(y=0.6, color='gray', linestyle='--', alpha=0.5)
+ax4.axvline(x=0.7, color='gray', linestyle='--', alpha=0.5, linewidth=1.5)
+ax4.axhline(y=0.6, color='gray', linestyle='--', alpha=0.5, linewidth=1.5)
 
 # 5. Average contexts comparison
 ax5 = plt.subplot(2, 3, 5)
-bars = ax5.bar(model_labels, avg_contexts, color=colors_scatter, alpha=0.7, edgecolor='black')
+ax5.set_facecolor('white')
+bars = ax5.bar(model_labels, avg_contexts, color=colors_scatter, alpha=0.7, 
+               edgecolor='black', linewidth=1.2)
 ax5.set_ylabel('Average Number of Contexts', fontsize=12, fontweight='bold')
-ax5.set_title('Context Efficiency (Lower is Better)', fontsize=14, fontweight='bold')
+ax5.set_title('Average Context Invoked', fontsize=14, fontweight='bold')
 ax5.tick_params(axis='x', rotation=15)
-ax5.grid(axis='y', alpha=0.3)
+ax5.grid(axis='y', alpha=0.3, color='gray', linestyle='-', linewidth=0.5)
+ax5.spines['top'].set_visible(False)
+ax5.spines['right'].set_visible(False)
 
 # Add value labels
 for bar in bars:
@@ -226,6 +255,7 @@ for bar in bars:
 
 # 6. Performance ranking table (Updated without Overall)
 ax6 = plt.subplot(2, 3, 6)
+ax6.set_facecolor('white')
 ax6.axis('off')
 
 # Create ranking data
@@ -259,6 +289,8 @@ table.scale(1, 3.0)
 for i in range(len(table_data)):
     for j in range(4):
         cell = table[(i+1, j)]
+        cell.set_edgecolor('black')
+        cell.set_linewidth(1.5)
         if j == 0:
             cell.set_facecolor('#E8E8E8')
             cell.set_text_props(weight='bold')
@@ -274,12 +306,15 @@ for j in range(4):
     cell = table[(0, j)]
     cell.set_facecolor('#4A4A4A')
     cell.set_text_props(weight='bold', color='white')
+    cell.set_edgecolor('black')
+    cell.set_linewidth(1.5)
 
 ax6.set_title('Performance Rankings', fontsize=14, fontweight='bold', pad=20)
 
 plt.tight_layout()
-plt.savefig('ag_evaluation_no_overall.png', dpi=300, bbox_inches='tight')
-print("Visualization without overall score saved!")
+plt.savefig('rag_evaluation_clean_background.png', dpi=300, bbox_inches='tight', 
+            facecolor='white', edgecolor='none')
+print("✓ Visualization with clean white background saved!")
 
 # Print summary statistics
 print("\n" + "="*80)

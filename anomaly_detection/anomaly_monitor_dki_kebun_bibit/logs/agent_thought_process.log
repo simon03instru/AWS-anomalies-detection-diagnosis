@@ -1568,3 +1568,195 @@ The sensor for wind direction is definitively failed, and the temperature sensor
 
 ================================================================================
 2025-10-29 11:58:43 | [ANALYSIS_SUMMARY] Result length: 2207 characters, 334 words
+2025-11-03 01:41:44 | [INITIALIZATION] Initializing Weather Anomaly Agent DKLI Kebun Bibit...
+2025-11-03 01:41:44 | [INITIALIZATION] Loading MCP config: config/weather_anomaly.json
+2025-11-03 01:41:44 | [INITIALIZATION] Connecting to MCP server...
+2025-11-03 01:41:45 | [TOOL_DISCOVERY] Connected! Available tools: get_data_from_db, publish_anomaly_to_kafka
+2025-11-03 01:41:45 | [INITIALIZATION] Creating CAMEL agent...
+2025-11-03 01:41:45 | [INITIALIZATION] Agent initialization complete
+2025-11-03 01:42:14 | [ANALYSIS_START] Starting analysis of anomaly data:
+{
+  "timestamp": "2024-08-16T15:20:00",
+  "anomaly_score": 6.91834,
+  "weather_data": {
+    "pp": 980.51,
+    "rh": 69.5,
+    "ws": 0.0
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "pp",
+      "score": 47.6675
+    },
+    {
+      "name": "rh",
+      "score": 0.385277
+    },
+    {
+      "name": "ws",
+      "score": 0.27508
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 1
+}
+2025-11-03 01:42:14 | [REASONING] Sending query to CAMEL agent with anomaly data for systematic analysis
+2025-11-03 01:42:14 | [AGENT_PROCESSING] Waiting for agent response...
+2025-11-03 01:42:47 | [TOOL_CALL] Calling tool: get_data_from_db
+Arguments:
+{
+  "features": "tt,rh,pp,ws,wd,sr,rr",
+  "limit": 20
+}
+2025-11-03 01:42:47 | [TOOL_RESULT] Tool 'get_data_from_db' returned: [Database query returned 20 records, 5013 characters total]
+2025-11-03 01:42:47 | [TOOL_CALL] Calling tool: publish_anomaly_to_kafka
+Arguments:
+{
+  "anomalous_features": "{\"pp\": 980.51}",
+  "timestamp": "2024-08-16T15:20:00",
+  "trend_analysis": "{\"pp\": \"Pressure reading 980.51 hPa is ~23 hPa below recent mean (1002.9 hPa) and far outside observed range (1001.6\u20111003.6 hPa). Expected negative correlation with wind speed is absent (ws=0.0), suggesting a sensor fault rather than a real low\u2011pressure event.\"}"
+}
+2025-11-03 01:42:47 | [TOOL_RESULT] Tool 'publish_anomaly_to_kafka' returned: {
+  "status": "success",
+  "message": "Anomaly published to Kafka successfully",
+  "kafka_broker": "10.33.205.40:9093",
+  "topic": "weather-anomalies",
+  "partition": 0,
+  "offset": 192,
+  "timestamp"...
+2025-11-03 01:42:47 | [ANALYSIS_RESULT] Analysis complete.
+
+================================================================================
+FULL ANALYSIS RESULT:
+================================================================================
+
+**Investigation Process**
+
+| Step | Action & Findings |
+|------|--------------------|
+| **1️⃣ Identify** | Top‑3 contributing features from the alert: **pp (pressure)**, **rh (humidity)**, **ws (wind speed)**. Timestamp = 2024‑08‑16 15:20 UTC (local = 2024‑08‑16 22:20 UTC+7). |
+| **2️⃣ Retrieve** | Pulled the latest 20 records (10‑min intervals) for all parameters. Recent statistics (≈ last 3 h) show: <br>• **pp** mean ≈ 1002.9 hPa, range 1001.6‑1003.6 hPa.<br>• **rh** mean ≈ 68 % (66‑71 %).<br>• **ws** mean ≈ 0.003 m/s, essentially zero (calm). |
+| **3️⃣ Immediate Sensor‑Fault Check** | • No sentinel values (‑9999, 9999). <br>• Physical limits: <br> – **pp** = 980.51 hPa → far below typical range (950‑1050 hPa is allowed, but historically we see ~1002 hPa). <br> – **rh** = 69.5 % → within 0‑100 % (no issue). <br> – **ws** = 0.0 m/s → non‑negative, acceptable. <br>• **Stuck readings**: ws has been 0.0 for all 20 intervals → >6 intervals, but a wind‑speed of 0 m/s is plausible during calm periods; however, the persistent zero while pressure is anomalously low raises suspicion. <br>**Result:** No immediate‑publish rule triggered except the pressure extreme. |
+| **4️⃣ Correlation Check** | Expected correlations: <br>• **pp** ↔ **ws** – pressure should drop when wind speed rises (negative correlation). Here **pp** is very low **while ws = 0** → correlation broken. <br>• **pp** ↔ **rh** – no strong rule, but low pressure often coincides with higher humidity; rh is normal. <br>**Result:** Broken pressure‑wind correlation supports a fault. |
+| **5️⃣ Historical Comparison** | • **Pressure deviation:** 980.51 hPa is **≈ 22.4 hPa below the recent mean** (1002.9 hPa) and **≈ 23 hPa below the minimum observed in the last 20 records** (1001.6 hPa). This is > 3 σ (σ ≈ 0.5 hPa from the tight recent spread). <br>• **Pattern:** Single‑point spike/drop (no gradual trend). <br>• **Correlation status:** Pressure‑wind correlation broken. |
+| **6️⃣ Decision** | Confidence > 80 % that the pressure reading is a sensor fault because: <br>• Physically possible range but **far outside recent observed range** (large deviation). <br>• **Broken correlation** with wind speed (pressure low while wind is calm). <br>• No plausible meteorological explanation for such a sudden drop without accompanying wind or humidity changes. <br>**Action:** Publish confirmed anomaly for **pp**. |
+| **7️⃣ Publish** | Sent anomaly to Kafka with details (see below). |
+
+---
+
+### Published Anomaly (Kafka)
+
+```json
+{
+  "timestamp": "2024-08-16T15:20:00",
+  "anomalous_features": {
+    "pp": 980.51
+  },
+  "trend_analysis": {
+    "pp": "Pressure reading 980.51 hPa is ~23 hPa below recent mean (1002.9 hPa) and far outside observed range (1001.6‑1003.6 hPa). Expected negative correlation with wind speed is absent (ws=0.0), suggesting a sensor fault rather than a real low‑pressure event."
+  }
+}
+```
+
+**Result:** Anomaly successfully published (see system response).
+
+================================================================================
+2025-11-03 01:42:47 | [ANALYSIS_SUMMARY] Result length: 2956 characters, 452 words
+2025-11-03 01:49:03 | [CLEANUP] Disconnected from MCP server
+2025-11-03 01:49:20 | [INITIALIZATION] Initializing Weather Anomaly Agent DKLI Kebun Bibit...
+2025-11-03 01:49:20 | [INITIALIZATION] Loading MCP config: config/weather_anomaly.json
+2025-11-03 01:49:20 | [INITIALIZATION] Connecting to MCP server...
+2025-11-03 01:49:21 | [TOOL_DISCOVERY] Connected! Available tools: get_data_from_db, publish_anomaly_to_kafka
+2025-11-03 01:49:21 | [INITIALIZATION] Creating CAMEL agent...
+2025-11-03 01:49:22 | [INITIALIZATION] Agent initialization complete
+2025-11-03 01:50:06 | [ANALYSIS_START] Starting analysis of anomaly data:
+{
+  "timestamp": "2024-08-16T15:20:00",
+  "anomaly_score": 1.355426,
+  "weather_data": {
+    "rh": 0.0,
+    "tt": 20.09,
+    "pp": 1003.51
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "rh",
+      "score": 8.027296
+    },
+    {
+      "name": "tt",
+      "score": 0.972511
+    },
+    {
+      "name": "pp",
+      "score": 0.339838
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 2
+}
+2025-11-03 01:50:06 | [REASONING] Sending query to CAMEL agent with anomaly data for systematic analysis
+2025-11-03 01:50:06 | [AGENT_PROCESSING] Waiting for agent response...
+2025-11-03 01:50:36 | [TOOL_CALL] Calling tool: get_data_from_db
+Arguments:
+{
+  "features": "tt,rh,pp,ws,wd,sr,rr",
+  "limit": 20
+}
+2025-11-03 01:50:36 | [TOOL_RESULT] Tool 'get_data_from_db' returned: [Database query returned 20 records, 5013 characters total]
+2025-11-03 01:50:36 | [TOOL_CALL] Calling tool: publish_anomaly_to_kafka
+Arguments:
+{
+  "anomalous_features": "{\"rh\":0.0,\"tt\":20.09}",
+  "timestamp": "2024-08-16T15:20:00",
+  "trend_analysis": "{\"rh\":\"Physically impossible 0% humidity reading - sensor fault. Expected ~68%, dropped to 0% instantly. Correlation with temperature broken (low humidity but low temperature).\",\"tt\":\"Temperature 20.09\u00b0C, ~8\u00b0C below recent mean (28\u00b0C). Sudden drop inconsistent with humidity trend; likely sensor misreading.\"}"
+}
+2025-11-03 01:50:36 | [TOOL_RESULT] Tool 'publish_anomaly_to_kafka' returned: {
+  "status": "success",
+  "message": "Anomaly published to Kafka successfully",
+  "kafka_broker": "10.33.205.40:9093",
+  "topic": "weather-anomalies",
+  "partition": 0,
+  "offset": 193,
+  "timestamp"...
+2025-11-03 01:50:36 | [ANALYSIS_RESULT] Analysis complete.
+
+================================================================================
+FULL ANALYSIS RESULT:
+================================================================================
+
+**Investigation Process**
+
+| Step | Action & Findings |
+|------|--------------------|
+| **1️⃣ Identify** | Top‑3 contributing features: **rh (0 % humidity)**, **tt (20.09 °C)**, **pp (1003.51 hPa)**. Timestamp is UTC 2024‑08‑16 15:20 → local (UTC+7) 22:20. |
+| **2️⃣ Retrieve** | Pulled the latest 20 records (10‑min intervals) for all parameters. Recent climate: **tt ≈ 28 °C**, **rh ≈ 68 %**, **pp ≈ 1003 hPa**, **ws ≈ 0 m/s**, **wd ≈ 259°**, **sr = 0 W/m²** (night). |
+| **3️⃣ Immediate Sensor‑Fault Check** | • **rh = 0 %** – physically impossible (humidity cannot be exactly 0 %). <br>• **tt = 20.09 °C** – ~8 °C below the recent mean (≈ 28 °C) – a large, abrupt deviation. <br>• No sentinel values (‑9999/9999) detected. <br>• No “stuck” pattern (only one record). <br>→ **Immediate fault flag** for humidity (physically impossible) and strong suspicion for temperature. |
+| **4️⃣ Correlation Check** | • Expected negative correlation: low humidity ↔ high temperature. Here **rh = 0 %** while **tt = 20 °C** (low) – correlation broken. <br>• Pressure (pp) is normal and shows no abnormal relation. <br>→ Broken correlation further supports sensor malfunction. |
+| **5️⃣ Historical Comparison** | • **Humidity**: mean ≈ 68 % (range 66‑70 %). 0 % is > 10 σ away – extreme outlier. <br>• **Temperature**: mean ≈ 28 °C (σ ≈ 0.5 °C). 20.09 °C is > 15 σ away – extreme outlier. <br>• Both values appear as sudden spikes/drops within a single 10‑min interval. |
+| **6️⃣ Decision** | Confidence > 95 % that the humidity sensor is faulty (physically impossible value) and the temperature reading is likely erroneous (large deviation, broken correlation). **Publish anomaly.** |
+| **7️⃣ Publish** | Sent anomaly to Kafka with detailed trend analysis (see below). |
+
+---
+
+### 📤 Published Anomaly (Kafka)
+
+```json
+{
+  "timestamp": "2024-08-16T15:20:00",
+  "anomalous_features": {
+    "rh": 0.0,
+    "tt": 20.09
+  },
+  "trend_analysis": {
+    "rh": "Physically impossible 0% humidity reading – sensor fault. Expected ~68%, dropped to 0% instantly. Correlation with temperature broken (low humidity but low temperature).",
+    "tt": "Temperature 20.09 °C, ~8 °C below recent mean (≈ 28 °C). Sudden drop inconsistent with humidity trend; likely sensor misreading."
+  }
+}
+```
+
+**Result:** Anomaly successfully recorded for station **AWS_DKI_KebunBibit**.
+
+================================================================================
+2025-11-03 01:50:36 | [ANALYSIS_SUMMARY] Result length: 2344 characters, 368 words
+2025-11-03 01:58:08 | [CLEANUP] Disconnected from MCP server
