@@ -32,8 +32,8 @@ This system implements an intelligent weather monitoring infrastructure with:
 ┌─────────────────────────────────────────────────────────────────┐
 │                     Weather Stations (10)                        │
 │  ┌──────────────┐  ┌──────────────┐      ┌──────────────┐      │
-│  │  Station 001 │  │  Station 002 │ ...  │  Station 010 │      │
-│  │              │  │              │      │              │      │
+│  │  Station DIY │  │  Station DKI │ ...  │  Station     │      │
+│  │   Stageof       │              │      │    Jabar     │      │
 │  │  Anomaly     │  │  Anomaly     │      │  Anomaly     │      │
 │  │  Transformer │  │  Transformer │      │  Transformer │      │
 │  │      +       │  │      +       │      │      +       │      │
@@ -45,15 +45,16 @@ This system implements an intelligent weather monitoring infrastructure with:
           └──────────────────┴──────────────────────┘
                              │
                     ┌────────▼────────┐
-                    │   MQTT Broker   │
-                    │   (Event Bus)   │
+                    │   Event Broker  │
+                    │  (Apache Kafka) │
                     └────────┬────────┘
                              │
                     ┌────────▼──────────────────────┐
                     │  Central Diagnosis Agent      │
-                    │                                │
+                    │                               │
                     │  - Cognee Knowledge Base      │
-                    │  - Multi-station Analysis     │
+                    │  - Failure Diagnosis and      | 
+                    |.     Troubleshooting          │
                     │  - Maintenance Recommendations│
                     └────────────────────────────────┘
 ```
@@ -64,7 +65,7 @@ This system implements an intelligent weather monitoring infrastructure with:
    - Anomaly Transformer deep learning models
    - Sliding window data processing
    - Local CAMEL AI agents for preliminary analysis
-   - MQTT event publishing
+   - Kafka event publishing
 
 2. **Central Diagnosis** (`cognee/`)
    - Multi-station anomaly aggregation
@@ -88,7 +89,7 @@ weather-anomaly-detection/
 ├── .gitignore
 ├── requirements.txt                   # Consolidated dependencies (optional)
 │
-├── anomaly_detection/                 # Station-Level Components
+├── anomaly_detection/ # Station-Level Components
 │   ├── README.md                      # Station setup guide
 │   ├── station_001/
 │   │   ├── README.md                  # Station-specific instructions
@@ -101,6 +102,7 @@ weather-anomaly-detection/
 │   │   └── requirements.txt
 │   ├── station_002/
 │   └── ... (up to station_010)
+|   └── Analyze Anomaly (Threshold calculation)
 │
 ├── cognee/                            # Central Diagnosis Agent
 │   ├── README.md                      # Diagnosis agent guide
@@ -138,9 +140,9 @@ weather-anomaly-detection/
    cd weather-anomaly-detection
 ```
 
-2. **Setup Station Agent** (Example: Station 001)
+2. **Setup Station Agent** (Example: Station DIY Stageof Yogyakarta)
 ```bash
-   cd anomaly_detection/station_001
+   cd anomaly_detection/anomaly_monitor_diy_stageof_yogyakarta
    python -m venv venv
    source venv/bin/activate  # Linux/Mac
    pip install -r requirements.txt
@@ -167,11 +169,6 @@ weather-anomaly-detection/
    python agent/central_agent.py
 ```
 
-4. **Test the System**
-```bash
-   # In station terminal
-   python evaluate_performance.py
-```
 
 For detailed setup instructions:
 - **Station Setup**: See [`anomaly_detection/README.md`](anomaly_detection/README.md)
@@ -186,7 +183,7 @@ For detailed setup instructions:
 Each station has independent configuration in `src/config.py`:
 ```python
 STATION_ID = "station_001"
-MQTT_BROKER = "test.mosquitto.org"
+MQTT_BROKER = "your mqtt broker"
 ANOMALY_THRESHOLD = 0.7
 WINDOW_SIZE = 100
 ```
@@ -225,13 +222,20 @@ REQUIRE_AUTHENTICATION=true
 
 ### Station Performance Testing
 ```bash
-cd anomaly_detection/station_001
-python evaluate_performance.py --dataset dataset/test_anomalies.csv
+cd anomaly_detection/station_diy_stageof_yogyakarta/src
+python evaluate.py \
+  --dataset /home/ubuntu/running/anomaly_detection/anomaly_monitor_diy_stageof_yogyakarta/dataset/dataset.csv \
+  --test-data /home/ubuntu/running/anomaly_detection/anomaly_monitor_diy_stageof_yogyakarta/dataset/synthetic_data_with_anomalies.csv \
+  --checkpoint /home/ubuntu/running/anomaly_detection/anomaly_monitor_diy_stageof_yogyakarta/checkpoints/all_checkpoint.pth \
+  --threshold 0.3548 \
+  --apply-adjustment \
+  --apply-lag \
+  --lag-tolerance 20
 ```
 
 ### End-to-End System Test
 
-1. Start MQTT broker: `mosquitto`
+1. Start MQTT broker: `your mqtt broker`
 2. Launch stations: `python main.py` (in each station folder)
 3. Start central agent: `python agent/central_agent.py`
 4. Inject test anomalies
