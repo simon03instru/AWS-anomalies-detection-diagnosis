@@ -29,7 +29,7 @@ This system implements an intelligent weather monitoring infrastructure with:
 
 ## 🏗️ System Architecture
 
-![System Architecture](images/architecture.pdf)
+![System Architecture](images/architecture.png)
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                     Weather Stations (10)                        │
