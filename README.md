@@ -28,6 +28,8 @@ This system implements an intelligent weather monitoring infrastructure with:
 ---
 
 ## 🏗️ System Architecture
+
+![System Architecture](images/architecture.pdf)
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                     Weather Stations (10)                        │
@@ -136,8 +138,7 @@ weather-anomaly-detection/
 
 1. **Clone Repository**
 ```bash
-   git clone https://github.com/yourusername/weather-anomaly-detection.git
-   cd weather-anomaly-detection
+   git clone https://github.cs.adelaide.edu.au/a1932040/remote_file.git
 ```
 
 2. **Setup Station Agent** (Example: Station DIY Stageof Yogyakarta)
@@ -324,27 +325,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - CAMEL AI Framework - [https://github.com/camel-ai/camel](https://github.com/camel-ai/camel)
 - Cognee Knowledge Base - [https://github.com/topoteretes/cognee](https://github.com/topoteretes/cognee)
-- Anomaly Transformer - [Paper Link]
-- BMKG (Indonesia's Meteorological Agency) - Data and domain expertise
+- Anomaly Transformer - [https://arxiv.org/abs/2110.02642]
+- BMKG (Indonesia's Meteorological Agency) - [https://awscenter.bmkg.go.id]
 
 ---
-
-## 📖 Citation
-
-If you use this system in your research, please cite:
-```bibtex
-@inproceedings{yourname2024weather,
-  title={Multi-Agent Weather Anomaly Detection System using Anomaly Transformers and LLM-based Diagnosis},
-  author={Your Name and Collaborators},
-  booktitle={IEEE Conference Name},
-  year={2024}
-}
-```
-
----
-
-## 🔗 Related Projects
-
-- [Anomaly Transformer Paper](link)
-- [CAMEL AI Documentation](https://docs.camel-ai.org/)
-- [Weather Station IoT Architecture](link)
