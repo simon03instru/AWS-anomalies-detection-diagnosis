@@ -1,5 +1,0 @@
-{
-  "timestamp": "2025-09-30T14:22:22.160477",
-  "message": "{\"timestamp\":\"2024-09-25T14:30:00\",\"station_metadata\":{\"station_id\":\"AWS_DIY_001\",\"location\":\"Adelaide, South Australia\",\"latitude\":-34.9285,\"longitude\":138.6007,\"altitude\":48.0,\"last_calibration\":\"2024-03-15\",\"maintenance_contact\":\"station-maintenance@weather.org\"},\"anomalous_features\":[{\"feature\":\"Temperature\",\"current_value\":35.2,\"sensor_brand\":\"Vaisala HMP155\"},{\"feature\":\"Relative Humidity\",\"current_value\":25.0,\"sensor_brand\":\"Vaisala HMP155\"},{\"feature\":\"Wind Speed\",\"current_value\":15.8,\"sensor_brand\":\"Young 05103-L\"}]}",
-  "topic": "weather/investigation"
-}
