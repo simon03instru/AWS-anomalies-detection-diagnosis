@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "weather_anomaly_tools": {
+      "command": "python3",
+      "args": [
+        "./weather_anomaly_mcp_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "."
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+Weather data:
+Result:
+    {
+      "times": [
+        "2024-08-15T19:00",
+        "2024-08-15T19:15",
+        "2024-08-15T19:30",
+        "2024-08-15T19:45",
+        "2024-08-15T20:00",
+        "2024-08-15T20:15",
+        "2024-08-15T20:30",
+        "2024-08-15T20:45",
+        "2024-08-15T21:00"
+      ],
+      "temperature_2m": [
+        20.7,
+        20.6,
+        20.6,
+        20.6,
+        20.5,
+        20.5,
+        20.4,
+        20.3,
+        20.2
+      ],
+      "precipitation": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "relative_humidity_2m": [
+        85,
+        85,
+        86,
+        86,
+        86,
+        86,
+        87,
+        87,
+        87
+      ],
+      "direct_radiation": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+
+  1. The Vaisala HMP155 relative humidity sensor operates within a typical environmental range but specifics on the operational range and sensitivity are not detailed in the provided context. Maintenance for optimal performance includes checking the mounting of the probe, ensuring that the radiation shield and cable are intact, cleaning the shield regularly, and changing the probe filter annually or more frequently if exposed to pollution. Issues like incorrect humidity measurements can arise from wiring problems or contamination of the sensor element.
+
+  2. The Vaisala HMP155 relative humidity sensor has an operational range of 0 to 100 %RH. Its sensitivity specifications include a response time of 20 seconds for 63% humidity and 60 seconds for 90% humidity at +20 °C in still air. The sensor operates accurately within multiple temperature ranges: ±1 %RH accuracy at +15 to +25 °C for 0 to 90 %RH and ±1.7 %RH for 90 to 100 %RH. The sensor is designed for typical environmental conditions, ensuring reliable measurements even in harsh environments with features like a warmed probe to prevent condensation.
+
+
+  1. To troubleshoot sudden drops in relative humidity readings of the Vaisala HMP155 sensor, follow these steps:
+
+1. **Check Wiring**: Ensure the sensor is wired to the correct analog input channels according to the measurement instructions.
+2. **Verify Power Supply**: Confirm the red power wire is properly connected to the correct power terminal (12V or SW12V) and check for a steady 12V supply.
+3. **Output Voltage Check**: Use a voltmeter to check output voltage on the yellow and blue wires for temperature and relative humidity.
+4. **Examine the Filter**: Check the probe filter for contamination. If dirty, consider cleaning it or replacing it.
+5. **Check for Salt Buildup**: If installed near the ocean, inspect for salt contamination on the sensor components, which may hinder performance.
+6. **Allow Adequate Power-Up Time**: Ensure the program provides a sufficient power-up time (at least 1.8 seconds).
+7. **Recalibrate Annually**: Make sure to recalibrate the sensor annually to maintain accuracy.
+
+  2. To troubleshoot sudden drops in relative humidity readings from a Vaisala HMP155 sensor, consider the following steps:
+
+1. **Check for Environmental Influences**: Ensure the sensor is not exposed to heavy dew, fog, rain, or mist, as these can affect readings.
+
+2. **Inspect the Probe**: Verify that the sintered Teflon filter is clean and not obstructed by water or debris, as a wet probe can give inaccurate measurements.
+
+3. **Consider Sensor Warming**: If the probe is in a high-humidity environment, the additional warmed probe feature helps to mitigate condensation. Ensure it is functioning correctly.
+
+4. **Calibration**: Check if the sensor needs recalibration. Use a computer or MI70 indicator for calibration.
+
+5. **Location and Shielding**: Confirm that the sensor is installed within a suitable radiation shield (DTR13 or DTR503) to protect it from precipitation and solar radiation. 
+
+6. **Electrical Connections**: Ensure all connections (USB, power) are secure, and that the power supply is within specified ranges (7V - 28V DC). 
+
+By following these steps, you can identify and rectify the cause of the sudden drops in relative humidity readings.
+
+

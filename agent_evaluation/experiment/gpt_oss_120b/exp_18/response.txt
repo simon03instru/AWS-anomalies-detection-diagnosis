@@ -1,0 +1,27 @@
+**Assessment**: The pressure sensor (Vaisala PTB110) at AWS_DKI_KebunBibit reported an implausibly low value of 100.58 hPa at 2024‑08‑16 15:30 UTC. Satellite‑derived observations for the same location and time show a normal surface pressure of 1006.1 hPa, temperature 12.1 °C, wind speed 22 m/s, and relative humidity 88 %. The discrepancy of ~905 hPa confirms a sensor fault rather than a real atmospheric event.
+
+**Likely Causes**
+1. Sensor malfunction or internal electronics failure causing an erroneous low‑pressure code.
+2. Possible condensation or water ingress damaging the pressure transducer (high humidity environment).
+3. Calibration drift or loss of reference pressure.
+4. Physical blockage or debris affecting the sensor inlet.
+
+**Operational Range**: The Vaisala PTB110 is designed for typical atmospheric pressures (≈300–1100 hPa). A reading of 100.58 hPa is far outside its valid measurement range, indicating the sensor is out of spec.
+
+**Troubleshooting & Maintenance Recommendations**
+1. **Verify sensor status** – check for error codes (e.g., -999, NaN) in the data stream.
+2. **Inspect physical condition** – look for condensation, water ingress, debris, or damage to the sensor housing.
+3. **Confirm environmental limits** – ensure temperature and humidity are within the sensor’s operating envelope.
+4. **Perform a calibration check** following Vaisala PTB110 procedures; recalibrate if drift is detected.
+5. **Reset or power‑cycle** the sensor to clear transient faults.
+6. **Relocate the sensor** if the installation site is prone to moisture or blockage.
+7. **Replace the sensor** if inspection reveals irreversible damage or if calibration/reset does not restore plausible readings.
+
+**Actionable Steps for AWS_DKI_KebunBibit**
+- Immediately flag the pressure data as invalid and exclude it from any real‑time analyses.
+- Conduct the diagnostic steps above within the next maintenance window.
+- Document any physical findings (e.g., moisture, debris) and corrective actions taken.
+- If the sensor cannot be restored to normal operation, procure a replacement PTB110 unit and schedule installation.
+- After repair/replacement, perform a post‑maintenance validation by comparing the sensor’s pressure output to satellite‑derived pressure for at least 24 hours to confirm accuracy.
+
+**Conclusion**: The pressure anomaly is almost certainly due to a sensor fault. Following the outlined troubleshooting and maintenance actions should resolve the issue and restore reliable pressure measurements at the station.

@@ -1,0 +1,15 @@
+Assessment:
+- Satellite‑derived weather at Cibubur (2024‑08‑16T15:30 UTC) showed only 0.1 mm of precipitation, 12.1 °C temperature, 88 % humidity and strong winds (22 m s⁻¹). This contrasts sharply with the HyQuest TB4 sensor’s 51 mm spike, a >500‑fold difference, indicating the reading is not reflecting the actual atmospheric conditions.
+- The TB4 sensor’s specifications (0‑700 mm hr⁻¹ range, ±3 % accuracy for 50‑100 mm) confirm that a 51 mm value is technically within its measurement capability, so the anomaly is not due to exceeding the sensor’s operational limits.
+- Known failure modes for the TB4 (debris blockage, tipping‑bucket jam, wiring or PulseCount mis‑configuration, splash from high winds) can produce sudden high‑rainfall spikes.
+
+Recommendations:
+1. **Immediate inspection** – clean the catch filter, siphon and bucket interior; remove any debris that could cause a false tip.
+2. **Mechanical check** – ensure the tipping bucket pivots freely and each tip registers correctly.
+3. **Electrical verification** – inspect all wiring, especially SDI‑12 or other data‑logger connections; confirm PulseCount settings match the sensor’s calibration.
+4. **Calibration test** – pour the standard 314 cc volume into the funnel and verify that the sensor records the expected tip count (≈1 mm).
+5. **Wind‑induced splash mitigation** – if high winds are common, consider adding a splash guard or relocating the gauge to a more sheltered site.
+6. **Post‑maintenance monitoring** – after corrective actions, compare the sensor’s rainfall values with the next 3‑hour satellite/nearby station data to confirm alignment.
+7. **Long‑term** – schedule regular (monthly) cleaning and calibration, and keep a log of any recurring spikes for trend analysis.
+
+Conclusion: The 51 mm reading is most likely a sensor fault rather than a true extreme event. Following the above troubleshooting and maintenance steps should resolve the issue and restore reliable rainfall measurements.

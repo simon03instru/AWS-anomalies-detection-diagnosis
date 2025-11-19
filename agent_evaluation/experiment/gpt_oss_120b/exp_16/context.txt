@@ -1,0 +1,62 @@
+Weather Data from Satellite or API:
+
+Result:
+    {
+      "times": [
+        "2024-08-19T00:00",
+        "2024-08-19T00:15",
+        "2024-08-19T00:30",
+        "2024-08-19T00:45",
+        "2024-08-19T01:00"
+      ],
+      "temperature_2m": [
+        22.3,
+        22.8,
+        23.3,
+        23.8,
+        24.3
+      ],
+      "relative_humidity_2m": [
+        87,
+        84,
+        81,
+        78,
+        76
+      ],
+      "direct_radiation": [
+        75.0,
+        107.0,
+        140.0,
+        169.0,
+        192.0
+      ]
+    }
+
+
+  1. The Vaisala HMP155 temperature sensor specifications are as follows:
+- **Operating Temperature Range**: Not explicitly mentioned in the provided context.
+- **Accuracy**: Not explicitly specified in the provided context.
+- **Sensitivity**: Not explicitly specified in the provided context.
+
+  2. The Vaisala HMP155 temperature sensor specifications are as follows:
+- **Operating Temperature Range:** -80 to +60 °C (-112 to +140 °F)
+- **Accuracy:** 
+  - At -80 to +20 °C: ±(0.226 - 0.0028 × temperature) °C
+  - At +20 to +60 °C: ±(0.055 + 0.0057 × temperature) °C
+- **Sensitivity:** Output varies with temperature, with tolerances from classes specified for different outputs.
+
+
+  1. To troubleshoot low temperature anomalies and humidity issues with the Vaisala HMP155 sensor, follow these steps:
+
+1. **Check Connections**: Ensure the sensor is wired correctly to the analog input channels.
+2. **Verify Power Supply**: Confirm that the red power wire is connected to the 12V or SW12V channel and that the sensor is receiving constant power.
+3. **Measure Output Voltage**: Use a voltmeter to check output voltage for temperature (yellow wire) and humidity (blue wire).
+4. **Inspect the Probe Filter**: If humidity is reported incorrectly (e.g., -9999, NAN, or 0%), consider changing the probe filter as it may be contaminated or clogged.
+5. **Calibration**: Recalibrate the sensor annually to ensure accuracy.
+6. **Clean the Sensor**: Clean the sensor tip and radiation shield to ensure no debris or salt is affecting measurement accuracy.
+
+By performing these checks and maintenance tasks, you can address the low temperature and humidity readings effectively.
+
+  2. The Vaisala HMP155 probe is designed for accurate humidity and temperature measurements in harsh environments. For troubleshooting low temperature anomalies with regards to humidity and solar radiation, ensure the probe is protected from precipitation and direct sunlight by using appropriate radiation shields (DTR503, DTR13, or Stevenson screen). Additionally, check calibration and the condition of the warmed probe feature, as it helps prevent condensation and ensures more reliable readings in high humidity. If issues persist, consider checking the output connections or using the USB connection for diagnostics.
+
+

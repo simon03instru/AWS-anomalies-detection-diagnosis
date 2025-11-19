@@ -1,0 +1,4 @@
+The temperature reading of 2.96 °C and the 1000 W m⁻² solar radiation at 22:30 UTC are inconsistent with satellite data (16.2 °C, 0 W m⁻²) and the expected night‑time conditions. 
+The large deviation (>25 °C) and the impossible radiation level point to sensor faults rather than a real atmospheric event. 
+Both the Vaisala HMP155 and the Kipp & Zonen CMP3 are likely stuck or mis‑calibrated, possibly due to wiring, condensation, or improper shielding. 
+Recommended actions: inspect and repair wiring and probe connections, clean and realign the pyranometer dome, verify proper Stevenson screen installation, recalibrate both sensors, and schedule a maintenance check to ensure long‑term reliability.

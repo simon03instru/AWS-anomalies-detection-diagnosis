@@ -1,0 +1,14 @@
+**Assessment**: The 100 mm rainfall spike recorded at 2024‑08‑15 20:00 local (13:00 UTC) is inconsistent with satellite‑derived weather data, which show 0 mm precipitation, stable temperature (23.4 °C), pressure (995.7 hPa) and humidity (75 %). No concurrent atmospheric changes were observed, confirming the trend analysis that the HYQUEST TB4 rain gauge most likely malfunctioned.
+
+**Most Likely Cause**: A false high‑rainfall spike caused by a mechanical or debris issue in the tipping‑bucket mechanism (e.g., blockage, sticking bucket, or wiring/calibration mismatch). Although the reading (600 mm h⁻¹) is within the sensor’s maximum range (700 mm h⁻¹), the lack of any real rain makes a sensor fault the dominant explanation.
+
+**Actionable Recommendations**:
+1. **Visual & Mechanical Inspection** – Check the funnel, catch filter, and interior of the TB4 for leaves, bird droppings, sediment, or other debris; ensure the bucket tips freely.
+2. **Clean the Gauge** – Remove any blockage, rinse the funnel, and verify that the siphon is unobstructed.
+3. **Verify Wiring & Logger Settings** – Confirm correct terminal connections and that the data logger’s pulse‑count parameters match the TB4 specifications.
+4. **Calibration Check** – Perform a field calibration using Hyquest’s Portable Field Calibration Device (or a known‑volume water test) and update firmware if needed.
+5. **Cross‑Check Data** – If possible, enable the TB4’s dual‑output to a second logger or install a backup rain sensor for redundancy.
+6. **Replace if Necessary** – Should the false spikes persist after cleaning and recalibration, replace the rain gauge.
+7. **Post‑Maintenance Monitoring** – Log the next 24 h of rainfall data alongside satellite observations to confirm normal operation.
+
+By following these steps the station can quickly resolve the false spike, restore reliable precipitation measurements, and prevent future data quality issues.

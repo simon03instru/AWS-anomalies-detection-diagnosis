@@ -1,0 +1,97 @@
+Weather Data
+Result:
+    {
+      "times": [
+        "2024-08-19T06:00",
+        "2024-08-19T06:15",
+        "2024-08-19T06:30",
+        "2024-08-19T06:45",
+        "2024-08-19T07:00",
+        "2024-08-19T07:15",
+        "2024-08-19T07:30",
+        "2024-08-19T07:45",
+        "2024-08-19T08:00",
+        "2024-08-19T08:15",
+        "2024-08-19T08:30",
+        "2024-08-19T08:45",
+        "2024-08-19T09:00"
+      ],
+      "temperature_2m": [
+        29.6,
+        29.6,
+        29.6,
+        29.5,
+        29.4,
+        29.2,
+        29.0,
+        28.8,
+        28.5,
+        28.3,
+        28.0,
+        27.7,
+        27.4
+      ],
+      "relative_humidity_2m": [
+        56,
+        56,
+        56,
+        56,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        63,
+        64,
+        66
+      ]
+    }
+
+
+  1. The Vaisala HMP155 temperature operating range is unspecified in the provided context, but it emphasizes the importance of maintenance for accurate measurements. The accuracy of temperature and humidity readings can degrade due to contaminants on the sensor or incorrect wiring. Regular maintenance, including filter changes and cleaning, is crucial to maintain measurement accuracy and ensure proper temperature and humidity correlation.
+
+  2. The Vaisala HMP155 temperature operating range is from -80 to +60 °C (-112 to +140 °F). The accuracy of the temperature measurement varies with the output method: for voltage output, it is ±(0.226 - 0.0028 × temperature) °C at -80 to +20 °C and ±(0.055 + 0.0057 × temperature) °C at +20 to +60 °C. The probe's humidity measurement accuracy includes  ±1 %RH (0 … 90 %RH) at +15 to +25 °C and varies outside this range.
+
+
+
+  1. To diagnose and correct Vaisala HMP155 temperature miscalibration and broken temperature-humidity correlation issues, follow these steps:
+
+1. **Check Wiring and Connections:** 
+   - Verify that the HMP155 sensor is wired to the correct analog input channels as specified in the measurement instructions.
+   - Ensure the red power wire is connected to the correct 12V or SW12V channel.
+
+2. **Inspect Sensor and Probe:**
+   - Ensure that the probe is securely mounted and clean. The radiation shield should be free from debris. 
+   - Check the filter for contamination or blockages, which may require changing.
+   - Make sure there are no salts or other contaminants affecting sensor performance.
+   
+3. **Measure Output Voltages:**
+   - Connect the red wire to a 12V terminal and use a voltmeter to check the output voltage for both temperature and relative humidity.
+
+4. **Verify Calibration Settings:**
+   - Check that the multiplier and offset parameters for temperature and humidity are correct in the data logger program.
+   - Recalibrate the HMP155 annually to ensure accuracy.
+
+5. **Consider Environmental Factors:**
+   - Evaluate if the sensor is installed near sources of contamination or electrical interference, which can affect readings.
+
+If symptoms persist, consult the maintenance section for additional troubleshooting or consider replacing the element.
+
+  2. To diagnose and correct the Vaisala HMP155 temperature miscalibration and broken temperature-humidity correlation, follow these steps:
+
+1. **Initial Inspection**: Check for any visible signs of damage or misplacement in the probe installation, ensuring that the probe is properly installed in a suitable radiation shield (DTR503, DTR13, or Stevenson screen).
+
+2. **Environmental Check**: Ensure the operating environment is within the specified ranges: temperature −80 … +60 °C (−112 … +140 °F) and humidity 0 … 100 %RH. Extreme conditions can affect readings.
+
+3. **Calibration Verification**: Use the USB connection or the MI70 indicator to recalibrate the sensor. Confirm calibration settings match factory specifications, ensuring calibration uncertainty is within defined limits (+/- 0.6% RH at 0-40% RH, +/- 1.0% RH at 40-95% RH).
+
+4. **Response Time Evaluation**: Test the response time of both humidity and temperature measurements. Ensure they meet specified response times (e.g., temperature probe's 63% response time should be <20 s in moving air).
+
+5. **Sensor Cleaning**: If humidity readings are corrupted by environmental factors, clean the sintered Teflon filter or replace it if necessary, as blockages can lead to inaccurate readings.
+
+6. **Electrical Check**: Inspect the connections and ensure they are secure. Verify that no wiring issues impact the sensor outputs.
+
+7. **Replacement**: If calibration fails repeatedly or the sensor shows signs of wear, consider replacing the sensor or the temperature probe as a last resort.
+
+

@@ -1,0 +1,40 @@
+======================================================================
+DIAGNOSTIC ANSWER RELEVANCY EVALUATION
+======================================================================
+
+Query File: /home/ubuntu/running/agent_evaluation/experiment/gpt_oss_120b/exp_3/query.txt
+Response File: /home/ubuntu/running/agent_evaluation/experiment/gpt_oss_120b/exp_3/response.txt
+Model: gpt-4o-mini
+
+RAGAS Answer Relevancy Score: 0.0000
+Direct Semantic Similarity: 0.7457
+
+======================================================================
+ANALYSIS
+======================================================================
+
+RAGAS Answer Relevancy Limitation:
+- Works best for conversational Q&A
+- May underestimate formal/technical responses
+- Question generation introduces style mismatch
+
+Direct Semantic Similarity:
+- Score: 0.7457
+- More appropriate for formal content
+- Measures semantic alignment directly
+
+Completeness Assessment:
+- Query has 5 numbered items
+- Response addresses all items comprehensively
+
+======================================================================
+RECOMMENDATION
+======================================================================
+
+For technical/formal responses like yours:
+1. Use Direct Semantic Similarity instead of Answer Relevancy
+2. Consider Faithfulness metric if you have reference context
+3. Implement custom completeness checker for multi-part queries
+4. Use Answer Correctness if ground truth is available
+
+======================================================================

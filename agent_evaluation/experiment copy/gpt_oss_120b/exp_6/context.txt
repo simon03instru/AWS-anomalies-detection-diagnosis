@@ -1,0 +1,95 @@
+Weather Data:
+Result:
+    {
+      "times": [
+        "2024-10-21T07:00",
+        "2024-10-21T07:15",
+        "2024-10-21T07:30",
+        "2024-10-21T07:45",
+        "2024-10-21T08:00",
+        "2024-10-21T08:15",
+        "2024-10-21T08:30",
+        "2024-10-21T08:45",
+        "2024-10-21T09:00"
+      ],
+      "temperature_2m": [
+        34.7,
+        34.3,
+        33.7,
+        33.2,
+        32.8,
+        32.7,
+        32.7,
+        32.8,
+        32.8
+      ],
+      "surface_pressure": [
+        1004.0,
+        1003.9,
+        1003.9,
+        1003.9,
+        1003.8,
+        1003.7,
+        1003.5,
+        1003.3,
+        1003.2
+      ],
+      "windspeed_10m": [
+        11.1,
+        11.6,
+        11.9,
+        12.1,
+        12.0,
+        11.6,
+        11.1,
+        10.2,
+        9.8
+      ],
+      "winddirection_10m": [
+        347,
+        355,
+        3,
+        10,
+        16,
+        16,
+        13,
+        10,
+        8
+      ],
+      "relative_humidity_2m": [
+        39,
+        42,
+        45,
+        49,
+        51,
+        52,
+        51,
+        50,
+        50
+      ]
+    }
+ 
+
+  1. To troubleshoot zero humidity readings for the Vaisala HMP155, check the wiring and ensure connections to the correct input channels. Verify the power supply to the sensor, and check the output voltage if necessary. For cleaning, gently rinse the probe filter in distilled water and check for salt buildup, which can affect humidity readings. If needed, replace the probe filter annually and recalibrate the sensor to ensure accurate measurements.
+
+  2. To troubleshoot and calibrate the Vaisala HMP155 humidity probe, follow these steps:
+
+1. **Calibration**: Use a computer with a USB cable or the MI70 indicator. Adjust settings as needed for humidity measurement accuracy.
+
+2. **Cleaning**: Ensure the probe is clean and free from obstructions. A sintered Teflon filter protects against water, dust, and dirt but should be checked regularly.
+
+3. **Replacement**: If the probe is damaged or not functioning properly even after cleaning and calibration, consider replacing it with a new HMP155 or the relevant sensor components.
+
+
+
+  1. The Vaisala HMP155 humidity sensor has an operating range for relative humidity of 0% to 100%, with a resolution of 0.1%.
+
+  2. The Vaisala HMP155 humidity sensor specifications are as follows:
+- **Relative Humidity Operating Range:** 0 to 100 %RH
+- **Resolution:** Not explicitly mentioned, but accuracy is ±1 %RH (0 … 90 %RH) and ±1.7 %RH (90 … 100 %RH).
+
+  1. The anomaly logs for `AWS_DKI_TAMAN_MINI` from 2024-10-20 to 2024-10-22 indicate that the detected issues were not caused by missing sensors or invalid data due to data logger programming. Each type of anomaly (invalid data or missing sensor) is independent, suggesting that there might be other factors at play affecting the readings during this period.
+
+  2. The anomaly logs for AWS_DKI_TAMAN_MINI from October 20 to October 22, 2024, may relate to the HMP155 probe or its calibration with the mi70 indicator, as these components are interconnected through calibration requirements.
+
+

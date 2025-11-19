@@ -1,0 +1,453 @@
+[
+{
+    "timestamp": "2024-08-19T07:40:00",
+    "anomaly_score": 1.445168,
+    "true_anomaly": "tt, rh",
+    "weather_data": {"tt": 13.0, "rh": 0.1, "ws": 1.511},
+    "top_3_contributing_features": [
+      {"name": "tt", "score": 9.570851},
+      {"name": "rh", "score": 0.177596},
+      {"name": "ws", "score": 0.15328}
+    ],
+    "status": "ANOMALY",
+    "sequence_number": 1
+  },
+  {
+    "timestamp": "2024-08-19T07:50:00",
+    "anomaly_score": 1.2,
+    "true_anomaly": "tt",
+    "weather_data": {"tt": 13.0, "rh": 49.1, "ws": 1.511},
+    "top_3_contributing_features": [
+      {"name": "tt", "score": 9.570851}
+    ],
+    "status": "ANOMALY",
+    "sequence_number": 2
+  },
+{
+    "timestamp": "2024-08-19T07:40:00",
+    "anomaly_score": 1.445168,
+    "true_anomaly": "tt, rh",
+    "weather_data": {"tt": 13.0, "rh": 0.1, "ws": 1.511},
+    "top_3_contributing_features": [
+      {"name": "tt", "score": 9.570851},
+      {"name": "rh", "score": 0.177596},
+      {"name": "ws", "score": 0.15328}
+    ],
+    "status": "ANOMALY",
+    "sequence_number": 3
+  },
+{
+  "timestamp": "2024-08-19T07:40:00",
+  "anomaly_score": 604521.9375,
+  "true_anomaly": "tt",
+  "weather_data": {
+    "tt": -9999.0,
+    "sr": 530.6,
+    "rh": 49.1
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "tt",
+      "score": 4231648.0
+    },
+    {
+      "name": "sr",
+      "score": 2.620945
+    },
+    {
+      "name": "rh",
+      "score": 2.547207
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 4
+},
+{
+  "timestamp": "2024-08-19T07:40:00",
+  "anomaly_score": 97.93705,
+  "true_anomaly": "sr",
+  "weather_data": {
+    "sr": -9999.0,
+    "rh": 49.1,
+    "tt": 30.92
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "sr",
+      "score": 677.339844
+    },
+    {
+      "name": "rh",
+      "score": 4.578112
+    },
+    {
+      "name": "tt",
+      "score": 2.495213
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 5
+},
+{
+  "timestamp": "2024-08-19T07:40:00",
+  "anomaly_score": 5.28505,
+  "true_anomaly": "ws, sr",
+  "weather_data": {
+    "ws": 10.0,
+    "tt": 30.92,
+    "sr": 0.0
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "ws",
+      "score": 35.818775
+    },
+    {
+      "name": "tt",
+      "score": 0.368336
+    },
+    {
+      "name": "sr",
+      "score": 0.325663
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 6
+},
+{
+  "timestamp": "2024-08-19T07:40:00",
+  "anomaly_score": 5.28505,
+  "true_anomaly": "ws, tt, sr",
+  "weather_data": {
+    "ws": 10.0,
+    "tt": 25.92,
+    "sr": 0.0
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "ws",
+      "score": 35.818775
+    },
+    {
+      "name": "tt",
+      "score": 0.368336
+    },
+    {
+      "name": "sr",
+      "score": 0.325663
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 7
+},
+{
+  "timestamp": "2024-08-19T07:40:00",
+  "anomaly_score": 5.28505,
+  "true_anomaly": "ws, sr",
+  "weather_data": {
+    "ws": 10.0,
+    "tt": 30.92,
+    "sr": 0.0
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "ws",
+      "score": 35.818775
+    },
+    {
+      "name": "tt",
+      "score": 0.368336
+    },
+    {
+      "name": "sr",
+      "score": 0.325663
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 8
+},
+{
+  "timestamp": "2024-08-19T07:40:00",
+  "anomaly_score": 0.718682,
+  "true_anomaly": "rh",
+  "weather_data": {
+    "rh": 0.0,
+    "pp": 994.5651,
+    "tt": 30.92
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "rh",
+      "score": 4.783324
+    },
+    {
+      "name": "pp",
+      "score": 0.114314
+    },
+    {
+      "name": "tt",
+      "score": 0.105308
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 9
+},
+{
+  "timestamp": "2024-08-19T07:40:00",
+  "anomaly_score": 1.445168,
+  "true_anomaly": "none",
+  "weather_data": {
+    "tt": 30.1,
+    "rh": 49.1,
+    "ws": 1.511
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "tt",
+      "score": 9.570851
+    },
+    {
+      "name": "rh",
+      "score": 0.177596
+    },
+    {
+      "name": "ws",
+      "score": 0.15328
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 10
+},
+{
+  "timestamp": "2024-08-19T07:40:00",
+  "anomaly_score": 0.493503,
+  "true_anomaly": "rh",
+  "weather_data": {
+    "rh": 100.0,
+    "tt": 30.92,
+    "pp": 994.5651
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "rh",
+      "score": 3.190249
+    },
+    {
+      "name": "tt",
+      "score": 0.194387
+    },
+    {
+      "name": "pp",
+      "score": 0.024101
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 11
+},
+{
+  "timestamp": "2024-08-19T07:40:00",
+  "anomaly_score": 1264.491333,
+  "true_anomaly": "wd, ws",
+  "weather_data": {
+    "wd": -9999.0,
+    "ws": 10.511,
+    "tt": 30.92
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "wd",
+      "score": 8848.017578
+    },
+    {
+      "name": "ws",
+      "score": 1.286484
+    },
+    {
+      "name": "tt",
+      "score": 1.276469
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 12
+},
+{
+  "timestamp": "2024-08-19T07:40:00",
+  "anomaly_score": 6.118276,
+  "true_anomaly": "ws, wd",
+  "weather_data": {
+    "ws": 10.511,
+    "tt": 30.92,
+    "wd": 0
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "ws",
+      "score": 41.811211
+    },
+    {
+      "name": "tt",
+      "score": 0.306743
+    },
+    {
+      "name": "wd",
+      "score": 0.289208
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 13
+},
+{
+    "timestamp": "2024-08-19T07:50:00",
+    "anomaly_score": 1.2,
+    "true_anomaly": "rh",
+    "weather_data": {"tt": 30.1, "rh": 0.1, "ws": 1.511},
+    "top_3_contributing_features": [
+      {"name": "tt", "score": 9.570851}
+    ],
+    "status": "ANOMALY",
+    "sequence_number": 14
+  },
+ {
+    "timestamp": "2024-08-19T07:40:00",
+    "anomaly_score": 1.445168,
+    "true_anomaly": "",
+    "weather_data": {"tt": 30.1, "rh": 50.1, "ws": 1.511},
+    "top_3_contributing_features": [
+      {"name": "tt", "score": 9.570851},
+      {"name": "rh", "score": 0.177596},
+      {"name": "ws", "score": 0.15328}
+    ],
+    "status": "ANOMALY",
+    "sequence_number": 15
+  },
+{
+  "timestamp": "2024-08-19T07:40:00",
+  "anomaly_score": 45.925282,
+  "true_anomaly": "rr",
+  "weather_data": {
+    "rr": 2.0,
+    "tt": 30.92,
+    "rh": 49.1
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "rr",
+      "score": 319.470337
+    },
+    {
+      "name": "tt",
+      "score": 0.981478
+    },
+    {
+      "name": "rh",
+      "score": 0.631683
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 16
+},
+{
+  "timestamp": "2024-08-19T07:40:00",
+  "anomaly_score": 3.979021,
+  "true_anomaly": "",
+  "weather_data": {
+    "wd": 150.0,
+    "tt": 30.92,
+    "rh": 49.1
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "wd",
+      "score": 24.922512
+    },
+    {
+      "name": "tt",
+      "score": 0.847873
+    },
+    {
+      "name": "rh",
+      "score": 0.82974
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 17
+},
+{
+  "timestamp": "2024-12-25T14:00:00",
+  "anomaly_score": 1.854798,
+  "true_anomaly": "pp, rr",
+  "weather_data": {
+    "rr": 3.0,
+    "rh": 49.1,
+    "pp": 990.9404
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "rr",
+      "score": 12.19474
+    },
+    {
+      "name": "rh",
+      "score": 0.375039
+    },
+    {
+      "name": "pp",
+      "score": 0.279266
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 18
+},
+{
+  "timestamp": "2024-12-25T14:00:00",
+  "anomaly_score": 1.854798,
+  "true_anomaly": "none",
+  "weather_data": {
+    "rr": 3.0,
+    "rh": 70.1,
+    "tt": 25.9404
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "rr",
+      "score": 12.19474
+    },
+    {
+      "name": "rh",
+      "score": 0.375039
+    },
+    {
+      "name": "pp",
+      "score": 0.279266
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 19
+},
+{
+  "timestamp": "2024-08-19T07:40:00",
+  "anomaly_score": 604521.9375,
+  "true_anomaly": "none",
+  "weather_data": {
+    "tt": 30.1,
+    "sr": 530.6,
+    "rh": 49.1
+  },
+  "top_3_contributing_features": [
+    {
+      "name": "tt",
+      "score": 4231648.0
+    },
+    {
+      "name": "sr",
+      "score": 2.620945
+    },
+    {
+      "name": "rh",
+      "score": 2.547207
+    }
+  ],
+  "status": "ANOMALY",
+  "sequence_number": 20
+}
+]

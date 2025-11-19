@@ -1,0 +1,29 @@
+# ==================== requirements.txt ====================
+# Multi-Agent Weather Anomaly Detection System
+# Python >= 3.8 required
+
+# Core Frameworks
+camel-ai[all]==0.2.1
+torch>=1.9.0
+cognee
+
+# Data Processing & ML
+numpy>=1.21.0
+pandas>=1.3.0
+scikit-learn>=1.0.0
+
+# Messaging & Event Streaming
+kafka-python==2.0.2
+paho-mqtt>=1.6.0
+
+# MLflow for Experiment Tracking
+mlflow
+
+# Visualization
+matplotlib>=3.5.0
+
+# Utilities
+python-dotenv==1.0.1
+colorlog==6.8.2
+
+# Note: openai, pydantic, requests are included with camel-ai[all]

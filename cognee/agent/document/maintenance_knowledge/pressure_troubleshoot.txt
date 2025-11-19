@@ -1,0 +1,42 @@
+CONTOH KASUS 1
+--------------
+Contoh Kasus: Output sensor tekanan udara tidak sesuai
+
+Diagnosis: Kesalahan Pembacaan Sensor tidak sesuai dengan pembacaan real
+
+Troubleshooting: 
+1. Port (lubang) sensor barometer tersumbat (air, serangga, debu halus) 
+2. Sensor mengalami drift (pergeseran nilai) atau rusak.
+
+Rekomendasi:
+1. Periksa lokasi port barometer (biasanya berupa lubang kecil di enclosure data logger atau di sensor terpisah). Pastikan tidak ada air, kotoran, atau serangga yang menyumbat. 
+2. Bandingkan data dengan stasiun terdekat untuk validasi. 
+3. Lakukan reset pada data logger.
+
+
+CONTOH KASUS 2
+--------------
+Contoh Kasus: Nilai tekanan udara (barometer) tiba-tiba melonjak atau anjlok secara drastis dan tidak kembali normal, padahal cuaca stabil.
+
+Diagnosis: Kemungkinan terjadi kesalahan pada wiring (kabel). 2. Kemungkinan terjadi pada script datalogger
+
+Troubleshooting:
+1. Kemungkinan terjadi kesalahan pada wiring (kabel). 
+2. Kemungkinan terjadi pada script datalogger
+
+Rekomendasi:
+Segera lakukan pengecekan wiring dan update script. Pastikan enclosure data logger (tempat barometer biasa berada) tertutup rapat dan venting (ventilasi) barometer tidak tersumbat. Jika sensor terhubung drift, lakukan kalibrasi ulang atau ganti sensor.
+
+
+CONTOH KASUS 3
+--------------
+Contoh Kasus: Pembacaan sensor tekanan tidak sesuai
+
+Diagnosis: Kesalahan program atau kerusakan sensor
+
+Troubleshooting:
+1. Cek kondisi sensor tekanan apakah mendapatkan daya yang sesuai. 
+2. Periksa program yang diinput, apakah program sesuai dengan instrumentnya dan mendasakan nilai elevasi dengan tepat;
+
+Rekomendasi:
+Segera beri tanda pada pembacaan sensor dan lakukan pengamatan apabila terjadi troubleshooting telah dilakukan namun tidak ada perubahan menjadi normal.

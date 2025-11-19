@@ -1,0 +1,29 @@
+I retrieved the satellite‑based weather data for the TMII site (lat -6.305489, lon 106.89966) covering the period around the requested timestamp (2024‑10‑21T08:10:00 UTC). The 15‑minute records closest to that time are:
+
+- **08:00 UTC** – Temp 32.8 °C, Surface pressure 1003.8 hPa, Wind 12.0 m/s from 16°, Relative humidity 51 %
+- **08:15 UTC** – Temp 32.7 °C, Surface pressure 1003.7 hPa, Wind 11.6 m/s from 16°, Relative humidity 52 %
+
+Interpolating between these two points gives an estimated condition at 08:10 UTC of roughly **32.75 °C**, **1003.75 hPa**, **11.8 m/s** wind from **≈16°**, and **≈51.5 %** relative humidity.
+
+The Vaisala HMP155 sensor reported a relative humidity of **0.0 %**, which is dramatically lower than the satellite‑derived value of about **51 %**. Such a discrepancy suggests a sensor malfunction, calibration issue, or data transmission error, because a true 0 % humidity is physically implausible under normal tropical conditions and far outside the operational range of the instrument (typically 0–100 %).
+
+The observed atmospheric conditions were warm, moderately humid, and breezy, whereas the sensor reported an impossible humidity value. The sensor reading should be flagged for maintenance or replacement, and the data for that timestamp should be treated as invalid.
+
+The Vaisala HMP155 humidity sensor’s valid relative humidity operating range is 0 % to 100 % RH. Its resolution is 0.1 % RH (the sensor provides readings in 0.1 % increments). Therefore, a reading of 0.0 % RH falls within the specified operating range. However, because no trend analysis is available, the sensor’s sensitivity cannot be evaluated against any observed trend; the lack of trend data means we cannot confirm whether the sensor’s fine resolution is being effectively utilized or if the 0.0 % reading reflects a true condition or a sensor/measurement issue.
+
+Possible causes for a zero humidity reading from a Vaisala HMP155 include:
+1. Faulty wiring or incorrect connections to the sensor input channels.
+2. Power supply issues or abnormal output voltage.
+3. A clogged or contaminated probe filter (e.g., salt buildup) blocking moisture access.
+4. Probe damage or degradation.
+5. Calibration drift or failure.
+
+Recommended maintenance actions:
+- Verify wiring and correct input channel connections.
+- Check the sensor’s power supply and output voltage.
+- Gently rinse the probe filter with distilled water and inspect for salt or debris buildup; clean as needed.
+- Replace the probe filter annually or if damage is observed.
+- Re‑calibrate the sensor using a USB‑connected computer or the MI70 indicator according to the manufacturer’s procedure.
+- If cleaning and recalibration do not resolve the zero reading, replace the humidity probe or the entire HMP155 unit.
+
+The anomaly logs for AWS_DKI_TAMAN_MINI from 2024-10-20 to 2024-10-22 indicate multiple sensor anomalies were recorded. The logs suggest that the issues were not due to missing sensors or invalid data caused by data logger programming, implying other factors may be influencing the readings. The anomalies may be related to the HMP155 humidity probe or its calibration with the mi70 indicator, as these components are interconnected through calibration requirements.

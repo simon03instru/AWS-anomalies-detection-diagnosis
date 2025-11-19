@@ -1,0 +1,18 @@
+The anomaly at AWS_DIY_STAGEOF_YOGYAKARTA on 2024‑08‑19 14:40 local (UTC+7) shows a 100 % relative humidity reading with a temperature of 30.92 °C. Weather data from the nearest satellite timestamp (07:45 UTC / 14:45 local) indicates a temperature of 29.2 °C, relative humidity of 57 %, and no rainfall. Thus the sensor reported a humidity that is 43 % higher and a temperature about 1.7 °C warmer than the actual conditions.
+
+**Sensor compliance**: The Vaisala HMP155 operates from 0 % to 100 % RH with ±1.7 % accuracy at the upper end. A perfectly stable 100 % reading is statistically unlikely and falls at the edge of the sensor’s accuracy range, suggesting a fault rather than a true environmental condition.
+
+**Possible causes**:
+1. Probe contamination or moisture leading to a saturated reading.
+2. Wiring or power issues causing erroneous output.
+3. Calibration drift or failure of the warmed‑probe feature.
+4. Environmental interference (e.g., precipitation, fog, solar radiation) not adequately shielded.
+
+**Actionable recommendations**:
+1. Inspect and clean the probe element; replace the filter if dirty.
+2. Verify all wiring, power connections, and the warmed‑probe function.
+3. Re‑calibrate the sensor according to Vaisala guidelines.
+4. Ensure the radiation shield is properly installed and free of damage.
+5. If the anomaly persists after these steps, replace the sensor.
+
+Implementing these steps should resolve the 100 % RH anomaly and restore reliable humidity measurements.

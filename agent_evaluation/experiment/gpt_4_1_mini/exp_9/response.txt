@@ -1,0 +1,33 @@
+
+Assessment Report on Wind Direction Anomaly at AWS_DIY_UGM Station
+
+1. Summary of Findings:
+- The wind direction sensor at AWS_DIY_UGM reported an invalid sentinel value of -9999.0°, which is far outside the valid range of 0-360°.
+- Historical weather data around the anomaly time (2024-08-15T20:00 UTC) showed stable wind direction values between 317° and 328°, indicating normal atmospheric conditions.
+- The Young 05103-L wind direction sensor, used at this station, operates within 0-360° with 0.5° resolution. The reported -9999.0 value is a known indicator of sensor communication failure or hardware fault.
+
+2. Possible Causes:
+- Sensor communication failure due to wiring issues or loose connections.
+- Incorrect excitation voltage or range code settings in the datalogger.
+- Potentiometer malfunction or wear, causing invalid readings.
+- Sensor hardware damage or failure, possibly from environmental exposure or mechanical wear.
+
+3. Recommended Actions:
+- Immediately inspect and verify sensor wiring connections to the Excitation and Single-Ended channels.
+- Confirm that excitation voltage and range code settings in the datalogger match the sensor specifications.
+- Measure potentiometer resistance with an ohmmeter; expected values are ~10K ohms between Blue and White wires and 1K-11K ohms between other pairs depending on vane position.
+- If wiring and settings are correct but issue persists, recalibrate the sensor using a vane angle bench stand ensuring alignment within 5° accuracy.
+- Inspect and maintain or replace sensor bearings and potentiometer if worn or noisy, especially if the sensor has been in use for a long period.
+- Ensure proper grounding to prevent static discharge damage.
+- Schedule sensor replacement if hardware faults cannot be resolved through maintenance.
+
+4. Next Steps:
+- Conduct immediate on-site inspection and troubleshooting following the above maintenance guide.
+- Document findings and repair actions taken.
+- Monitor sensor output closely after maintenance to confirm restoration of valid wind direction data.
+- Consider implementing remote diagnostics or alerts for early detection of similar sensor failures in the future.
+
+This comprehensive assessment confirms the anomaly is due to sensor failure rather than environmental conditions. Prompt maintenance and possible replacement are necessary to restore reliable wind direction measurements at AWS_DIY_UGM.
+
+
+There is only one confirmed anomaly reported for the AWS_DIY_UGM station, which is related to the wind direction sensor showing an invalid sentinel value (-9999.0°), indicating a sensor communication failure. Since only this single anomaly is present, no further correlation analysis is needed. The anomaly is confidently attributed to a faulty wind direction sensor.

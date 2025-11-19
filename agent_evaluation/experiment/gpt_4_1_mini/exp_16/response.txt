@@ -1,0 +1,13 @@
+The analysis of the broken correlation between temperature and solar radiation at the Yogyakarta station strongly indicates a sensor fault rather than a genuine weather event. The anomalous temperature reading of 0.92°C is about 30°C below the 20-interval mean temperature of 30.6°C and deviates by more than 3 standard deviations, while the concurrent humidity (49.1%) and solar radiation (530.6 W/m²) values remain within normal expected ranges. Satellite-based weather data around the anomaly time (07:40 UTC on August 19, 2024) show typical tropical morning conditions with temperatures near 29°C, relative humidity around 58-59%, and solar radiation between 451 and 492 W/m², which further supports that the low temperature reading is erroneous.
+
+The Vaisala HMP155 temperature sensor used at the station operates reliably within a wide temperature range (-80 to +60 °C) and has an accuracy that would not account for such a large deviation. This suggests a malfunction rather than a sensitivity or calibration issue. Common causes for such anomalous low readings include sensor damage, contamination of the probe filter, electrical interference, or installation issues. Maintenance recommendations include regular cleaning of the radiation shield and probe, checking for physical damage, ensuring the warmed probe feature is functional, and performing recalibration annually or when accuracy falls outside ±1.0 °C.
+
+Actionable recommendations:
+1. Conduct a physical inspection of the temperature sensor and its radiation shield for contamination, damage, or improper installation.
+2. Clean the sensor and radiation shield as per Vaisala guidelines.
+3. Verify the sensor's electrical connections and communication integrity.
+4. Perform a recalibration of the sensor using the appropriate tools.
+5. Monitor subsequent temperature readings closely to confirm if the anomaly persists.
+6. Consider temporary replacement of the sensor if anomalies continue to rule out hardware failure.
+
+In conclusion, the broken correlation and the extreme low temperature reading are most likely due to a sensor fault. Prompt maintenance and recalibration should restore reliable measurements and prevent misinterpretation of weather conditions at the station.

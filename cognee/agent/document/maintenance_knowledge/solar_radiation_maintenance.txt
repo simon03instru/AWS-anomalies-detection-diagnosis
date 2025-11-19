@@ -1,0 +1,124 @@
+ CMP 3 Kipp and Zonen Pyranometer
+Maintenance/Recalibrations
+Inspect and clean the outer dome every week or so. Clean any accumulated
+dust or debris off the dome and pyranometer body using a soft cloth dampened
+with water or alcohol. Check that there is no condensation within the dome.
+Check the data returned from the sensor as it will show the first indication of a
+fault. When doing this you should be aware of several expected phenomena
+that can cause strange measurements. In particular on clear, windless nights the
+outer dome temperature of horizontally placed pyranometers can fall as low as
+the dew point temperature of the air, due to infrared radiation exchange with
+the cold sky. (The effective sky temperature can be 30 °C lower than the
+ground temperature, which results in an infrared emission of –150 W/m2). If
+this happens, dew, glazed frost or hoar frost can be precipitated on the top of
+the outer dome and can stay there for several hours in the morning. An ice cap
+on the dome is a strong diffuser and can increase the pyranometer signal by up
+to 50% in the first hours after sunrise.
+The calibration of the CMP3 may drift with time and exposure to radiation.
+Campbell Scientific recommends recalibrating every two years. The sensor
+should be returned to Campbell Scientific, the manufacturer, or a calibration
+lab with facilities to calibrate radiation sensors
+
+Troubleshooting
+Symptom: –9999 or radiation values around 0
+1. Check that the sensor is wired to the terminal that is specified by the
+measurement instruction.
+2. Verify that the range is correct for the data logger type.
+3. Measure the impedance across the red and blue sensor wires. This should
+be around 100 ohms plus the cable resistance (typically 0.1 ohm/m). If the
+resistance is very low there may be a short circuit (check the wiring).
+Resistances somewhat lower than expected could be due to water ingress
+into the sensor or enclosure connectors. If the resistance is infinite, there is
+a broken connection (check the wiring).
+4. Disconnect the sensor cable and check the voltage output from the sensor.
+With the sensor located 20 cm (8 inches) below a 60 W incandescent light
+bulb, the voltage should be approximately 2.5 mV. No voltage indicates a
+problem with the sensor.
+Symptom: sensor signal is unrealistically high or low
+1. Check that the right calibration factor has been properly entered into the
+data logger program. Please note that each sensor has its own individual
+calibration factor.
+2. Check the condition of the sensor cable.
+Symptom: sensor signal shows unexpected variations
+1. 2. Check for the presence of strong sources of electromagnetic radiation
+(radar, radio).
+Check the condition and the connection of the sensor shield wire.
+3. Check the condition of the sensor cable.
+
+
+
+CMP6, CMP10, CMP11, CMP21 Kipp and Zonen Maintenance
+
+Maintenance
+Every week, physically inspect the pyranometer to ensure that:
+• Dome is free of dirt, condensation, and ice. Remove accumulated dust,
+condensation, or ice from the dome and pyranometer body by using a soft
+cloth dampened with water or alcohol (FIGURE 8-1).
+• The drying cartridge in the CMP6, CMP11, and CMP21 have orange and
+opaque desiccant granules (Section 8.1.1, Changing the Desiccant (p. 16)).
+• Mounting is secure.
+• Pyranometer is level or is at the correct angle.
+• Cables are in good condition.
+
+Changing the Desiccant
+The CMP10 has an internal drying cartridge that will last for at least ten years
+if the housing is not opened. This significantly minimizes maintenance.
+The drying cartridge of the CMP6, CMP11, and CMP21 uses desiccant that
+needs to be periodically replaced. The silica gel desiccant granules in the
+drying cartridge should be orange and opaque. Replace the desiccant granules
+when they become translucent (normally after several months). Refill packs of
+desiccant are shipped with the pyranometer and can be purchased from
+Campbell Scientific. The drying cartridge uses the content of one refill pack.
+FIGURE 8-2 shows the replacement process.
+When changing the desiccant, ensure that:
+• Surfaces touching the rubber O-ring are clean. Dirt, in combination with
+water, can cause corrosion, harming it.
+• Rubber O-ring is coated with silicon grease or petroleum jelly. The grease
+coating improves the O-ring seal.
+• Drying cartridge is tightly threaded into the pyranometer body.
+
+Check Sensor Output
+Check the data returned from the sensor as it will show the first indication of a
+fault. However, several expected phenomena can cause strange measurements.
+In particular, on clear, windless nights the outer dome temperature of
+horizontally placed pyranometers can fall as low as the dew point temperature
+of the air, due to infrared radiation exchange with the cold sky. (The effective
+sky temperature can be 30 °C lower than the ground temperature, which results
+in an infrared emission of –150 W•m–2). If this happens, dew, glazed frost or
+hoar frost can form on the top of the outer dome and can stay there for several
+hours in the morning. An ice cap on the dome is a strong diffuser and can
+increase the pyranometer signal by up to 50% in the first hours after sunrise.
+
+Recalibration
+The calibration of the pyranometer may drift with time and exposure to
+radiation. Campbell Scientific recommends recalibrating every two years. The
+sensor should be returned to Campbell Scientific for recalibration. Refer to the
+Assistance page for information on returning the pyranometer to Campbell
+Scientific for recalibration.
+
+Troubleshooting
+Symptom: NAN, –9999, or radiation values around 0
+1. Check that the sensor is wired to the differential terminal specified by the
+measurement instruction.
+2. Verify that the range code is correct for the data logger type.
+3. Measure the impedance across the white and black sensor wires. This
+should be around 100 ohms plus the cable resistance (typically 0.1
+ohm•m–1). If the resistance is low, there may be a short circuit (check the
+wiring). Resistances somewhat lower than expected could be due to water
+ingress into the sensor or enclosure connectors. If the resistance is infinite,
+there is a broken connection (check the wiring).
+4. Disconnect the sensor cable and check the voltage output from the sensor.
+With the sensor located 8 inches below a 60 W incandescent light bulb the
+voltage should be approximately 2.5 mV. No voltage indicates a problem
+with the sensor.
+Symptom: sensor signal is unrealistically high or low
+1. Check that the right calibration factor has been properly entered into the
+data logger program. Please note that each sensor has its own individual
+calibration factor.
+2. Check the condition of the sensor cable.
+Symptom: sensor signal shows unexpected variations
+1. Check for the presence of strong sources of electromagnetic radiation,
+such as radar or radio interference.
+2. Check the condition and the connection of the sensor shield wire.
+3. Check the condition of the sensor cable.
+

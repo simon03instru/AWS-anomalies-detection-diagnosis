@@ -1,0 +1,31 @@
+
+At 2024‑08‑15 20:00 UTC (03:00 local) the satellite‑derived weather at UGM Yogyakarta (‑7.768469, 110.38192) showed:
+• Temperature: 20.5 °C
+• Relative humidity: 86 %
+• Wind speed: 5.7 m s⁻¹ (≈20 km h⁻¹)
+• Precipitation: 0 mm
+The sensor anomaly reported 0 % relative humidity, which is physically impossible and far below the expected 70‑80 % range for that time of night. The satellite data confirm that the environment was moist, indicating a clear sensor fault. The Vaisala HMP155 operates reliably within 0‑100 % RH, so the 0 % reading is outside its normal range and likely due to a malfunction or calibration issue. Recommended actions: 1) Inspect and clean the sensor probe; 2) Verify sensor calibration against a reference; 3) Replace the sensor if faults persist. No other anomalies were detected in the provided data.
+
+
+The Vaisala HMP155 relative‑humidity sensor has an operational measurement range of 0 %RH to 100 %RH. Its stated accuracy is ±1 %RH for the 0–90 %RH range and ±1.7 %RH for 90–100 %RH at a temperature of +15 °C to +25 °C. Therefore a 0 %RH reading is within the sensor’s specified range, though it is at the lower extreme where the sensor’s accuracy is still ±1 %RH. For the expected nighttime humidity trend of roughly 70–80 %RH, the sensor’s accuracy of ±1 %RH (or ±1.7 %RH at the upper end) is adequate, making the HMP155 suitable for monitoring that humidity range.
+
+
+The anomaly of a 0 % relative humidity reading from the Vaisala HMP155 at AWS_DIY_UGM is physically impossible given the satellite‑derived conditions (≈86 % RH) and indicates a sensor fault. The HMP155’s operational range includes 0 % RH, but the lower extreme is rarely observed in normal operation. Based on the maintenance knowledge base, the following troubleshooting and maintenance actions are recommended:
+
+1. **Verify Electrical Connections** – Ensure the sensor is wired correctly to the designated analog input channels and that the red power wire is connected to the 12 V or SW12V channel. Use a voltmeter to confirm the output voltage when the red wire is connected to a 12 V terminal.
+2. **Check Range Code Configuration** – Confirm that the range code for the measurement setup matches the data logger’s configuration.
+3. **Inspect and Clean the Probe Filter** – Examine the sintered Teflon filter for contamination or blockage. Clean the filter and ensure the probe element is free of moisture or debris.
+4. **Verify Power Supply** – Check that the sensor receives a stable 12 V supply and that all connections (USB, RS‑485, etc.) are secure.
+5. **Recalibrate the Sensor** – Perform a calibration against a reference standard. If the sensor has not been calibrated recently, recalibration may resolve the erroneous reading.
+6. **Assess for Physical Damage** – Inspect the probe housing and element for any signs of damage that could affect performance.
+7. **Replace if Fault Persists** – If after cleaning, wiring verification, and recalibration the 0 % reading continues, replace the HMP155 sensor.
+
+**Assessment**: The 0 % reading is most likely due to a sensor malfunction, possibly caused by electrical wiring issues, contamination of the probe filter, or a need for recalibration. The recommended steps should isolate the cause and restore accurate humidity measurements.
+
+**Action Plan**:
+- Day 1: Verify wiring and power supply.
+- Day 2: Clean filter and inspect for contamination.
+- Day 3: Recalibrate sensor.
+- Day 4: Re‑measure humidity; if still 0 %, replace sensor.
+
+These actions align with the known maintenance procedures for the Vaisala HMP155 and should resolve the anomaly.

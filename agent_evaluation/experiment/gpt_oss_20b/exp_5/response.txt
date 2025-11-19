@@ -1,0 +1,17 @@
+Brief Report: 
+
+Weather Context: Satellite data for Cibubur at 2024‑08‑16 22:30 UTC+7 shows a temperature of ~20.6 °C, 88 % RH, 3.1 m s⁻¹ wind, 961.6 hPa pressure, and no precipitation. The anomalous sensor reading of 2.96 °C is far below the expected ambient temperature, indicating a likely sensor fault rather than a true environmental drop.
+
+Sensor Specification: The Vaisala HMP155 operates from –80 °C to +60 °C. The anomalous 2.96 °C reading lies within this range, but the sensor’s sensitivity is not documented; a sudden ~25 °C drop is outside normal sensor response and suggests a malfunction.
+
+Maintenance & Troubleshooting: Recommended actions include inspecting the probe for damage, verifying wiring and power, cleaning or replacing the filter, recalibrating the sensor via its built‑in procedure, reviewing diagnostic logs for error codes, and conducting a post‑maintenance test to confirm resolution.
+
+Actionable Recommendations: 
+1. Perform the inspection and cleaning steps immediately.
+2. Recalibrate the sensor and record a 30‑minute temperature/humidity series.
+3. Compare post‑maintenance readings to satellite data; if the anomaly persists, replace the sensor.
+4. Update maintenance logs and schedule a quarterly calibration check.
+
+Next Steps: Assign field technician to AWS_DKI_KebunBibit, execute the above steps, and report back with updated sensor data. If sensor replacement is required, procure a new Vaisala HMP155 and install following manufacturer guidelines.
+
+Conclusion: The anomaly is most likely due to sensor malfunction. Prompt inspection, cleaning, and recalibration should resolve the issue; replacement is warranted if problems persist.

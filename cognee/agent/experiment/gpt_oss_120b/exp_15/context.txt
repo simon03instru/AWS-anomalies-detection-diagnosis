@@ -1,0 +1,71 @@
+Weather Data:
+
+Result:
+    {
+      "times": [
+        "2024-08-19T00:30",
+        "2024-08-19T00:45",
+        "2024-08-19T01:00",
+        "2024-08-19T01:15",
+        "2024-08-19T01:30"
+      ],
+      "temperature_2m": [
+        23.3,
+        23.8,
+        24.3,
+        24.8,
+        25.2
+      ],
+      "surface_pressure": [
+        997.0,
+        997.1,
+        997.2,
+        997.2,
+        997.3
+      ],
+      "relative_humidity_2m": [
+        81,
+        78,
+        76,
+        74,
+        73
+      ],
+      "windspeed_10m": [
+        4.0,
+        7.0,
+        9.5,
+        10.4,
+        10.4
+      ]
+    }
+
+  1. The operational wind speed range sensitivity for the Young 05103-L wind speed sensor is not explicitly provided in the context. However, general maintenance and troubleshooting instructions indicate the importance of checking wiring, resistance, and configuration codes for accurate wind speed measurements.
+
+  2. The operational wind speed range sensitivity for the Young 05103-L wind speed sensor is not explicitly stated in the provided context.
+
+
+
+  1. To diagnose sudden wind speed spikes in the R.M. Young 05103-L sensor, follow these steps:
+
+1. **Check Wiring**: Ensure the sensor is wired correctly to the specified Pulse channel.
+2. **Inspect the Coil**: Disconnect the sensor from the datalogger and measure the coil resistance (between red and black wires). It should be around 2075 ohms; infinite resistance indicates an open coil, and low resistance indicates a shorted coil.
+3. **Verify Configuration**: Check the Configuration Code, Multiplier, and Offset parameters for the Pulse Count instruction to ensure they are correct for your datalogger.
+4. **Review Data Logging**: If using Edlog, ensure the datalogger is not experiencing "Program Table Overruns"; increasing the scan rate may help.
+
+**Corrective Actions**:
+- If bearings are noisy or you notice any anomalies in measurements, consider replacing the anemometer bearings and recalibrating the sensor. Ensure this maintenance is carried out by a qualified technician.
+
+  2. To diagnose sudden wind speed spikes in the R.M. Young 05103-L sensor, follow these steps:
+
+1. **Initial Inspection**: Check for physical damage or obstruction in the propeller and ensure it can rotate freely.
+2. **Electrical Check**: Ensure that the potentiometer is receiving a stable DC excitation voltage (not exceeding 15 volts). Verify all wiring connections are secure and there are no short circuits.
+3. **Grounding**: Verify proper grounding of the instrument to prevent erroneous signals. Ensure the instrument is mounted on a grounded metal pipe or is connected to an earth ground through the terminal in the junction box.
+4. **Calibration Check**: If recent maintenance has occurred, verify that the sensor is correctly calibrated against a known standard to rule out inaccuracies in measurement.
+5. **Signal Conditioning**: Check that the signal conditioning electronics are functioning properly and managing the output from the potentiometer as expected, especially during the deadband region of the potentiometer output.
+6. **Maintenance**: Inspect and potentially replace the potentiometer and/or bearings if they are worn, as wear can lead to noisy signals or signal spikes.
+
+**Corrective Actions**:
+- Recalibrate the sensor if necessary. 
+- Replace worn components, such as the potentiometer or bearings, according to the maintenance procedures outlined in the manual.
+
+

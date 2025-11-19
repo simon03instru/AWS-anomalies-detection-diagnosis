@@ -1,0 +1,15 @@
+
+The anomaly analysis indicates a high likelihood of a sensor fault rather than an environmental anomaly. The temperature reading of 13.0 °C is 17.5 °C below the 10‑minute mean (~30.6 °C) and exceeds a 3σ deviation, while the relative humidity (49.1 %) does not show the expected negative correlation with temperature. Satellite‑derived weather data for Yogyakarta at 07:00 UTC (14:00 local) shows a temperature of 29.4 °C, RH 56 %, wind 20 km h⁻¹ from ~157°, with no precipitation or other notable weather events. This 16.4 °C discrepancy is far outside normal variation, strongly suggesting a sensor fault.
+
+The Vaisala HMP155 operates between –80 °C and +60 °C, so 13.0 °C is within its range, but the sensor’s sensitivity specifications for detecting a 17.5 °C deviation are not documented. Common causes for such anomalies include wiring issues, power supply instability, contamination of the probe or filter, corrosion, or condensation.
+
+**Actionable Recommendations**:
+1. **Immediate Inspection** – Verify wiring continuity, power supply (12 V), and probe connections. Inspect for corrosion, debris, or moisture on the sensor element and connectors.
+2. **Probe Cleaning** – Clean the radiation shield and probe with mild detergent; replace the filter annually.
+3. **Calibration Check** – Perform a calibration using a computer interface (USB or MI70) to confirm sensor accuracy.
+4. **Environmental Check** – Ensure the sensor is housed in an appropriate protective enclosure (e.g., DTR503, DTR13, Stevenson screen) and that the radiation shield is intact.
+5. **Data Logging Review** – Examine recent sensor logs for any abrupt changes or error codes that may indicate a fault.
+6. **Redundancy Test** – If possible, cross‑check with a secondary temperature sensor or nearby station to confirm the anomaly.
+7. **Maintenance Schedule** – Adopt monthly inspections of the radiation shield and probe, and annual replacement of the filter with recalibration.
+
+By following these steps, the likelihood of a sensor fault can be confirmed and corrected, ensuring reliable temperature measurements for future observations.

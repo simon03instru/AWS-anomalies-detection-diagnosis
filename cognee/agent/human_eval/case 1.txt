@@ -1,0 +1,52 @@
+=============================
+Data Received:
+=============================
+timestamp,tt,rh,pp,ws,wd,sr,rr
+2024-08-15 18:20:00+00,21.96,76.33,995.8249,0.693,316.4,0.0,0.0
+2024-08-15 18:30:00+00,21.91,76.16,995.7999,0.799,277.0,0.0,0.0
+2024-08-15 18:40:00+00,21.84,76.4,995.7599,0.973,297.3,0.0,0.0
+2024-08-15 18:50:00+00,21.83,76.72,995.7,1.026,299.9,0.0,0.0
+2024-08-15 19:00:00+00,21.74,77.1,995.635,1.1,265.1,0.0,0.0
+2024-08-15 19:10:00+00,21.76,77.37,995.535,1.036,316.0,0.0,0.0
+2024-08-15 19:20:00+00,21.78,77.39,995.5,1.223,310.5,0.0,0.0
+2024-08-15 19:30:00+00,21.7,77.7,995.5,0.878,282.8,0.0,0.0
+2024-08-15 19:40:00+00,21.7,77.72,995.4149,1.032,308.5,0.0,0.0
+2024-08-15 19:50:00+00,21.79,77.35,995.285,1.071,306.6,0.0,0.0
+2024-08-15 20:00:00+00,21.86,76.82,995.2,1.325,315.4,0.0,0.0
+2024-08-15 20:10:00+00,21.91,76.45,995.285,1.512,303.8,0.0,0.0
+2024-08-15 20:20:00+00,21.99,76.12,-9999,0.0,313.4,0.0,0.0
+
+=============================
+Station Agent Output:
+=============================
+Event Detection Time: 2024-08-15T20:20:00
+Station: AWS_DIY_UGM
+Location: UGM Yogyakarta, Indonesia
+Coordinates: Latitude -7.768469, Longitude 110.38192, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Atmospheric Pressure
+  Value: -9999.0
+  Sensor Brand: BaroVue
+  Trend Analysis: Invalid sentinel value -9999.0 hPa - sensor communication failure. Expected ~996 hPa, deviation >1000 hPa, physically impossible.
+
+
+=============================
+Diagnosis Agent Output:
+=============================
+Assessment/Troubleshoot:
+- At the event time (2024-08-15 20:20 UTC) the satellite‑derived weather data for the AWS_DIY_UGM site showed a temperature of 20.5 °C, relative humidity 86 %, wind 5.7 m/s from 325°, and a surface pressure of 995 hPa. The station reported a pressure value of -9999 hPa, which is a known sentinel indicating a sensor communication failure.
+- The BaroVue pressure sensor’s valid measurement range is 300–1100 hPa with a 0.01 hPa resolution, so the observed 995 hPa is well within the operational range. The reported -9999 hPa is not a physical measurement and far exceeds any plausible deviation (>10 000 hPa), confirming a sensor fault rather than an atmospheric event.
+
+Recommendations:
+1. **Immediate Troubleshooting** – Follow the BaroVue maintenance guide:
+   - Verify that the sensor card is fully seated and all wiring (power, signal, ground) is secure and free of corrosion.
+   - Measure the sensor’s supply voltage (12 V nominal) to ensure it is within spec.
+   - Re‑calibrate the sensor according to the manufacturer’s procedure.
+2. **If the fault persists** – Replace the BaroVue pressure sensor card with a new unit, observing anti‑static handling.
+3. **Enclosure & Environment** – Replace the desiccant in the sensor enclosure, check for condensation, and keep humidity low to prevent future communication issues.
+4. **Software/Firmware** – Check for and apply any firmware updates for the sensor or data logger that address communication protocols.
+5. **Diagnostics** – Run built‑in diagnostics or apply a known pressure reference to confirm sensor response after each step.
+6. **Documentation** – Log the fault, actions taken, and any parts replaced in the station maintenance record.
+
+No other anomalies were reported for this event, so the pressure sensor failure appears isolated. Implementing the above steps should restore reliable pressure measurements and prevent recurrence.

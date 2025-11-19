@@ -1,0 +1,60 @@
+**Comprehensive Assessment of the Humidity Anomaly (2024‑08‑15T20:10:00 UTC)**
+
+1. **Observed vs. Expected Conditions**
+   - Satellite‑derived weather at the station (20:00 UTC record):
+     - Relative humidity: **86 %**
+     - Temperature: **20.5 °C**
+     - Direct solar radiation: **0 W m⁻²** (night)
+     - Precipitation: **0 mm**
+   - Sensor‑reported values (Vaisala HMP155):
+     - Relative humidity: **30 %** (anomalous drop)
+     - Temperature: **21.9 °C** (within normal range)
+     - Solar radiation & precipitation: correctly reported as zero.
+   - Typical climatology for the site at this hour: ~76 % RH (±2 %).
+   - **Result:** The humidity reading is **~56 percentage points lower** than the satellite reference and far outside normal variability, while temperature and radiation are consistent.
+
+2. **Sensor Specification Context**
+   - Operational range: 0‑100 % RH (covers 30 %).
+   - Accuracy: ±0.6 % RH for 0‑40 % RH – the sensor could reliably read 30 % ± 0.6 % if the atmosphere truly were that dry.
+   - Response time: 20‑60 s – capable of capturing rapid changes.
+   - No specification prevents a sudden drop at constant temperature, but **natural atmospheric physics at night (no solar heating, no precipitation) makes a rapid humidity plunge to 30 % highly improbable**.
+
+3. **Known Failure Modes (Vaisala HMP155)**
+   - Warmed‑probe malfunction → condensation on probe → low RH output.
+   - Probe/filter contamination (dust, salt, moisture) → biased low readings.
+   - Calibration drift or loss of calibration.
+   - Loose or incorrect wiring / power supply issues.
+   - Electrical connection faults (USB/analog input).
+   - Physical damage or ingress of water/fog.
+
+4. **Likelihood Assessment**
+   - **Sensor fault:** ~90 % probability. The magnitude of the discrepancy, the lack of supporting environmental cues, and the presence of documented failure modes strongly point to a sensor issue.
+   - **Genuine atmospheric event:** ~10 % probability. Only a very localized, transient micro‑climate (e.g., sudden dry air advection) could produce such a drop, but satellite data and climatology do not support this.
+
+5. **Potential Correlations with Other Parameters**
+   - Temperature remained stable (≈22 °C) – no warming that would drive evaporation.
+   - Solar radiation was zero – no radiative drying.
+   - No precipitation – no removal of moisture.
+   - The absence of any concurrent change in these parameters further isolates the humidity sensor as the outlier.
+
+6. **Actionable Recommendations for the Station Operator**
+   1. **Immediate Inspection**
+      - Verify all wiring connections to the HMP155 (power and signal lines). Tighten any loose terminals.
+      - Measure supply voltage at the sensor to confirm proper power (12 V nominal).
+   2. **Probe & Filter Check**
+      - Visually inspect the probe and sintered Teflon filter for dust, salt, or moisture buildup.
+      - Clean the probe with distilled water and a soft brush if contamination is observed; replace the filter if clogged.
+   3. **Warmed‑Probe Function**
+      - Confirm the heated element is operational (check heating current). A failed heated probe often yields low RH readings at night.
+   4. **Calibration Verification**
+      - Perform an on‑site calibration check using a calibrated hygrometer or a reference chamber.
+      - If drift is detected, schedule a professional recalibration (annual recommended).
+   5. **Physical Condition**
+      - Inspect the sensor housing for cracks, water ingress, or damage to the radiation shield.
+   6. **Replace if Necessary**
+      - If wiring, probe, heating, and calibration are all verified but the anomaly persists, replace the HMP155 unit.
+   7. **Monitoring & Documentation**
+      - Continue logging humidity and compare future readings against satellite reference (e.g., ECMWF or similar) for the next 24‑48 h to confirm resolution.
+      - Document the fault, corrective actions taken, and any post‑maintenance performance metrics.
+
+**Conclusion:** The weight of evidence (large humidity deviation, consistent temperature/radiation, known sensor failure modes) indicates a **high‑confidence sensor malfunction** rather than a true atmospheric event. Following the step‑by‑step troubleshooting and maintenance actions above should restore reliable humidity measurements at AWS DIY UGM.

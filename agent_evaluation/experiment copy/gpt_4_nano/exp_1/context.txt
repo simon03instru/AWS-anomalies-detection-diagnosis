@@ -1,0 +1,43 @@
+Wea data fetched from API:
+Result:
+    {
+      "times": [
+        "2024-08-19T07:00",
+        "2024-08-19T07:15",
+        "2024-08-19T07:30",
+        "2024-08-19T07:45",
+        "2024-08-19T08:00"
+      ],
+      "temperature_2m": [
+        29.4,
+        29.2,
+        29.0,
+        28.8,
+        28.5
+      ]
+    }
+
+
+  Retrieved Sentence Chunks:
+  ----------------------------------------------------------------------------
+
+  1. The operating temperature range for the Vaisala HMP155 is not explicitly mentioned in the provided context.
+
+  2. The operating temperature range of the Vaisala HMP155 is −80 to +60 °C (−112 to +140 °F).
+
+
+
+  1. To troubleshoot a Vaisala HMP155 communication failure indicated by -9999°C, check the following:
+1. Ensure the sensor is wired to the correct analog input channels.
+2. Verify the range code for single-ended or differential measurement instructions matches your data logger type.
+3. Confirm the red power wire is correctly connected to the 12V or SW12V channel. 
+4. Connect the red wire to a 12V terminal and check the output voltage with a voltmeter for temperature and relative humidity.
+5. If the issue persists, check sensor wiring, voltage to the sensor, and SDI-12 address settings.
+
+  2. For troubleshooting a communication failure with the Vaisala HMP155 resulting in a sentinel reading of -9999°C:
+1. **Check Connections**: Ensure all cable connections, including the M12 connector and USB connection, are secure.
+2. **Inspect Power Supply**: Verify that the probe is receiving adequate power (7 - 28 V DC).
+3. **Check for Damage**: Inspect the probe and cables for any physical damage or wear.
+4. **Calibration**: Use a computer or MI70 indicator to check if the sensor needs recalibration.
+5. **Sensor Condition**: Evaluate the probe for contamination or blockages, especially if operating in high humidity environments; a warmed probe may help prevent condensation.
+6. **Environment Factors**: Ensure the operating environment meets temperature and humidity specifications for the HMP155.

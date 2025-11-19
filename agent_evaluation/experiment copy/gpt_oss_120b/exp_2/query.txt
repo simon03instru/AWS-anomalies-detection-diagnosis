@@ -1,0 +1,22 @@
+Analyze the following weather anomaly detected at AWS_DIY_STAGEOF_YOGYAKARTA:
+
+Event Detection Time: 2024-08-19T07:40:00
+Station: AWS_DIY_STAGEOF_YOGYAKARTA
+Location: Yogyakarta, Indonesia
+Coordinates: Latitude -7.81665, Longitude 110.29481, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Relative Humidity
+  Value: 0.0
+  Sensor Brand: Vaisala HMP155
+  Trend Analysis: Physically impossible 0% humidity reading - sensor likely malfunction. Dropped from typical ~51% to 0% instantly. Correlation with temperature (30.6°C) and solar radiation (523.8 W/m²) broken, indicating sensor fault.
+
+Validation Timestamp: 2025-10-26T06:33:55.960212
+Correlation ID: anomaly-AWS_DIY_STAGEOF_YOGYAKARTA-1761460435
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.

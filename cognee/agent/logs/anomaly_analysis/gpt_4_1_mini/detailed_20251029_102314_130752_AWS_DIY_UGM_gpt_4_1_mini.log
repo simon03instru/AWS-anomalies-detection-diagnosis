@@ -1,0 +1,2468 @@
+
+================================================================================
+DETAILED ANOMALY PROCESSING LOG
+================================================================================
+LLM: gpt_4_1_mini
+Anomaly ID: AWS_DIY_UGM_2024-08-15T20-00-00
+Event Type: WEATHER_ANOMALY_CONFIRMED
+Correlation ID: anomaly-AWS_DIY_UGM-1761733235
+Timestamp: 2025-10-29 10:23:14
+Log File: detailed_20251029_102314_130752_AWS_DIY_UGM_gpt_4_1_mini.log
+================================================================================
+
+
+================================================================================
+ORIGINAL ANOMALY DATA
+================================================================================
+{
+  "event_type": "WEATHER_ANOMALY_CONFIRMED",
+  "timestamp": "2025-10-29T10:20:35.153969",
+  "source": "StationAgent-AWS_DIY_UGM",
+  "data": {
+    "timestamp": "2024-08-15T20:00:00",
+    "station_id": "AWS_DIY_UGM",
+    "station_metadata": {
+      "location": "UGM Yogyakarta, Indonesia",
+      "latitude": -7.768469,
+      "longitude": 110.38192,
+      "altitude": 48.0,
+      "sensor_info": {
+        "rr": {
+          "brand": "HYQUEST TB4",
+          "last_calibration": "2024-03-15"
+        }
+      }
+    },
+    "confirmed_anomalies": [
+      {
+        "parameter": "Rainfall",
+        "parameter_code": "rr",
+        "value": 100.0,
+        "unit": "mm",
+        "sensor_brand": "HYQUEST TB4",
+        "sensor_range": "0-100 mm/h",
+        "trend_analysis": "Rainfall sensor likely malfunction: 100 mm reported in a 10\u2011min interval while historical mean is 0 mm and max 0 mm. No concurrent pressure drop or temperature change, indicating a spurious spike. Confidence >80% that this is a sensor fault."
+      }
+    ],
+    "validation_timestamp": "2025-10-29T10:20:35.153954",
+    "has_trend_analysis": true
+  },
+  "correlation_id": "anomaly-AWS_DIY_UGM-1761733235"
+}
+================================================================================
+
+
+================================================================================
+WORKFORCE PROCESSING STARTED
+================================================================================
+LLM: gpt_4_1_mini
+Initial Query:
+Analyze the following weather anomaly detected at AWS_DIY_UGM:
+
+Event Detection Time: 2024-08-15T20:00:00
+Station: AWS_DIY_UGM
+Location: UGM Yogyakarta, Indonesia
+Coordinates: Latitude -7.768469, Longitude 110.38192, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Rainfall
+  Value: 100.0
+  Sensor Brand: HYQUEST TB4
+  Trend Analysis: Rainfall sensor likely malfunction: 100 mm reported in a 10‑min interval while historical mean is 0 mm and max 0 mm. No concurrent pressure drop or temperature change, indicating a spurious spike. Confidence >80% that this is a sensor fault.
+
+Validation Timestamp: 2025-10-29T10:20:35.153954
+Correlation ID: anomaly-AWS_DIY_UGM-1761733235
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.
+================================================================================
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: sensor_search_sensor_knowledge
+--------------------------------------------------------------------------------
+Tool: sensor_search_sensor_knowledge
+Call Count: 1
+Timestamp: 10:23:34.661
+
+Keyword Arguments:
+    {
+      "query": "HYQUEST TB4 rainfall sensor operational range sensitivity specifications",
+      "node_sets": [
+        "rain_sensor"
+      ]
+    }
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: maintenance_search_maintenance_knowledge
+--------------------------------------------------------------------------------
+Tool: maintenance_search_maintenance_knowledge
+Call Count: 1
+Timestamp: 10:23:35.094
+
+Keyword Arguments:
+    {
+      "query": "troubleshooting guides, common failure modes, and maintenance procedures for HYQUEST TB4 rainfall sensor; causes for spurious rainfall spikes; recommended maintenance actions",
+      "node_sets": [
+        "rain_sensor"
+      ]
+    }
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: get_weather
+--------------------------------------------------------------------------------
+Tool: get_weather
+Call Count: 1
+Timestamp: 10:23:35.525
+
+Keyword Arguments:
+    {
+      "latitude": -7.768469,
+      "longitude": 110.38192,
+      "start_time": "2024-08-15T19:00:00Z",
+      "end_time": "2024-08-15T21:00:00Z",
+      "parameters": [
+        "precipitation",
+        "surface_pressure",
+        "temperature_2m"
+      ]
+    }
+
+Execution Time: 1.334 seconds
+Result Length: 414 characters
+
+Result:
+    {
+      "times": [
+        "2024-08-15T19:00",
+        "2024-08-15T19:15",
+        "2024-08-15T19:30",
+        "2024-08-15T19:45",
+        "2024-08-15T20:00",
+        "2024-08-15T20:15",
+        "2024-08-15T20:30",
+        "2024-08-15T20:45",
+        "2024-08-15T21:00"
+      ],
+      "precipitation": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "surface_pressure": [
+        994.9,
+        994.9,
+        994.9,
+        995.0,
+        995.0,
+        995.0,
+        994.9,
+        994.9,
+        994.9
+      ],
+      "temperature_2m": [
+        20.7,
+        20.6,
+        20.6,
+        20.6,
+        20.5,
+        20.5,
+        20.4,
+        20.3,
+        20.2
+      ]
+    }
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #2: get_weather
+--------------------------------------------------------------------------------
+Tool: get_weather
+Call Count: 2
+Timestamp: 10:23:42.989
+
+Keyword Arguments:
+    {
+      "latitude": -7.768469,
+      "longitude": 110.38192,
+      "start_time": "2024-08-15T19:00:00Z",
+      "end_time": "2024-08-15T21:00:00Z",
+      "parameters": [
+        "temperature_2m",
+        "precipitation",
+        "relative_humidity_2m",
+        "windspeed_10m",
+        "winddirection_10m",
+        "surface_pressure"
+      ]
+    }
+
+Execution Time: 1.216 seconds
+Result Length: 608 characters
+
+Result:
+    {
+      "times": [
+        "2024-08-15T19:00",
+        "2024-08-15T19:15",
+        "2024-08-15T19:30",
+        "2024-08-15T19:45",
+        "2024-08-15T20:00",
+        "2024-08-15T20:15",
+        "2024-08-15T20:30",
+        "2024-08-15T20:45",
+        "2024-08-15T21:00"
+      ],
+      "temperature_2m": [
+        20.7,
+        20.6,
+        20.6,
+        20.6,
+        20.5,
+        20.5,
+        20.4,
+        20.3,
+        20.2
+      ],
+      "precipitation": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "relative_humidity_2m": [
+        85,
+        85,
+        86,
+        86,
+        86,
+        86,
+        87,
+        87,
+        87
+      ],
+      "windspeed_10m": [
+        5.9,
+        5.6,
+        5.9,
+        5.7,
+        5.7,
+        5.7,
+        5.5,
+        5.5,
+        5.5
+      ],
+      "winddirection_10m": [
+        317,
+        320,
+        322,
+        325,
+        325,
+        325,
+        328,
+        328,
+        328
+      ],
+      "surface_pressure": [
+        994.9,
+        994.9,
+        994.9,
+        995.0,
+        995.0,
+        995.0,
+        994.9,
+        994.9,
+        994.9
+      ]
+    }
+--------------------------------------------------------------------------------
+
+
+Execution Time: 15.734 seconds
+Result Length: 1795 characters
+
+Result:
+    ### Troubleshooting Guides:
+    1. **No Precipitation Measurement**:  
+       - Check wiring to the pulse/control terminal.  
+       - Verify PConfig, Multiplier, and Offset parameters for the PulseCount() instruction.  
+       - Use an ohm meter to check switch continuity (should vary from infinite to <1 ohm).
+    
+    2. **CS700H Not Communicating Over SDI-12**:  
+       - Ensure sensor and power cables are properly connected.
+    
+    ### Common Failure Modes:
+    - Issues with the tipping mechanism (blockage or dirt).  
+    - Electrical connection failures (wiring issues) leading to no measurement output.
+    
+    ### Maintenance Procedures:
+    - Regularly clean:  
+       - Catch filter, siphon, bucket interior, screws, and insect screens.
+    - Check tipping assembly movement and the data logger's recording of tips.
+    - Dismantling for cleaning involves removing the housing and filter/siphon assembly.
+    
+    ### Causes for Spurious Rainfall Spikes:
+    - Debris obstruction leading to false tipping.  
+    - Electrical interference or faulty wiring.
+    
+    ### Recommended Maintenance Actions:
+    - Clean all mentioned components regularly.  
+    - Check calibration once every 12 months; recalibrate if necessary.
+    
+    **Troubleshooting Guides and Common Failure Modes for HYQUEST TB4 Rainfall Sensor:**  
+    1. **Spurious Rainfall Spikes:**  
+       - **Causes:**  
+         - Debris blockage in the catch area (leaves, bird droppings).  
+         - Electrical interference from RG cables.  
+         - Mechanical failures within the tipping bucket mechanism.
+    
+    **Recommended Maintenance Actions:**  
+    1. Regularly check and clean the finger filter to ensure the collector area remains unblocked.  
+    2. Inspect electrical connections and cables for damage or wear.  
+    3. Conduct periodic functional tests and calibrations using the Portable Field Calibration Device (FCD) to minimize downtime.
+--------------------------------------------------------------------------------
+
+
+Execution Time: 16.181 seconds
+Result Length: 783 characters
+
+Result:
+    The operational range sensitivity specifications of the HYQUEST TB4 rainfall sensor are not explicitly mentioned in the provided context. However, it does state that the sensor is factory calibrated and can handle a routine calibration check, which suggests a standard sensitivity range for measuring rainfall.
+    
+    The operational range sensitivity specifications for the HyQuest TB4 rainfall sensor include:
+    - Accuracy: 
+      - 0-100 mm per hour: better than +/-2%
+      - 100-150 mm per hour: better than +/-4%
+      - 150-200 mm per hour: better than +/-5%
+      - 0-50 mm per hour: better than +/-1%
+      - 50-100 mm per hour: better than +/-3%
+      - 100-150 mm per hour: better than +/-5%
+      - 150-200 mm per hour: better than +/-7%
+      - 200-300 mm per hour: better than +/-10%
+    - Range: 700 mm per hour.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #3: get_weather
+--------------------------------------------------------------------------------
+Tool: get_weather
+Call Count: 3
+Timestamp: 10:23:56.693
+
+Keyword Arguments:
+    {
+      "latitude": -7.768469,
+      "longitude": 110.38192,
+      "start_time": "2024-08-15T19:00:00Z",
+      "end_time": "2024-08-15T21:00:00Z",
+      "parameters": [
+        "precipitation",
+        "surface_pressure",
+        "temperature_2m"
+      ]
+    }
+
+Execution Time: 1.221 seconds
+Result Length: 414 characters
+
+Result:
+    {
+      "times": [
+        "2024-08-15T19:00",
+        "2024-08-15T19:15",
+        "2024-08-15T19:30",
+        "2024-08-15T19:45",
+        "2024-08-15T20:00",
+        "2024-08-15T20:15",
+        "2024-08-15T20:30",
+        "2024-08-15T20:45",
+        "2024-08-15T21:00"
+      ],
+      "precipitation": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "surface_pressure": [
+        994.9,
+        994.9,
+        994.9,
+        995.0,
+        995.0,
+        995.0,
+        994.9,
+        994.9,
+        994.9
+      ],
+      "temperature_2m": [
+        20.7,
+        20.6,
+        20.6,
+        20.6,
+        20.5,
+        20.5,
+        20.4,
+        20.3,
+        20.2
+      ]
+    }
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #4: get_weather
+--------------------------------------------------------------------------------
+Tool: get_weather
+Call Count: 4
+Timestamp: 10:23:57.924
+
+Keyword Arguments:
+    {
+      "latitude": -7.768469,
+      "longitude": 110.38192,
+      "start_time": "2024-08-15T19:50:00Z",
+      "end_time": "2024-08-15T20:10:00Z",
+      "parameters": [
+        "precipitation"
+      ]
+    }
+
+Execution Time: 1.775 seconds
+Result Length: 181 characters
+
+Result:
+    {
+      "error": "Requested time range not found in API response. Available times: ['2024-08-15T00:00', '2024-08-15T00:15', '2024-08-15T00:30', '2024-08-15T00:45', '2024-08-15T01:00']..."
+    }
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+STDOUT CAPTURE
+--------------------------------------------------------------------------------
+[33mWorker node 42b0c738-c5cc-42ff-9e4b-f5815d4093a9 (Weather data analysis) get task 5c083877-c5f1-4a82-b431-9c1154b8d4be.1: Get current and historical weather data for UGM Yogyakarta, Indonesia at latitude -7.768469 and longitude 110.38192 on August 15, 2024 at 20:00. Compare these conditions to the reported rainfall anomaly of 100 mm in 10 minutes. Provide a summary report including rainfall, pressure, and temperature data.[39m
+[33mWorker node cb7b6e64-52b9-4775-b997-32e80698f006 (Sensor specifications) get task 5c083877-c5f1-4a82-b431-9c1154b8d4be.2: Search for operational range, sensitivity, and specifications of the HYQUEST TB4 rainfall sensor model. Provide a detailed report on whether the reported rainfall value of 100 mm in 10 minutes is within expected sensor limits.[39m
+[33mWorker node e0dd8b58-23ec-4f66-8f8d-fd5cb3f5e77c (Maintenance information) get task 5c083877-c5f1-4a82-b431-9c1154b8d4be.3: Search for troubleshooting guides, common failure modes, and maintenance procedures for the HYQUEST TB4 rainfall sensor. Provide a list of possible causes for spurious rainfall spikes and recommended maintenance actions.[39m
+======
+[32mResponse from Worker node 42b0c738-c5cc-42ff-9e4b-f5815d4093a9 (Weather data analysis):[39m
+
+[32mThe weather data for UGM Yogyakarta, Indonesia on August 15, 2024, around 20:00 UTC shows no precipitation recorded in the hour surrounding the event time, with precipitation values consistently at 0.0 mm. Surface pressure remained stable around 994.9 to 995.0 hPa, and temperature was steady around 20.5°C. These conditions strongly contrast with the reported rainfall anomaly of 100 mm in 10 minutes, which is not supported by the satellite-based weather data. The lack of any pressure drop or temperature change further supports the assessment that the rainfall sensor reading was a spurious spike likely due to sensor malfunction. Therefore, the anomaly is not corroborated by actual weather conditions, indicating a sensor fault rather than a real weather event.[39m
+======
+[36m🎯 Task 5c083877-c5f1-4a82-b431-9c1154b8d4be.1 completed successfully.[39m
+[33mWorker node 42b0c738-c5cc-42ff-9e4b-f5815d4093a9 (Weather data analysis) get task 5c083877-c5f1-4a82-b431-9c1154b8d4be.5: Confirm if there are multiple anomalies detected at AWS_DIY_UGM station. If multiple anomalies exist, analyze potential correlations or common causes among them and provide a summary report. If only one anomaly is present, state this clearly in the report.[39m
+======
+[32mResponse from Worker node 42b0c738-c5cc-42ff-9e4b-f5815d4093a9 (Weather data analysis):[39m
+
+[32mAfter reviewing the available data and the initial anomaly report for the AWS_DIY_UGM station, there is only one confirmed anomaly detected, which is the rainfall sensor reporting 100 mm in a 10-minute interval. This anomaly is highly likely due to a sensor malfunction, as the satellite-based weather data for the same period shows no precipitation, stable surface pressure around 995 hPa, and steady temperature around 20.5°C. There are no other anomalies detected in parameters such as temperature, humidity, wind speed, wind direction, or pressure. Therefore, no multiple anomalies exist to analyze for correlations or common causes. The single anomaly is best explained as a spurious sensor fault, and maintenance or sensor troubleshooting is recommended to address this issue.[39m
+======
+[36m🎯 Task 5c083877-c5f1-4a82-b431-9c1154b8d4be.5 completed successfully.[39m
+   📝 Logged 2 chunks for query: 'HYQUEST TB4 rainfall sensor operational range sens...'
+   📝 Logged 2 chunks for query: 'troubleshooting guides, common failure modes, and ...'
+======
+[32mResponse from Worker node e0dd8b58-23ec-4f66-8f8d-fd5cb3f5e77c (Maintenance information):[39m
+
+[32mTroubleshooting guides for the HYQUEST TB4 rainfall sensor include checking wiring to the pulse/control terminal, verifying configuration parameters, and testing switch continuity. Common failure modes involve tipping mechanism blockage or dirt and electrical connection failures. Maintenance procedures recommend regular cleaning of the catch filter, siphon, bucket interior, screws, and insect screens, as well as checking the tipping assembly movement and data logger tip recording. Causes for spurious rainfall spikes include debris obstruction (e.g., leaves, bird droppings), electrical interference, and mechanical failures within the tipping bucket mechanism. Recommended maintenance actions are to regularly clean the finger filter and collector area, inspect electrical connections and cables for damage or wear, and perform periodic functional tests and calibrations using a Portable Field Calibration Device (FCD) to ensure accurate measurements and minimize downtime.[39m
+======
+[36m🎯 Task 5c083877-c5f1-4a82-b431-9c1154b8d4be.3 completed successfully.[39m
+======
+[32mResponse from Worker node cb7b6e64-52b9-4775-b997-32e80698f006 (Sensor specifications):[39m
+
+[32mThe HYQUEST TB4 rainfall sensor has an operational range up to 700 mm per hour. Its accuracy varies with rainfall intensity: for 0-100 mm per hour, accuracy is better than +/-2%, and for higher intensities up to 300 mm per hour, accuracy decreases but remains within +/-10%. Given this, a reported rainfall of 100 mm in 10 minutes corresponds to 600 mm per hour, which is within the sensor's maximum measurable range but at the high end of its range where accuracy is lower. Therefore, while the sensor can technically measure such a high rainfall rate, the reported value of 100 mm in 10 minutes is extreme and unusual, suggesting the possibility of sensor malfunction or anomaly, especially considering no concurrent environmental changes were observed.[39m
+======
+[36m🎯 Task 5c083877-c5f1-4a82-b431-9c1154b8d4be.2 completed successfully.[39m
+[33mWorker node 42b0c738-c5cc-42ff-9e4b-f5815d4093a9 (Weather data analysis) get task 5c083877-c5f1-4a82-b431-9c1154b8d4be.4: Based on the provided trend analysis and gathered data, create a comprehensive assessment report of the rainfall anomaly at AWS_DIY_UGM station. Include actionable recommendations for sensor verification, maintenance, and data validation.[39m
+======
+[32mResponse from Worker node 42b0c738-c5cc-42ff-9e4b-f5815d4093a9 (Weather data analysis):[39m
+
+[32mThe rainfall anomaly reported at AWS_DIY_UGM station on 2024-08-15T20:00:00, showing 100 mm in 10 minutes, is highly likely a sensor malfunction. Satellite-based weather data for the location and time show no precipitation, with values consistently at 0.0 mm in the hour surrounding the event. Surface pressure remained stable around 995 hPa, and temperature was steady around 20.5°C, with no environmental changes supporting heavy rainfall. The HYQUEST TB4 sensor used has an operational range up to 700 mm per hour and can technically measure such high rainfall, but the reported value is extreme and unusual, especially without corroborating weather conditions.
+
+Common causes for such spurious rainfall spikes include debris obstruction, electrical interference, and mechanical failures in the tipping bucket mechanism. Recommended maintenance actions include:
+1. Verify and clean the sensor's catch filter, siphon, bucket interior, screws, and insect screens to remove any debris.
+2. Inspect wiring and electrical connections for damage or wear and ensure proper configuration.
+3. Test the tipping mechanism for smooth operation and check data logger tip recording.
+4. Perform functional tests and calibrations using a Portable Field Calibration Device (FCD) to ensure accuracy.
+
+Data validation should include cross-checking sensor data with nearby stations or satellite data to identify anomalies early. Regular maintenance and calibration schedules should be established to minimize sensor faults and ensure reliable rainfall measurements.[39m
+======
+[36m🎯 Task 5c083877-c5f1-4a82-b431-9c1154b8d4be.4 completed successfully.[39m
+
+--------------------------------------------------------------------------------
+
+
+================================================================================
+FINAL OUTPUT - SYNTHESIZED RESULT
+================================================================================
+--- Subtask 5c083877-c5f1-4a82-b431-9c1154b8d4be.1 Result ---
+The weather data for UGM Yogyakarta, Indonesia on August 15, 2024, around 20:00 UTC shows no precipitation recorded in the hour surrounding the event time, with precipitation values consistently at 0.0 mm. Surface pressure remained stable around 994.9 to 995.0 hPa, and temperature was steady around 20.5°C. These conditions strongly contrast with the reported rainfall anomaly of 100 mm in 10 minutes, which is not supported by the satellite-based weather data. The lack of any pressure drop or temperature change further supports the assessment that the rainfall sensor reading was a spurious spike likely due to sensor malfunction. Therefore, the anomaly is not corroborated by actual weather conditions, indicating a sensor fault rather than a real weather event.
+
+--- Subtask 5c083877-c5f1-4a82-b431-9c1154b8d4be.2 Result ---
+The HYQUEST TB4 rainfall sensor has an operational range up to 700 mm per hour. Its accuracy varies with rainfall intensity: for 0-100 mm per hour, accuracy is better than +/-2%, and for higher intensities up to 300 mm per hour, accuracy decreases but remains within +/-10%. Given this, a reported rainfall of 100 mm in 10 minutes corresponds to 600 mm per hour, which is within the sensor's maximum measurable range but at the high end of its range where accuracy is lower. Therefore, while the sensor can technically measure such a high rainfall rate, the reported value of 100 mm in 10 minutes is extreme and unusual, suggesting the possibility of sensor malfunction or anomaly, especially considering no concurrent environmental changes were observed.
+
+--- Subtask 5c083877-c5f1-4a82-b431-9c1154b8d4be.3 Result ---
+Troubleshooting guides for the HYQUEST TB4 rainfall sensor include checking wiring to the pulse/control terminal, verifying configuration parameters, and testing switch continuity. Common failure modes involve tipping mechanism blockage or dirt and electrical connection failures. Maintenance procedures recommend regular cleaning of the catch filter, siphon, bucket interior, screws, and insect screens, as well as checking the tipping assembly movement and data logger tip recording. Causes for spurious rainfall spikes include debris obstruction (e.g., leaves, bird droppings), electrical interference, and mechanical failures within the tipping bucket mechanism. Recommended maintenance actions are to regularly clean the finger filter and collector area, inspect electrical connections and cables for damage or wear, and perform periodic functional tests and calibrations using a Portable Field Calibration Device (FCD) to ensure accurate measurements and minimize downtime.
+
+--- Subtask 5c083877-c5f1-4a82-b431-9c1154b8d4be.4 Result ---
+The rainfall anomaly reported at AWS_DIY_UGM station on 2024-08-15T20:00:00, showing 100 mm in 10 minutes, is highly likely a sensor malfunction. Satellite-based weather data for the location and time show no precipitation, with values consistently at 0.0 mm in the hour surrounding the event. Surface pressure remained stable around 995 hPa, and temperature was steady around 20.5°C, with no environmental changes supporting heavy rainfall. The HYQUEST TB4 sensor used has an operational range up to 700 mm per hour and can technically measure such high rainfall, but the reported value is extreme and unusual, especially without corroborating weather conditions.
+
+Common causes for such spurious rainfall spikes include debris obstruction, electrical interference, and mechanical failures in the tipping bucket mechanism. Recommended maintenance actions include:
+1. Verify and clean the sensor's catch filter, siphon, bucket interior, screws, and insect screens to remove any debris.
+2. Inspect wiring and electrical connections for damage or wear and ensure proper configuration.
+3. Test the tipping mechanism for smooth operation and check data logger tip recording.
+4. Perform functional tests and calibrations using a Portable Field Calibration Device (FCD) to ensure accuracy.
+
+Data validation should include cross-checking sensor data with nearby stations or satellite data to identify anomalies early. Regular maintenance and calibration schedules should be established to minimize sensor faults and ensure reliable rainfall measurements.
+
+--- Subtask 5c083877-c5f1-4a82-b431-9c1154b8d4be.5 Result ---
+After reviewing the available data and the initial anomaly report for the AWS_DIY_UGM station, there is only one confirmed anomaly detected, which is the rainfall sensor reporting 100 mm in a 10-minute interval. This anomaly is highly likely due to a sensor malfunction, as the satellite-based weather data for the same period shows no precipitation, stable surface pressure around 995 hPa, and steady temperature around 20.5°C. There are no other anomalies detected in parameters such as temperature, humidity, wind speed, wind direction, or pressure. Therefore, no multiple anomalies exist to analyze for correlations or common causes. The single anomaly is best explained as a spurious sensor fault, and maintenance or sensor troubleshooting is recommended to address this issue.
+
+
+Output Statistics:
+  - length: 5148
+  - word_count: 735
+  - line_count: 22
+  - is_error: False
+================================================================================
+
+
+================================================================================
+DOCUMENT CHUNKS RETRIEVED FROM RAG
+================================================================================
+Total RAG Queries: 7
+Log File: chunk_retrieval_20251029_101505.jsonl
+--------------------------------------------------------------------------------
+
+
+Query #1:
+  Query: HYQUEST TB4 rainfall sensor measurement range resolution recommended sampling interval
+  Dataset: sensor_knowledge
+  Node Sets: rain_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. TIPPING BUCKET TAINGAUGE MODEL TB4 HYQUEST Solutions
+
+The only routine maintenance required is cleaning. The following items should be checked
+regularly for cleanliness:
+ Catch filter
+ Syphon (refer diagram 2)
+ Interior of bucket
+ Top surface of adjusting screws
+ Enclosure locking screws - lightly lubricate after cleaning
+ All insect screens
+
+
+ELECTRICAL
+Dual reed switches are provided for several reasons:
+ Two isolated switches permit the control of two separate circuits; e.g. a local counter
+and a telemetry circuit.
+ Parallel connection of both switches increases the current carrying capacity of the
+contact system if required.
+ Parallel switch operation confers a degree of redundancy in locations where data from
+the raingauge is critical to flood warning etc.
+
+CALIBRATION
+All gauges have been calibrated by Hyquest Solutions Pty Ltd, prior to despatch.
+The following products and services are available from Hyquest Solutions Pty Ltd:
+ Field Calibration Device, Model TB320, for routine field check calibrations,
+supplied with operating instruction sheet refers to page FCD 110-01.
+ Laboratory Calibration Unit, Model TB340, for calibration after servicing in
+workshops, supplied with operating manual.
+ Recalibration Service at Hyquest Solutions’ factory.
+Please contact either Hyquest Solutions Pty Ltd or our local distributor for further
+information.
+
+
+Troubleshooting
+Symptom: No precipitation measurement
+1. Check that the sensor is wired to the pulse or control terminal specified by the pulse count
+instruction.
+2. 3. Verify that the PConfig, and Multiplier and Offset parameters for the
+PulseCount() instruction are correct for the data logger type.
+Disconnect the sensor from the data logger and use an ohm meter to do a continuity check
+of the switch. The resistance measured at the terminal block on the inside of the bucket
+between the black and white wires should vary from infinite (switch open) when the bucket
+is tipped, to less than an ohm when the bucket is balanced.
+Symptom: CS700H not communicating over SDI-12
+1. Ensure that both the sensor and power cables are properly connected (Table 7-2 [p. 10] and
+Table 7-3 [p. 10]).
+
+Maintenance
+During each site visit, remove any debris, such as insects or sediment from the collection funnel,
+debris screen, siphoning mechanism, or tipping bucket assembly.
+Verify the tipping bucket assembly moves freely, and that the data logger records each bucket
+tip.
+Dismantling for cleaning
+Regularly check the following items for cleanliness:
+l Catch filter
+l Siphon
+l Interior of bucket
+l Top surface of adjusting screws
+l Housing locking screws; lightly lubricate after cleaning
+l Insect screens
+To access them, dismantle the rain gage using the following procedure:
+1. Remove the housing assembly from the base by loosening the three housing screws and
+lifting the housing upward (Figure 9-1 [p. 22], Figure 9-2 [p. 23]).
+
+2. Figure 9-2. TB4 base
+Separate the filter/siphon assembly from the funnel by pushing the filter while pulling the
+siphon (Figure 9-3 [p. 24]).
+CAUTION:
+Do not twist the filter/siphon assembly while pushing and pulling.
+
+Disassemble the filter/siphon assembly by doing the following (Figure 9-4 [p. 25]):
+a. Unscrew nut
+b. Lightly press stem down on surface until stem pops out of siphon body
+c. Remove stem from siphon body
+d. Unscrew cap
+e. Clean all items
+
+Reassembling the rain bucket
+1. 2. Screw cap on stem; finger tighten only (Figure 9-4 [p. 25]).
+Push stem into siphon body (Figure 9-4 [p. 25]).
+Replace nut and tighten (Figure 9-4 [p. 25]).
+CAUTION:
+Do not over tighten.
+Push filter/siphon assembly back into place (Figure 9-5 [p. 26]).
+CAUTION:
+Do not twist the filter/siphon assembly while putting it back into place.
+5. Place the housing assembly back onto the base and tighten the three screws that secure
+the housing onto the base.
+
+Calibration check
+The sensor is factory calibrated; recalibration is not required unless damage has occurred or the
+adjustment screws have loosened.
+Nevertheless, the following calibration check is recommended once every 12 months:
+1. Remove the housing assembly from the base by removing the three screws and lifting
+upward on the housing.
+2. Check the bubble level to verify the rain gage is level.
+3. Pour water through the inner funnel to wet the two bucket surfaces. Using a graduated
+cylinder, slowly pour 314 cc (19.16 in3) of water, over a 15-minute period, into the collection
+funnel. This volume of water is equal to 0.39 in of rainfall (10 mm).
+4. After the water has passed through the rain gage, the tipping bucket should have tipped 39
+times.
+5. If the rain gage fails to record the correct number of tips, return the unit to Campbell
+Scientific for recalibration (see Assistance at the back of this manual).
+
+    2. Page 1:
+General Description
+HyQuest Solutions’ TB6 is a non-syphoning 
+high-quality tipping bucket rain gauge for 
+measuring rainfall and precipitation in urban 
+and rural locations. The TB6 is the device of 
+choice for accurately measuring low rainfall 
+events (0-50 mm/hr with better than +/-1 % 
+accuracy), because the water passes through 
+the nozzle and enters the bucket directly al-
+lowing small rainfall events to be measured. 
+The TB6’s tried and proven design ensures 
+long-term, accurate and repeatable results. 
+It is manufactured from high quality, dura-
+ble materials ensuring long term stability in 
+the harshest of environments. It consists of 
+a robust powder-coated aluminium enclo-
+sure, a UV-resistant ASA polymer base, and 
+stainless steel fasteners and ﬁ  nger ﬁ  lter. 
+Easy maintenance
+Removal of the outer enclosure and access 
+to the tipping bucket mechanism and ﬁ  nger 
+ﬁ  lter assembly is made easy with quick 
+release fasteners. The ﬁ  nger ﬁ  lter can be 
+removed easily during a ﬁ  eld service. It 
+ensures the collector catch area remains 
+unblocked when leaves, bird droppings and 
+other debris ﬁ  nd their way into the catch.
+The TB6’s base incorporates two water 
+outlets at the bottom allowing for wa-
+ter collection and data veriﬁ  cation.
+Output options
+TB6 includes a dual output 24 V DC 
+reed switch allowing for output redun-
+dancy or the addition of a second data 
+logger. The second output could also be 
+used for connecting HyQuest Solutions’ 
+current meter counter CMCbt paired 
+with the free FCD application that allow 
+for easy and accurate ﬁ  eld calibration 
+even in noisy (urban) environments. The 
+reed switch incorporates varistor protection 
+against surges that may be induced on long, 
+inappropriately shielded signal cables.
+Main Features
+  Standard 200 mm diameter catch
+  Long term stable calibration
+  Minimal maintenance required
+  Robust design for all environments
+  Optional: autonomous real-time rain 
+monitoring and reporting system 
+RainTrak Undercover with in-built telem-
+etry and logging (see ﬂ  ip side)
+TB6 Rain Gauge
+Tipping Bucket Rain Gauge
+METEOROLOGY | PRECIPITATION | RAINFALL
+MONITORING
+Alternative Models TB3 and TB4
+Industry-grade HS tipping buckets TB3 and TB4 are equipped with an integrated 
+syphon mechanism which delivers high levels of accuracy across a broad range of 
+rainfall intensities. 
+
+Page 2:
+ HyQuest Solutions Europe
+ Pascalstr. 8+10 | 52076 Aachen - Germany
+ +49 2408 9385 0 
+ info@hyquestsolutions.eu
+ www.hyquestsolutions.eu
+ HyQuest Solutions Australia 
+ +61 2 9601 2022 
+ sales@hyquestsolutions.com.au
+ www.hyquestsolutions.com
+Contact Us
+ HyQuest Solutions New Zealand 
+ +64 (0)7 857 0810 
+ sales@hyquestsolutions.co.nz
+ www.hyquestsolutions.com
+Reseller
+Technical Speciﬁ  cations
+Resolution 0.1 mm, 0.2 mm, and 0.01 inch
+Accuracy  0-100 mm per hour: better than       +/-2 %
+ 100-150 mm per hour: better than   +/-4 %
+ 150-200 mm per hour: better than   +/-5 %
+     0-50 mm per hour: better than    +/-1 %
+   
+50-100 mm per hour: better than     -3 %
+ 100-150mm per hour: better than      -5 %
+ 150-200 mm per hour: better than     -7 %
+ 200-300 mm per hour: better than   -10 %
+Range 700 mm per hour
+Material  Enclosure: powder-coated aluminium
+ Base: UV-resistant ASA
+ Bucket: chrome plated ASA
+Pivots Sapphire tipped 
+Height & Mass 330 mm, 2.1 kg
+Environmental Conditions Operating Temperature Range: +4 °C to +7O °C; Humidity: O - 100 %
+Autonomous System 
+RainTrak Undercover: TB6 
+can be used as a component 
+of the RainTrak to provide 
+a reliable and autonomous 
+real-time rain monitoring and 
+reporting system. Features: 
+turnkey operation, battery operated with 
+solar panel, integrated undercover IP-ca-
+pable data logger, periodic or event-driven 
+data communication, wireless communi-
+cation, incl. antenna, custom designed for 
+harsh environments.
+Pole Mount Bracket: 
+Pole mount bracket 
+with stainless steel 
+bolts, nuts and washers 
+to suit TB3, TB4 or TB6 
+model tipping bucket rain gauge base. Suits 
+50 mm NB galvanised pipe with 2” BSP 
+thread.
+Bird Guard: The bird 
+guard prevents wild or 
+feral birds from perch-
+ing or roosting and thus 
+increases accuracy by 
+stopping bird faeces from dropping inside 
+the gauge funnel.
+Portable Field Calibra-
+tion Device (FCD): The 
+FCD effectively enables 
+ﬁ  eld technicians to run 
+functional tests and 
+calibrations of any giv-
+en rain gauge in the ﬁ  eld avoiding disman-
+tling of TBRG’s, reducing TBRG downtime 
+and thereby saving time and money.
+iRIS dataloggers and 
+data modems:
+ Robust housing
+ IP over one or two
+channels of your
+choice: xG / GPRS,
+satellite, IoT
+ I/O: analog, digital, SDI-12, Modbus
+ iLink software
+ Telemetry or cloud app
+Pulse Counter CMCbt: 
+The CMCbt is a blue-
+tooth pulse counter 
+that provides an 
+interface between the 
+TBRG’s reed switch out-
+put and the FCD-App calibration software 
+used in conjunction with HyQuest Solutions’ 
+Field Calibration Device FCD.
+Please ask for details.
+Accessories & Additional Options
+Speciﬁ  cations are subject to change without notice. Weights and dimensions are indicative. - © HyQuest Solutions | 08.2018
+0.5 mm and 1.0 mm
+
+
+
+Query #2:
+  Query: HYQUEST TB4 false high rainfall spikes troubleshooting
+  Dataset: maintenance_knowledge
+  Node Sets: rain_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. TIPPING BUCKET TAINGAUGE MODEL TB4 HYQUEST Solutions
+
+The only routine maintenance required is cleaning. The following items should be checked
+regularly for cleanliness:
+ Catch filter
+ Syphon (refer diagram 2)
+ Interior of bucket
+ Top surface of adjusting screws
+ Enclosure locking screws - lightly lubricate after cleaning
+ All insect screens
+
+
+ELECTRICAL
+Dual reed switches are provided for several reasons:
+ Two isolated switches permit the control of two separate circuits; e.g. a local counter
+and a telemetry circuit.
+ Parallel connection of both switches increases the current carrying capacity of the
+contact system if required.
+ Parallel switch operation confers a degree of redundancy in locations where data from
+the raingauge is critical to flood warning etc.
+
+CALIBRATION
+All gauges have been calibrated by Hyquest Solutions Pty Ltd, prior to despatch.
+The following products and services are available from Hyquest Solutions Pty Ltd:
+ Field Calibration Device, Model TB320, for routine field check calibrations,
+supplied with operating instruction sheet refers to page FCD 110-01.
+ Laboratory Calibration Unit, Model TB340, for calibration after servicing in
+workshops, supplied with operating manual.
+ Recalibration Service at Hyquest Solutions’ factory.
+Please contact either Hyquest Solutions Pty Ltd or our local distributor for further
+information.
+
+
+Troubleshooting
+Symptom: No precipitation measurement
+1. Check that the sensor is wired to the pulse or control terminal specified by the pulse count
+instruction.
+2. 3. Verify that the PConfig, and Multiplier and Offset parameters for the
+PulseCount() instruction are correct for the data logger type.
+Disconnect the sensor from the data logger and use an ohm meter to do a continuity check
+of the switch. The resistance measured at the terminal block on the inside of the bucket
+between the black and white wires should vary from infinite (switch open) when the bucket
+is tipped, to less than an ohm when the bucket is balanced.
+Symptom: CS700H not communicating over SDI-12
+1. Ensure that both the sensor and power cables are properly connected (Table 7-2 [p. 10] and
+Table 7-3 [p. 10]).
+
+Maintenance
+During each site visit, remove any debris, such as insects or sediment from the collection funnel,
+debris screen, siphoning mechanism, or tipping bucket assembly.
+Verify the tipping bucket assembly moves freely, and that the data logger records each bucket
+tip.
+Dismantling for cleaning
+Regularly check the following items for cleanliness:
+l Catch filter
+l Siphon
+l Interior of bucket
+l Top surface of adjusting screws
+l Housing locking screws; lightly lubricate after cleaning
+l Insect screens
+To access them, dismantle the rain gage using the following procedure:
+1. Remove the housing assembly from the base by loosening the three housing screws and
+lifting the housing upward (Figure 9-1 [p. 22], Figure 9-2 [p. 23]).
+
+2. Figure 9-2. TB4 base
+Separate the filter/siphon assembly from the funnel by pushing the filter while pulling the
+siphon (Figure 9-3 [p. 24]).
+CAUTION:
+Do not twist the filter/siphon assembly while pushing and pulling.
+
+Disassemble the filter/siphon assembly by doing the following (Figure 9-4 [p. 25]):
+a. Unscrew nut
+b. Lightly press stem down on surface until stem pops out of siphon body
+c. Remove stem from siphon body
+d. Unscrew cap
+e. Clean all items
+
+Reassembling the rain bucket
+1. 2. Screw cap on stem; finger tighten only (Figure 9-4 [p. 25]).
+Push stem into siphon body (Figure 9-4 [p. 25]).
+Replace nut and tighten (Figure 9-4 [p. 25]).
+CAUTION:
+Do not over tighten.
+Push filter/siphon assembly back into place (Figure 9-5 [p. 26]).
+CAUTION:
+Do not twist the filter/siphon assembly while putting it back into place.
+5. Place the housing assembly back onto the base and tighten the three screws that secure
+the housing onto the base.
+
+Calibration check
+The sensor is factory calibrated; recalibration is not required unless damage has occurred or the
+adjustment screws have loosened.
+Nevertheless, the following calibration check is recommended once every 12 months:
+1. Remove the housing assembly from the base by removing the three screws and lifting
+upward on the housing.
+2. Check the bubble level to verify the rain gage is level.
+3. Pour water through the inner funnel to wet the two bucket surfaces. Using a graduated
+cylinder, slowly pour 314 cc (19.16 in3) of water, over a 15-minute period, into the collection
+funnel. This volume of water is equal to 0.39 in of rainfall (10 mm).
+4. After the water has passed through the rain gage, the tipping bucket should have tipped 39
+times.
+5. If the rain gage fails to record the correct number of tips, return the unit to Campbell
+Scientific for recalibration (see Assistance at the back of this manual).
+
+    2. Page 1:
+General Description
+HyQuest Solutions’ TB6 is a non-syphoning 
+high-quality tipping bucket rain gauge for 
+measuring rainfall and precipitation in urban 
+and rural locations. The TB6 is the device of 
+choice for accurately measuring low rainfall 
+events (0-50 mm/hr with better than +/-1 % 
+accuracy), because the water passes through 
+the nozzle and enters the bucket directly al-
+lowing small rainfall events to be measured. 
+The TB6’s tried and proven design ensures 
+long-term, accurate and repeatable results. 
+It is manufactured from high quality, dura-
+ble materials ensuring long term stability in 
+the harshest of environments. It consists of 
+a robust powder-coated aluminium enclo-
+sure, a UV-resistant ASA polymer base, and 
+stainless steel fasteners and ﬁ  nger ﬁ  lter. 
+Easy maintenance
+Removal of the outer enclosure and access 
+to the tipping bucket mechanism and ﬁ  nger 
+ﬁ  lter assembly is made easy with quick 
+release fasteners. The ﬁ  nger ﬁ  lter can be 
+removed easily during a ﬁ  eld service. It 
+ensures the collector catch area remains 
+unblocked when leaves, bird droppings and 
+other debris ﬁ  nd their way into the catch.
+The TB6’s base incorporates two water 
+outlets at the bottom allowing for wa-
+ter collection and data veriﬁ  cation.
+Output options
+TB6 includes a dual output 24 V DC 
+reed switch allowing for output redun-
+dancy or the addition of a second data 
+logger. The second output could also be 
+used for connecting HyQuest Solutions’ 
+current meter counter CMCbt paired 
+with the free FCD application that allow 
+for easy and accurate ﬁ  eld calibration 
+even in noisy (urban) environments. The 
+reed switch incorporates varistor protection 
+against surges that may be induced on long, 
+inappropriately shielded signal cables.
+Main Features
+  Standard 200 mm diameter catch
+  Long term stable calibration
+  Minimal maintenance required
+  Robust design for all environments
+  Optional: autonomous real-time rain 
+monitoring and reporting system 
+RainTrak Undercover with in-built telem-
+etry and logging (see ﬂ  ip side)
+TB6 Rain Gauge
+Tipping Bucket Rain Gauge
+METEOROLOGY | PRECIPITATION | RAINFALL
+MONITORING
+Alternative Models TB3 and TB4
+Industry-grade HS tipping buckets TB3 and TB4 are equipped with an integrated 
+syphon mechanism which delivers high levels of accuracy across a broad range of 
+rainfall intensities. 
+
+Page 2:
+ HyQuest Solutions Europe
+ Pascalstr. 8+10 | 52076 Aachen - Germany
+ +49 2408 9385 0 
+ info@hyquestsolutions.eu
+ www.hyquestsolutions.eu
+ HyQuest Solutions Australia 
+ +61 2 9601 2022 
+ sales@hyquestsolutions.com.au
+ www.hyquestsolutions.com
+Contact Us
+ HyQuest Solutions New Zealand 
+ +64 (0)7 857 0810 
+ sales@hyquestsolutions.co.nz
+ www.hyquestsolutions.com
+Reseller
+Technical Speciﬁ  cations
+Resolution 0.1 mm, 0.2 mm, and 0.01 inch
+Accuracy  0-100 mm per hour: better than       +/-2 %
+ 100-150 mm per hour: better than   +/-4 %
+ 150-200 mm per hour: better than   +/-5 %
+     0-50 mm per hour: better than    +/-1 %
+   
+50-100 mm per hour: better than     -3 %
+ 100-150mm per hour: better than      -5 %
+ 150-200 mm per hour: better than     -7 %
+ 200-300 mm per hour: better than   -10 %
+Range 700 mm per hour
+Material  Enclosure: powder-coated aluminium
+ Base: UV-resistant ASA
+ Bucket: chrome plated ASA
+Pivots Sapphire tipped 
+Height & Mass 330 mm, 2.1 kg
+Environmental Conditions Operating Temperature Range: +4 °C to +7O °C; Humidity: O - 100 %
+Autonomous System 
+RainTrak Undercover: TB6 
+can be used as a component 
+of the RainTrak to provide 
+a reliable and autonomous 
+real-time rain monitoring and 
+reporting system. Features: 
+turnkey operation, battery operated with 
+solar panel, integrated undercover IP-ca-
+pable data logger, periodic or event-driven 
+data communication, wireless communi-
+cation, incl. antenna, custom designed for 
+harsh environments.
+Pole Mount Bracket: 
+Pole mount bracket 
+with stainless steel 
+bolts, nuts and washers 
+to suit TB3, TB4 or TB6 
+model tipping bucket rain gauge base. Suits 
+50 mm NB galvanised pipe with 2” BSP 
+thread.
+Bird Guard: The bird 
+guard prevents wild or 
+feral birds from perch-
+ing or roosting and thus 
+increases accuracy by 
+stopping bird faeces from dropping inside 
+the gauge funnel.
+Portable Field Calibra-
+tion Device (FCD): The 
+FCD effectively enables 
+ﬁ  eld technicians to run 
+functional tests and 
+calibrations of any giv-
+en rain gauge in the ﬁ  eld avoiding disman-
+tling of TBRG’s, reducing TBRG downtime 
+and thereby saving time and money.
+iRIS dataloggers and 
+data modems:
+ Robust housing
+ IP over one or two
+channels of your
+choice: xG / GPRS,
+satellite, IoT
+ I/O: analog, digital, SDI-12, Modbus
+ iLink software
+ Telemetry or cloud app
+Pulse Counter CMCbt: 
+The CMCbt is a blue-
+tooth pulse counter 
+that provides an 
+interface between the 
+TBRG’s reed switch out-
+put and the FCD-App calibration software 
+used in conjunction with HyQuest Solutions’ 
+Field Calibration Device FCD.
+Please ask for details.
+Accessories & Additional Options
+Speciﬁ  cations are subject to change without notice. Weights and dimensions are indicative. - © HyQuest Solutions | 08.2018
+0.5 mm and 1.0 mm
+
+
+
+Query #3:
+  Query: HYQUEST TB4 rain sensor specifications rainfall range sensitivity
+  Dataset: sensor_knowledge
+  Node Sets: rain_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. TIPPING BUCKET TAINGAUGE MODEL TB4 HYQUEST Solutions
+
+The only routine maintenance required is cleaning. The following items should be checked
+regularly for cleanliness:
+ Catch filter
+ Syphon (refer diagram 2)
+ Interior of bucket
+ Top surface of adjusting screws
+ Enclosure locking screws - lightly lubricate after cleaning
+ All insect screens
+
+
+ELECTRICAL
+Dual reed switches are provided for several reasons:
+ Two isolated switches permit the control of two separate circuits; e.g. a local counter
+and a telemetry circuit.
+ Parallel connection of both switches increases the current carrying capacity of the
+contact system if required.
+ Parallel switch operation confers a degree of redundancy in locations where data from
+the raingauge is critical to flood warning etc.
+
+CALIBRATION
+All gauges have been calibrated by Hyquest Solutions Pty Ltd, prior to despatch.
+The following products and services are available from Hyquest Solutions Pty Ltd:
+ Field Calibration Device, Model TB320, for routine field check calibrations,
+supplied with operating instruction sheet refers to page FCD 110-01.
+ Laboratory Calibration Unit, Model TB340, for calibration after servicing in
+workshops, supplied with operating manual.
+ Recalibration Service at Hyquest Solutions’ factory.
+Please contact either Hyquest Solutions Pty Ltd or our local distributor for further
+information.
+
+
+Troubleshooting
+Symptom: No precipitation measurement
+1. Check that the sensor is wired to the pulse or control terminal specified by the pulse count
+instruction.
+2. 3. Verify that the PConfig, and Multiplier and Offset parameters for the
+PulseCount() instruction are correct for the data logger type.
+Disconnect the sensor from the data logger and use an ohm meter to do a continuity check
+of the switch. The resistance measured at the terminal block on the inside of the bucket
+between the black and white wires should vary from infinite (switch open) when the bucket
+is tipped, to less than an ohm when the bucket is balanced.
+Symptom: CS700H not communicating over SDI-12
+1. Ensure that both the sensor and power cables are properly connected (Table 7-2 [p. 10] and
+Table 7-3 [p. 10]).
+
+Maintenance
+During each site visit, remove any debris, such as insects or sediment from the collection funnel,
+debris screen, siphoning mechanism, or tipping bucket assembly.
+Verify the tipping bucket assembly moves freely, and that the data logger records each bucket
+tip.
+Dismantling for cleaning
+Regularly check the following items for cleanliness:
+l Catch filter
+l Siphon
+l Interior of bucket
+l Top surface of adjusting screws
+l Housing locking screws; lightly lubricate after cleaning
+l Insect screens
+To access them, dismantle the rain gage using the following procedure:
+1. Remove the housing assembly from the base by loosening the three housing screws and
+lifting the housing upward (Figure 9-1 [p. 22], Figure 9-2 [p. 23]).
+
+2. Figure 9-2. TB4 base
+Separate the filter/siphon assembly from the funnel by pushing the filter while pulling the
+siphon (Figure 9-3 [p. 24]).
+CAUTION:
+Do not twist the filter/siphon assembly while pushing and pulling.
+
+Disassemble the filter/siphon assembly by doing the following (Figure 9-4 [p. 25]):
+a. Unscrew nut
+b. Lightly press stem down on surface until stem pops out of siphon body
+c. Remove stem from siphon body
+d. Unscrew cap
+e. Clean all items
+
+Reassembling the rain bucket
+1. 2. Screw cap on stem; finger tighten only (Figure 9-4 [p. 25]).
+Push stem into siphon body (Figure 9-4 [p. 25]).
+Replace nut and tighten (Figure 9-4 [p. 25]).
+CAUTION:
+Do not over tighten.
+Push filter/siphon assembly back into place (Figure 9-5 [p. 26]).
+CAUTION:
+Do not twist the filter/siphon assembly while putting it back into place.
+5. Place the housing assembly back onto the base and tighten the three screws that secure
+the housing onto the base.
+
+Calibration check
+The sensor is factory calibrated; recalibration is not required unless damage has occurred or the
+adjustment screws have loosened.
+Nevertheless, the following calibration check is recommended once every 12 months:
+1. Remove the housing assembly from the base by removing the three screws and lifting
+upward on the housing.
+2. Check the bubble level to verify the rain gage is level.
+3. Pour water through the inner funnel to wet the two bucket surfaces. Using a graduated
+cylinder, slowly pour 314 cc (19.16 in3) of water, over a 15-minute period, into the collection
+funnel. This volume of water is equal to 0.39 in of rainfall (10 mm).
+4. After the water has passed through the rain gage, the tipping bucket should have tipped 39
+times.
+5. If the rain gage fails to record the correct number of tips, return the unit to Campbell
+Scientific for recalibration (see Assistance at the back of this manual).
+
+    2. Page 1:
+General Description
+HyQuest Solutions’ TB6 is a non-syphoning 
+high-quality tipping bucket rain gauge for 
+measuring rainfall and precipitation in urban 
+and rural locations. The TB6 is the device of 
+choice for accurately measuring low rainfall 
+events (0-50 mm/hr with better than +/-1 % 
+accuracy), because the water passes through 
+the nozzle and enters the bucket directly al-
+lowing small rainfall events to be measured. 
+The TB6’s tried and proven design ensures 
+long-term, accurate and repeatable results. 
+It is manufactured from high quality, dura-
+ble materials ensuring long term stability in 
+the harshest of environments. It consists of 
+a robust powder-coated aluminium enclo-
+sure, a UV-resistant ASA polymer base, and 
+stainless steel fasteners and ﬁ  nger ﬁ  lter. 
+Easy maintenance
+Removal of the outer enclosure and access 
+to the tipping bucket mechanism and ﬁ  nger 
+ﬁ  lter assembly is made easy with quick 
+release fasteners. The ﬁ  nger ﬁ  lter can be 
+removed easily during a ﬁ  eld service. It 
+ensures the collector catch area remains 
+unblocked when leaves, bird droppings and 
+other debris ﬁ  nd their way into the catch.
+The TB6’s base incorporates two water 
+outlets at the bottom allowing for wa-
+ter collection and data veriﬁ  cation.
+Output options
+TB6 includes a dual output 24 V DC 
+reed switch allowing for output redun-
+dancy or the addition of a second data 
+logger. The second output could also be 
+used for connecting HyQuest Solutions’ 
+current meter counter CMCbt paired 
+with the free FCD application that allow 
+for easy and accurate ﬁ  eld calibration 
+even in noisy (urban) environments. The 
+reed switch incorporates varistor protection 
+against surges that may be induced on long, 
+inappropriately shielded signal cables.
+Main Features
+  Standard 200 mm diameter catch
+  Long term stable calibration
+  Minimal maintenance required
+  Robust design for all environments
+  Optional: autonomous real-time rain 
+monitoring and reporting system 
+RainTrak Undercover with in-built telem-
+etry and logging (see ﬂ  ip side)
+TB6 Rain Gauge
+Tipping Bucket Rain Gauge
+METEOROLOGY | PRECIPITATION | RAINFALL
+MONITORING
+Alternative Models TB3 and TB4
+Industry-grade HS tipping buckets TB3 and TB4 are equipped with an integrated 
+syphon mechanism which delivers high levels of accuracy across a broad range of 
+rainfall intensities. 
+
+Page 2:
+ HyQuest Solutions Europe
+ Pascalstr. 8+10 | 52076 Aachen - Germany
+ +49 2408 9385 0 
+ info@hyquestsolutions.eu
+ www.hyquestsolutions.eu
+ HyQuest Solutions Australia 
+ +61 2 9601 2022 
+ sales@hyquestsolutions.com.au
+ www.hyquestsolutions.com
+Contact Us
+ HyQuest Solutions New Zealand 
+ +64 (0)7 857 0810 
+ sales@hyquestsolutions.co.nz
+ www.hyquestsolutions.com
+Reseller
+Technical Speciﬁ  cations
+Resolution 0.1 mm, 0.2 mm, and 0.01 inch
+Accuracy  0-100 mm per hour: better than       +/-2 %
+ 100-150 mm per hour: better than   +/-4 %
+ 150-200 mm per hour: better than   +/-5 %
+     0-50 mm per hour: better than    +/-1 %
+   
+50-100 mm per hour: better than     -3 %
+ 100-150mm per hour: better than      -5 %
+ 150-200 mm per hour: better than     -7 %
+ 200-300 mm per hour: better than   -10 %
+Range 700 mm per hour
+Material  Enclosure: powder-coated aluminium
+ Base: UV-resistant ASA
+ Bucket: chrome plated ASA
+Pivots Sapphire tipped 
+Height & Mass 330 mm, 2.1 kg
+Environmental Conditions Operating Temperature Range: +4 °C to +7O °C; Humidity: O - 100 %
+Autonomous System 
+RainTrak Undercover: TB6 
+can be used as a component 
+of the RainTrak to provide 
+a reliable and autonomous 
+real-time rain monitoring and 
+reporting system. Features: 
+turnkey operation, battery operated with 
+solar panel, integrated undercover IP-ca-
+pable data logger, periodic or event-driven 
+data communication, wireless communi-
+cation, incl. antenna, custom designed for 
+harsh environments.
+Pole Mount Bracket: 
+Pole mount bracket 
+with stainless steel 
+bolts, nuts and washers 
+to suit TB3, TB4 or TB6 
+model tipping bucket rain gauge base. Suits 
+50 mm NB galvanised pipe with 2” BSP 
+thread.
+Bird Guard: The bird 
+guard prevents wild or 
+feral birds from perch-
+ing or roosting and thus 
+increases accuracy by 
+stopping bird faeces from dropping inside 
+the gauge funnel.
+Portable Field Calibra-
+tion Device (FCD): The 
+FCD effectively enables 
+ﬁ  eld technicians to run 
+functional tests and 
+calibrations of any giv-
+en rain gauge in the ﬁ  eld avoiding disman-
+tling of TBRG’s, reducing TBRG downtime 
+and thereby saving time and money.
+iRIS dataloggers and 
+data modems:
+ Robust housing
+ IP over one or two
+channels of your
+choice: xG / GPRS,
+satellite, IoT
+ I/O: analog, digital, SDI-12, Modbus
+ iLink software
+ Telemetry or cloud app
+Pulse Counter CMCbt: 
+The CMCbt is a blue-
+tooth pulse counter 
+that provides an 
+interface between the 
+TBRG’s reed switch out-
+put and the FCD-App calibration software 
+used in conjunction with HyQuest Solutions’ 
+Field Calibration Device FCD.
+Please ask for details.
+Accessories & Additional Options
+Speciﬁ  cations are subject to change without notice. Weights and dimensions are indicative. - © HyQuest Solutions | 08.2018
+0.5 mm and 1.0 mm
+
+
+
+Query #4:
+  Query: HYQUEST TB4 spurious rainfall spikes maintenance troubleshooting
+  Dataset: maintenance_knowledge
+  Node Sets: rain_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. TIPPING BUCKET TAINGAUGE MODEL TB4 HYQUEST Solutions
+
+The only routine maintenance required is cleaning. The following items should be checked
+regularly for cleanliness:
+ Catch filter
+ Syphon (refer diagram 2)
+ Interior of bucket
+ Top surface of adjusting screws
+ Enclosure locking screws - lightly lubricate after cleaning
+ All insect screens
+
+
+ELECTRICAL
+Dual reed switches are provided for several reasons:
+ Two isolated switches permit the control of two separate circuits; e.g. a local counter
+and a telemetry circuit.
+ Parallel connection of both switches increases the current carrying capacity of the
+contact system if required.
+ Parallel switch operation confers a degree of redundancy in locations where data from
+the raingauge is critical to flood warning etc.
+
+CALIBRATION
+All gauges have been calibrated by Hyquest Solutions Pty Ltd, prior to despatch.
+The following products and services are available from Hyquest Solutions Pty Ltd:
+ Field Calibration Device, Model TB320, for routine field check calibrations,
+supplied with operating instruction sheet refers to page FCD 110-01.
+ Laboratory Calibration Unit, Model TB340, for calibration after servicing in
+workshops, supplied with operating manual.
+ Recalibration Service at Hyquest Solutions’ factory.
+Please contact either Hyquest Solutions Pty Ltd or our local distributor for further
+information.
+
+
+Troubleshooting
+Symptom: No precipitation measurement
+1. Check that the sensor is wired to the pulse or control terminal specified by the pulse count
+instruction.
+2. 3. Verify that the PConfig, and Multiplier and Offset parameters for the
+PulseCount() instruction are correct for the data logger type.
+Disconnect the sensor from the data logger and use an ohm meter to do a continuity check
+of the switch. The resistance measured at the terminal block on the inside of the bucket
+between the black and white wires should vary from infinite (switch open) when the bucket
+is tipped, to less than an ohm when the bucket is balanced.
+Symptom: CS700H not communicating over SDI-12
+1. Ensure that both the sensor and power cables are properly connected (Table 7-2 [p. 10] and
+Table 7-3 [p. 10]).
+
+Maintenance
+During each site visit, remove any debris, such as insects or sediment from the collection funnel,
+debris screen, siphoning mechanism, or tipping bucket assembly.
+Verify the tipping bucket assembly moves freely, and that the data logger records each bucket
+tip.
+Dismantling for cleaning
+Regularly check the following items for cleanliness:
+l Catch filter
+l Siphon
+l Interior of bucket
+l Top surface of adjusting screws
+l Housing locking screws; lightly lubricate after cleaning
+l Insect screens
+To access them, dismantle the rain gage using the following procedure:
+1. Remove the housing assembly from the base by loosening the three housing screws and
+lifting the housing upward (Figure 9-1 [p. 22], Figure 9-2 [p. 23]).
+
+2. Figure 9-2. TB4 base
+Separate the filter/siphon assembly from the funnel by pushing the filter while pulling the
+siphon (Figure 9-3 [p. 24]).
+CAUTION:
+Do not twist the filter/siphon assembly while pushing and pulling.
+
+Disassemble the filter/siphon assembly by doing the following (Figure 9-4 [p. 25]):
+a. Unscrew nut
+b. Lightly press stem down on surface until stem pops out of siphon body
+c. Remove stem from siphon body
+d. Unscrew cap
+e. Clean all items
+
+Reassembling the rain bucket
+1. 2. Screw cap on stem; finger tighten only (Figure 9-4 [p. 25]).
+Push stem into siphon body (Figure 9-4 [p. 25]).
+Replace nut and tighten (Figure 9-4 [p. 25]).
+CAUTION:
+Do not over tighten.
+Push filter/siphon assembly back into place (Figure 9-5 [p. 26]).
+CAUTION:
+Do not twist the filter/siphon assembly while putting it back into place.
+5. Place the housing assembly back onto the base and tighten the three screws that secure
+the housing onto the base.
+
+Calibration check
+The sensor is factory calibrated; recalibration is not required unless damage has occurred or the
+adjustment screws have loosened.
+Nevertheless, the following calibration check is recommended once every 12 months:
+1. Remove the housing assembly from the base by removing the three screws and lifting
+upward on the housing.
+2. Check the bubble level to verify the rain gage is level.
+3. Pour water through the inner funnel to wet the two bucket surfaces. Using a graduated
+cylinder, slowly pour 314 cc (19.16 in3) of water, over a 15-minute period, into the collection
+funnel. This volume of water is equal to 0.39 in of rainfall (10 mm).
+4. After the water has passed through the rain gage, the tipping bucket should have tipped 39
+times.
+5. If the rain gage fails to record the correct number of tips, return the unit to Campbell
+Scientific for recalibration (see Assistance at the back of this manual).
+
+    2. Page 1:
+General Description
+HyQuest Solutions’ TB6 is a non-syphoning 
+high-quality tipping bucket rain gauge for 
+measuring rainfall and precipitation in urban 
+and rural locations. The TB6 is the device of 
+choice for accurately measuring low rainfall 
+events (0-50 mm/hr with better than +/-1 % 
+accuracy), because the water passes through 
+the nozzle and enters the bucket directly al-
+lowing small rainfall events to be measured. 
+The TB6’s tried and proven design ensures 
+long-term, accurate and repeatable results. 
+It is manufactured from high quality, dura-
+ble materials ensuring long term stability in 
+the harshest of environments. It consists of 
+a robust powder-coated aluminium enclo-
+sure, a UV-resistant ASA polymer base, and 
+stainless steel fasteners and ﬁ  nger ﬁ  lter. 
+Easy maintenance
+Removal of the outer enclosure and access 
+to the tipping bucket mechanism and ﬁ  nger 
+ﬁ  lter assembly is made easy with quick 
+release fasteners. The ﬁ  nger ﬁ  lter can be 
+removed easily during a ﬁ  eld service. It 
+ensures the collector catch area remains 
+unblocked when leaves, bird droppings and 
+other debris ﬁ  nd their way into the catch.
+The TB6’s base incorporates two water 
+outlets at the bottom allowing for wa-
+ter collection and data veriﬁ  cation.
+Output options
+TB6 includes a dual output 24 V DC 
+reed switch allowing for output redun-
+dancy or the addition of a second data 
+logger. The second output could also be 
+used for connecting HyQuest Solutions’ 
+current meter counter CMCbt paired 
+with the free FCD application that allow 
+for easy and accurate ﬁ  eld calibration 
+even in noisy (urban) environments. The 
+reed switch incorporates varistor protection 
+against surges that may be induced on long, 
+inappropriately shielded signal cables.
+Main Features
+  Standard 200 mm diameter catch
+  Long term stable calibration
+  Minimal maintenance required
+  Robust design for all environments
+  Optional: autonomous real-time rain 
+monitoring and reporting system 
+RainTrak Undercover with in-built telem-
+etry and logging (see ﬂ  ip side)
+TB6 Rain Gauge
+Tipping Bucket Rain Gauge
+METEOROLOGY | PRECIPITATION | RAINFALL
+MONITORING
+Alternative Models TB3 and TB4
+Industry-grade HS tipping buckets TB3 and TB4 are equipped with an integrated 
+syphon mechanism which delivers high levels of accuracy across a broad range of 
+rainfall intensities. 
+
+Page 2:
+ HyQuest Solutions Europe
+ Pascalstr. 8+10 | 52076 Aachen - Germany
+ +49 2408 9385 0 
+ info@hyquestsolutions.eu
+ www.hyquestsolutions.eu
+ HyQuest Solutions Australia 
+ +61 2 9601 2022 
+ sales@hyquestsolutions.com.au
+ www.hyquestsolutions.com
+Contact Us
+ HyQuest Solutions New Zealand 
+ +64 (0)7 857 0810 
+ sales@hyquestsolutions.co.nz
+ www.hyquestsolutions.com
+Reseller
+Technical Speciﬁ  cations
+Resolution 0.1 mm, 0.2 mm, and 0.01 inch
+Accuracy  0-100 mm per hour: better than       +/-2 %
+ 100-150 mm per hour: better than   +/-4 %
+ 150-200 mm per hour: better than   +/-5 %
+     0-50 mm per hour: better than    +/-1 %
+   
+50-100 mm per hour: better than     -3 %
+ 100-150mm per hour: better than      -5 %
+ 150-200 mm per hour: better than     -7 %
+ 200-300 mm per hour: better than   -10 %
+Range 700 mm per hour
+Material  Enclosure: powder-coated aluminium
+ Base: UV-resistant ASA
+ Bucket: chrome plated ASA
+Pivots Sapphire tipped 
+Height & Mass 330 mm, 2.1 kg
+Environmental Conditions Operating Temperature Range: +4 °C to +7O °C; Humidity: O - 100 %
+Autonomous System 
+RainTrak Undercover: TB6 
+can be used as a component 
+of the RainTrak to provide 
+a reliable and autonomous 
+real-time rain monitoring and 
+reporting system. Features: 
+turnkey operation, battery operated with 
+solar panel, integrated undercover IP-ca-
+pable data logger, periodic or event-driven 
+data communication, wireless communi-
+cation, incl. antenna, custom designed for 
+harsh environments.
+Pole Mount Bracket: 
+Pole mount bracket 
+with stainless steel 
+bolts, nuts and washers 
+to suit TB3, TB4 or TB6 
+model tipping bucket rain gauge base. Suits 
+50 mm NB galvanised pipe with 2” BSP 
+thread.
+Bird Guard: The bird 
+guard prevents wild or 
+feral birds from perch-
+ing or roosting and thus 
+increases accuracy by 
+stopping bird faeces from dropping inside 
+the gauge funnel.
+Portable Field Calibra-
+tion Device (FCD): The 
+FCD effectively enables 
+ﬁ  eld technicians to run 
+functional tests and 
+calibrations of any giv-
+en rain gauge in the ﬁ  eld avoiding disman-
+tling of TBRG’s, reducing TBRG downtime 
+and thereby saving time and money.
+iRIS dataloggers and 
+data modems:
+ Robust housing
+ IP over one or two
+channels of your
+choice: xG / GPRS,
+satellite, IoT
+ I/O: analog, digital, SDI-12, Modbus
+ iLink software
+ Telemetry or cloud app
+Pulse Counter CMCbt: 
+The CMCbt is a blue-
+tooth pulse counter 
+that provides an 
+interface between the 
+TBRG’s reed switch out-
+put and the FCD-App calibration software 
+used in conjunction with HyQuest Solutions’ 
+Field Calibration Device FCD.
+Please ask for details.
+Accessories & Additional Options
+Speciﬁ  cations are subject to change without notice. Weights and dimensions are indicative. - © HyQuest Solutions | 08.2018
+0.5 mm and 1.0 mm
+
+
+
+Query #5:
+  Query: HYQUEST TB4 sensor fault spurious rainfall spike maintenance
+  Dataset: maintenance_knowledge
+  Node Sets: rain_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. TIPPING BUCKET TAINGAUGE MODEL TB4 HYQUEST Solutions
+
+The only routine maintenance required is cleaning. The following items should be checked
+regularly for cleanliness:
+ Catch filter
+ Syphon (refer diagram 2)
+ Interior of bucket
+ Top surface of adjusting screws
+ Enclosure locking screws - lightly lubricate after cleaning
+ All insect screens
+
+
+ELECTRICAL
+Dual reed switches are provided for several reasons:
+ Two isolated switches permit the control of two separate circuits; e.g. a local counter
+and a telemetry circuit.
+ Parallel connection of both switches increases the current carrying capacity of the
+contact system if required.
+ Parallel switch operation confers a degree of redundancy in locations where data from
+the raingauge is critical to flood warning etc.
+
+CALIBRATION
+All gauges have been calibrated by Hyquest Solutions Pty Ltd, prior to despatch.
+The following products and services are available from Hyquest Solutions Pty Ltd:
+ Field Calibration Device, Model TB320, for routine field check calibrations,
+supplied with operating instruction sheet refers to page FCD 110-01.
+ Laboratory Calibration Unit, Model TB340, for calibration after servicing in
+workshops, supplied with operating manual.
+ Recalibration Service at Hyquest Solutions’ factory.
+Please contact either Hyquest Solutions Pty Ltd or our local distributor for further
+information.
+
+
+Troubleshooting
+Symptom: No precipitation measurement
+1. Check that the sensor is wired to the pulse or control terminal specified by the pulse count
+instruction.
+2. 3. Verify that the PConfig, and Multiplier and Offset parameters for the
+PulseCount() instruction are correct for the data logger type.
+Disconnect the sensor from the data logger and use an ohm meter to do a continuity check
+of the switch. The resistance measured at the terminal block on the inside of the bucket
+between the black and white wires should vary from infinite (switch open) when the bucket
+is tipped, to less than an ohm when the bucket is balanced.
+Symptom: CS700H not communicating over SDI-12
+1. Ensure that both the sensor and power cables are properly connected (Table 7-2 [p. 10] and
+Table 7-3 [p. 10]).
+
+Maintenance
+During each site visit, remove any debris, such as insects or sediment from the collection funnel,
+debris screen, siphoning mechanism, or tipping bucket assembly.
+Verify the tipping bucket assembly moves freely, and that the data logger records each bucket
+tip.
+Dismantling for cleaning
+Regularly check the following items for cleanliness:
+l Catch filter
+l Siphon
+l Interior of bucket
+l Top surface of adjusting screws
+l Housing locking screws; lightly lubricate after cleaning
+l Insect screens
+To access them, dismantle the rain gage using the following procedure:
+1. Remove the housing assembly from the base by loosening the three housing screws and
+lifting the housing upward (Figure 9-1 [p. 22], Figure 9-2 [p. 23]).
+
+2. Figure 9-2. TB4 base
+Separate the filter/siphon assembly from the funnel by pushing the filter while pulling the
+siphon (Figure 9-3 [p. 24]).
+CAUTION:
+Do not twist the filter/siphon assembly while pushing and pulling.
+
+Disassemble the filter/siphon assembly by doing the following (Figure 9-4 [p. 25]):
+a. Unscrew nut
+b. Lightly press stem down on surface until stem pops out of siphon body
+c. Remove stem from siphon body
+d. Unscrew cap
+e. Clean all items
+
+Reassembling the rain bucket
+1. 2. Screw cap on stem; finger tighten only (Figure 9-4 [p. 25]).
+Push stem into siphon body (Figure 9-4 [p. 25]).
+Replace nut and tighten (Figure 9-4 [p. 25]).
+CAUTION:
+Do not over tighten.
+Push filter/siphon assembly back into place (Figure 9-5 [p. 26]).
+CAUTION:
+Do not twist the filter/siphon assembly while putting it back into place.
+5. Place the housing assembly back onto the base and tighten the three screws that secure
+the housing onto the base.
+
+Calibration check
+The sensor is factory calibrated; recalibration is not required unless damage has occurred or the
+adjustment screws have loosened.
+Nevertheless, the following calibration check is recommended once every 12 months:
+1. Remove the housing assembly from the base by removing the three screws and lifting
+upward on the housing.
+2. Check the bubble level to verify the rain gage is level.
+3. Pour water through the inner funnel to wet the two bucket surfaces. Using a graduated
+cylinder, slowly pour 314 cc (19.16 in3) of water, over a 15-minute period, into the collection
+funnel. This volume of water is equal to 0.39 in of rainfall (10 mm).
+4. After the water has passed through the rain gage, the tipping bucket should have tipped 39
+times.
+5. If the rain gage fails to record the correct number of tips, return the unit to Campbell
+Scientific for recalibration (see Assistance at the back of this manual).
+
+    2. Page 1:
+General Description
+HyQuest Solutions’ TB6 is a non-syphoning 
+high-quality tipping bucket rain gauge for 
+measuring rainfall and precipitation in urban 
+and rural locations. The TB6 is the device of 
+choice for accurately measuring low rainfall 
+events (0-50 mm/hr with better than +/-1 % 
+accuracy), because the water passes through 
+the nozzle and enters the bucket directly al-
+lowing small rainfall events to be measured. 
+The TB6’s tried and proven design ensures 
+long-term, accurate and repeatable results. 
+It is manufactured from high quality, dura-
+ble materials ensuring long term stability in 
+the harshest of environments. It consists of 
+a robust powder-coated aluminium enclo-
+sure, a UV-resistant ASA polymer base, and 
+stainless steel fasteners and ﬁ  nger ﬁ  lter. 
+Easy maintenance
+Removal of the outer enclosure and access 
+to the tipping bucket mechanism and ﬁ  nger 
+ﬁ  lter assembly is made easy with quick 
+release fasteners. The ﬁ  nger ﬁ  lter can be 
+removed easily during a ﬁ  eld service. It 
+ensures the collector catch area remains 
+unblocked when leaves, bird droppings and 
+other debris ﬁ  nd their way into the catch.
+The TB6’s base incorporates two water 
+outlets at the bottom allowing for wa-
+ter collection and data veriﬁ  cation.
+Output options
+TB6 includes a dual output 24 V DC 
+reed switch allowing for output redun-
+dancy or the addition of a second data 
+logger. The second output could also be 
+used for connecting HyQuest Solutions’ 
+current meter counter CMCbt paired 
+with the free FCD application that allow 
+for easy and accurate ﬁ  eld calibration 
+even in noisy (urban) environments. The 
+reed switch incorporates varistor protection 
+against surges that may be induced on long, 
+inappropriately shielded signal cables.
+Main Features
+  Standard 200 mm diameter catch
+  Long term stable calibration
+  Minimal maintenance required
+  Robust design for all environments
+  Optional: autonomous real-time rain 
+monitoring and reporting system 
+RainTrak Undercover with in-built telem-
+etry and logging (see ﬂ  ip side)
+TB6 Rain Gauge
+Tipping Bucket Rain Gauge
+METEOROLOGY | PRECIPITATION | RAINFALL
+MONITORING
+Alternative Models TB3 and TB4
+Industry-grade HS tipping buckets TB3 and TB4 are equipped with an integrated 
+syphon mechanism which delivers high levels of accuracy across a broad range of 
+rainfall intensities. 
+
+Page 2:
+ HyQuest Solutions Europe
+ Pascalstr. 8+10 | 52076 Aachen - Germany
+ +49 2408 9385 0 
+ info@hyquestsolutions.eu
+ www.hyquestsolutions.eu
+ HyQuest Solutions Australia 
+ +61 2 9601 2022 
+ sales@hyquestsolutions.com.au
+ www.hyquestsolutions.com
+Contact Us
+ HyQuest Solutions New Zealand 
+ +64 (0)7 857 0810 
+ sales@hyquestsolutions.co.nz
+ www.hyquestsolutions.com
+Reseller
+Technical Speciﬁ  cations
+Resolution 0.1 mm, 0.2 mm, and 0.01 inch
+Accuracy  0-100 mm per hour: better than       +/-2 %
+ 100-150 mm per hour: better than   +/-4 %
+ 150-200 mm per hour: better than   +/-5 %
+     0-50 mm per hour: better than    +/-1 %
+   
+50-100 mm per hour: better than     -3 %
+ 100-150mm per hour: better than      -5 %
+ 150-200 mm per hour: better than     -7 %
+ 200-300 mm per hour: better than   -10 %
+Range 700 mm per hour
+Material  Enclosure: powder-coated aluminium
+ Base: UV-resistant ASA
+ Bucket: chrome plated ASA
+Pivots Sapphire tipped 
+Height & Mass 330 mm, 2.1 kg
+Environmental Conditions Operating Temperature Range: +4 °C to +7O °C; Humidity: O - 100 %
+Autonomous System 
+RainTrak Undercover: TB6 
+can be used as a component 
+of the RainTrak to provide 
+a reliable and autonomous 
+real-time rain monitoring and 
+reporting system. Features: 
+turnkey operation, battery operated with 
+solar panel, integrated undercover IP-ca-
+pable data logger, periodic or event-driven 
+data communication, wireless communi-
+cation, incl. antenna, custom designed for 
+harsh environments.
+Pole Mount Bracket: 
+Pole mount bracket 
+with stainless steel 
+bolts, nuts and washers 
+to suit TB3, TB4 or TB6 
+model tipping bucket rain gauge base. Suits 
+50 mm NB galvanised pipe with 2” BSP 
+thread.
+Bird Guard: The bird 
+guard prevents wild or 
+feral birds from perch-
+ing or roosting and thus 
+increases accuracy by 
+stopping bird faeces from dropping inside 
+the gauge funnel.
+Portable Field Calibra-
+tion Device (FCD): The 
+FCD effectively enables 
+ﬁ  eld technicians to run 
+functional tests and 
+calibrations of any giv-
+en rain gauge in the ﬁ  eld avoiding disman-
+tling of TBRG’s, reducing TBRG downtime 
+and thereby saving time and money.
+iRIS dataloggers and 
+data modems:
+ Robust housing
+ IP over one or two
+channels of your
+choice: xG / GPRS,
+satellite, IoT
+ I/O: analog, digital, SDI-12, Modbus
+ iLink software
+ Telemetry or cloud app
+Pulse Counter CMCbt: 
+The CMCbt is a blue-
+tooth pulse counter 
+that provides an 
+interface between the 
+TBRG’s reed switch out-
+put and the FCD-App calibration software 
+used in conjunction with HyQuest Solutions’ 
+Field Calibration Device FCD.
+Please ask for details.
+Accessories & Additional Options
+Speciﬁ  cations are subject to change without notice. Weights and dimensions are indicative. - © HyQuest Solutions | 08.2018
+0.5 mm and 1.0 mm
+
+
+
+Query #6:
+  Query: HYQUEST TB4 rainfall sensor operational range sensitivity specifications
+  Dataset: sensor_knowledge
+  Node Sets: rain_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. TIPPING BUCKET TAINGAUGE MODEL TB4 HYQUEST Solutions
+
+The only routine maintenance required is cleaning. The following items should be checked
+regularly for cleanliness:
+ Catch filter
+ Syphon (refer diagram 2)
+ Interior of bucket
+ Top surface of adjusting screws
+ Enclosure locking screws - lightly lubricate after cleaning
+ All insect screens
+
+
+ELECTRICAL
+Dual reed switches are provided for several reasons:
+ Two isolated switches permit the control of two separate circuits; e.g. a local counter
+and a telemetry circuit.
+ Parallel connection of both switches increases the current carrying capacity of the
+contact system if required.
+ Parallel switch operation confers a degree of redundancy in locations where data from
+the raingauge is critical to flood warning etc.
+
+CALIBRATION
+All gauges have been calibrated by Hyquest Solutions Pty Ltd, prior to despatch.
+The following products and services are available from Hyquest Solutions Pty Ltd:
+ Field Calibration Device, Model TB320, for routine field check calibrations,
+supplied with operating instruction sheet refers to page FCD 110-01.
+ Laboratory Calibration Unit, Model TB340, for calibration after servicing in
+workshops, supplied with operating manual.
+ Recalibration Service at Hyquest Solutions’ factory.
+Please contact either Hyquest Solutions Pty Ltd or our local distributor for further
+information.
+
+
+Troubleshooting
+Symptom: No precipitation measurement
+1. Check that the sensor is wired to the pulse or control terminal specified by the pulse count
+instruction.
+2. 3. Verify that the PConfig, and Multiplier and Offset parameters for the
+PulseCount() instruction are correct for the data logger type.
+Disconnect the sensor from the data logger and use an ohm meter to do a continuity check
+of the switch. The resistance measured at the terminal block on the inside of the bucket
+between the black and white wires should vary from infinite (switch open) when the bucket
+is tipped, to less than an ohm when the bucket is balanced.
+Symptom: CS700H not communicating over SDI-12
+1. Ensure that both the sensor and power cables are properly connected (Table 7-2 [p. 10] and
+Table 7-3 [p. 10]).
+
+Maintenance
+During each site visit, remove any debris, such as insects or sediment from the collection funnel,
+debris screen, siphoning mechanism, or tipping bucket assembly.
+Verify the tipping bucket assembly moves freely, and that the data logger records each bucket
+tip.
+Dismantling for cleaning
+Regularly check the following items for cleanliness:
+l Catch filter
+l Siphon
+l Interior of bucket
+l Top surface of adjusting screws
+l Housing locking screws; lightly lubricate after cleaning
+l Insect screens
+To access them, dismantle the rain gage using the following procedure:
+1. Remove the housing assembly from the base by loosening the three housing screws and
+lifting the housing upward (Figure 9-1 [p. 22], Figure 9-2 [p. 23]).
+
+2. Figure 9-2. TB4 base
+Separate the filter/siphon assembly from the funnel by pushing the filter while pulling the
+siphon (Figure 9-3 [p. 24]).
+CAUTION:
+Do not twist the filter/siphon assembly while pushing and pulling.
+
+Disassemble the filter/siphon assembly by doing the following (Figure 9-4 [p. 25]):
+a. Unscrew nut
+b. Lightly press stem down on surface until stem pops out of siphon body
+c. Remove stem from siphon body
+d. Unscrew cap
+e. Clean all items
+
+Reassembling the rain bucket
+1. 2. Screw cap on stem; finger tighten only (Figure 9-4 [p. 25]).
+Push stem into siphon body (Figure 9-4 [p. 25]).
+Replace nut and tighten (Figure 9-4 [p. 25]).
+CAUTION:
+Do not over tighten.
+Push filter/siphon assembly back into place (Figure 9-5 [p. 26]).
+CAUTION:
+Do not twist the filter/siphon assembly while putting it back into place.
+5. Place the housing assembly back onto the base and tighten the three screws that secure
+the housing onto the base.
+
+Calibration check
+The sensor is factory calibrated; recalibration is not required unless damage has occurred or the
+adjustment screws have loosened.
+Nevertheless, the following calibration check is recommended once every 12 months:
+1. Remove the housing assembly from the base by removing the three screws and lifting
+upward on the housing.
+2. Check the bubble level to verify the rain gage is level.
+3. Pour water through the inner funnel to wet the two bucket surfaces. Using a graduated
+cylinder, slowly pour 314 cc (19.16 in3) of water, over a 15-minute period, into the collection
+funnel. This volume of water is equal to 0.39 in of rainfall (10 mm).
+4. After the water has passed through the rain gage, the tipping bucket should have tipped 39
+times.
+5. If the rain gage fails to record the correct number of tips, return the unit to Campbell
+Scientific for recalibration (see Assistance at the back of this manual).
+
+    2. Page 1:
+General Description
+HyQuest Solutions’ TB6 is a non-syphoning 
+high-quality tipping bucket rain gauge for 
+measuring rainfall and precipitation in urban 
+and rural locations. The TB6 is the device of 
+choice for accurately measuring low rainfall 
+events (0-50 mm/hr with better than +/-1 % 
+accuracy), because the water passes through 
+the nozzle and enters the bucket directly al-
+lowing small rainfall events to be measured. 
+The TB6’s tried and proven design ensures 
+long-term, accurate and repeatable results. 
+It is manufactured from high quality, dura-
+ble materials ensuring long term stability in 
+the harshest of environments. It consists of 
+a robust powder-coated aluminium enclo-
+sure, a UV-resistant ASA polymer base, and 
+stainless steel fasteners and ﬁ  nger ﬁ  lter. 
+Easy maintenance
+Removal of the outer enclosure and access 
+to the tipping bucket mechanism and ﬁ  nger 
+ﬁ  lter assembly is made easy with quick 
+release fasteners. The ﬁ  nger ﬁ  lter can be 
+removed easily during a ﬁ  eld service. It 
+ensures the collector catch area remains 
+unblocked when leaves, bird droppings and 
+other debris ﬁ  nd their way into the catch.
+The TB6’s base incorporates two water 
+outlets at the bottom allowing for wa-
+ter collection and data veriﬁ  cation.
+Output options
+TB6 includes a dual output 24 V DC 
+reed switch allowing for output redun-
+dancy or the addition of a second data 
+logger. The second output could also be 
+used for connecting HyQuest Solutions’ 
+current meter counter CMCbt paired 
+with the free FCD application that allow 
+for easy and accurate ﬁ  eld calibration 
+even in noisy (urban) environments. The 
+reed switch incorporates varistor protection 
+against surges that may be induced on long, 
+inappropriately shielded signal cables.
+Main Features
+  Standard 200 mm diameter catch
+  Long term stable calibration
+  Minimal maintenance required
+  Robust design for all environments
+  Optional: autonomous real-time rain 
+monitoring and reporting system 
+RainTrak Undercover with in-built telem-
+etry and logging (see ﬂ  ip side)
+TB6 Rain Gauge
+Tipping Bucket Rain Gauge
+METEOROLOGY | PRECIPITATION | RAINFALL
+MONITORING
+Alternative Models TB3 and TB4
+Industry-grade HS tipping buckets TB3 and TB4 are equipped with an integrated 
+syphon mechanism which delivers high levels of accuracy across a broad range of 
+rainfall intensities. 
+
+Page 2:
+ HyQuest Solutions Europe
+ Pascalstr. 8+10 | 52076 Aachen - Germany
+ +49 2408 9385 0 
+ info@hyquestsolutions.eu
+ www.hyquestsolutions.eu
+ HyQuest Solutions Australia 
+ +61 2 9601 2022 
+ sales@hyquestsolutions.com.au
+ www.hyquestsolutions.com
+Contact Us
+ HyQuest Solutions New Zealand 
+ +64 (0)7 857 0810 
+ sales@hyquestsolutions.co.nz
+ www.hyquestsolutions.com
+Reseller
+Technical Speciﬁ  cations
+Resolution 0.1 mm, 0.2 mm, and 0.01 inch
+Accuracy  0-100 mm per hour: better than       +/-2 %
+ 100-150 mm per hour: better than   +/-4 %
+ 150-200 mm per hour: better than   +/-5 %
+     0-50 mm per hour: better than    +/-1 %
+   
+50-100 mm per hour: better than     -3 %
+ 100-150mm per hour: better than      -5 %
+ 150-200 mm per hour: better than     -7 %
+ 200-300 mm per hour: better than   -10 %
+Range 700 mm per hour
+Material  Enclosure: powder-coated aluminium
+ Base: UV-resistant ASA
+ Bucket: chrome plated ASA
+Pivots Sapphire tipped 
+Height & Mass 330 mm, 2.1 kg
+Environmental Conditions Operating Temperature Range: +4 °C to +7O °C; Humidity: O - 100 %
+Autonomous System 
+RainTrak Undercover: TB6 
+can be used as a component 
+of the RainTrak to provide 
+a reliable and autonomous 
+real-time rain monitoring and 
+reporting system. Features: 
+turnkey operation, battery operated with 
+solar panel, integrated undercover IP-ca-
+pable data logger, periodic or event-driven 
+data communication, wireless communi-
+cation, incl. antenna, custom designed for 
+harsh environments.
+Pole Mount Bracket: 
+Pole mount bracket 
+with stainless steel 
+bolts, nuts and washers 
+to suit TB3, TB4 or TB6 
+model tipping bucket rain gauge base. Suits 
+50 mm NB galvanised pipe with 2” BSP 
+thread.
+Bird Guard: The bird 
+guard prevents wild or 
+feral birds from perch-
+ing or roosting and thus 
+increases accuracy by 
+stopping bird faeces from dropping inside 
+the gauge funnel.
+Portable Field Calibra-
+tion Device (FCD): The 
+FCD effectively enables 
+ﬁ  eld technicians to run 
+functional tests and 
+calibrations of any giv-
+en rain gauge in the ﬁ  eld avoiding disman-
+tling of TBRG’s, reducing TBRG downtime 
+and thereby saving time and money.
+iRIS dataloggers and 
+data modems:
+ Robust housing
+ IP over one or two
+channels of your
+choice: xG / GPRS,
+satellite, IoT
+ I/O: analog, digital, SDI-12, Modbus
+ iLink software
+ Telemetry or cloud app
+Pulse Counter CMCbt: 
+The CMCbt is a blue-
+tooth pulse counter 
+that provides an 
+interface between the 
+TBRG’s reed switch out-
+put and the FCD-App calibration software 
+used in conjunction with HyQuest Solutions’ 
+Field Calibration Device FCD.
+Please ask for details.
+Accessories & Additional Options
+Speciﬁ  cations are subject to change without notice. Weights and dimensions are indicative. - © HyQuest Solutions | 08.2018
+0.5 mm and 1.0 mm
+
+
+
+Query #7:
+  Query: troubleshooting guides, common failure modes, and maintenance procedures for HYQUEST TB4 rainfall sensor; causes for spurious rainfall spikes; recommended maintenance actions
+  Dataset: maintenance_knowledge
+  Node Sets: rain_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. TIPPING BUCKET TAINGAUGE MODEL TB4 HYQUEST Solutions
+
+The only routine maintenance required is cleaning. The following items should be checked
+regularly for cleanliness:
+ Catch filter
+ Syphon (refer diagram 2)
+ Interior of bucket
+ Top surface of adjusting screws
+ Enclosure locking screws - lightly lubricate after cleaning
+ All insect screens
+
+
+ELECTRICAL
+Dual reed switches are provided for several reasons:
+ Two isolated switches permit the control of two separate circuits; e.g. a local counter
+and a telemetry circuit.
+ Parallel connection of both switches increases the current carrying capacity of the
+contact system if required.
+ Parallel switch operation confers a degree of redundancy in locations where data from
+the raingauge is critical to flood warning etc.
+
+CALIBRATION
+All gauges have been calibrated by Hyquest Solutions Pty Ltd, prior to despatch.
+The following products and services are available from Hyquest Solutions Pty Ltd:
+ Field Calibration Device, Model TB320, for routine field check calibrations,
+supplied with operating instruction sheet refers to page FCD 110-01.
+ Laboratory Calibration Unit, Model TB340, for calibration after servicing in
+workshops, supplied with operating manual.
+ Recalibration Service at Hyquest Solutions’ factory.
+Please contact either Hyquest Solutions Pty Ltd or our local distributor for further
+information.
+
+
+Troubleshooting
+Symptom: No precipitation measurement
+1. Check that the sensor is wired to the pulse or control terminal specified by the pulse count
+instruction.
+2. 3. Verify that the PConfig, and Multiplier and Offset parameters for the
+PulseCount() instruction are correct for the data logger type.
+Disconnect the sensor from the data logger and use an ohm meter to do a continuity check
+of the switch. The resistance measured at the terminal block on the inside of the bucket
+between the black and white wires should vary from infinite (switch open) when the bucket
+is tipped, to less than an ohm when the bucket is balanced.
+Symptom: CS700H not communicating over SDI-12
+1. Ensure that both the sensor and power cables are properly connected (Table 7-2 [p. 10] and
+Table 7-3 [p. 10]).
+
+Maintenance
+During each site visit, remove any debris, such as insects or sediment from the collection funnel,
+debris screen, siphoning mechanism, or tipping bucket assembly.
+Verify the tipping bucket assembly moves freely, and that the data logger records each bucket
+tip.
+Dismantling for cleaning
+Regularly check the following items for cleanliness:
+l Catch filter
+l Siphon
+l Interior of bucket
+l Top surface of adjusting screws
+l Housing locking screws; lightly lubricate after cleaning
+l Insect screens
+To access them, dismantle the rain gage using the following procedure:
+1. Remove the housing assembly from the base by loosening the three housing screws and
+lifting the housing upward (Figure 9-1 [p. 22], Figure 9-2 [p. 23]).
+
+2. Figure 9-2. TB4 base
+Separate the filter/siphon assembly from the funnel by pushing the filter while pulling the
+siphon (Figure 9-3 [p. 24]).
+CAUTION:
+Do not twist the filter/siphon assembly while pushing and pulling.
+
+Disassemble the filter/siphon assembly by doing the following (Figure 9-4 [p. 25]):
+a. Unscrew nut
+b. Lightly press stem down on surface until stem pops out of siphon body
+c. Remove stem from siphon body
+d. Unscrew cap
+e. Clean all items
+
+Reassembling the rain bucket
+1. 2. Screw cap on stem; finger tighten only (Figure 9-4 [p. 25]).
+Push stem into siphon body (Figure 9-4 [p. 25]).
+Replace nut and tighten (Figure 9-4 [p. 25]).
+CAUTION:
+Do not over tighten.
+Push filter/siphon assembly back into place (Figure 9-5 [p. 26]).
+CAUTION:
+Do not twist the filter/siphon assembly while putting it back into place.
+5. Place the housing assembly back onto the base and tighten the three screws that secure
+the housing onto the base.
+
+Calibration check
+The sensor is factory calibrated; recalibration is not required unless damage has occurred or the
+adjustment screws have loosened.
+Nevertheless, the following calibration check is recommended once every 12 months:
+1. Remove the housing assembly from the base by removing the three screws and lifting
+upward on the housing.
+2. Check the bubble level to verify the rain gage is level.
+3. Pour water through the inner funnel to wet the two bucket surfaces. Using a graduated
+cylinder, slowly pour 314 cc (19.16 in3) of water, over a 15-minute period, into the collection
+funnel. This volume of water is equal to 0.39 in of rainfall (10 mm).
+4. After the water has passed through the rain gage, the tipping bucket should have tipped 39
+times.
+5. If the rain gage fails to record the correct number of tips, return the unit to Campbell
+Scientific for recalibration (see Assistance at the back of this manual).
+
+    2. Page 1:
+General Description
+HyQuest Solutions’ TB6 is a non-syphoning 
+high-quality tipping bucket rain gauge for 
+measuring rainfall and precipitation in urban 
+and rural locations. The TB6 is the device of 
+choice for accurately measuring low rainfall 
+events (0-50 mm/hr with better than +/-1 % 
+accuracy), because the water passes through 
+the nozzle and enters the bucket directly al-
+lowing small rainfall events to be measured. 
+The TB6’s tried and proven design ensures 
+long-term, accurate and repeatable results. 
+It is manufactured from high quality, dura-
+ble materials ensuring long term stability in 
+the harshest of environments. It consists of 
+a robust powder-coated aluminium enclo-
+sure, a UV-resistant ASA polymer base, and 
+stainless steel fasteners and ﬁ  nger ﬁ  lter. 
+Easy maintenance
+Removal of the outer enclosure and access 
+to the tipping bucket mechanism and ﬁ  nger 
+ﬁ  lter assembly is made easy with quick 
+release fasteners. The ﬁ  nger ﬁ  lter can be 
+removed easily during a ﬁ  eld service. It 
+ensures the collector catch area remains 
+unblocked when leaves, bird droppings and 
+other debris ﬁ  nd their way into the catch.
+The TB6’s base incorporates two water 
+outlets at the bottom allowing for wa-
+ter collection and data veriﬁ  cation.
+Output options
+TB6 includes a dual output 24 V DC 
+reed switch allowing for output redun-
+dancy or the addition of a second data 
+logger. The second output could also be 
+used for connecting HyQuest Solutions’ 
+current meter counter CMCbt paired 
+with the free FCD application that allow 
+for easy and accurate ﬁ  eld calibration 
+even in noisy (urban) environments. The 
+reed switch incorporates varistor protection 
+against surges that may be induced on long, 
+inappropriately shielded signal cables.
+Main Features
+  Standard 200 mm diameter catch
+  Long term stable calibration
+  Minimal maintenance required
+  Robust design for all environments
+  Optional: autonomous real-time rain 
+monitoring and reporting system 
+RainTrak Undercover with in-built telem-
+etry and logging (see ﬂ  ip side)
+TB6 Rain Gauge
+Tipping Bucket Rain Gauge
+METEOROLOGY | PRECIPITATION | RAINFALL
+MONITORING
+Alternative Models TB3 and TB4
+Industry-grade HS tipping buckets TB3 and TB4 are equipped with an integrated 
+syphon mechanism which delivers high levels of accuracy across a broad range of 
+rainfall intensities. 
+
+Page 2:
+ HyQuest Solutions Europe
+ Pascalstr. 8+10 | 52076 Aachen - Germany
+ +49 2408 9385 0 
+ info@hyquestsolutions.eu
+ www.hyquestsolutions.eu
+ HyQuest Solutions Australia 
+ +61 2 9601 2022 
+ sales@hyquestsolutions.com.au
+ www.hyquestsolutions.com
+Contact Us
+ HyQuest Solutions New Zealand 
+ +64 (0)7 857 0810 
+ sales@hyquestsolutions.co.nz
+ www.hyquestsolutions.com
+Reseller
+Technical Speciﬁ  cations
+Resolution 0.1 mm, 0.2 mm, and 0.01 inch
+Accuracy  0-100 mm per hour: better than       +/-2 %
+ 100-150 mm per hour: better than   +/-4 %
+ 150-200 mm per hour: better than   +/-5 %
+     0-50 mm per hour: better than    +/-1 %
+   
+50-100 mm per hour: better than     -3 %
+ 100-150mm per hour: better than      -5 %
+ 150-200 mm per hour: better than     -7 %
+ 200-300 mm per hour: better than   -10 %
+Range 700 mm per hour
+Material  Enclosure: powder-coated aluminium
+ Base: UV-resistant ASA
+ Bucket: chrome plated ASA
+Pivots Sapphire tipped 
+Height & Mass 330 mm, 2.1 kg
+Environmental Conditions Operating Temperature Range: +4 °C to +7O °C; Humidity: O - 100 %
+Autonomous System 
+RainTrak Undercover: TB6 
+can be used as a component 
+of the RainTrak to provide 
+a reliable and autonomous 
+real-time rain monitoring and 
+reporting system. Features: 
+turnkey operation, battery operated with 
+solar panel, integrated undercover IP-ca-
+pable data logger, periodic or event-driven 
+data communication, wireless communi-
+cation, incl. antenna, custom designed for 
+harsh environments.
+Pole Mount Bracket: 
+Pole mount bracket 
+with stainless steel 
+bolts, nuts and washers 
+to suit TB3, TB4 or TB6 
+model tipping bucket rain gauge base. Suits 
+50 mm NB galvanised pipe with 2” BSP 
+thread.
+Bird Guard: The bird 
+guard prevents wild or 
+feral birds from perch-
+ing or roosting and thus 
+increases accuracy by 
+stopping bird faeces from dropping inside 
+the gauge funnel.
+Portable Field Calibra-
+tion Device (FCD): The 
+FCD effectively enables 
+ﬁ  eld technicians to run 
+functional tests and 
+calibrations of any giv-
+en rain gauge in the ﬁ  eld avoiding disman-
+tling of TBRG’s, reducing TBRG downtime 
+and thereby saving time and money.
+iRIS dataloggers and 
+data modems:
+ Robust housing
+ IP over one or two
+channels of your
+choice: xG / GPRS,
+satellite, IoT
+ I/O: analog, digital, SDI-12, Modbus
+ iLink software
+ Telemetry or cloud app
+Pulse Counter CMCbt: 
+The CMCbt is a blue-
+tooth pulse counter 
+that provides an 
+interface between the 
+TBRG’s reed switch out-
+put and the FCD-App calibration software 
+used in conjunction with HyQuest Solutions’ 
+Field Calibration Device FCD.
+Please ask for details.
+Accessories & Additional Options
+Speciﬁ  cations are subject to change without notice. Weights and dimensions are indicative. - © HyQuest Solutions | 08.2018
+0.5 mm and 1.0 mm
+
+
+================================================================================
+
+================================================================================
+
+
+================================================================================
+PROCESSING SUMMARY
+================================================================================
+LLM: gpt_4_1_mini
+Total Processing Time: 50.31 seconds
+Total Errors: 0
+
+Agent Call Statistics:
+
+Tool Call Statistics:
+  - sensor_search_sensor_knowledge: 1 calls
+  - maintenance_search_maintenance_knowledge: 1 calls
+  - get_weather: 4 calls
+================================================================================
+
+END OF LOG
+================================================================================

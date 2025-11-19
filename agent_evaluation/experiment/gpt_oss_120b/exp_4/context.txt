@@ -1,0 +1,99 @@
+Weather Data from Satellite or API:
+Result:
+    {
+      "times": [
+        "2024-08-15T19:00",
+        "2024-08-15T19:15",
+        "2024-08-15T19:30",
+        "2024-08-15T19:45",
+        "2024-08-15T20:00",
+        "2024-08-15T20:15",
+        "2024-08-15T20:30",
+        "2024-08-15T20:45",
+        "2024-08-15T21:00"
+      ],
+      "windspeed_10m": [
+        5.9,
+        5.6,
+        5.9,
+        5.7,
+        5.7,
+        5.7,
+        5.5,
+        5.5,
+        5.5
+      ],
+      "winddirection_10m": [
+        317,
+        320,
+        322,
+        325,
+        325,
+        325,
+        328,
+        328,
+        328
+      ],
+      "temperature_2m": [
+        20.7,
+        20.6,
+        20.6,
+        20.6,
+        20.5,
+        20.5,
+        20.4,
+        20.3,
+        20.2
+      ],
+      "surface_pressure": [
+        994.9,
+        994.9,
+        994.9,
+        995.0,
+        995.0,
+        995.0,
+        994.9,
+        994.9,
+        994.9
+      ],
+      "relative_humidity_2m": [
+        85,
+        85,
+        86,
+        86,
+        86,
+        86,
+        87,
+        87,
+        87
+      ]
+    }
+
+  1. The output range sensitivity for the R.M. Young 05103-L wind direction sensor specifications includes: 
+- Resistance between Blue and White wires: approximately 10K ohms. 
+- Resistance between Blue/Green or White/Green wires: varies between 1K to 11K depending on vane position. 
+- Resistance in the 5-degree dead band: about 1 M ohm.
+
+  2. The Young 05103-L wind direction sensor has an output range of 0 to 360 degrees with a sensitivity resolution of 0.5 degrees.
+
+
+
+  1. To troubleshoot the Young 05103-L sensor with a sentinel value of 999 for wind direction, follow these steps:
+1. Check wiring to ensure the sensor is connected to the correct Excitation and Single-Ended channels.
+2. Verify that the excitation voltage and the Range code match the datalogger specifications.
+3. Disconnect the sensor and measure the potentiometer resistance:
+   - Should be about 10K ohms between Blue and White wires.
+   - Resistance between Blue/Green or White/Green should vary (1K to 11K depending on the vane position).
+   - In the 5-degree deadband, resistance should be about 1 M ohm.
+4. If issues persist, recalibrate the sensor as suggested in maintenance procedures.
+
+  2. To troubleshoot the Young 05103-L sensor communication failure or hardware fault indicating a sentinel value of 999 for wind direction, you can take the following maintenance actions:
+
+1. **Check Connections**: Inspect all wiring and connections to ensure they are secure and not damaged.
+2. **Power Cycle**: Turn off the device, wait for a few moments, and then power it back on to reset the system.
+3. **Sensor Calibration**: Ensure the sensor is calibrated correctly; refer to the manufacturer's instructions for calibration procedures.
+4. **Software Update**: Check for any firmware updates from the manufacturer that might fix known issues.
+5. **Inspect for Physical Damage**: Assess the sensor for any visible signs of damage that may impair its function.
+6. **Contact Manufacturer**: If the issue persists, contact R. M. Young Company for further support or to inquire about repair options.
+
+

@@ -1,0 +1,11 @@
+======================================================================
+KAFKA WORKFORCE SESSION LOG - MULTI-LLM
+======================================================================
+Session Start: 2025-10-29 10:51:45
+Kafka Broker: localhost:9092
+Topic: weather-anomalies
+Log Directory: /home/ubuntu/running/cognee/agent/logs/anomaly_analysis
+LLMs: GPT OSS 120B, GPT OSS 20B, GPT 4 1 Mini
+======================================================================
+
+[2025-10-29 10:51:48] New anomaly from AWS_DIY_UGM - 1 parameter(s): Relative Humidity

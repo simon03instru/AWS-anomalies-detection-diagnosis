@@ -1,0 +1,1964 @@
+
+================================================================================
+DETAILED ANOMALY PROCESSING LOG
+================================================================================
+LLM: gpt_oss_20b
+Anomaly ID: AWS_DIY_STAGEOF_YOGYAKARTA_2024-08-19T07-40-00
+Event Type: WEATHER_ANOMALY_CONFIRMED
+Correlation ID: anomaly-AWS_DIY_STAGEOF_YOGYAKARTA-1761735498
+Timestamp: 2025-10-29 10:59:39
+Log File: detailed_20251029_105939_452023_AWS_DIY_STAGEOF_YOGYAKARTA_gpt_oss_20b.log
+================================================================================
+
+
+================================================================================
+ORIGINAL ANOMALY DATA
+================================================================================
+{
+  "event_type": "WEATHER_ANOMALY_CONFIRMED",
+  "timestamp": "2025-10-29T10:58:18.227081",
+  "source": "StationAgent-AWS_DIY_STAGEOF_YOGYAKARTA",
+  "data": {
+    "timestamp": "2024-08-19T07:40:00",
+    "station_id": "AWS_DIY_STAGEOF_YOGYAKARTA",
+    "station_metadata": {
+      "location": "Yogyakarta, Indonesia",
+      "latitude": -7.81665,
+      "longitude": 110.29481,
+      "altitude": 48.0,
+      "sensor_info": {
+        "rh": {
+          "brand": "Vaisala HMP155",
+          "last_calibration": "2024-03-15"
+        }
+      }
+    },
+    "confirmed_anomalies": [
+      {
+        "parameter": "Relative Humidity",
+        "value": 100.0,
+        "sensor_brand": "Vaisala HMP155",
+        "trend_analysis": "Physically impossible exact 100% humidity reading; deviates ~+49% from mean (51%). Occurred at 2024-08-19 14:40 local (UTC+7). Correlation with temperature (30.92\u00b0C) broken (expected lower temp) and with rainfall (0 mm) broken. High confidence sensor fault."
+      }
+    ],
+    "validation_timestamp": "2025-10-29T10:58:18.227069",
+    "has_trend_analysis": true
+  },
+  "correlation_id": "anomaly-AWS_DIY_STAGEOF_YOGYAKARTA-1761735498"
+}
+================================================================================
+
+
+================================================================================
+WORKFORCE PROCESSING STARTED
+================================================================================
+LLM: gpt_oss_20b
+Initial Query:
+Analyze the following weather anomaly detected at AWS_DIY_STAGEOF_YOGYAKARTA:
+
+Event Detection Time: 2024-08-19T07:40:00
+Station: AWS_DIY_STAGEOF_YOGYAKARTA
+Location: Yogyakarta, Indonesia
+Coordinates: Latitude -7.81665, Longitude 110.29481, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Relative Humidity
+  Value: 100.0
+  Sensor Brand: Vaisala HMP155
+  Trend Analysis: Physically impossible exact 100% humidity reading; deviates ~+49% from mean (51%). Occurred at 2024-08-19 14:40 local (UTC+7). Correlation with temperature (30.92°C) broken (expected lower temp) and with rainfall (0 mm) broken. High confidence sensor fault.
+
+Validation Timestamp: 2025-10-29T10:58:18.227069
+Correlation ID: anomaly-AWS_DIY_STAGEOF_YOGYAKARTA-1761735498
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.
+================================================================================
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: maintenance_search_maintenance_knowledge
+--------------------------------------------------------------------------------
+Tool: maintenance_search_maintenance_knowledge
+Call Count: 1
+Timestamp: 11:00:48.684
+
+Keyword Arguments:
+    {
+      "node_sets": [
+        "temperature_humidity_sensor"
+      ],
+      "query": "Vaisala HMP155 100% humidity reading troubleshooting"
+    }
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: get_weather
+--------------------------------------------------------------------------------
+Tool: get_weather
+Call Count: 1
+Timestamp: 11:00:51.636
+
+Keyword Arguments:
+    {
+      "end_time": "2024-08-19T08:40:00Z",
+      "latitude": -7.81665,
+      "longitude": 110.29481,
+      "parameters": [
+        "temperature_2m",
+        "relative_humidity_2m",
+        "precipitation"
+      ],
+      "start_time": "2024-08-19T06:40:00Z"
+    }
+
+Execution Time: 1.224 seconds
+Result Length: 181 characters
+
+Result:
+    {
+      "error": "Requested time range not found in API response. Available times: ['2024-08-19T00:00', '2024-08-19T00:15', '2024-08-19T00:30', '2024-08-19T00:45', '2024-08-19T01:00']..."
+    }
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: sensor_search_sensor_knowledge
+--------------------------------------------------------------------------------
+Tool: sensor_search_sensor_knowledge
+Call Count: 1
+Timestamp: 11:00:52.887
+
+Keyword Arguments:
+    {
+      "node_sets": [
+        "temperature_humidity_sensor"
+      ],
+      "query": "Vaisala HMP155 relative humidity sensor operational range sensitivity"
+    }
+
+--------------------------------------------------------------------------------
+TOOL CALL #2: get_weather
+--------------------------------------------------------------------------------
+Tool: get_weather
+Call Count: 2
+Timestamp: 11:01:06.598
+
+Keyword Arguments:
+    {
+      "end_time": "2024-08-19T08:40:00Z",
+      "latitude": -7.81665,
+      "longitude": 110.29481,
+      "parameters": [
+        "temperature_2m",
+        "relative_humidity_2m",
+        "precipitation"
+      ],
+      "start_time": "2024-08-19T06:40:00Z"
+    }
+
+Execution Time: 1.808 seconds
+Result Length: 181 characters
+
+Result:
+    {
+      "error": "Requested time range not found in API response. Available times: ['2024-08-19T00:00', '2024-08-19T00:15', '2024-08-19T00:30', '2024-08-19T00:45', '2024-08-19T01:00']..."
+    }
+--------------------------------------------------------------------------------
+
+
+Execution Time: 16.338 seconds
+Result Length: 729 characters
+
+Result:
+    The operational range sensitivity of the Vaisala HMP155 relative humidity sensor is not explicitly detailed in the provided context. However, general maintenance guidelines suggest that the sensor should be recalibrated annually, and contamination on the filter or sensor elements can significantly affect response time and measurement accuracy. Additionally, continuous exposure to air pollution and salt may necessitate more frequent maintenance.
+    
+    The Vaisala HMP155 relative humidity sensor has an operational range of 0 to 100 %RH. Its accuracy is ±1 %RH for humidity levels of 0 to 90 %RH, and ±1.7 %RH for 90 to 100 %RH. It features a response time of 20 seconds for 63 %RH and 60 seconds for 90 %RH in still air at +20 °C.
+--------------------------------------------------------------------------------
+
+
+Execution Time: 20.574 seconds
+Result Length: 2035 characters
+
+Result:
+    To troubleshoot a 100% humidity reading on the Vaisala HMP155, follow these steps:
+    
+    1. **Check Wiring**: Ensure the sensor is properly wired to the correct analog input channels as per the measurement instructions.
+    2. **Verify Power Connection**: Confirm that the red power wire is connected to the 12V or SW12V channel, as required by your data logger.
+    3. **Inspect Probe Filter**: Check and potentially replace the probe filter if it's contaminated, as this can affect humidity readings.
+    4. **Check Calibration**: Recalibrate the HMP155 annually to maintain accuracy.
+    5. **Clean the Sensor**: If the sensor element is dirty or contaminated, clean it gently with distilled water.
+    6. **Avoid Environmental Factors**: Ensure the sensor is not installed near sources of electrical interference, such as radio transmitters or cell phones. 
+    7. **Test Output**: Use a voltmeter to measure the output voltage for temperature and humidity, ensuring the readings align with expected values.
+    
+    To troubleshoot a 100% humidity reading on the Vaisala HMP155, consider the following steps:
+    
+    1. **Check Probe Condition**: Ensure the probe is not wet or contaminated, as a wet probe can give inaccurate readings in high humidity.
+    
+    2. **Calibration**: Verify that the HMP155 is calibrated correctly. Calibration can be done using a computer with a USB cable or with the MI70 indicator.
+    
+    3. **Environment Factors**: Evaluate the installation environment. Factors like fog, mist, or rain can affect readings. Ensure the probe is installed in a suitable radiation shield to protect it from precipitation and solar radiation.
+    
+    4. **Warmed Probe Feature**: If applicable, ensure the warmed probe feature is functioning. This helps to prevent condensation formation on the sensor.
+    
+    5. **Check Connections**: Inspect all connections to ensure they are secure and functioning correctly, including power supply and output connections.
+    
+    6. **Error Codes**: If the device displays any error codes, refer to the manual for troubleshooting specific to those codes.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #3: get_weather
+--------------------------------------------------------------------------------
+Tool: get_weather
+Call Count: 3
+Timestamp: 11:01:33.836
+
+Keyword Arguments:
+    {
+      "end_time": "2024-08-19T10:00:00Z",
+      "latitude": -7.81665,
+      "longitude": 110.29481,
+      "parameters": [
+        "temperature_2m",
+        "relative_humidity_2m",
+        "precipitation"
+      ],
+      "start_time": "2024-08-19T04:00:00Z"
+    }
+
+Execution Time: 1.230 seconds
+Result Length: 951 characters
+
+Result:
+    {
+      "times": [
+        "2024-08-19T04:00",
+        "2024-08-19T04:15",
+        "2024-08-19T04:30",
+        "2024-08-19T04:45",
+        "2024-08-19T05:00",
+        "2024-08-19T05:15",
+        "2024-08-19T05:30",
+        "2024-08-19T05:45",
+        "2024-08-19T06:00",
+        "2024-08-19T06:15",
+        "2024-08-19T06:30",
+        "2024-08-19T06:45",
+        "2024-08-19T07:00",
+        "2024-08-19T07:15",
+        "2024-08-19T07:30",
+        "2024-08-19T07:45",
+        "2024-08-19T08:00",
+        "2024-08-19T08:15",
+        "2024-08-19T08:30",
+        "2024-08-19T08:45",
+        "2024-08-19T09:00",
+        "2024-08-19T09:15",
+        "2024-08-19T09:30",
+        "2024-08-19T09:45",
+        "2024-08-19T10:00"
+      ],
+      "temperature_2m": [
+        28.5,
+        28.6,
+        28.8,
+        28.9,
+        29.0,
+        29.2,
+        29.4,
+        29.5,
+        29.6,
+        29.6,
+        29.6,
+        29.5,
+        29.4,
+        29.2,
+        29.0,
+        28.8,
+        28.5,
+        28.3,
+        28.0,
+        27.7,
+        27.4,
+        27.0,
+        26.6,
+        26.2,
+        25.9
+      ],
+      "relative_humidity_2m": [
+        60,
+        60,
+        60,
+        59,
+        59,
+        58,
+        57,
+        57,
+        56,
+        56,
+        56,
+        56,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        63,
+        64,
+        66,
+        67,
+        69,
+        70,
+        72
+      ],
+      "precipitation": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+STDOUT CAPTURE
+--------------------------------------------------------------------------------
+[33mWorker node 2dd40a2f-f720-4408-9b42-9957eff9514a (Weather data analysis) get task 7848b98b-597d-4d89-8278-b487fca2c383.1: Retrieve weather data for Yogyakarta, Indonesia at 2024-08-19 14:40 local (UTC+7) including temperature, humidity, rainfall, and compare these values to the anomaly reading of 100% relative humidity and 30.92°C temperature. The output should be a concise summary of the current weather conditions and how they differ from the anomaly.[39m
+[33mWorker node d47531e8-c00a-4e00-9418-f4c767915cbf (Sensor specifications) get task 7848b98b-597d-4d89-8278-b487fca2c383.2: Check the operational range and sensitivity of the Vaisala HMP155 relative humidity sensor. Determine whether a 100% reading is within the sensor's specified range and whether the sensor's sensitivity matches the reported trend. The output should be a brief report stating the sensor's spec limits and the anomaly's compliance.[39m
+[33mWorker node bc6ae300-6065-4023-916b-309433677376 (Maintenance information) get task 7848b98b-597d-4d89-8278-b487fca2c383.3: Search for troubleshooting information for the Vaisala HMP155 sensor related to 100% humidity readings, identify possible faults, and recommend maintenance actions. The output should be a list of troubleshooting steps and recommended maintenance procedures.[39m
+======
+[32mResponse from Worker node 2dd40a2f-f720-4408-9b42-9957eff9514a (Weather data analysis):[39m
+
+[31mUnable to retrieve weather data for the requested time and location due to API limitations; no data available for 2024-08-19 07:40 UTC.[39m
+======
+[33mWorker node 2dd40a2f-f720-4408-9b42-9957eff9514a (Weather data analysis) get task 7848b98b-597d-4d89-8278-b487fca2c383.1: Retrieve weather data for Yogyakarta, Indonesia at the nearest available time to 2024-08-19 14:40 local (UTC+7) including temperature, humidity, rainfall, and compare these values to the anomaly reading of 100% relative humidity and 30.92°C temperature. Provide a concise summary of the current weather conditions and how they differ from the anomaly.[39m
+   📝 Logged 2 chunks for query: 'Vaisala HMP155 relative humidity sensor operationa...'
+   📝 Logged 2 chunks for query: 'Vaisala HMP155 100% humidity reading troubleshooti...'
+======
+[32mResponse from Worker node 2dd40a2f-f720-4408-9b42-9957eff9514a (Weather data analysis):[39m
+
+[31mUnable to retrieve weather data for the requested time. The available data for Yogyakarta on 2024-08-19 only includes timestamps from 00:00 to 01:00 UTC, which is far from the target time of 07:40 UTC (14:40 local). Therefore, I cannot provide a comparison with the anomaly readings.[39m
+======
+======
+[32mResponse from Worker node bc6ae300-6065-4023-916b-309433677376 (Maintenance information):[39m
+
+[32mTroubleshooting steps and recommended maintenance for a Vaisala HMP155 sensor reporting 100% humidity:
+
+1. **Check Wiring** – Verify the sensor is connected to the correct analog input channels as per the measurement instructions.
+2. **Verify Power Connection** – Ensure the red power wire is connected to the 12 V or SW12 V channel required by the data logger.
+3. **Inspect Probe Filter** – Examine the probe filter for contamination; replace if dirty, as this can affect humidity readings.
+4. **Check Probe Condition** – Confirm the probe is not wet or contaminated; a wet probe can give inaccurate high‑humidity readings.
+5. **Calibration** – Re‑calibrate the HMP155 annually (or as recommended) using a computer with a USB cable or the MI70 indicator to maintain accuracy.
+6. **Warmed Probe Feature** – If the sensor has a warmed‑probe feature, ensure it is functioning to prevent condensation on the sensor.
+7. **Clean the Sensor** – Gently clean the sensor element with distilled water if it appears dirty or contaminated.
+8. **Avoid Environmental Factors** – Install the sensor in a suitable radiation shield to protect it from precipitation, fog, mist, and solar radiation; keep it away from sources of electrical interference.
+9. **Check Connections** – Inspect all power and output connections for security and proper functioning.
+10. **Test Output** – Use a voltmeter to measure the output voltage for temperature and humidity; compare against expected values.
+11. **Error Codes** – If the device displays error codes, refer to the manual for specific troubleshooting steps.
+
+Recommended maintenance actions:
+- Replace the probe filter if contaminated.
+- Re‑calibrate the sensor annually.
+- Clean the sensor element with distilled water.
+- Verify and secure all wiring and power connections.
+- Ensure the warmed‑probe feature is operational.
+- Install or update the radiation shield to protect against environmental interference.
+- Document all maintenance actions and dates in the maintenance log.
+
+These steps should resolve or identify the cause of the 100% humidity reading anomaly.[39m
+======
+[33mWorker node 2dd40a2f-f720-4408-9b42-9957eff9514a (Weather data analysis) get task 7848b98b-597d-4d89-8278-b487fca2c383.1: Retrieve weather data for Yogyakarta, Indonesia at the nearest available timestamp to 2024-08-19 14:40 local (UTC+7) within ±3 hours, including temperature, humidity, rainfall, and compare these values to the anomaly reading of 100% relative humidity and 30.92°C temperature. Provide a concise summary of the current weather conditions and how they differ from the anomaly.[39m
+======
+[32mResponse from Worker node d47531e8-c00a-4e00-9418-f4c767915cbf (Sensor specifications):[39m
+
+[32m**Vaisala HMP155 Relative Humidity Sensor Specification Summary**
+- **Operational Range:** 0 % RH to 100 % RH.
+- **Accuracy:** ±1 % RH for 0–90 % RH; ±1.7 % RH for 90–100 % RH.
+- **Response Time:** 20 s at 63 % RH, 60 s at 90 % RH (still air, +20 °C).
+
+**Anomaly Compliance Assessment**
+- The reported 100.0 % RH reading lies at the upper boundary of the sensor’s operational range. While the sensor is designed to measure up to 100 % RH, the accuracy at this level is ±1.7 % RH, meaning the true value could be 98.3–101.7 % RH.
+- A *physically exact* 100 % RH reading is statistically unlikely and indicates a sensor fault or calibration issue, especially given the deviation from expected trends (temperature, rainfall, mean humidity).
+- The sensor’s sensitivity (accuracy specification) does not support a perfectly stable 100 % reading; the trend analysis suggests the sensor is not matching the expected behavior.
+
+**Conclusion**
+- The 100 % reading is within the sensor’s specified range but is at the extreme where accuracy is reduced. The anomaly is not compliant with expected sensor behavior and likely reflects a fault.
+- Recommend immediate sensor inspection, calibration verification, and potential replacement if the fault persists.
+[39m
+======
+[36m🎯 Task 7848b98b-597d-4d89-8278-b487fca2c383.3 completed successfully.[39m
+[36m🎯 Task 7848b98b-597d-4d89-8278-b487fca2c383.2 completed successfully.[39m
+======
+[32mResponse from Worker node 2dd40a2f-f720-4408-9b42-9957eff9514a (Weather data analysis):[39m
+
+[32mAt 07:45 UTC (14:45 local), Yogyakarta had a temperature of 29.2 °C, relative humidity of 57 %, and no rainfall. The anomaly reported 100 % humidity and 30.92 °C. Thus the actual humidity was 43 % lower and the temperature about 1.7 °C cooler than the anomalous reading, indicating a likely sensor fault.[39m
+======
+[36m🎯 Task 7848b98b-597d-4d89-8278-b487fca2c383.1 completed successfully.[39m
+[33mWorker node 2dd40a2f-f720-4408-9b42-9957eff9514a (Weather data analysis) get task 7848b98b-597d-4d89-8278-b487fca2c383.4: Retrieve the weather data for Yogyakarta at 2024-08-19 14:40 local (UTC+7), check the operational range of the Vaisala HMP155 sensor, and use the maintenance info you found to produce a concise assessment of the anomaly, including weather comparison, sensor compliance, possible causes, and actionable recommendations.[39m
+======
+[32mResponse from Worker node 2dd40a2f-f720-4408-9b42-9957eff9514a (Weather data analysis):[39m
+
+[32mThe anomaly at AWS_DIY_STAGEOF_YOGYAKARTA on 2024‑08‑19 14:40 local (UTC+7) shows a 100 % relative humidity reading with a temperature of 30.92 °C. Weather data from the nearest satellite timestamp (07:45 UTC / 14:45 local) indicates a temperature of 29.2 °C, relative humidity of 57 %, and no rainfall. Thus the sensor reported a humidity that is 43 % higher and a temperature about 1.7 °C warmer than the actual conditions.
+
+**Sensor compliance**: The Vaisala HMP155 operates from 0 % to 100 % RH with ±1.7 % accuracy at the upper end. A perfectly stable 100 % reading is statistically unlikely and falls at the edge of the sensor’s accuracy range, suggesting a fault rather than a true environmental condition.
+
+**Possible causes**:
+1. Probe contamination or moisture leading to a saturated reading.
+2. Wiring or power issues causing erroneous output.
+3. Calibration drift or failure of the warmed‑probe feature.
+4. Environmental interference (e.g., precipitation, fog, solar radiation) not adequately shielded.
+
+**Actionable recommendations**:
+1. Inspect and clean the probe element; replace the filter if dirty.
+2. Verify all wiring, power connections, and the warmed‑probe function.
+3. Re‑calibrate the sensor according to Vaisala guidelines.
+4. Ensure the radiation shield is properly installed and free of damage.
+5. If the anomaly persists after these steps, replace the sensor.
+
+Implementing these steps should resolve the 100 % RH anomaly and restore reliable humidity measurements.[39m
+======
+[36m🎯 Task 7848b98b-597d-4d89-8278-b487fca2c383.4 completed successfully.[39m
+
+--------------------------------------------------------------------------------
+
+
+================================================================================
+FINAL OUTPUT - SYNTHESIZED RESULT
+================================================================================
+--- Subtask 7848b98b-597d-4d89-8278-b487fca2c383.1 Result ---
+At 07:45 UTC (14:45 local), Yogyakarta had a temperature of 29.2 °C, relative humidity of 57 %, and no rainfall. The anomaly reported 100 % humidity and 30.92 °C. Thus the actual humidity was 43 % lower and the temperature about 1.7 °C cooler than the anomalous reading, indicating a likely sensor fault.
+
+--- Subtask 7848b98b-597d-4d89-8278-b487fca2c383.2 Result ---
+**Vaisala HMP155 Relative Humidity Sensor Specification Summary**
+- **Operational Range:** 0 % RH to 100 % RH.
+- **Accuracy:** ±1 % RH for 0–90 % RH; ±1.7 % RH for 90–100 % RH.
+- **Response Time:** 20 s at 63 % RH, 60 s at 90 % RH (still air, +20 °C).
+
+**Anomaly Compliance Assessment**
+- The reported 100.0 % RH reading lies at the upper boundary of the sensor’s operational range. While the sensor is designed to measure up to 100 % RH, the accuracy at this level is ±1.7 % RH, meaning the true value could be 98.3–101.7 % RH.
+- A *physically exact* 100 % RH reading is statistically unlikely and indicates a sensor fault or calibration issue, especially given the deviation from expected trends (temperature, rainfall, mean humidity).
+- The sensor’s sensitivity (accuracy specification) does not support a perfectly stable 100 % reading; the trend analysis suggests the sensor is not matching the expected behavior.
+
+**Conclusion**
+- The 100 % reading is within the sensor’s specified range but is at the extreme where accuracy is reduced. The anomaly is not compliant with expected sensor behavior and likely reflects a fault.
+- Recommend immediate sensor inspection, calibration verification, and potential replacement if the fault persists.
+
+
+--- Subtask 7848b98b-597d-4d89-8278-b487fca2c383.3 Result ---
+Troubleshooting steps and recommended maintenance for a Vaisala HMP155 sensor reporting 100% humidity:
+
+1. **Check Wiring** – Verify the sensor is connected to the correct analog input channels as per the measurement instructions.
+2. **Verify Power Connection** – Ensure the red power wire is connected to the 12 V or SW12 V channel required by the data logger.
+3. **Inspect Probe Filter** – Examine the probe filter for contamination; replace if dirty, as this can affect humidity readings.
+4. **Check Probe Condition** – Confirm the probe is not wet or contaminated; a wet probe can give inaccurate high‑humidity readings.
+5. **Calibration** – Re‑calibrate the HMP155 annually (or as recommended) using a computer with a USB cable or the MI70 indicator to maintain accuracy.
+6. **Warmed Probe Feature** – If the sensor has a warmed‑probe feature, ensure it is functioning to prevent condensation on the sensor.
+7. **Clean the Sensor** – Gently clean the sensor element with distilled water if it appears dirty or contaminated.
+8. **Avoid Environmental Factors** – Install the sensor in a suitable radiation shield to protect it from precipitation, fog, mist, and solar radiation; keep it away from sources of electrical interference.
+9. **Check Connections** – Inspect all power and output connections for security and proper functioning.
+10. **Test Output** – Use a voltmeter to measure the output voltage for temperature and humidity; compare against expected values.
+11. **Error Codes** – If the device displays error codes, refer to the manual for specific troubleshooting steps.
+
+Recommended maintenance actions:
+- Replace the probe filter if contaminated.
+- Re‑calibrate the sensor annually.
+- Clean the sensor element with distilled water.
+- Verify and secure all wiring and power connections.
+- Ensure the warmed‑probe feature is operational.
+- Install or update the radiation shield to protect against environmental interference.
+- Document all maintenance actions and dates in the maintenance log.
+
+These steps should resolve or identify the cause of the 100% humidity reading anomaly.
+
+--- Subtask 7848b98b-597d-4d89-8278-b487fca2c383.4 Result ---
+The anomaly at AWS_DIY_STAGEOF_YOGYAKARTA on 2024‑08‑19 14:40 local (UTC+7) shows a 100 % relative humidity reading with a temperature of 30.92 °C. Weather data from the nearest satellite timestamp (07:45 UTC / 14:45 local) indicates a temperature of 29.2 °C, relative humidity of 57 %, and no rainfall. Thus the sensor reported a humidity that is 43 % higher and a temperature about 1.7 °C warmer than the actual conditions.
+
+**Sensor compliance**: The Vaisala HMP155 operates from 0 % to 100 % RH with ±1.7 % accuracy at the upper end. A perfectly stable 100 % reading is statistically unlikely and falls at the edge of the sensor’s accuracy range, suggesting a fault rather than a true environmental condition.
+
+**Possible causes**:
+1. Probe contamination or moisture leading to a saturated reading.
+2. Wiring or power issues causing erroneous output.
+3. Calibration drift or failure of the warmed‑probe feature.
+4. Environmental interference (e.g., precipitation, fog, solar radiation) not adequately shielded.
+
+**Actionable recommendations**:
+1. Inspect and clean the probe element; replace the filter if dirty.
+2. Verify all wiring, power connections, and the warmed‑probe function.
+3. Re‑calibrate the sensor according to Vaisala guidelines.
+4. Ensure the radiation shield is properly installed and free of damage.
+5. If the anomaly persists after these steps, replace the sensor.
+
+Implementing these steps should resolve the 100 % RH anomaly and restore reliable humidity measurements.
+
+
+Output Statistics:
+  - length: 5395
+  - word_count: 834
+  - line_count: 64
+  - is_error: False
+================================================================================
+
+
+================================================================================
+DOCUMENT CHUNKS RETRIEVED FROM RAG
+================================================================================
+Total RAG Queries: 4
+Log File: chunk_retrieval_20251029_105628.jsonl
+--------------------------------------------------------------------------------
+
+
+Query #1:
+  Query: Vaisala HMP155 humidity sensor specifications operational humidity range accuracy resolution response characteristics
+  Dataset: sensor_knowledge
+  Node Sets: temperature_humidity_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. HMP155 maintenance 
+
+Preventive maintenance for HMP155 includes:
+Checking that the probe is securely mounted.
+Checking that the radiation shield and cable are intact.
+Cleaning the radiation shield using mild detergent and a soft, lint-free cloth.
+Changing the probe filter once a year.
+
+If the measurement site is exposed to air pollution and dust, the probe filter may need to be changed more frequently.
+
+Changing HMP155 probe filter
+Over time, the probe filter becomes contaminated with matter that you cannot remove by cleaning. When this happens, the response time becomes longer and measurement accuracy decreases.
+CAUTION The Pt100 temperature sensor is soldered to the probe. Do not try to remove it. Due to the operating principles of the sensor, no maintenance is required.
+1. Remove the probe from inside the radiation shield.
+2. Carefully remove the filter from the probe. Holding the filter by the plastic part, rotate the filter counterclockwise and pull it out.
+CAUTION Do not touch the sensor heads.
+3. After removing the filter, check the O‑ring and change it if necessary.
+4. Install the new filter carefully without delay.
+5. Install the probe back inside the radiation shield.
+
+Troubleshooting
+Symptom: Relative Humidity is reported as –9999, NAN, –80 °C, or 0%
+1. Check that the sensor is wired to the correct analog input channels as specified by the
+measurement instructions.
+2. 3. Verify the range code for the single-ended or differential measurement instruction is
+correct for the data logger type.
+Verify the red power wire is correctly wired to the 12V or SW12V channel. The channel the
+wire is connected to will depend on the data logger program.
+Connect the red wire to a 12V terminal to constantly power the sensor for troubleshooting
+purposes. With the red wire connected to 12V, a voltmeter can be used to check the output
+voltage for temperature and relative humidity on the yellow and blue wires respectively
+(temperature °C = mV * 0.14 – 80.0; relative humidity % = mV * 0.1).
+Symptom: Incorrect temperature or relative humidity
+1. Verify the multiplier and offset parameters are correct for the desired units (Data logger
+programming (p. 10)).
+
+Maintenance
+The HMP155A probe requires minimal maintenance. Check monthly to make sure the radiation
+shield is free from debris. The white screen at the tip of the probe should also be checked for
+contaminates.
+When installed in close proximity to the ocean or other bodies of salt water, a coating of salt
+(mostly NaCl) may build up on the radiation shield, sensor, filter and even the chip. NaCl has an
+affinity for water. The humidity over a saturated NaCl solution is 75%. A buildup of salt on the
+filter or chip will delay or destroy the response to atmospheric humidity.
+The filter can be rinsed gently in distilled water. If necessary, the chip can be removed and rinsed
+as well. Do not scratch the chip while cleaning.
+Recalibrate the HMP155A annually. Refer to the Assistance page at the back of this document for
+the procedure for returning the HMP155A to the factory to get recalibrated.
+
+Cleaning
+Clean the probe with a soft, lint-free cloth moistened with mild detergent.
+Changing the probe filter
+1. Remove the filter from the probe.
+2. After removing the filter, check the O-ring and change it if necessary.
+3. Install a new filter on the probe.
+New filters can be ordered from Campbell Scientific or Vaisala.
+
+
+HygroVue Maintenance
+
+Syptoms, Possible causes and Solutions:
+
+1. Temperature is reported as
+–9999 or NAN, and relative
+humidity is reported as 0 or
+an unchanging value.
+
+This indicates a problem
+with the SDI-12
+communications with the
+sensor.
+
+Recheck the sensor wiring.
+Check the voltage to the sensor is 12V
+with a digital voltage meter.
+Verify the sensor SDI-12 address
+matches the address entered for the
+SDI12Recorder() instruction.
+
+2. Inaccurate temperature or
+relative humidity is
+reported.
+
+Inadequate delay after
+power-up (only applicable
+if using SW12)
+The sensor element has
+been contaminated
+Electrical interference
+
+Verify the program is allowing a
+power-up time of at least 1.8 s.
+Clean the sensor tip with distilled
+water or replace it.
+Ensure the sensor is not installed too
+close to a radio transmitter or cell
+phone.
+
+3. Temperature and relative
+humidity read –99.999
+
+This indicates a fault with
+the sensor element itself or
+communication between
+the sensor element and the
+electronics in the sensor
+body.
+
+Check the sensor element is properly
+plugged in with the correct
+orientation.
+Check for water being present under
+the sensor element connector and
+there is no corrosion of the sensor
+pins or the socket.
+Swap the element for another one.
+
+
+Maintenance
+The HygroVue 10 sensor requires minimal maintenance, but dust, debris, and salts on the filter
+cap will degrade sensor performance. Check the white filter on the end of the sensor for debris. If
+dirt or salt is ingrained in the filter, clean with distilled water or replace it. Make sure the filter is
+screwed onto the sensor firmly with your fingers—do not over tighten.
+Check the radiation shield monthly to make sure it is free from dust and debris. To clean the
+shield, first remove the sensor. Dismount the shield. Brush all loose dirt off. If more effort is
+needed, use warm, soapy water and a soft cloth or brush to thoroughly clean the shield. Allow
+the shield to dry before remounting.
+CAUTION:
+The HygroVue 10 sensor body is sealed and filled with a potting compound to totally protect
+the electronics from any water ingress. This means there are no serviceable parts within the
+sensor body
+
+
+Calibration
+The life of the sensor element is primarily limited by drift of the humidity sensor and your own
+acceptance of the errors incurred. Typical drift is less than 1% per year when used in cleaner
+environments but can be higher in polluted air. Because it can be difficult to know what the
+sensor has been exposed to, and because the element is relatively inexpensive, Campbell
+Scientific recommends replacing the sensor element annually. Replacing the element effectively
+brings the sensor back to a factory calibration state both for temperature and relative humidity.
+If you wish to check an old element’s calibration, you can measure its performance by plugging it
+into another sensor body in your calibration laboratory.
+NOTE:
+We cannot guarantee the accuracy of measurements if the sensor element is not changed
+every yea
+
+    2. Page 1:
+HUMICAPâ Humidity and
+Temperature Probe HMP155
+HMP155 with an additional
+temperature probe and optional
+Stevenson screen installation kit.
+Features
+• Vaisala HUMICAP â180R sensor:
+superior long-term stability
+• Optional warmed humidity probe
+and chemical purge
+• Plug-and-play
+• USB connection for service use
+• Use with DTR13 and DTR503
+radiation shields and a Stevenson
+screen
+• Weather-proof housing IP66
+• Optional, fast temperature probe
+• Different output possibilities:
+voltage, RS-485, resistive Pt100
+• Applications: meteorology,
+aviation and road weather,
+instrumentation
+Long-term stability
+HMP155 uses the proven Vaisala
+HUMICAPâ180R sensor that has excellent
+stability and withstands well harsh
+environments. The probe structure is
+solid and the sensor is protected by
+default with a sintered teflon filter, which
+gives maximum protection against water,
+dust, and dirt.
+Warmed probe and high-
+humidity environment
+Measuring humidity reliably is
+challenging in environments where
+humidity is near saturation.
+Measurements may be corrupted by fog,
+mist, rain, and heavy dew. A wet probe
+may not give an accurate measurement
+in the ambient air.
+This is an environment to which Vaisala
+has designed this patented, warmed
+probe for reliable measurements. As
+the sensor head is warmed continuously,
+the humidity level inside it stays below
+the ambient level. Thus, it also reduces
+the risk of condensation forming on
+the probe.
+Fast measurements
+With its fast response time,
+the additional temperature probe for
+HMP155 is ideal for measuring in
+environments with changing
+temperatures. The membrane filter
+speeds up the relative humidity
+measurement.
+Long lifetime
+Protecting the sensor from precipitation,
+and scattered and direct solar radiation
+increases its lifetime. Thus, Vaisala
+recommends installing HMP155 in one of
+the following radiation shields: DTR503,
+DTR13, or Stevenson screen. For
+the additional temperature probe,
+an installation kit is available for Vaisala
+DTR502 Radiation Shield.
+Calibration
+The probe can be calibrated using
+a computer with a USB cable, with
+the push buttons, or with the MI70
+indicator.
+Vaisala HUMICAPâ Humidity and Temperature Probe
+HMP155 provides reliable humidity and temperature
+measurement. It is designed especially for demanding
+outdoor applications.
+
+Page 2:
+Technical Data
+HMP155 humidity measurement performance
+Sensor HUMICAPâR2, 180R and INTER CAP
+for typical applications
+HUMICAPâR2C, 180RC and
+INTERCAPC for applications with
+chemical purge and/or warmed probe
+Observation range 0 … 100 %RH
+Response time at +20 °C (+68 °F) in
+s
+till air with sintered Teflon filter
+63 %: 20 s
+90 %: 60 s
+Factory calibration uncertainty at
++20 °C (+68 °F)1)
+±0.6 %RH (0 … 40 %RH)
+±1.
+0 %RH (40 … 95 %RH)
+Accuracy (including non-linearity, hysteresis, and repeatability)
+At +15 … +25 °C (+59 … +77 °F) ±1 %RH (0 … 90 %RH)
+±1.
+7 %RH (90 … 100 %RH)
+At −20 … +40 °C (−4 … +104 °F) ±(1.0 + 0.008 × reading) %RH
+At −40 … −20 °C (−40 … −4 °F) ±(1.2 + 0.012 × reading) %RH
+At +40 … +60 °C (+104 … +140 °F) ±(1.2 + 0.012 × reading) %RH
+At −60 … −40 °C (−76 … −40 °F) ±(1.4 + 0.032 × reading) %RH
+1) Defined as ±2 s tandard deviation limits. Small variations possible (see also the calibration certificate).
+HMP155 temperature measurement performance
+Sensor Pt100 RTD element, Class F 0.1
+IE
+C 60751
+Observation range −80 … +60 °C (−112 … +140 °F)
+Response time for additional
+t
+emperature probe in 3 m/s (7 mph) air
+flow
+63 %: < 20 s
+90 %: < 3
+5 s
+Other measured variables Dew point / frost point temperature,
+w
+et bulb temperature, mixing ratio
+Accuracy with voltage output
+At −80 … +20 °C (−112 … +68 °F) ±(0.226 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.055 + 0.0057 × temperature) °C
+Accuracy with passive (resistive) output
+According to Tolerance Class AA
+IE
+C 607511)
+±(0.1 + 0.0017 × |temperature|) °C
+Accuracy with RS‑ 485 output
+At −80 … +20 °C (−112 … +68 °F) ±(0.176 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.07 + 0.0025 × temperature) °C
+1) Tolerance Class AA IEC 60751 corresponds to IEC 751 1/3 Class B
+HMP155 accuracy over temperature range: voltage and
+RS‑ 485
+HMP155 operating environment
+Operating temperature for humidity
+measur
+ement
+−80 … +60 °C (−112 … +140 °F)
+Storage temperature −80 … +60 °C (−112 … +140 °F)
+Operating humidity 0 … 100 %RH
+IP rating IP66
+HMP155 inputs and outputs
+Operating voltage 7 … 28 V DC
+Minimum operating voltage 0 … 1 V output or RS‑ 485: 7 V
+0 … 5 V output, or w
+armed probe:
+12 V
+0 … 10 V output, chemical purge, or
+XHEAT: 16 V
+Outputs Voltage output: 0 … 1 V, 0 … 5 V,
+0 … 10 V
+R
+esistive Pt100 4‑ wire connection
+RS‑ 485
+Average power consumption (+15 V DC,
+load 100 kΩ)
+0 … 1 V output: < 3 mA
+0 … 10 V output: +0
+.5 mA
+RS-485: < 4 mA
+During chemical purge: Maximum
+110 mA
+With warmed probe: Maximum
+150 mA
+Settling time at startup Voltage output: 2 s
+RS-485: 3 s
+HMP155 mechanical specifica
+ tions
+Dimensions (H × W) 279 × 40 mm (10.9 × 1.6 in)
+Weight 93 g (3.25 oz)
+Length of additional T‑ pr obe cable 2 m (6 ft 7 in)
+Connection 8-pin male M12 connector
+Connection cables 3.5 m (11 ft 6 in), 10 m (32 ft 10 in),
+30 m (98 ft 5 in)
+Maximum wire size 0.129 mm2 (2
+ 6 AWG)
+Service cables USB connection cable
+MI7
+0 connection cable
+Materials
+Filter Sintered T eflon or membrane
+Housing Polycarbonate (PC)
+Additional temperature probe Stainless steel AISI 316L
+Cable PUR
+ 40 [1.57]  24 [0.94]  86 [3.39] 
+ 279 [10.98] 
+ 266 [10.47] 
+mm
+[in]
+Dimensions in mm (inches)
+Published by Vaisala | B210752EN-J © Vaisala Oyj 2021
+www.vaisala.com
+All rights reserved. Any logos and/or product names are trademarks of Vaisala or its individual partners. 
+Any reproduction, transfer, distribution or storage of information contained in this document is strictly 
+prohibited. All specifications — technical included — are subject to change without notice.
+
+
+
+Query #2:
+  Query: Vaisala HMP155 constant 100% humidity failure modes diagnostic steps corrective maintenance
+  Dataset: maintenance_knowledge
+  Node Sets: temperature_humidity_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. HMP155 maintenance 
+
+Preventive maintenance for HMP155 includes:
+Checking that the probe is securely mounted.
+Checking that the radiation shield and cable are intact.
+Cleaning the radiation shield using mild detergent and a soft, lint-free cloth.
+Changing the probe filter once a year.
+
+If the measurement site is exposed to air pollution and dust, the probe filter may need to be changed more frequently.
+
+Changing HMP155 probe filter
+Over time, the probe filter becomes contaminated with matter that you cannot remove by cleaning. When this happens, the response time becomes longer and measurement accuracy decreases.
+CAUTION The Pt100 temperature sensor is soldered to the probe. Do not try to remove it. Due to the operating principles of the sensor, no maintenance is required.
+1. Remove the probe from inside the radiation shield.
+2. Carefully remove the filter from the probe. Holding the filter by the plastic part, rotate the filter counterclockwise and pull it out.
+CAUTION Do not touch the sensor heads.
+3. After removing the filter, check the O‑ring and change it if necessary.
+4. Install the new filter carefully without delay.
+5. Install the probe back inside the radiation shield.
+
+Troubleshooting
+Symptom: Relative Humidity is reported as –9999, NAN, –80 °C, or 0%
+1. Check that the sensor is wired to the correct analog input channels as specified by the
+measurement instructions.
+2. 3. Verify the range code for the single-ended or differential measurement instruction is
+correct for the data logger type.
+Verify the red power wire is correctly wired to the 12V or SW12V channel. The channel the
+wire is connected to will depend on the data logger program.
+Connect the red wire to a 12V terminal to constantly power the sensor for troubleshooting
+purposes. With the red wire connected to 12V, a voltmeter can be used to check the output
+voltage for temperature and relative humidity on the yellow and blue wires respectively
+(temperature °C = mV * 0.14 – 80.0; relative humidity % = mV * 0.1).
+Symptom: Incorrect temperature or relative humidity
+1. Verify the multiplier and offset parameters are correct for the desired units (Data logger
+programming (p. 10)).
+
+Maintenance
+The HMP155A probe requires minimal maintenance. Check monthly to make sure the radiation
+shield is free from debris. The white screen at the tip of the probe should also be checked for
+contaminates.
+When installed in close proximity to the ocean or other bodies of salt water, a coating of salt
+(mostly NaCl) may build up on the radiation shield, sensor, filter and even the chip. NaCl has an
+affinity for water. The humidity over a saturated NaCl solution is 75%. A buildup of salt on the
+filter or chip will delay or destroy the response to atmospheric humidity.
+The filter can be rinsed gently in distilled water. If necessary, the chip can be removed and rinsed
+as well. Do not scratch the chip while cleaning.
+Recalibrate the HMP155A annually. Refer to the Assistance page at the back of this document for
+the procedure for returning the HMP155A to the factory to get recalibrated.
+
+Cleaning
+Clean the probe with a soft, lint-free cloth moistened with mild detergent.
+Changing the probe filter
+1. Remove the filter from the probe.
+2. After removing the filter, check the O-ring and change it if necessary.
+3. Install a new filter on the probe.
+New filters can be ordered from Campbell Scientific or Vaisala.
+
+
+HygroVue Maintenance
+
+Syptoms, Possible causes and Solutions:
+
+1. Temperature is reported as
+–9999 or NAN, and relative
+humidity is reported as 0 or
+an unchanging value.
+
+This indicates a problem
+with the SDI-12
+communications with the
+sensor.
+
+Recheck the sensor wiring.
+Check the voltage to the sensor is 12V
+with a digital voltage meter.
+Verify the sensor SDI-12 address
+matches the address entered for the
+SDI12Recorder() instruction.
+
+2. Inaccurate temperature or
+relative humidity is
+reported.
+
+Inadequate delay after
+power-up (only applicable
+if using SW12)
+The sensor element has
+been contaminated
+Electrical interference
+
+Verify the program is allowing a
+power-up time of at least 1.8 s.
+Clean the sensor tip with distilled
+water or replace it.
+Ensure the sensor is not installed too
+close to a radio transmitter or cell
+phone.
+
+3. Temperature and relative
+humidity read –99.999
+
+This indicates a fault with
+the sensor element itself or
+communication between
+the sensor element and the
+electronics in the sensor
+body.
+
+Check the sensor element is properly
+plugged in with the correct
+orientation.
+Check for water being present under
+the sensor element connector and
+there is no corrosion of the sensor
+pins or the socket.
+Swap the element for another one.
+
+
+Maintenance
+The HygroVue 10 sensor requires minimal maintenance, but dust, debris, and salts on the filter
+cap will degrade sensor performance. Check the white filter on the end of the sensor for debris. If
+dirt or salt is ingrained in the filter, clean with distilled water or replace it. Make sure the filter is
+screwed onto the sensor firmly with your fingers—do not over tighten.
+Check the radiation shield monthly to make sure it is free from dust and debris. To clean the
+shield, first remove the sensor. Dismount the shield. Brush all loose dirt off. If more effort is
+needed, use warm, soapy water and a soft cloth or brush to thoroughly clean the shield. Allow
+the shield to dry before remounting.
+CAUTION:
+The HygroVue 10 sensor body is sealed and filled with a potting compound to totally protect
+the electronics from any water ingress. This means there are no serviceable parts within the
+sensor body
+
+
+Calibration
+The life of the sensor element is primarily limited by drift of the humidity sensor and your own
+acceptance of the errors incurred. Typical drift is less than 1% per year when used in cleaner
+environments but can be higher in polluted air. Because it can be difficult to know what the
+sensor has been exposed to, and because the element is relatively inexpensive, Campbell
+Scientific recommends replacing the sensor element annually. Replacing the element effectively
+brings the sensor back to a factory calibration state both for temperature and relative humidity.
+If you wish to check an old element’s calibration, you can measure its performance by plugging it
+into another sensor body in your calibration laboratory.
+NOTE:
+We cannot guarantee the accuracy of measurements if the sensor element is not changed
+every yea
+
+    2. Page 1:
+HUMICAPâ Humidity and
+Temperature Probe HMP155
+HMP155 with an additional
+temperature probe and optional
+Stevenson screen installation kit.
+Features
+• Vaisala HUMICAP â180R sensor:
+superior long-term stability
+• Optional warmed humidity probe
+and chemical purge
+• Plug-and-play
+• USB connection for service use
+• Use with DTR13 and DTR503
+radiation shields and a Stevenson
+screen
+• Weather-proof housing IP66
+• Optional, fast temperature probe
+• Different output possibilities:
+voltage, RS-485, resistive Pt100
+• Applications: meteorology,
+aviation and road weather,
+instrumentation
+Long-term stability
+HMP155 uses the proven Vaisala
+HUMICAPâ180R sensor that has excellent
+stability and withstands well harsh
+environments. The probe structure is
+solid and the sensor is protected by
+default with a sintered teflon filter, which
+gives maximum protection against water,
+dust, and dirt.
+Warmed probe and high-
+humidity environment
+Measuring humidity reliably is
+challenging in environments where
+humidity is near saturation.
+Measurements may be corrupted by fog,
+mist, rain, and heavy dew. A wet probe
+may not give an accurate measurement
+in the ambient air.
+This is an environment to which Vaisala
+has designed this patented, warmed
+probe for reliable measurements. As
+the sensor head is warmed continuously,
+the humidity level inside it stays below
+the ambient level. Thus, it also reduces
+the risk of condensation forming on
+the probe.
+Fast measurements
+With its fast response time,
+the additional temperature probe for
+HMP155 is ideal for measuring in
+environments with changing
+temperatures. The membrane filter
+speeds up the relative humidity
+measurement.
+Long lifetime
+Protecting the sensor from precipitation,
+and scattered and direct solar radiation
+increases its lifetime. Thus, Vaisala
+recommends installing HMP155 in one of
+the following radiation shields: DTR503,
+DTR13, or Stevenson screen. For
+the additional temperature probe,
+an installation kit is available for Vaisala
+DTR502 Radiation Shield.
+Calibration
+The probe can be calibrated using
+a computer with a USB cable, with
+the push buttons, or with the MI70
+indicator.
+Vaisala HUMICAPâ Humidity and Temperature Probe
+HMP155 provides reliable humidity and temperature
+measurement. It is designed especially for demanding
+outdoor applications.
+
+Page 2:
+Technical Data
+HMP155 humidity measurement performance
+Sensor HUMICAPâR2, 180R and INTER CAP
+for typical applications
+HUMICAPâR2C, 180RC and
+INTERCAPC for applications with
+chemical purge and/or warmed probe
+Observation range 0 … 100 %RH
+Response time at +20 °C (+68 °F) in
+s
+till air with sintered Teflon filter
+63 %: 20 s
+90 %: 60 s
+Factory calibration uncertainty at
++20 °C (+68 °F)1)
+±0.6 %RH (0 … 40 %RH)
+±1.
+0 %RH (40 … 95 %RH)
+Accuracy (including non-linearity, hysteresis, and repeatability)
+At +15 … +25 °C (+59 … +77 °F) ±1 %RH (0 … 90 %RH)
+±1.
+7 %RH (90 … 100 %RH)
+At −20 … +40 °C (−4 … +104 °F) ±(1.0 + 0.008 × reading) %RH
+At −40 … −20 °C (−40 … −4 °F) ±(1.2 + 0.012 × reading) %RH
+At +40 … +60 °C (+104 … +140 °F) ±(1.2 + 0.012 × reading) %RH
+At −60 … −40 °C (−76 … −40 °F) ±(1.4 + 0.032 × reading) %RH
+1) Defined as ±2 s tandard deviation limits. Small variations possible (see also the calibration certificate).
+HMP155 temperature measurement performance
+Sensor Pt100 RTD element, Class F 0.1
+IE
+C 60751
+Observation range −80 … +60 °C (−112 … +140 °F)
+Response time for additional
+t
+emperature probe in 3 m/s (7 mph) air
+flow
+63 %: < 20 s
+90 %: < 3
+5 s
+Other measured variables Dew point / frost point temperature,
+w
+et bulb temperature, mixing ratio
+Accuracy with voltage output
+At −80 … +20 °C (−112 … +68 °F) ±(0.226 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.055 + 0.0057 × temperature) °C
+Accuracy with passive (resistive) output
+According to Tolerance Class AA
+IE
+C 607511)
+±(0.1 + 0.0017 × |temperature|) °C
+Accuracy with RS‑ 485 output
+At −80 … +20 °C (−112 … +68 °F) ±(0.176 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.07 + 0.0025 × temperature) °C
+1) Tolerance Class AA IEC 60751 corresponds to IEC 751 1/3 Class B
+HMP155 accuracy over temperature range: voltage and
+RS‑ 485
+HMP155 operating environment
+Operating temperature for humidity
+measur
+ement
+−80 … +60 °C (−112 … +140 °F)
+Storage temperature −80 … +60 °C (−112 … +140 °F)
+Operating humidity 0 … 100 %RH
+IP rating IP66
+HMP155 inputs and outputs
+Operating voltage 7 … 28 V DC
+Minimum operating voltage 0 … 1 V output or RS‑ 485: 7 V
+0 … 5 V output, or w
+armed probe:
+12 V
+0 … 10 V output, chemical purge, or
+XHEAT: 16 V
+Outputs Voltage output: 0 … 1 V, 0 … 5 V,
+0 … 10 V
+R
+esistive Pt100 4‑ wire connection
+RS‑ 485
+Average power consumption (+15 V DC,
+load 100 kΩ)
+0 … 1 V output: < 3 mA
+0 … 10 V output: +0
+.5 mA
+RS-485: < 4 mA
+During chemical purge: Maximum
+110 mA
+With warmed probe: Maximum
+150 mA
+Settling time at startup Voltage output: 2 s
+RS-485: 3 s
+HMP155 mechanical specifica
+ tions
+Dimensions (H × W) 279 × 40 mm (10.9 × 1.6 in)
+Weight 93 g (3.25 oz)
+Length of additional T‑ pr obe cable 2 m (6 ft 7 in)
+Connection 8-pin male M12 connector
+Connection cables 3.5 m (11 ft 6 in), 10 m (32 ft 10 in),
+30 m (98 ft 5 in)
+Maximum wire size 0.129 mm2 (2
+ 6 AWG)
+Service cables USB connection cable
+MI7
+0 connection cable
+Materials
+Filter Sintered T eflon or membrane
+Housing Polycarbonate (PC)
+Additional temperature probe Stainless steel AISI 316L
+Cable PUR
+ 40 [1.57]  24 [0.94]  86 [3.39] 
+ 279 [10.98] 
+ 266 [10.47] 
+mm
+[in]
+Dimensions in mm (inches)
+Published by Vaisala | B210752EN-J © Vaisala Oyj 2021
+www.vaisala.com
+All rights reserved. Any logos and/or product names are trademarks of Vaisala or its individual partners. 
+Any reproduction, transfer, distribution or storage of information contained in this document is strictly 
+prohibited. All specifications — technical included — are subject to change without notice.
+
+
+
+Query #3:
+  Query: Vaisala HMP155 relative humidity sensor operational range sensitivity
+  Dataset: sensor_knowledge
+  Node Sets: temperature_humidity_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. HMP155 maintenance 
+
+Preventive maintenance for HMP155 includes:
+Checking that the probe is securely mounted.
+Checking that the radiation shield and cable are intact.
+Cleaning the radiation shield using mild detergent and a soft, lint-free cloth.
+Changing the probe filter once a year.
+
+If the measurement site is exposed to air pollution and dust, the probe filter may need to be changed more frequently.
+
+Changing HMP155 probe filter
+Over time, the probe filter becomes contaminated with matter that you cannot remove by cleaning. When this happens, the response time becomes longer and measurement accuracy decreases.
+CAUTION The Pt100 temperature sensor is soldered to the probe. Do not try to remove it. Due to the operating principles of the sensor, no maintenance is required.
+1. Remove the probe from inside the radiation shield.
+2. Carefully remove the filter from the probe. Holding the filter by the plastic part, rotate the filter counterclockwise and pull it out.
+CAUTION Do not touch the sensor heads.
+3. After removing the filter, check the O‑ring and change it if necessary.
+4. Install the new filter carefully without delay.
+5. Install the probe back inside the radiation shield.
+
+Troubleshooting
+Symptom: Relative Humidity is reported as –9999, NAN, –80 °C, or 0%
+1. Check that the sensor is wired to the correct analog input channels as specified by the
+measurement instructions.
+2. 3. Verify the range code for the single-ended or differential measurement instruction is
+correct for the data logger type.
+Verify the red power wire is correctly wired to the 12V or SW12V channel. The channel the
+wire is connected to will depend on the data logger program.
+Connect the red wire to a 12V terminal to constantly power the sensor for troubleshooting
+purposes. With the red wire connected to 12V, a voltmeter can be used to check the output
+voltage for temperature and relative humidity on the yellow and blue wires respectively
+(temperature °C = mV * 0.14 – 80.0; relative humidity % = mV * 0.1).
+Symptom: Incorrect temperature or relative humidity
+1. Verify the multiplier and offset parameters are correct for the desired units (Data logger
+programming (p. 10)).
+
+Maintenance
+The HMP155A probe requires minimal maintenance. Check monthly to make sure the radiation
+shield is free from debris. The white screen at the tip of the probe should also be checked for
+contaminates.
+When installed in close proximity to the ocean or other bodies of salt water, a coating of salt
+(mostly NaCl) may build up on the radiation shield, sensor, filter and even the chip. NaCl has an
+affinity for water. The humidity over a saturated NaCl solution is 75%. A buildup of salt on the
+filter or chip will delay or destroy the response to atmospheric humidity.
+The filter can be rinsed gently in distilled water. If necessary, the chip can be removed and rinsed
+as well. Do not scratch the chip while cleaning.
+Recalibrate the HMP155A annually. Refer to the Assistance page at the back of this document for
+the procedure for returning the HMP155A to the factory to get recalibrated.
+
+Cleaning
+Clean the probe with a soft, lint-free cloth moistened with mild detergent.
+Changing the probe filter
+1. Remove the filter from the probe.
+2. After removing the filter, check the O-ring and change it if necessary.
+3. Install a new filter on the probe.
+New filters can be ordered from Campbell Scientific or Vaisala.
+
+
+HygroVue Maintenance
+
+Syptoms, Possible causes and Solutions:
+
+1. Temperature is reported as
+–9999 or NAN, and relative
+humidity is reported as 0 or
+an unchanging value.
+
+This indicates a problem
+with the SDI-12
+communications with the
+sensor.
+
+Recheck the sensor wiring.
+Check the voltage to the sensor is 12V
+with a digital voltage meter.
+Verify the sensor SDI-12 address
+matches the address entered for the
+SDI12Recorder() instruction.
+
+2. Inaccurate temperature or
+relative humidity is
+reported.
+
+Inadequate delay after
+power-up (only applicable
+if using SW12)
+The sensor element has
+been contaminated
+Electrical interference
+
+Verify the program is allowing a
+power-up time of at least 1.8 s.
+Clean the sensor tip with distilled
+water or replace it.
+Ensure the sensor is not installed too
+close to a radio transmitter or cell
+phone.
+
+3. Temperature and relative
+humidity read –99.999
+
+This indicates a fault with
+the sensor element itself or
+communication between
+the sensor element and the
+electronics in the sensor
+body.
+
+Check the sensor element is properly
+plugged in with the correct
+orientation.
+Check for water being present under
+the sensor element connector and
+there is no corrosion of the sensor
+pins or the socket.
+Swap the element for another one.
+
+
+Maintenance
+The HygroVue 10 sensor requires minimal maintenance, but dust, debris, and salts on the filter
+cap will degrade sensor performance. Check the white filter on the end of the sensor for debris. If
+dirt or salt is ingrained in the filter, clean with distilled water or replace it. Make sure the filter is
+screwed onto the sensor firmly with your fingers—do not over tighten.
+Check the radiation shield monthly to make sure it is free from dust and debris. To clean the
+shield, first remove the sensor. Dismount the shield. Brush all loose dirt off. If more effort is
+needed, use warm, soapy water and a soft cloth or brush to thoroughly clean the shield. Allow
+the shield to dry before remounting.
+CAUTION:
+The HygroVue 10 sensor body is sealed and filled with a potting compound to totally protect
+the electronics from any water ingress. This means there are no serviceable parts within the
+sensor body
+
+
+Calibration
+The life of the sensor element is primarily limited by drift of the humidity sensor and your own
+acceptance of the errors incurred. Typical drift is less than 1% per year when used in cleaner
+environments but can be higher in polluted air. Because it can be difficult to know what the
+sensor has been exposed to, and because the element is relatively inexpensive, Campbell
+Scientific recommends replacing the sensor element annually. Replacing the element effectively
+brings the sensor back to a factory calibration state both for temperature and relative humidity.
+If you wish to check an old element’s calibration, you can measure its performance by plugging it
+into another sensor body in your calibration laboratory.
+NOTE:
+We cannot guarantee the accuracy of measurements if the sensor element is not changed
+every yea
+
+    2. Page 1:
+HUMICAPâ Humidity and
+Temperature Probe HMP155
+HMP155 with an additional
+temperature probe and optional
+Stevenson screen installation kit.
+Features
+• Vaisala HUMICAP â180R sensor:
+superior long-term stability
+• Optional warmed humidity probe
+and chemical purge
+• Plug-and-play
+• USB connection for service use
+• Use with DTR13 and DTR503
+radiation shields and a Stevenson
+screen
+• Weather-proof housing IP66
+• Optional, fast temperature probe
+• Different output possibilities:
+voltage, RS-485, resistive Pt100
+• Applications: meteorology,
+aviation and road weather,
+instrumentation
+Long-term stability
+HMP155 uses the proven Vaisala
+HUMICAPâ180R sensor that has excellent
+stability and withstands well harsh
+environments. The probe structure is
+solid and the sensor is protected by
+default with a sintered teflon filter, which
+gives maximum protection against water,
+dust, and dirt.
+Warmed probe and high-
+humidity environment
+Measuring humidity reliably is
+challenging in environments where
+humidity is near saturation.
+Measurements may be corrupted by fog,
+mist, rain, and heavy dew. A wet probe
+may not give an accurate measurement
+in the ambient air.
+This is an environment to which Vaisala
+has designed this patented, warmed
+probe for reliable measurements. As
+the sensor head is warmed continuously,
+the humidity level inside it stays below
+the ambient level. Thus, it also reduces
+the risk of condensation forming on
+the probe.
+Fast measurements
+With its fast response time,
+the additional temperature probe for
+HMP155 is ideal for measuring in
+environments with changing
+temperatures. The membrane filter
+speeds up the relative humidity
+measurement.
+Long lifetime
+Protecting the sensor from precipitation,
+and scattered and direct solar radiation
+increases its lifetime. Thus, Vaisala
+recommends installing HMP155 in one of
+the following radiation shields: DTR503,
+DTR13, or Stevenson screen. For
+the additional temperature probe,
+an installation kit is available for Vaisala
+DTR502 Radiation Shield.
+Calibration
+The probe can be calibrated using
+a computer with a USB cable, with
+the push buttons, or with the MI70
+indicator.
+Vaisala HUMICAPâ Humidity and Temperature Probe
+HMP155 provides reliable humidity and temperature
+measurement. It is designed especially for demanding
+outdoor applications.
+
+Page 2:
+Technical Data
+HMP155 humidity measurement performance
+Sensor HUMICAPâR2, 180R and INTER CAP
+for typical applications
+HUMICAPâR2C, 180RC and
+INTERCAPC for applications with
+chemical purge and/or warmed probe
+Observation range 0 … 100 %RH
+Response time at +20 °C (+68 °F) in
+s
+till air with sintered Teflon filter
+63 %: 20 s
+90 %: 60 s
+Factory calibration uncertainty at
++20 °C (+68 °F)1)
+±0.6 %RH (0 … 40 %RH)
+±1.
+0 %RH (40 … 95 %RH)
+Accuracy (including non-linearity, hysteresis, and repeatability)
+At +15 … +25 °C (+59 … +77 °F) ±1 %RH (0 … 90 %RH)
+±1.
+7 %RH (90 … 100 %RH)
+At −20 … +40 °C (−4 … +104 °F) ±(1.0 + 0.008 × reading) %RH
+At −40 … −20 °C (−40 … −4 °F) ±(1.2 + 0.012 × reading) %RH
+At +40 … +60 °C (+104 … +140 °F) ±(1.2 + 0.012 × reading) %RH
+At −60 … −40 °C (−76 … −40 °F) ±(1.4 + 0.032 × reading) %RH
+1) Defined as ±2 s tandard deviation limits. Small variations possible (see also the calibration certificate).
+HMP155 temperature measurement performance
+Sensor Pt100 RTD element, Class F 0.1
+IE
+C 60751
+Observation range −80 … +60 °C (−112 … +140 °F)
+Response time for additional
+t
+emperature probe in 3 m/s (7 mph) air
+flow
+63 %: < 20 s
+90 %: < 3
+5 s
+Other measured variables Dew point / frost point temperature,
+w
+et bulb temperature, mixing ratio
+Accuracy with voltage output
+At −80 … +20 °C (−112 … +68 °F) ±(0.226 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.055 + 0.0057 × temperature) °C
+Accuracy with passive (resistive) output
+According to Tolerance Class AA
+IE
+C 607511)
+±(0.1 + 0.0017 × |temperature|) °C
+Accuracy with RS‑ 485 output
+At −80 … +20 °C (−112 … +68 °F) ±(0.176 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.07 + 0.0025 × temperature) °C
+1) Tolerance Class AA IEC 60751 corresponds to IEC 751 1/3 Class B
+HMP155 accuracy over temperature range: voltage and
+RS‑ 485
+HMP155 operating environment
+Operating temperature for humidity
+measur
+ement
+−80 … +60 °C (−112 … +140 °F)
+Storage temperature −80 … +60 °C (−112 … +140 °F)
+Operating humidity 0 … 100 %RH
+IP rating IP66
+HMP155 inputs and outputs
+Operating voltage 7 … 28 V DC
+Minimum operating voltage 0 … 1 V output or RS‑ 485: 7 V
+0 … 5 V output, or w
+armed probe:
+12 V
+0 … 10 V output, chemical purge, or
+XHEAT: 16 V
+Outputs Voltage output: 0 … 1 V, 0 … 5 V,
+0 … 10 V
+R
+esistive Pt100 4‑ wire connection
+RS‑ 485
+Average power consumption (+15 V DC,
+load 100 kΩ)
+0 … 1 V output: < 3 mA
+0 … 10 V output: +0
+.5 mA
+RS-485: < 4 mA
+During chemical purge: Maximum
+110 mA
+With warmed probe: Maximum
+150 mA
+Settling time at startup Voltage output: 2 s
+RS-485: 3 s
+HMP155 mechanical specifica
+ tions
+Dimensions (H × W) 279 × 40 mm (10.9 × 1.6 in)
+Weight 93 g (3.25 oz)
+Length of additional T‑ pr obe cable 2 m (6 ft 7 in)
+Connection 8-pin male M12 connector
+Connection cables 3.5 m (11 ft 6 in), 10 m (32 ft 10 in),
+30 m (98 ft 5 in)
+Maximum wire size 0.129 mm2 (2
+ 6 AWG)
+Service cables USB connection cable
+MI7
+0 connection cable
+Materials
+Filter Sintered T eflon or membrane
+Housing Polycarbonate (PC)
+Additional temperature probe Stainless steel AISI 316L
+Cable PUR
+ 40 [1.57]  24 [0.94]  86 [3.39] 
+ 279 [10.98] 
+ 266 [10.47] 
+mm
+[in]
+Dimensions in mm (inches)
+Published by Vaisala | B210752EN-J © Vaisala Oyj 2021
+www.vaisala.com
+All rights reserved. Any logos and/or product names are trademarks of Vaisala or its individual partners. 
+Any reproduction, transfer, distribution or storage of information contained in this document is strictly 
+prohibited. All specifications — technical included — are subject to change without notice.
+
+
+
+Query #4:
+  Query: Vaisala HMP155 100% humidity reading troubleshooting
+  Dataset: maintenance_knowledge
+  Node Sets: temperature_humidity_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. HMP155 maintenance 
+
+Preventive maintenance for HMP155 includes:
+Checking that the probe is securely mounted.
+Checking that the radiation shield and cable are intact.
+Cleaning the radiation shield using mild detergent and a soft, lint-free cloth.
+Changing the probe filter once a year.
+
+If the measurement site is exposed to air pollution and dust, the probe filter may need to be changed more frequently.
+
+Changing HMP155 probe filter
+Over time, the probe filter becomes contaminated with matter that you cannot remove by cleaning. When this happens, the response time becomes longer and measurement accuracy decreases.
+CAUTION The Pt100 temperature sensor is soldered to the probe. Do not try to remove it. Due to the operating principles of the sensor, no maintenance is required.
+1. Remove the probe from inside the radiation shield.
+2. Carefully remove the filter from the probe. Holding the filter by the plastic part, rotate the filter counterclockwise and pull it out.
+CAUTION Do not touch the sensor heads.
+3. After removing the filter, check the O‑ring and change it if necessary.
+4. Install the new filter carefully without delay.
+5. Install the probe back inside the radiation shield.
+
+Troubleshooting
+Symptom: Relative Humidity is reported as –9999, NAN, –80 °C, or 0%
+1. Check that the sensor is wired to the correct analog input channels as specified by the
+measurement instructions.
+2. 3. Verify the range code for the single-ended or differential measurement instruction is
+correct for the data logger type.
+Verify the red power wire is correctly wired to the 12V or SW12V channel. The channel the
+wire is connected to will depend on the data logger program.
+Connect the red wire to a 12V terminal to constantly power the sensor for troubleshooting
+purposes. With the red wire connected to 12V, a voltmeter can be used to check the output
+voltage for temperature and relative humidity on the yellow and blue wires respectively
+(temperature °C = mV * 0.14 – 80.0; relative humidity % = mV * 0.1).
+Symptom: Incorrect temperature or relative humidity
+1. Verify the multiplier and offset parameters are correct for the desired units (Data logger
+programming (p. 10)).
+
+Maintenance
+The HMP155A probe requires minimal maintenance. Check monthly to make sure the radiation
+shield is free from debris. The white screen at the tip of the probe should also be checked for
+contaminates.
+When installed in close proximity to the ocean or other bodies of salt water, a coating of salt
+(mostly NaCl) may build up on the radiation shield, sensor, filter and even the chip. NaCl has an
+affinity for water. The humidity over a saturated NaCl solution is 75%. A buildup of salt on the
+filter or chip will delay or destroy the response to atmospheric humidity.
+The filter can be rinsed gently in distilled water. If necessary, the chip can be removed and rinsed
+as well. Do not scratch the chip while cleaning.
+Recalibrate the HMP155A annually. Refer to the Assistance page at the back of this document for
+the procedure for returning the HMP155A to the factory to get recalibrated.
+
+Cleaning
+Clean the probe with a soft, lint-free cloth moistened with mild detergent.
+Changing the probe filter
+1. Remove the filter from the probe.
+2. After removing the filter, check the O-ring and change it if necessary.
+3. Install a new filter on the probe.
+New filters can be ordered from Campbell Scientific or Vaisala.
+
+
+HygroVue Maintenance
+
+Syptoms, Possible causes and Solutions:
+
+1. Temperature is reported as
+–9999 or NAN, and relative
+humidity is reported as 0 or
+an unchanging value.
+
+This indicates a problem
+with the SDI-12
+communications with the
+sensor.
+
+Recheck the sensor wiring.
+Check the voltage to the sensor is 12V
+with a digital voltage meter.
+Verify the sensor SDI-12 address
+matches the address entered for the
+SDI12Recorder() instruction.
+
+2. Inaccurate temperature or
+relative humidity is
+reported.
+
+Inadequate delay after
+power-up (only applicable
+if using SW12)
+The sensor element has
+been contaminated
+Electrical interference
+
+Verify the program is allowing a
+power-up time of at least 1.8 s.
+Clean the sensor tip with distilled
+water or replace it.
+Ensure the sensor is not installed too
+close to a radio transmitter or cell
+phone.
+
+3. Temperature and relative
+humidity read –99.999
+
+This indicates a fault with
+the sensor element itself or
+communication between
+the sensor element and the
+electronics in the sensor
+body.
+
+Check the sensor element is properly
+plugged in with the correct
+orientation.
+Check for water being present under
+the sensor element connector and
+there is no corrosion of the sensor
+pins or the socket.
+Swap the element for another one.
+
+
+Maintenance
+The HygroVue 10 sensor requires minimal maintenance, but dust, debris, and salts on the filter
+cap will degrade sensor performance. Check the white filter on the end of the sensor for debris. If
+dirt or salt is ingrained in the filter, clean with distilled water or replace it. Make sure the filter is
+screwed onto the sensor firmly with your fingers—do not over tighten.
+Check the radiation shield monthly to make sure it is free from dust and debris. To clean the
+shield, first remove the sensor. Dismount the shield. Brush all loose dirt off. If more effort is
+needed, use warm, soapy water and a soft cloth or brush to thoroughly clean the shield. Allow
+the shield to dry before remounting.
+CAUTION:
+The HygroVue 10 sensor body is sealed and filled with a potting compound to totally protect
+the electronics from any water ingress. This means there are no serviceable parts within the
+sensor body
+
+
+Calibration
+The life of the sensor element is primarily limited by drift of the humidity sensor and your own
+acceptance of the errors incurred. Typical drift is less than 1% per year when used in cleaner
+environments but can be higher in polluted air. Because it can be difficult to know what the
+sensor has been exposed to, and because the element is relatively inexpensive, Campbell
+Scientific recommends replacing the sensor element annually. Replacing the element effectively
+brings the sensor back to a factory calibration state both for temperature and relative humidity.
+If you wish to check an old element’s calibration, you can measure its performance by plugging it
+into another sensor body in your calibration laboratory.
+NOTE:
+We cannot guarantee the accuracy of measurements if the sensor element is not changed
+every yea
+
+    2. Page 1:
+HUMICAPâ Humidity and
+Temperature Probe HMP155
+HMP155 with an additional
+temperature probe and optional
+Stevenson screen installation kit.
+Features
+• Vaisala HUMICAP â180R sensor:
+superior long-term stability
+• Optional warmed humidity probe
+and chemical purge
+• Plug-and-play
+• USB connection for service use
+• Use with DTR13 and DTR503
+radiation shields and a Stevenson
+screen
+• Weather-proof housing IP66
+• Optional, fast temperature probe
+• Different output possibilities:
+voltage, RS-485, resistive Pt100
+• Applications: meteorology,
+aviation and road weather,
+instrumentation
+Long-term stability
+HMP155 uses the proven Vaisala
+HUMICAPâ180R sensor that has excellent
+stability and withstands well harsh
+environments. The probe structure is
+solid and the sensor is protected by
+default with a sintered teflon filter, which
+gives maximum protection against water,
+dust, and dirt.
+Warmed probe and high-
+humidity environment
+Measuring humidity reliably is
+challenging in environments where
+humidity is near saturation.
+Measurements may be corrupted by fog,
+mist, rain, and heavy dew. A wet probe
+may not give an accurate measurement
+in the ambient air.
+This is an environment to which Vaisala
+has designed this patented, warmed
+probe for reliable measurements. As
+the sensor head is warmed continuously,
+the humidity level inside it stays below
+the ambient level. Thus, it also reduces
+the risk of condensation forming on
+the probe.
+Fast measurements
+With its fast response time,
+the additional temperature probe for
+HMP155 is ideal for measuring in
+environments with changing
+temperatures. The membrane filter
+speeds up the relative humidity
+measurement.
+Long lifetime
+Protecting the sensor from precipitation,
+and scattered and direct solar radiation
+increases its lifetime. Thus, Vaisala
+recommends installing HMP155 in one of
+the following radiation shields: DTR503,
+DTR13, or Stevenson screen. For
+the additional temperature probe,
+an installation kit is available for Vaisala
+DTR502 Radiation Shield.
+Calibration
+The probe can be calibrated using
+a computer with a USB cable, with
+the push buttons, or with the MI70
+indicator.
+Vaisala HUMICAPâ Humidity and Temperature Probe
+HMP155 provides reliable humidity and temperature
+measurement. It is designed especially for demanding
+outdoor applications.
+
+Page 2:
+Technical Data
+HMP155 humidity measurement performance
+Sensor HUMICAPâR2, 180R and INTER CAP
+for typical applications
+HUMICAPâR2C, 180RC and
+INTERCAPC for applications with
+chemical purge and/or warmed probe
+Observation range 0 … 100 %RH
+Response time at +20 °C (+68 °F) in
+s
+till air with sintered Teflon filter
+63 %: 20 s
+90 %: 60 s
+Factory calibration uncertainty at
++20 °C (+68 °F)1)
+±0.6 %RH (0 … 40 %RH)
+±1.
+0 %RH (40 … 95 %RH)
+Accuracy (including non-linearity, hysteresis, and repeatability)
+At +15 … +25 °C (+59 … +77 °F) ±1 %RH (0 … 90 %RH)
+±1.
+7 %RH (90 … 100 %RH)
+At −20 … +40 °C (−4 … +104 °F) ±(1.0 + 0.008 × reading) %RH
+At −40 … −20 °C (−40 … −4 °F) ±(1.2 + 0.012 × reading) %RH
+At +40 … +60 °C (+104 … +140 °F) ±(1.2 + 0.012 × reading) %RH
+At −60 … −40 °C (−76 … −40 °F) ±(1.4 + 0.032 × reading) %RH
+1) Defined as ±2 s tandard deviation limits. Small variations possible (see also the calibration certificate).
+HMP155 temperature measurement performance
+Sensor Pt100 RTD element, Class F 0.1
+IE
+C 60751
+Observation range −80 … +60 °C (−112 … +140 °F)
+Response time for additional
+t
+emperature probe in 3 m/s (7 mph) air
+flow
+63 %: < 20 s
+90 %: < 3
+5 s
+Other measured variables Dew point / frost point temperature,
+w
+et bulb temperature, mixing ratio
+Accuracy with voltage output
+At −80 … +20 °C (−112 … +68 °F) ±(0.226 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.055 + 0.0057 × temperature) °C
+Accuracy with passive (resistive) output
+According to Tolerance Class AA
+IE
+C 607511)
+±(0.1 + 0.0017 × |temperature|) °C
+Accuracy with RS‑ 485 output
+At −80 … +20 °C (−112 … +68 °F) ±(0.176 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.07 + 0.0025 × temperature) °C
+1) Tolerance Class AA IEC 60751 corresponds to IEC 751 1/3 Class B
+HMP155 accuracy over temperature range: voltage and
+RS‑ 485
+HMP155 operating environment
+Operating temperature for humidity
+measur
+ement
+−80 … +60 °C (−112 … +140 °F)
+Storage temperature −80 … +60 °C (−112 … +140 °F)
+Operating humidity 0 … 100 %RH
+IP rating IP66
+HMP155 inputs and outputs
+Operating voltage 7 … 28 V DC
+Minimum operating voltage 0 … 1 V output or RS‑ 485: 7 V
+0 … 5 V output, or w
+armed probe:
+12 V
+0 … 10 V output, chemical purge, or
+XHEAT: 16 V
+Outputs Voltage output: 0 … 1 V, 0 … 5 V,
+0 … 10 V
+R
+esistive Pt100 4‑ wire connection
+RS‑ 485
+Average power consumption (+15 V DC,
+load 100 kΩ)
+0 … 1 V output: < 3 mA
+0 … 10 V output: +0
+.5 mA
+RS-485: < 4 mA
+During chemical purge: Maximum
+110 mA
+With warmed probe: Maximum
+150 mA
+Settling time at startup Voltage output: 2 s
+RS-485: 3 s
+HMP155 mechanical specifica
+ tions
+Dimensions (H × W) 279 × 40 mm (10.9 × 1.6 in)
+Weight 93 g (3.25 oz)
+Length of additional T‑ pr obe cable 2 m (6 ft 7 in)
+Connection 8-pin male M12 connector
+Connection cables 3.5 m (11 ft 6 in), 10 m (32 ft 10 in),
+30 m (98 ft 5 in)
+Maximum wire size 0.129 mm2 (2
+ 6 AWG)
+Service cables USB connection cable
+MI7
+0 connection cable
+Materials
+Filter Sintered T eflon or membrane
+Housing Polycarbonate (PC)
+Additional temperature probe Stainless steel AISI 316L
+Cable PUR
+ 40 [1.57]  24 [0.94]  86 [3.39] 
+ 279 [10.98] 
+ 266 [10.47] 
+mm
+[in]
+Dimensions in mm (inches)
+Published by Vaisala | B210752EN-J © Vaisala Oyj 2021
+www.vaisala.com
+All rights reserved. Any logos and/or product names are trademarks of Vaisala or its individual partners. 
+Any reproduction, transfer, distribution or storage of information contained in this document is strictly 
+prohibited. All specifications — technical included — are subject to change without notice.
+
+
+================================================================================
+
+================================================================================
+
+
+================================================================================
+PROCESSING SUMMARY
+================================================================================
+LLM: gpt_oss_20b
+Total Processing Time: 124.26 seconds
+Total Errors: 0
+
+Agent Call Statistics:
+
+Tool Call Statistics:
+  - maintenance_search_maintenance_knowledge: 1 calls
+  - get_weather: 3 calls
+  - sensor_search_sensor_knowledge: 1 calls
+================================================================================
+
+END OF LOG
+================================================================================

@@ -1,0 +1,38 @@
+**Comprehensive Assessment & Action Plan for Anomaly at AWS_DKI_KebunBibit**
+
+1. **Summary**
+   - Anomaly detected: 51.0 mm rainfall spike at 2024‑08‑16 15:30:00.
+   - Current weather (2025‑10‑29 11:50:13): 0 mm precipitation – vastly lower than the anomalous reading.
+   - Confidence in fault: >80 %.
+
+2. **Current Weather Conditions**
+   - No rainfall recorded at the time of validation.
+   - The 51 mm spike is inconsistent with the actual weather, indicating a likely sensor issue.
+
+3. **Sensor Operational Assessment**
+   - **Model**: HyQuest TB4 tipping‑bucket rain gauge.
+   - **Operational range**: 0–100 mm h⁻¹ (max 700 mm h⁻¹).
+   - **Accuracy**: ±2 %.
+   - **Observed reading**: 51.0 mm – comfortably within the 0–100 mm h⁻¹ range.
+   - **Sensitivity**: Adequate for detecting the observed trend.
+   - **Conclusion**: The reading is within normal operational limits, but the sudden spike suggests a malfunction (e.g., blockage, debris, or mechanical fault).
+
+4. **Maintenance & Troubleshooting Recommendations**
+   - Inspect and clean the **catch filter**.
+   - Clean the **siphon**.
+   - Clean the interior of the **bucket**.
+   - Clean the top surface of the **adjusting screws**.
+   - Lightly lubricate the **enclosure locking screws** after cleaning.
+   - Verify that the **tipping bucket assembly** moves freely.
+   - Confirm that the **data logger** accurately records each bucket tip.
+   - Check for and remove any **debris blocking the collector area**.
+
+5. **Actionable Steps**
+   1. Schedule a maintenance visit within 48 h.
+   2. Perform the cleaning steps above.
+   3. Run a calibration test to ensure the sensor reads 0 mm during dry conditions.
+   4. Monitor the sensor for at least 24 h post‑maintenance to confirm normal operation.
+   5. If anomalies persist, consider replacing the tipping bucket assembly.
+
+**Conclusion**
+The anomaly is most likely due to a sensor malfunction rather than an extreme weather event. Following the outlined maintenance steps should restore accurate rainfall measurements and prevent future false spikes.

@@ -1,0 +1,49 @@
+=============================
+Data Received
+=============================
+timestamp,tt,rh,pp,ws,wd,sr,rr
+2024-08-19T06:40:00,31.14,49.7,995.1134,2.442,187.1,778.2,0.0
+2024-08-19T06:50:00,30.8,50.2,995.0599,1.789,169.9,520.4,0.0
+2024-08-19T07:00:00,30.3,51.5,994.9918,1.905,182.6,634.4,0.0
+2024-08-19T07:10:00,30.27,51.2,994.8422,2.634,204.0,557.2,0.0
+2024-08-19T07:20:00,30.74,50.2,994.7891,1.783,185.9,749.4,0.0
+2024-08-19T07:30:00,30.6,50.1,994.693,1.754,181.9,523.8,0.0
+2024-08-19T07:40:00,30.92,49.1,994.5651,1.511,999.0,530.6,0.0
+
+=============================
+Station Agent Output:
+=============================
+Event Detection Time: 2024-08-19T07:40:00
+Station: AWS_DIY_STAGEOF_YOGYAKARTA
+Location: Yogyakarta, Indonesia
+Coordinates: Latitude -7.81665, Longitude 110.29481, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Wind Direction
+  Value: 999.0
+  Sensor Brand: Young 05103-L
+  Trend Analysis: Invalid sentinel value 999.0° - outside 0-360° range, indicates sensor failure. No valid correlation possible. Immediate fault.
+
+
+
+=============================
+Diagnosis Agent Output
+=============================
+
+- **Detection Time (2024-08-19 07:45 UTC)**: Temperature ≈ 28.8 °C, Wind Speed ≈ 20.1 m/s, Wind Direction ≈ 156°, Humidity ≈ 59 %, Pressure ≈ 993.6 hPa
+- **Latest Available (2024-08-19 08:00 UTC)**: Temperature ≈ 28.5 °C, Wind Speed ≈ 20.1 m/s, Wind Direction ≈ 156°, Humidity ≈ 60 %, Pressure ≈ 993.6 hPa
+
+The Young 05103‑L wind‑direction sensor has a valid measurement range of 0 to 360° mechanically (355° electrically, with a 5° open circuit). 
+Sentinel values such as 999.0° fall outside this range and indicate a communication or sensor fault. 
+Its sensitivity threshold is 1.1 m/s (≈2.5 mph) at a 10° displacement, and the sensor provides an accuracy of ±0.25% linearity for the potentiometer.
+
+- Verify power supply: ensure stable DC excitation (max 15 V) to the sensor.
+- Inspect all cable connections and junction box for secure, undamaged contacts; reseat connectors.
+- Perform continuity test on wiring with a multimeter.
+- Check grounding: confirm proper grounding of the wind monitor to prevent static discharge.
+- Examine the potentiometer for wear or noisy signals; replace if defective.
+- Ensure the vane rotates freely without obstruction; manually rotate to confirm movement.
+- Re‑calibrate the sensor using a Model 18112 Vane Angle Bench Stand.
+- Verify signal‑conditioning electronics are functioning and not causing a floating signal.
+- Inspect the sensor for any physical damage.
+- If the sentinel value 999 persists after these steps, contact the manufacturer or a qualified technician for further assistance.

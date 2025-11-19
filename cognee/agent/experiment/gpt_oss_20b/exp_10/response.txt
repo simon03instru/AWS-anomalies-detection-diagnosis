@@ -1,0 +1,13 @@
+**Assessment**
+- The HYQUEST TB4 rain sensor reported a 100 mm rainfall spike in a 10‑minute interval, which is inconsistent with the satellite‑derived weather data (0 mm precipitation) and indicates a spurious spike.
+- Trend analysis and confidence (>80 %) confirm a sensor fault.
+- The spike is within the sensor’s rated operational range (max 700 mm h⁻¹) but exceeds the typical 0–50 mm per 10‑minute interval, suggesting a malfunction rather than a real event.
+
+**Actionable Recommendations**
+1. **Regular Cleaning** – Remove debris, insects, or sediment from the collection funnel, debris screen, siphoning mechanism, and tipping bucket assembly.
+2. **Check Components** – Verify that the tipping bucket assembly moves freely and that the data logger records each bucket tip accurately.
+3. **Dismantling & Reassembly** – Follow the manufacturer’s cleaning procedure for disassembling and reassembling the device, ensuring the filter/siphon assembly is not twisted.
+4. **Calibration Check** – Conduct a yearly calibration by verifying the gauge level and pouring a known volume of water to confirm correct tipping; recalibrate if spikes persist.
+5. **Document Findings** – Record the date of inspection, any debris found, wiring status, and calibration results for future reference.
+
+Implementing these steps should resolve the spurious spike and restore reliable rainfall measurements for AWS_DIY_UGM.

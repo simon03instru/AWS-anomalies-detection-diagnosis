@@ -1,0 +1,32 @@
+Assessment Report on Atmospheric Pressure Anomaly at AWS_DKI_KebunBibit on August 16, 2024
+
+1. Overview of Anomaly:
+The atmospheric pressure sensor at AWS_DKI_KebunBibit recorded an anomalous pressure value of 100.58 hPa at 15:30 UTC on August 16, 2024. This reading is physically impossible given typical atmospheric pressure ranges and deviates by nearly 900 hPa from the expected mean pressure of approximately 1002.9 hPa for the location.
+
+2. Weather Data Comparison:
+Historical weather data around the anomaly time shows surface pressure consistently around 1006 hPa, which is within the normal range for Cibubur, Indonesia. The anomalous reading is thus an extreme outlier and not representative of actual atmospheric conditions.
+
+3. Sensor Specifications and Operational Range:
+The Vaisala PTB110 sensor used has an operational pressure range suitable for typical atmospheric pressures (approximately 950-1050 hPa). The anomalous reading of 100.58 hPa is well outside this range, indicating a sensor fault. The sensor's sensitivity adjustments (0.05 hPa steps) cannot account for such a large deviation.
+
+4. Troubleshooting and Maintenance Insights:
+Common failure modes for the Vaisala PTB110 include sensor malfunction, miscalibration, wiring issues, and environmental factors such as humidity or condensation. Recommended maintenance actions include:
+- Verifying correct sensor card insertion and wiring connections.
+- Checking and recalibrating the sensor to correct potential calibration drift.
+- Replacing desiccants to prevent humidity-related errors.
+- Ensuring the sensor operates within specified environmental conditions.
+- Conducting regular functional tests and inspections.
+
+5. Recommendations:
+- Immediate verification of sensor wiring and installation to rule out connection faults.
+- Send the sensor for professional recalibration to restore measurement accuracy.
+- If recalibration does not resolve the issue, consider sensor replacement due to probable hardware malfunction.
+- Implement routine maintenance schedules including environmental checks and functional testing to prevent recurrence.
+
+6. Conclusion:
+The atmospheric pressure anomaly detected is due to a sensor fault rather than actual atmospheric conditions. Prompt sensor verification, recalibration, or replacement is essential to ensure data reliability and operational integrity of AWS_DKI_KebunBibit station.
+
+This assessment aligns with the trend analysis and all gathered information, providing a clear path for corrective action.
+
+
+Upon investigation of the AWS_DKI_KebunBibit station data around the anomaly detection time (2024-08-16T15:30:00), the only confirmed anomaly is the atmospheric pressure reading of 100.58 hPa, which is physically impossible and far below the normal range. The actual surface pressure values from weather data for the location during that period are consistently around 1006 hPa, which is typical and within expected ranges. Other weather parameters such as temperature, precipitation, relative humidity, wind speed, and wind direction show no abnormal values or anomalies. Therefore, no multiple anomalies are present at the station. The atmospheric pressure anomaly is likely due to a sensor fault, with no correlated anomalies in other weather parameters. Maintenance or sensor replacement is recommended to address this isolated sensor error.

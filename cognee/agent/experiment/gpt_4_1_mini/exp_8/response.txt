@@ -1,0 +1,40 @@
+
+Assessment Report on Temperature Anomaly at AWS_DIY_UGM Station
+
+1. Overview of Anomaly:
+- Event Detection Time: 2024-08-15T20:00:00 UTC
+- Location: UGM Yogyakarta, Indonesia (Lat: -7.768469, Lon: 110.38192)
+- Anomaly: Sudden temperature drop to 2.0°C, approximately 20°C below the 10-minute mean (~22°C), exceeding 3 standard deviations.
+- Sensor: Vaisala HMP155 temperature sensor.
+
+2. Weather Condition Comparison:
+- Satellite-based weather data around the anomaly time shows stable temperatures around 20.5°C with relative humidity approximately 86-87%.
+- No corresponding increase in humidity or other weather parameters (precipitation, windspeed, surface pressure) that would support a true temperature drop.
+- Typical temperature range for the location and time is around 20-21°C, making the 2.0°C reading highly inconsistent with actual weather.
+
+3. Sensor Operational Parameters and Sensitivity:
+- Vaisala HMP155 sensor operates reliably within -80°C to +60°C, so 2.0°C is within operational range.
+- Sensor sensitivity and accuracy are sufficient to detect sudden temperature changes.
+- The sudden drop is not due to sensor limitations but likely a fault or anomaly.
+
+4. Troubleshooting and Maintenance Insights:
+- Common causes for such anomalies include contaminated sensor filters, wiring issues, electrical interference, water ingress, corrosion, or calibration drift.
+- Recommended maintenance actions include inspecting and verifying wiring and connections, cleaning or replacing the sensor filter and radiation shield, checking for corrosion or water damage, recalibrating the sensor, and replacing the sensor element if faults persist.
+
+5. Correlation with Other Anomalies:
+- No other anomalies detected in humidity, wind, precipitation, or pressure around the event time.
+- The temperature anomaly is isolated, supporting the conclusion of a sensor fault rather than a meteorological event.
+
+6. Conclusion:
+- The temperature anomaly is highly likely caused by a sensor fault rather than actual weather conditions.
+- The anomaly is inconsistent with all other weather data and typical environmental conditions.
+
+7. Recommendations:
+- Conduct immediate physical inspection of the Vaisala HMP155 sensor and its installation.
+- Perform cleaning and maintenance as per manufacturer guidelines.
+- Recalibrate the sensor to verify accuracy.
+- Monitor sensor output closely after maintenance to confirm resolution.
+- Consider temporary replacement of the sensor if faults persist to ensure data integrity.
+- Document all maintenance and calibration activities for future reference.
+
+This comprehensive assessment supports prioritizing sensor fault investigation and corrective maintenance to restore reliable temperature measurements at AWS_DIY_UGM.

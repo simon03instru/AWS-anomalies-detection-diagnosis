@@ -1,0 +1,30 @@
+
+At 2024‑08‑19 07:40 UTC the satellite‑derived weather for Yogyakarta (lat -7.81665, lon 110.29481) shows a temperature of about 28.9 °C, relative humidity of roughly 57 % and direct solar radiation of ~465 W m⁻². The anomalous sensor reading of –9999.0 W m⁻² is a sentinel value that falls far outside the normal operating range (0–≈1000 W m⁻²) and indicates a sensor communication failure. The current conditions are typical for that time of day and do not support the anomalous value. Recommended actions: inspect the Kipp & Zonen CMP3 sensor for power, wiring, and firmware issues; recalibrate or replace the sensor if faults persist; verify that the sensor’s sensitivity and range match the expected radiation levels. No other anomalies were reported, so the issue appears isolated to this sensor.
+
+The Kipp & Zonen CMP3 solar radiation sensor has an operational range up to 2000 W/m². The value -9999.0 W/m² is not within this range; it is a sentinel error value indicating a fault or communication failure, and therefore is outside the sensor’s valid measurement limits.
+
+The sentinel value of -9999.0 W/m² on a Kipp & Zonen CMP3 sensor indicates a malfunction or error in measurement.  Troubleshooting steps: 1) Verify all sensor connections and cable integrity; 2) Ensure the sensor is properly calibrated and the calibration date is recent; 3) Inspect the sensor housing for physical damage, debris, or obstruction that could block sunlight; 4) Check the desiccant and internal components for proper function; 5) If the issue persists, recalibrate the sensor or contact Kipp & Zonen service/Calvin Scientific for further support.  Recommended maintenance actions: replace any damaged cables, clean the sensor aperture, replace the desiccant if expired, perform a factory calibration, and document the maintenance date and actions taken.
+
+The anomaly at AWS_DIY_STAGEOF_YOGYAKARTA on 2024‑08‑19 07:40 UTC shows a sentinel value of –9999.0 W m⁻² for solar radiation, which is clearly outside the Kipp & Zonen CMP3 sensor’s valid range (0–2000 W m⁻²). Satellite‑derived weather for the same time and location indicates a temperature of ~28.9 °C, relative humidity of ~57 %, and direct solar radiation of ~465 W m⁻² – well within normal daytime values for Yogyakarta. Thus, the anomalous reading cannot be attributed to actual weather conditions but rather to a sensor communication or measurement failure.
+
+**Sensor assessment**: The CMP3’s operational range confirms that –9999.0 W m⁻² is a sentinel error value, not a legitimate measurement. The trend analysis notes a broken correlation with temperature, further supporting a malfunction.
+
+**Maintenance & troubleshooting**:
+1. Verify power supply and cable integrity.
+2. Check for firmware updates or reset the sensor.
+3. Inspect the sensor housing for debris, damage, or obstruction that could block sunlight.
+4. Test the desiccant and internal components for proper function.
+5. If issues persist, perform a factory calibration or replace the sensor.
+
+**Actionable recommendations**:
+- Conduct a physical inspection of the CMP3, focusing on wiring, housing, and desiccant.
+- Clean the aperture and ensure no obstructions.
+- Update firmware and re‑calibrate according to manufacturer guidelines.
+- Document all maintenance actions and schedule a follow‑up check within 48 hours.
+- If the sentinel value recurs, replace the sensor.
+
+No other anomalies were reported, indicating the issue is isolated to this sensor.
+
+**Conclusion**: The anomalous solar radiation reading is due to a sensor fault, not an environmental event. Prompt inspection, cleaning, and calibration (or replacement) will restore accurate measurements.
+
+The investigation found no additional anomalies reported for AWS_DIY_STAGEOF_YOGYAKARTA. Consequently, there are no other data points to analyze for correlations or common causes. The sole anomaly—solar radiation sentinel value –9999.0 W m⁻²—appears isolated to the Kipp & Zonen CMP3 sensor and is attributed to a sensor malfunction rather than an environmental event.

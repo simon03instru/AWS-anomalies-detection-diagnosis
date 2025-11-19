@@ -1,0 +1,16 @@
+======================================================================
+KAFKA WORKFORCE SESSION LOG - MULTI-LLM
+======================================================================
+Session Start: 2025-10-29 10:28:29
+Kafka Broker: localhost:9092
+Topic: weather-anomalies
+Log Directory: /home/ubuntu/running/cognee/agent/logs/anomaly_analysis
+LLMs: GPT OSS 120B, GPT OSS 20B, GPT 4 1 Mini
+======================================================================
+
+[2025-10-29 10:30:37] New anomaly from AWS_DIY_UGM - 1 parameter(s): Atmospheric Pressure
+[2025-10-29 10:31:56] SUCCESS (gpt_oss_120b): AWS_DIY_UGM - 77.54s - 1 anomalies
+[2025-10-29 10:34:42] SUCCESS (gpt_oss_20b): AWS_DIY_UGM - 165.51s - 1 anomalies
+[2025-10-29 10:35:49] SUCCESS (gpt_4_1_mini): AWS_DIY_UGM - 66.99s - 1 anomalies
+[2025-10-29 10:35:52] New anomaly from AWS_DIY_UGM - 1 parameter(s): Atmospheric Pressure
+[2025-10-29 10:36:47] SUCCESS (gpt_oss_120b): AWS_DIY_UGM - 54.43s - 1 anomalies

@@ -1,0 +1,11 @@
+======================================================================
+KAFKA WORKFORCE SESSION LOG
+======================================================================
+Session Start: 2025-11-03 06:18:14
+Kafka Broker: localhost:9092
+Topic: weather-anomalies
+Log Directory: /home/ubuntu/running/cognee/agent/logs/anomaly_analysis
+======================================================================
+
+[2025-11-03 06:19:06] New anomaly from AWS_DIY_UGM - 1 parameter(s): Solar Radiation
+[2025-11-03 06:21:04] SUCCESS: AWS_DIY_UGM - 118.14s - 1 anomalies

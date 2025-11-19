@@ -1,0 +1,31 @@
+**Comprehensive Assessment of the Relative‑Humidity Anomaly (AWS_DIY_STAGEOF_YOGYAKARTA – 2024‑08‑19T07:40:00 UTC)**
+
+1. **Observed Weather vs. Sensor Reading**
+   - Satellite‑derived conditions for the station at the anomaly time were ~28.9 °C with ~58 % RH (dew‑point ≈ 20.6 °C). 
+   - The station reported 30.9 °C and an impossible 0 % RH. The temperature is within a plausible range (≈ 2 °C higher than the satellite estimate) but the humidity reading is far outside realistic values and contradicts the expected ~50‑60 % RH.
+
+2. **Sensor Specification Limits**
+   - **Model:** Vaisala HMP155 humidity sensor.
+   - **Operational RH range:** 0 %–100 % (the 0 % reading is technically within the measurable range).
+   - **Accuracy:** ±1 % RH (0‑90 % RH) and ±1.7 % RH (90‑100 % RH) at 15‑25 °C; ±2 % RH at 0 % RH.
+   - **Sensitivity:** ±(1.0 + 0.008 × reading) % RH over –20 °C to +40 °C.
+   - While a 0 % RH value is within the sensor’s nominal range, the combination of a warm temperature and a zero humidity reading is physically implausible and exceeds the sensor’s calibrated performance, indicating a malfunction rather than a legitimate measurement.
+
+3. **Likely Failure Modes (Based on Troubleshooting Guidance)**
+   - **Probe/filter blockage or contamination** – a clogged sintered Teflon filter can prevent moisture from reaching the sensing element, causing a zero‑humidity output.
+   - **Electrical or wiring fault** – incorrect power supply, loose connector, or damaged signal line can drive the humidity output voltage to zero.
+   - **Calibration drift or loss of factory calibration** – if the sensor has not been calibrated recently, the output may be out of spec.
+   - **Physical damage or corrosion** of the probe housing, especially in a humid tropical environment.
+
+4. **Actionable Recommendations for the Station Operator**
+   - **Visual Inspection:** Check the HMP155 probe for dust, debris, water ingress, or physical damage. Clean the sintered filter and probe housing if any contaminants are present.
+   - **Electrical Checks:** Verify that the sensor receives the correct supply voltage (7‑28 V DC, typically 12 V) and that all data‑logger connections are secure. Measure the humidity‑output voltage; it should be within the sensor’s specified range.
+   - **Calibration Verification:** Perform an on‑site calibration check against a certified reference hygrometer. Use the USB interface or MI70 indicator to recalibrate if the output deviates.
+   - **Reset / Power‑Cycle:** Power‑cycle the sensor and data logger to clear any transient faults.
+   - **Replace if Needed:** If cleaning, wiring verification, and recalibration do not restore realistic humidity values, replace the HMP155 probe.
+   - **Documentation & QA:** Log the incident, flag the station’s data for quality review until the sensor is confirmed operational, and schedule the next routine calibration/inspection per Vaisala guidelines (typically annually).
+
+5. **Overall Conclusion**
+   - The anomaly is isolated to the humidity sensor; temperature and other parameters appear normal. The zero‑percent RH reading is inconsistent with both the satellite‑derived ambient conditions and the sensor’s expected performance, pointing to a sensor‑specific fault (most likely probe contamination or an electrical fault). Implement the above inspection, calibration, and replacement steps to restore reliable humidity measurements and prevent future data‑quality issues.
+
+*Task completed successfully.*

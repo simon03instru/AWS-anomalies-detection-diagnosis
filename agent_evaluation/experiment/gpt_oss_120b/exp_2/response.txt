@@ -1,0 +1,41 @@
+**Comprehensive Assessment of the Atmospheric Pressure Anomaly (AWS_DIY_UGM – 2024‑08‑15 20:00 local)**
+
+1. **Weather Context**
+   - Satellite‑derived observations for the station at the anomaly time show normal conditions: temperature ~23.4 °C, surface pressure ~995.7 hPa, wind speed ~4.1 m s⁻¹ from 232°, relative humidity ~75 %, and no solar radiation (night). The reported pressure of –9999 hPa is far outside the realistic atmospheric range (≈990‑1015 hPa) and does not match the observed ~996 hPa.
+
+2. **Sensor Specification & Operational Range**
+   - The Vaisala PTB110 pressure sensor is designed for typical surface pressure ranges (≈800‑1100 hPa). The value –9999 hPa is not a physical measurement; it is a known sentinel/error code used by Vaisala devices to indicate a loss of valid data (communication fault, sensor fault, or power issue). The lack of explicit range data in the knowledge base does not change this interpretation.
+
+3. **Probable Cause**
+   - The sentinel value, combined with the trend analysis (invalid value, broken correlation with wind speed), points to a **sensor communication or hardware failure** rather than a meteorological event. Common root causes (from the maintenance knowledge base) include:
+     * Loose or corroded wiring / poor connector seating.
+     * Incorrect or unstable power supply voltage.
+     * Mis‑configured SDI‑12 address or serial settings.
+     * Moisture ingress causing intermittent faults.
+     * Out‑of‑date firmware.
+
+4. **Impact on Data Quality**
+   - The pressure channel is currently unusable; any analyses that rely on surface pressure (e.g., sea‑level pressure conversion, weather forecasting, climatology) will be compromised if the sentinel value is not filtered out. Other parameters (temperature, wind, humidity) remain reliable.
+   - If the fault persists, downstream products (e.g., derived dew point, stability indices) that depend on pressure may also be affected.
+
+5. **Actionable Recommendations for Station Operators**
+   - **Immediate Mitigation**
+     1. Flag the –9999 hPa reading as invalid in the data pipeline and replace it with the satellite‑derived pressure (~996 hPa) or a gap‑filled estimate until the sensor is restored.
+   - **Troubleshooting Steps** (per the Vaisala PTB110 guide)
+     1. Power down the logger, inspect the PTB110 connector for loose pins or corrosion; reseat securely.
+     2. Measure the sensor supply voltage at the terminals; confirm it is within the specified range (typically 12 V ±10%).
+     3. Verify the SDI‑12 address matches the configuration in the logger software.
+     4. Check all wiring for damage, correct polarity, and proper shielding.
+     5. Ensure the sensor housing is dry; if condensation is suspected, improve ventilation or add a desiccant pack.
+     6. Review serial communication settings (baud rate, parity, stop bits) for consistency.
+     7. Perform a calibration check using Vaisala’s calibration procedure; recalibrate if drift is observed.
+     8. Update the sensor firmware to the latest version.
+   - **If Fault Persists**
+     * Replace the PTB110 sensor with a new unit.
+     * Document the failure event, voltage logs, and any recurring sentinel values for Vaisala technical support.
+   - **Preventive Maintenance**
+     * Schedule quarterly visual inspections of connections and power supply.
+     * Conduct semi‑annual calibration verification.
+     * Keep firmware up‑to‑date and maintain a log of communication health metrics.
+
+**Bottom Line:** The –9999 hPa reading is a clear sentinel indicating a pressure sensor failure, likely due to wiring/power or communication issues. The anomaly does not reflect real atmospheric conditions and currently degrades pressure‑related data quality. Follow the step‑by‑step troubleshooting, replace the sensor if needed, and use the satellite‑derived pressure as a temporary substitute.

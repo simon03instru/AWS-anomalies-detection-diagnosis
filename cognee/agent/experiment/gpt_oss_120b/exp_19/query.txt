@@ -1,0 +1,22 @@
+Analyze the following weather anomaly detected at AWS_DKI_KebunBibit:
+
+Event Detection Time: 2024-08-16T15:30:00
+Station: AWS_DKI_KebunBibit
+Location: Cibubur, Indonesia
+Coordinates: Latitude -34.9285, Longitude 138.6007, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Rainfall
+  Value: 51.0
+  Sensor Brand: HyQuest TB4
+  Trend Analysis: Sudden spike to 51 mm, >3σ deviation from historical mean (0 mm). No rainfall recorded in past 20 intervals, correlation with humidity unavailable. Likely sensor malfunction or extreme isolated event; confidence >80% for fault.
+
+Validation Timestamp: 2025-10-29T11:50:13.119957
+Correlation ID: anomaly-AWS_DKI_KebunBibit-1761738613
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.

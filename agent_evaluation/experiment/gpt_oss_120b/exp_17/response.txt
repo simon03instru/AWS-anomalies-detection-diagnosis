@@ -1,0 +1,24 @@
+**Assessment**
+- The satellite‑derived weather at the time of the event (2024‑08‑16 15:30 UTC, local night) was ~12 °C temperature, 0 W/m² solar radiation, 88 % RH and 22 m s⁻¹ wind. The reported sensor values (2.96 °C and 1000 W/m²) are far outside the ambient conditions, confirming the anomalies identified by the trend analysis.
+- The Vaisala HMP155 temperature sensor is operating well within its –80 °C to +60 °C range, but the reading is ~9 °C low, suggesting a sensor‑stuck or calibration error rather than a true extreme. The known low‑temperature bias below –40 °C does not apply here.
+- The Kipp & Zonen CMP3 pyranometer also operates within its 0‑2000 W/m² range, yet it reports a full‑daylight value at night, a classic false‑positive failure mode for this model.
+
+**Possible Common Cause**
+- Both sensors share the same data‑logger and power feed. A transient power‑supply glitch, grounding issue, or data‑logger firmware fault could corrupt analog‑to‑digital conversion, causing the temperature sensor to read low and the pyranometer to output a default daylight voltage. Wiring faults (loose connectors, corrosion) could produce similar simultaneous errors.
+
+**Actionable Recommendations**
+*Immediate Verification*:
+1. Inspect and reseat all sensor cables, connectors, and the data‑logger power supply; measure supply voltage stability.
+2. Perform a quick on‑site calibration check of the HMP155 (use the built‑in calibration routine or a reference thermometer) and verify the CMP3 output voltage against a known dark condition.
+3. Swap the HMP155 and CMP3 with known‑good spare units, if available, to see if the anomalies persist.
+4. Cross‑check the current readings with the nearest AWS or nearby reference station to confirm ambient conditions.
+5. Flag the 2024‑08‑16 15:30 UTC timestamp in the data stream and exclude it from analyses until the issue is resolved.
+
+*Long‑Term Mitigation*:
+1. Implement automated QC rules that trigger alerts when temperature deviates >5 °C from nearby stations or when solar radiation >0 W/m² during night hours.
+2. Schedule regular (quarterly) visual inspections of sensor housings, wiring, and power supplies, and annual recalibration of both sensors per manufacturer guidance.
+3. Maintain a spare HMP155 and CMP3 on‑site for rapid replacement.
+4. Log all incidents in the maintenance database and track recurring power‑supply or data‑logger faults; consider upgrading to a redundant data‑logger or isolated power modules if failures repeat.
+5. Document the troubleshooting steps taken and update SOPs to include the specific checks for simultaneous temperature‑low and solar‑radiation‑high anomalies.
+
+By addressing the immediate wiring/power‑supply checks and establishing robust QC and maintenance practices, the likelihood of repeat anomalies can be substantially reduced.

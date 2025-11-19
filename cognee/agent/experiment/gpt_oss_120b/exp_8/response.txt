@@ -1,0 +1,24 @@
+
+**Assessment Summary**
+- **Observed weather (2024‑08‑15 20:00 UTC)**: Satellite‑derived temperature ≈ 20.5 °C, relative humidity 86 %, surface pressure 995 hPa. These values are typical for Yogyakarta at that time and show no rapid cooling trend.
+- **Anomalous sensor reading**: The Vaisala HMP155 reported 2.0 °C, an ~18 °C deviation from the ambient mean and >3 σ from the 10‑minute rolling average. Humidity reported by the station did not rise, contradicting the expected coupling between temperature drop and humidity increase.
+- **Sensor operational limits**: The HMP155 operates from –80 °C to +60 °C and can respond to step changes within 20‑35 seconds, so a 2.0 °C reading is technically within range and detectable. However, the magnitude and speed of the drop are inconsistent with natural atmospheric variability in this tropical region.
+- **Likely cause**: The combination of a large temperature outlier, unchanged humidity, and the sensor’s known failure modes (wetting of the probe, electronic drift, power glitches) points to a sensor fault rather than a genuine meteorological event.
+
+**Actionable Recommendations**
+1. **Immediate visual inspection** of the HMP155 housing, probe, filter, and O‑ring for moisture ingress, condensation, debris, or physical damage.
+2. **Verify power and signal integrity** – confirm the 7‑28 V DC supply is stable and wiring to the data logger is secure; look for intermittent voltage drops.
+3. **On‑site calibration check** using a calibrated reference thermometer placed in the same airflow; compare readings to the sensor output.
+4. **Clean or replace the probe filter and O‑ring** if any contamination is observed.
+5. **Review recent maintenance logs** for firmware updates, sensor replacements, or environmental changes that could have introduced bias.
+6. **If calibration fails**, replace the temperature probe or the entire HMP155 unit per the manufacturer’s guidance.
+7. **Implement automated quality control**: flag temperature values that deviate >3 σ from the 10‑minute rolling mean and trigger alerts for manual review.
+8. **Document the incident** in the station’s maintenance record, noting the date, observed values, and corrective actions taken.
+
+**Correlation & Common‑Cause Analysis**
+- Only a single anomaly (temperature) was reported; no concurrent anomalies (e.g., wind, precipitation) were identified, reducing the likelihood of a broader system issue.
+- The lack of a humidity response suggests a decoupling of the temperature‑humidity sensor pair, a known symptom of probe wetting or electronic drift in the HMP155.
+- No external weather phenomena (e.g., cold front) were present, reinforcing the sensor‑fault hypothesis.
+
+**Conclusion**
+The ambient conditions on 2024‑08‑15 20:00 UTC were warm and stable, making the 2.0 °C reading implausible. The sensor is operating within its technical limits, but the abrupt, isolated temperature drop indicates a malfunction. Following the inspection, calibration, and possible replacement steps outlined above should restore reliable temperature measurements and prevent future false alerts.

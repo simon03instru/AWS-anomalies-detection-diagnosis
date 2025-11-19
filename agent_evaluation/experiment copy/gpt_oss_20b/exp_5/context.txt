@@ -1,0 +1,82 @@
+
+Weather Data:
+Result:
+    {
+      "times": [
+        "2024-08-19T06:45",
+        "2024-08-19T07:00",
+        "2024-08-19T07:15",
+        "2024-08-19T07:30",
+        "2024-08-19T07:45",
+        "2024-08-19T08:00",
+        "2024-08-19T08:15",
+        "2024-08-19T08:30",
+        "2024-08-19T08:45"
+      ],
+      "temperature_2m": [
+        29.5,
+        29.4,
+        29.2,
+        29.0,
+        28.8,
+        28.5,
+        28.3,
+        28.0,
+        27.7
+      ],
+      "relative_humidity_2m": [
+        56,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        63,
+        64
+      ],
+      "direct_radiation": [
+        607.0,
+        576.0,
+        536.0,
+        492.0,
+        451.0,
+        409.0,
+        366.0,
+        320.0,
+        273.0
+      ]
+    }
+
+  1. To troubleshoot the Kipp & Zonen CMP3 communication failure signaling -9999 or radiation values around 0, follow these steps:
+
+1. Check that the sensor is wired correctly to the specified terminal.
+2. Verify the range code matches the data logger type.
+3. Measure impedance across the red and blue sensor wires; it should be around 100 ohms plus cable resistance. Low resistance may indicate a short circuit, while infinite resistance suggests a broken connection.
+4. Disconnect the sensor cable and check the voltage output; it should be approximately 2.5 mV when the sensor is below a 60 W incandescent light bulb. No voltage indicates a sensor problem.
+
+  2. To troubleshoot the Kipp & Zonen CMP3 communication failure indicated by sentinel -9999, check the following common issues:
+
+1. **Connections**: Ensure all cables are securely connected. 
+2. **Power Supply**: Verify that the CMP3 is receiving the correct voltage. 
+3. **Output Checks**: Assess if the analog or digital outputs are functioning properly.
+4. **Sensor Integrity**: Inspect the pyranometer for any physical damage or environmental factors affecting its operation.
+5. **Software Settings**: Check the configuration settings in the data logging or SCADA system to confirm correct communication parameters.
+6. **Sensor Replacement**: If all else fails, consider the possibility that the CMP3 may need replacement or professional servicing.
+
+
+  1. The Kipp & Zonen CMP3 pyranometer is designed to measure solar radiation, and the nominal operating range allows for reliable readings. Its maintenance includes weekly inspections and checks. The recommended recalibration frequency is every two years due to potential drift in calibration. The measurement resolution limits are not explicitly stated in the provided context, but general troubleshooting advice includes checking wiring, ensuring correct range settings, and verifying the calibration factors.
+
+  2. The Kipp & Zonen CMP3 pyranometer has a nominal operating range of 0 to 2000 W/m² with measurement resolution limits of 5 to 20 µV/W/m², and it follows the specifications of ISO 9060 class B.
+
+
+  1. The Kipp & Zonen CMP3 solar radiation sensor operational range shows a value of -9999.0 W/m², which indicates a fault or error condition. In troubleshooting, one should check the wiring, verify the data logger range, measure impedance across the sensor wires, and check voltage output to diagnose the issue.
+
+  2. The Kipp & Zonen CMP3 solar radiation sensor has an operational range up to 2000 W/m².
+
+
+  1. The sentinel value of -9999.0 W/m² on a Kipp & Zonen CMP3 sensor typically indicates a malfunction or an error in measurement. Troubleshooting steps include checking the sensor's connections, ensuring proper calibration, and inspecting for physical damage or debris obstructing the sensor. If issues persist, consult the manufacturer's guidelines or contact Campbell Scientific for further support.
+
+  2. The sentinel value of -9999.0 W/m² from a Kipp & Zonen CMP3 sensor typically indicates a fault or malfunction, rather than a normal operational measurement. To troubleshoot and maintain the sensor, start by checking the connections and ensuring that there are no obstructions affecting the sensor's exposure to sunlight. Inspect the desiccant and other internal components for proper functionality. If issues persist, consider recalibrating the sensor or contacting Kipp & Zonen’s service and calibration centers for assistance.
+
+

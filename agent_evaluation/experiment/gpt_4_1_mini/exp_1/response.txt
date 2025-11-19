@@ -1,0 +1,36 @@
+Assessment Report on Solar Radiation Anomaly at AWS_DIY_UGM on August 15, 2024
+
+1. Overview of Anomaly:
+At 10:30 local time (03:30 UTC) on August 15, 2024, the solar radiation sensor (Kipp & Zonen CMP3) at AWS_DIY_UGM reported a value of 0 W/m². This reading is anomalous given the daytime conditions and historical data.
+
+2. Weather Conditions and Data Comparison:
+Satellite-based weather data for the same time and location show direct solar radiation values between 367 and 447 W/m², with a specific value of approximately 431 W/m² at 10:30 local time. This confirms bright daytime conditions with strong solar radiation.
+The historical mean solar radiation for this time is around 36 W/m² (noted in anomaly report), but actual satellite data and typical daytime values are much higher, consistent with tropical daytime solar radiation.
+
+3. Sensor Operational Range and Expected Behavior:
+The Kipp & Zonen CMP3 sensor operates within 0 to 1500 W/m² and is sensitive enough to detect typical daytime solar radiation. A zero reading during daylight hours is outside normal behavior and strongly suggests sensor malfunction rather than true environmental conditions.
+
+4. Possible Causes of the Anomaly:
+- Sensor malfunction or failure (electrical fault, internal damage)
+- Sensor dome obstruction (dirt, condensation, ice, shading)
+- Wiring or connection issues (loose cables, water ingress)
+- Calibration drift or sensor degradation over time
+
+5. Sensor Reliability:
+Given the stark contrast between the sensor reading and satellite data, the sensor reading is unreliable at the anomaly time. The sensor likely failed or was compromised.
+
+6. Recommended Next Steps for Investigation and Maintenance:
+- Perform a physical inspection of the sensor and its dome for dirt, damage, or obstructions.
+- Check all electrical connections and wiring for integrity and secure attachment.
+- Measure sensor output voltage under known light conditions to verify sensor function.
+- Clean the sensor dome carefully and remove any contaminants.
+- Verify power supply to the sensor and data logger settings.
+- Review calibration status and schedule recalibration if overdue (recommended every two years).
+- Monitor sensor output regularly post-maintenance to confirm resolution.
+
+7. Conclusion:
+The zero solar radiation reading at AWS_DIY_UGM on August 15, 2024, at 10:30 local time is a confirmed sensor anomaly. Satellite data and typical solar radiation values strongly contradict the sensor output. The anomaly is most likely due to sensor malfunction or environmental interference affecting the sensor dome or wiring.
+
+Immediate maintenance actions as outlined should be undertaken to restore sensor accuracy and reliability. Continued monitoring will ensure early detection of any future anomalies.
+
+This comprehensive assessment supports the conclusion that the solar radiation sensor requires inspection, cleaning, and possibly repair or replacement to maintain data quality at AWS_DIY_UGM.

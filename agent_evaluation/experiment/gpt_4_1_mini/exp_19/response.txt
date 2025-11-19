@@ -1,0 +1,32 @@
+Comprehensive Assessment of Rainfall Anomaly at AWS_DKI_KebunBibit:
+
+1. Summary of Findings:
+- The reported rainfall anomaly at AWS_DKI_KebunBibit on 2024-08-16T15:30:00 shows a sudden spike of 51 mm, which is a >3σ deviation from the historical mean of 0 mm, indicating an extreme outlier.
+- Satellite-based weather data around the anomaly time shows only light precipitation (~0.1 mm) and steady relative humidity (~88%), with no indication of heavy rainfall that would support the 51 mm reading.
+- The HyQuest TB4 sensor used has an operational range that comfortably includes 51 mm rainfall, with high accuracy and sensitivity within this range, confirming the sensor is capable of measuring such an event if real.
+- Common causes for sudden rainfall spikes in this sensor include wiring issues, blockages, debris, tipping bucket malfunction, and environmental factors.
+
+2. Confidence Levels:
+- Given the lack of corroborating environmental data (no heavy rainfall or humidity spike) and the sudden nature of the spike, the confidence level that this anomaly is due to sensor fault is high (>80%).
+- The possibility of an extremely localized rainfall event not captured by satellite data cannot be fully excluded but is less likely.
+
+3. Possible Causes:
+- Sensor malfunction due to mechanical issues with the tipping bucket or debris blocking the catch area.
+- Data logger or wiring faults causing erroneous high readings.
+- Environmental interference such as wind or nearby water sources causing false tipping.
+
+4. Recommendations for Sensor Verification and Data Validation:
+- Conduct immediate physical inspection and cleaning of the sensor, focusing on catch filter, siphon, bucket interior, and insect screens.
+- Verify wiring integrity and data logger settings to rule out electrical faults.
+- Perform functional tests and calibration checks using Portable Field Calibration Device or pulse counter to confirm sensor accuracy.
+- Review historical data for similar spikes to identify recurring faults.
+- Implement routine maintenance schedule including annual calibration as per HyQuest TB4 guidelines.
+- Cross-validate sensor data with nearby stations or alternative data sources when possible.
+
+5. Next Steps:
+- Schedule on-site sensor inspection and maintenance within the next week.
+- Temporarily flag data from this sensor around the anomaly time as suspect until verification is complete.
+- If sensor fault is confirmed, repair or replace the sensor promptly.
+- Document findings and update anomaly detection protocols to include cross-validation with environmental data.
+
+This assessment supports the conclusion that the rainfall anomaly at AWS_DKI_KebunBibit is most likely due to sensor fault rather than a real meteorological event, with clear actionable steps to verify and resolve the issue.

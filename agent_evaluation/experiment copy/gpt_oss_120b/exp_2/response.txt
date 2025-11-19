@@ -1,0 +1,38 @@
+**Assessment of the 2024-08-19 humidity anomaly at AWS_DIY_STAGEOF_YOGYAKARTA**
+
+1. **Current weather vs. sensor values**
+   - *Satellite‑derived conditions* (≈07:45 UTC): Temperature ≈ 28.8 °C, Relative Humidity ≈ 59 %, Solar Radiation ≈ 591 W/m².
+   - *Sensor‑reported values*: Temperature 30.6 °C (≈+1.8 °C higher), Humidity 0 % (physically impossible given the ambient ~59 %), Radiation 523.8 W/m² (≈‑67 W/m² lower but still within normal morning variability).
+   - **Conclusion**: Temperature and radiation are plausible; humidity is dramatically inconsistent with the ambient environment.
+
+2. **Operational range check**
+   - The Vaisala HMP155 humidity sensor is rated for 0 %–100 % RH with ±1 % accuracy up to 90 % RH. While a 0 % reading is technically within the measurement range, such a value is extremely unlikely under typical atmospheric conditions, especially when surrounding humidity is ~60 %.
+   - The abrupt drop from ~51 % (typical) to 0 % violates expected sensor dynamics (response time ≈20 s for 63 % RH). This indicates a sensor fault rather than a legitimate atmospheric event.
+
+3. **Troubleshooting & maintenance guidance** (Vaisala HMP155)
+   1. Verify wiring and correct connection to analog input channels.
+   2. Confirm 12 V power supply is present on the red wire.
+   3. Measure output voltage on the yellow (temperature) and blue (humidity) wires; values should be within spec.
+   4. Check that multiplier and offset parameters are correctly configured in the data logger.
+   5. Inspect and clean the probe filter; replace if contaminated.
+   6. Perform an annual calibration using the USB interface or MI70 indicator.
+   7. If the sensor still reports 0 % after the above steps, replace the sensor.
+
+4. **Comprehensive assessment & actionable recommendations**
+   - **Root cause**: The humidity sensor is most likely malfunctioning (electrical fault, contamination, or internal degradation). The temperature and solar radiation sensors appear to be operating correctly.
+   - **Immediate actions**:
+     * Conduct the wiring and power checks outlined above.
+     * Measure sensor output voltages to confirm signal integrity.
+     * Clean the probe filter with distilled water.
+   - **Short‑term actions** (within 24‑48 h):
+     * Re‑calibrate the HMP155 using the manufacturer’s procedure.
+     * If calibration does not restore realistic humidity values, schedule a sensor replacement.
+   - **Long‑term actions**:
+     * Implement a routine verification of humidity readings against nearby reference stations or satellite data to catch similar faults early.
+     * Log all maintenance actions and calibration certificates for audit.
+   - **Data handling**: Flag the 2024‑08‑19 humidity data point as invalid and exclude it from climatological analyses. Retain temperature and radiation data for that timestamp.
+
+5. **Correlation with other anomalies**
+   - No other sensor anomalies were reported for this event; temperature and radiation values are consistent with external observations, so no multi‑parameter correlation is evident.
+
+**Overall recommendation**: Treat the humidity reading as erroneous, follow the step‑by‑step troubleshooting, recalibrate, and if necessary replace the HMP155. Continue monitoring humidity trends after corrective actions to confirm sensor health.

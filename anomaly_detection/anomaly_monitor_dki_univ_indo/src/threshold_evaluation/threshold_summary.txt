@@ -1,0 +1,97 @@
+================================================================================
+MULTI-THRESHOLD EVALUATION SUMMARY
+================================================================================
+
+Evaluation Date: 2025-10-20 00:30:54
+Number of Thresholds Tested: 4
+Threshold Range: [0.5000, 0.9000]
+
+ADJUSTMENT STRATEGIES:
+--------------------------------------------------------------------------------
+Segment Adjustment: Yes
+Lag Tolerance: Yes (tolerance=10 timesteps)
+
+OPTIMAL THRESHOLDS:
+--------------------------------------------------------------------------------
+
+Best F1_SCORE:
+  Threshold: 0.9000
+  f1_score: 0.8519
+  Accuracy: 0.9813
+  Precision: 0.7895
+  Recall: 0.9251
+  F1-Score: 0.8519
+  Detection Rate: 0.9251
+
+Best ACCURACY:
+  Threshold: 0.9000
+  accuracy: 0.9813
+  Accuracy: 0.9813
+  Precision: 0.7895
+  Recall: 0.9251
+  F1-Score: 0.8519
+  Detection Rate: 0.9251
+
+Best PRECISION:
+  Threshold: 0.9000
+  precision: 0.7895
+  Accuracy: 0.9813
+  Precision: 0.7895
+  Recall: 0.9251
+  F1-Score: 0.8519
+  Detection Rate: 0.9251
+
+Best RECALL:
+  Threshold: 0.5000
+  recall: 0.9666
+  Accuracy: 0.9439
+  Precision: 0.5803
+  Recall: 0.9666
+  F1-Score: 0.7252
+  Detection Rate: 0.9666
+
+Best DETECTION_RATE:
+  Threshold: 0.5000
+  detection_rate: 0.9666
+  Accuracy: 0.9439
+  Precision: 0.5803
+  Recall: 0.9666
+  F1-Score: 0.7252
+  Detection Rate: 0.9666
+
+================================================================================
+TOP 5 THRESHOLDS BY F1-SCORE:
+================================================================================
+
+Threshold: 0.9000
+  F1-Score: 0.8519
+  Accuracy: 0.9813
+  Precision: 0.7895
+  Recall: 0.9251
+  Detection Rate: 0.9251
+  TP/FP/TN/FN: 210.0/56.0/3618.0/17.0
+
+Threshold: 0.8000
+  F1-Score: 0.8170
+  Accuracy: 0.9746
+  Precision: 0.7270
+  Recall: 0.9325
+  Detection Rate: 0.9325
+  TP/FP/TN/FN: 221.0/83.0/3581.0/16.0
+
+Threshold: 0.7000
+  F1-Score: 0.7867
+  Accuracy: 0.9672
+  Precision: 0.6743
+  Recall: 0.9440
+  Detection Rate: 0.9440
+  TP/FP/TN/FN: 236.0/114.0/3537.0/14.0
+
+Threshold: 0.5000
+  F1-Score: 0.7252
+  Accuracy: 0.9439
+  Precision: 0.5803
+  Recall: 0.9666
+  Detection Rate: 0.9666
+  TP/FP/TN/FN: 289.0/209.0/3393.0/10.0
+

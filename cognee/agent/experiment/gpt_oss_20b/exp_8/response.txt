@@ -1,0 +1,32 @@
+
+**Assessment Report – AWS_DIY_UGM Temperature Anomaly**
+
+1. **Current Weather Conditions (2024‑08‑15 19:00‑21:00 UTC)**
+   - Temperature: 20.2 °C to 20.7 °C (stable, 20.5 °C at anomaly time)
+   - Humidity: 85‑87 %
+   - Wind: 5.5‑5.9 m s⁻¹ from NW (≈ 320°)
+   - Precipitation: 0 mm
+   - Solar radiation: 0 W m⁻² (nighttime)
+   - Surface pressure: 994.9‑995.0 hPa
+
+2. **Sensor Operational Range & Sensitivity**
+   - Vaisala HMP155 is rated for –40 °C to +50 °C with ±0.5 °C accuracy.
+   - The anomalous reading of 2.0 °C is far below the ambient 20.5 °C, exceeding the sensor’s ±3σ threshold and indicating a fault rather than a true environmental change.
+
+3. **Troubleshooting & Maintenance Recommendations**
+   - **Immediate actions**: Replace the temperature sensor module; verify wiring and connector integrity.
+   - **Calibration check**: Perform a quick calibration against a reference thermometer.
+   - **Software**: Update firmware to the latest version to rule out known bugs.
+   - **Monitoring**: Enable self‑diagnostic logging for the next 24 h to confirm the replacement resolves the issue.
+
+4. **Trend Analysis Context**
+   - The sudden drop to 2.0 °C with no concurrent humidity rise and a broken correlation strongly points to a sensor fault.
+   - No other anomalies (humidity, wind, pressure) were detected in the same period.
+
+5. **Actionable Recommendations**
+   1. Replace the HMP155 temperature sensor.
+   2. Verify sensor mounting and exposure to avoid future micro‑climate effects.
+   3. Schedule a quarterly calibration audit.
+   4. Implement automated anomaly alerts for temperature deviations >3σ.
+
+**Conclusion**: The anomaly is attributable to a sensor fault. Correcting the sensor and implementing preventive maintenance will restore data integrity.

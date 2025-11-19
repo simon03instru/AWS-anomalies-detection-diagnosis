@@ -1,0 +1,145 @@
+HMP155 maintenance 
+
+Preventive maintenance for HMP155 includes:
+Checking that the probe is securely mounted.
+Checking that the radiation shield and cable are intact.
+Cleaning the radiation shield using mild detergent and a soft, lint-free cloth.
+Changing the probe filter once a year.
+
+If the measurement site is exposed to air pollution and dust, the probe filter may need to be changed more frequently.
+
+Changing HMP155 probe filter
+Over time, the probe filter becomes contaminated with matter that you cannot remove by cleaning. When this happens, the response time becomes longer and measurement accuracy decreases.
+CAUTION The Pt100 temperature sensor is soldered to the probe. Do not try to remove it. Due to the operating principles of the sensor, no maintenance is required.
+1. Remove the probe from inside the radiation shield.
+2. Carefully remove the filter from the probe. Holding the filter by the plastic part, rotate the filter counterclockwise and pull it out.
+CAUTION Do not touch the sensor heads.
+3. After removing the filter, check the O‑ring and change it if necessary.
+4. Install the new filter carefully without delay.
+5. Install the probe back inside the radiation shield.
+
+Troubleshooting
+Symptom: Relative Humidity is reported as –9999, NAN, –80 °C, or 0%
+1. Check that the sensor is wired to the correct analog input channels as specified by the
+measurement instructions.
+2. Verify the range code for the single-ended or differential measurement instruction is
+correct for the data logger type.
+3. Verify the red power wire is correctly wired to the 12V or SW12V channel. The channel the
+wire is connected to will depend on the data logger program.
+4. Connect the red wire to a 12V terminal to constantly power the sensor for troubleshooting
+purposes. With the red wire connected to 12V, a voltmeter can be used to check the output
+voltage for temperature and relative humidity on the yellow and blue wires respectively
+(temperature °C = mV * 0.14 – 80.0; relative humidity % = mV * 0.1).
+Symptom: Incorrect temperature or relative humidity
+1. Verify the multiplier and offset parameters are correct for the desired units (Data logger
+programming (p. 10)).
+
+Maintenance
+The HMP155A probe requires minimal maintenance. Check monthly to make sure the radiation
+shield is free from debris. The white screen at the tip of the probe should also be checked for
+contaminates.
+When installed in close proximity to the ocean or other bodies of salt water, a coating of salt
+(mostly NaCl) may build up on the radiation shield, sensor, filter and even the chip. NaCl has an
+affinity for water. The humidity over a saturated NaCl solution is 75%. A buildup of salt on the
+filter or chip will delay or destroy the response to atmospheric humidity.
+The filter can be rinsed gently in distilled water. If necessary, the chip can be removed and rinsed
+as well. Do not scratch the chip while cleaning.
+Recalibrate the HMP155A annually. Refer to the Assistance page at the back of this document for
+the procedure for returning the HMP155A to the factory to get recalibrated.
+
+Cleaning
+Clean the probe with a soft, lint-free cloth moistened with mild detergent.
+Changing the probe filter
+1. Remove the filter from the probe.
+2. After removing the filter, check the O-ring and change it if necessary.
+3. Install a new filter on the probe.
+New filters can be ordered from Campbell Scientific or Vaisala.
+
+
+HygroVue Maintenance
+Syptoms, Possible causes and Solutions for HygroVue:
+
+1. Temperature is reported as
+–9999 or NAN, and relative
+humidity is reported as 0 or
+an unchanging value.
+
+This indicates a problem
+with the SDI-12
+communications with the
+sensor.
+
+Recheck the sensor wiring.
+Check the voltage to the sensor is 12V
+with a digital voltage meter.
+Verify the sensor SDI-12 address
+matches the address entered for the
+SDI12Recorder() instruction.
+
+2. Inaccurate temperature or
+relative humidity is
+reported.
+
+Inadequate delay after
+power-up (only applicable
+if using SW12)
+The sensor element has
+been contaminated
+Electrical interference
+
+Verify the program is allowing a
+power-up time of at least 1.8 s.
+Clean the sensor tip with distilled
+water or replace it.
+Ensure the sensor is not installed too
+close to a radio transmitter or cell
+phone.
+
+3. Temperature and relative
+humidity read –99.999
+
+This indicates a fault with
+the sensor element itself or
+communication between
+the sensor element and the
+electronics in the sensor
+body.
+
+Check the sensor element is properly
+plugged in with the correct
+orientation.
+Check for water being present under
+the sensor element connector and
+there is no corrosion of the sensor
+pins or the socket.
+Swap the element for another one.
+
+
+Maintenance
+The HygroVue 10 sensor requires minimal maintenance, but dust, debris, and salts on the filter
+cap will degrade sensor performance. Check the white filter on the end of the sensor for debris. If
+dirt or salt is ingrained in the filter, clean with distilled water or replace it. Make sure the filter is
+screwed onto the sensor firmly with your fingers—do not over tighten.
+Check the radiation shield monthly to make sure it is free from dust and debris. To clean the
+shield, first remove the sensor. Dismount the shield. Brush all loose dirt off. If more effort is
+needed, use warm, soapy water and a soft cloth or brush to thoroughly clean the shield. Allow
+the shield to dry before remounting.
+CAUTION:
+The HygroVue 10 sensor body is sealed and filled with a potting compound to totally protect
+the electronics from any water ingress. This means there are no serviceable parts within the
+sensor body
+
+
+Calibration
+The life of the sensor element is primarily limited by drift of the humidity sensor and your own
+acceptance of the errors incurred. Typical drift is less than 1% per year when used in cleaner
+environments but can be higher in polluted air. Because it can be difficult to know what the
+sensor has been exposed to, and because the element is relatively inexpensive, Campbell
+Scientific recommends replacing the sensor element annually. Replacing the element effectively
+brings the sensor back to a factory calibration state both for temperature and relative humidity.
+If you wish to check an old element’s calibration, you can measure its performance by plugging it
+into another sensor body in your calibration laboratory.
+NOTE:
+We cannot guarantee the accuracy of measurements if the sensor element is not changed
+every yea
+

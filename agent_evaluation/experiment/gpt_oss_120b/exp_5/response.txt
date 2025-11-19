@@ -1,0 +1,25 @@
+
+**Assessment**
+- The satellite‑based weather observation at the site (12.1 °C, 88 % RH, light rain, 22 m/s wind, 1006 hPa) is far warmer than the sensor‑reported 2.96 °C. The 9 °C difference and the abrupt ~25 °C drop relative to the 20‑interval mean cannot be explained by the ambient conditions, indicating a sensor fault rather than a true meteorological event.
+- The Vaisala HMP155 temperature sensor’s operational range (‑80 °C to +60 °C) easily accommodates both the observed 12 °C and the erroneous 2.96 °C, so the reading itself is not out‑of‑range, but the rapid deviation suggests a malfunction (e.g., probe contamination, wiring issue, or calibration drift).
+
+**Likely Cause**
+- Sudden temperature drop is most likely due to a temperature sensor malfunction (contaminated probe/filter, loose wiring, or need for recalibration/replacement).
+
+**Actionable Recommendations**
+1. **Immediate Inspection**
+   - Verify correct 12 V power and wiring connections.
+   - Measure output voltage on temperature and humidity leads to confirm signal integrity.
+2. **Cleaning & Maintenance**
+   - Gently clean the probe, screen, and sintered Teflon filter with a lint‑free cloth and mild detergent.
+   - Inspect and replace the probe filter and O‑ring if any contamination is observed.
+3. **Calibration**
+   - Perform an on‑site calibration of the HMP155 (annual calibration recommended) using the USB interface or MI70 indicator.
+4. **Replacement**
+   - If the anomaly persists after cleaning and calibration, replace the temperature probe element (annual replacement is standard practice).
+5. **Documentation & Monitoring**
+   - Log the inspection steps and any corrective actions taken.
+   - Increase monitoring frequency for the next 24‑48 h to confirm that temperature readings align with satellite observations.
+
+**Conclusion**
+The anomaly is almost certainly a temperature sensor fault. The recommended troubleshooting and maintenance steps should restore accurate temperature measurements and prevent future false‑positive anomalies.

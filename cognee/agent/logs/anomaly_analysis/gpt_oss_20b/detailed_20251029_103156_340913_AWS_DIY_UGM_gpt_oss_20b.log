@@ -1,0 +1,1138 @@
+
+================================================================================
+DETAILED ANOMALY PROCESSING LOG
+================================================================================
+LLM: gpt_oss_20b
+Anomaly ID: AWS_DIY_UGM_2024-08-15T20-10-00
+Event Type: WEATHER_ANOMALY_CONFIRMED
+Correlation ID: anomaly-AWS_DIY_UGM-1761733837
+Timestamp: 2025-10-29 10:31:56
+Log File: detailed_20251029_103156_340913_AWS_DIY_UGM_gpt_oss_20b.log
+================================================================================
+
+
+================================================================================
+ORIGINAL ANOMALY DATA
+================================================================================
+{
+  "event_type": "WEATHER_ANOMALY_CONFIRMED",
+  "timestamp": "2025-10-29T10:30:37.560372",
+  "source": "StationAgent-AWS_DIY_UGM",
+  "data": {
+    "timestamp": "2024-08-15T20:10:00",
+    "station_id": "AWS_DIY_UGM",
+    "station_metadata": {
+      "location": "UGM Yogyakarta, Indonesia",
+      "latitude": -7.768469,
+      "longitude": 110.38192,
+      "altitude": 48.0,
+      "sensor_info": {
+        "pp": {
+          "brand": "Vaisala PTB110",
+          "last_calibration": "2024-03-15"
+        }
+      }
+    },
+    "confirmed_anomalies": [
+      {
+        "parameter": "Atmospheric Pressure",
+        "parameter_code": "pp",
+        "value": -9999.0,
+        "unit": "hPa",
+        "sensor_brand": "Vaisala PTB110",
+        "sensor_range": "850-1100 hPa",
+        "trend_analysis": "Invalid sentinel value -9999.0 hPa - sensor communication failure or dead pressure sensor. Value far outside normal range (995-996 hPa). Correlation with temperature and wind direction cannot be assessed due to sensor fault."
+      }
+    ],
+    "validation_timestamp": "2025-10-29T10:30:37.560354",
+    "has_trend_analysis": true
+  },
+  "correlation_id": "anomaly-AWS_DIY_UGM-1761733837"
+}
+================================================================================
+
+
+================================================================================
+WORKFORCE PROCESSING STARTED
+================================================================================
+LLM: gpt_oss_20b
+Initial Query:
+Analyze the following weather anomaly detected at AWS_DIY_UGM:
+
+Event Detection Time: 2024-08-15T20:10:00
+Station: AWS_DIY_UGM
+Location: UGM Yogyakarta, Indonesia
+Coordinates: Latitude -7.768469, Longitude 110.38192, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Atmospheric Pressure
+  Value: -9999.0
+  Sensor Brand: Vaisala PTB110
+  Trend Analysis: Invalid sentinel value -9999.0 hPa - sensor communication failure or dead pressure sensor. Value far outside normal range (995-996 hPa). Correlation with temperature and wind direction cannot be assessed due to sensor fault.
+
+Validation Timestamp: 2025-10-29T10:30:37.560354
+Correlation ID: anomaly-AWS_DIY_UGM-1761733837
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.
+================================================================================
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: sensor_search_sensor_knowledge
+--------------------------------------------------------------------------------
+Tool: sensor_search_sensor_knowledge
+Call Count: 1
+Timestamp: 10:32:34.335
+
+Keyword Arguments:
+    {
+      "node_sets": [
+        "pressure_sensor"
+      ],
+      "query": "Vaisala PTB110 pressure operating range"
+    }
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: maintenance_search_maintenance_knowledge
+--------------------------------------------------------------------------------
+Tool: maintenance_search_maintenance_knowledge
+Call Count: 1
+Timestamp: 10:32:35.752
+
+Keyword Arguments:
+    {
+      "node_sets": [
+        "pressure_sensor"
+      ],
+      "query": "Vaisala PTB110 sensor -9999.0 hPa troubleshooting"
+    }
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: get_weather
+--------------------------------------------------------------------------------
+Tool: get_weather
+Call Count: 1
+Timestamp: 10:32:38.035
+
+Keyword Arguments:
+    {
+      "end_time": "2025-10-29T11:30:00Z",
+      "latitude": -7.768469,
+      "longitude": 110.38192,
+      "parameters": [
+        "surface_pressure",
+        "temperature_2m",
+        "winddirection_10m"
+      ],
+      "start_time": "2025-10-29T09:30:00Z"
+    }
+
+Execution Time: 1.499 seconds
+Result Length: 418 characters
+
+Result:
+    {
+      "times": [
+        "2025-10-29T09:30",
+        "2025-10-29T09:45",
+        "2025-10-29T10:00",
+        "2025-10-29T10:15",
+        "2025-10-29T10:30",
+        "2025-10-29T10:45",
+        "2025-10-29T11:00",
+        "2025-10-29T11:15",
+        "2025-10-29T11:30"
+      ],
+      "surface_pressure": [
+        994.0,
+        994.1,
+        994.2,
+        994.5,
+        994.8,
+        995.2,
+        995.5,
+        995.7,
+        995.8
+      ],
+      "temperature_2m": [
+        26.5,
+        26.2,
+        26.0,
+        25.9,
+        25.6,
+        25.4,
+        25.2,
+        25.1,
+        25.0
+      ],
+      "winddirection_10m": [
+        205,
+        204,
+        203,
+        205,
+        204,
+        207,
+        210,
+        211,
+        212
+      ]
+    }
+--------------------------------------------------------------------------------
+
+
+Execution Time: 10.355 seconds
+Result Length: 720 characters
+
+Result:
+    The -9999.0 hPa reading from the Vaisala PTB110 sensor indicates invalid data, which is not caused by a missing sensor or sensor adjustment issues. Troubleshooting steps may include checking the sensor calibration, ensuring proper connections, and verifying the environmental conditions affecting the sensor.
+    
+    The Vaisala PTB110 sensor displaying -9999.0 hPa could indicate a malfunction or an error in measurement, potentially related to its operating humidity conditions. Ensure the sensor is functioning within the specified operating humidity range and check for any condensation which could affect performance. Additionally, verify the pressure range settings and compatibility with the PTB210 model specifications.
+--------------------------------------------------------------------------------
+
+
+Execution Time: 11.787 seconds
+Result Length: 363 characters
+
+Result:
+    The operating range of the Vaisala PTB110 pressure sensor is not explicitly stated in the provided context. Additional specifications may be needed to determine the exact pressure operating range.
+    
+    The operating pressure range for the Vaisala PTB110 is not explicitly mentioned in the provided context, but it is related to the pressure range of the PTB210 model.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #2: sensor_search_sensor_knowledge
+--------------------------------------------------------------------------------
+Tool: sensor_search_sensor_knowledge
+Call Count: 2
+Timestamp: 10:33:02.852
+
+Keyword Arguments:
+    {
+      "node_sets": [
+        "pressure_sensor"
+      ],
+      "query": "Vaisala PTB110 pressure sensor operating pressure range"
+    }
+
+Execution Time: 7.161 seconds
+Result Length: 419 characters
+
+Result:
+    The operating pressure range of the Vaisala PTB110 pressure sensor is not specified in the provided context.
+    
+    The operating pressure range for the Vaisala PTB110 pressure sensor is not explicitly provided in the context. However, it does reference the PTB210 model, which has a pressure range. Further details on the specific pressure range for PTB110 would need to be sourced from product specifications or datasheets.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #3: sensor_search_sensor_knowledge
+--------------------------------------------------------------------------------
+Tool: sensor_search_sensor_knowledge
+Call Count: 3
+Timestamp: 10:33:28.698
+
+Keyword Arguments:
+    {
+      "node_sets": [
+        "pressure_sensor"
+      ],
+      "query": "Vaisala PTB110 pressure sensor operating pressure range"
+    }
+
+Execution Time: 7.220 seconds
+Result Length: 384 characters
+
+Result:
+    The provided context does not specify the operating pressure range of the Vaisala PTB110 pressure sensor.
+    
+    The operating pressure range for the Vaisala PTB110 pressure sensor is not explicitly mentioned in the provided context. However, it is indicated that there are different pressure ranges available for the PTB210 model, which might suggest a similar range exists for the PTB110.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #4: sensor_search_sensor_knowledge
+--------------------------------------------------------------------------------
+Tool: sensor_search_sensor_knowledge
+Call Count: 4
+Timestamp: 10:33:53.753
+
+Keyword Arguments:
+    {
+      "node_sets": [
+        "pressure_sensor"
+      ],
+      "query": "Vaisala PTB110 pressure sensor operating pressure range"
+    }
+
+Execution Time: 6.970 seconds
+Result Length: 331 characters
+
+Result:
+    The operating pressure range of the Vaisala PTB110 pressure sensor is not explicitly mentioned in the provided context.
+    
+    The context does not specify the exact operating pressure range for the Vaisala PTB110 pressure sensor. However, it mentions the Vaisala PTB210, which is described as having different pressure ranges available.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #5: sensor_search_sensor_knowledge
+--------------------------------------------------------------------------------
+Tool: sensor_search_sensor_knowledge
+Call Count: 5
+Timestamp: 10:34:18.562
+
+Keyword Arguments:
+    {
+      "node_sets": [
+        "pressure_sensor"
+      ],
+      "query": "Vaisala PTB110 operating pressure range"
+    }
+
+Execution Time: 6.757 seconds
+Result Length: 302 characters
+
+Result:
+    The operating pressure range for the Vaisala PTB110 is not specified in the provided context.
+    
+    The operating pressure range for the Vaisala PTB110 is not explicitly stated in the provided context, as it refers to the PTB210. However, it mentions that the PTB210 has different pressure ranges available.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+STDOUT CAPTURE
+--------------------------------------------------------------------------------
+[33mWorker node f674a2df-f7ef-4005-9246-a21027c45902 (Weather data analysis) get task 9a0cf5ca-d808-4df1-ab26-846e84908088.1: Retrieve the current atmospheric pressure, temperature, and wind direction at latitude -7.768469, longitude 110.38192 on 2025-10-29T10:30:37.560354 and report the values.[39m
+[33mWorker node 9795c0a7-f6a2-4fe5-a8c1-f39d6a9e0540 (Sensor specifications) get task 9a0cf5ca-d808-4df1-ab26-846e84908088.2: Check the valid pressure operating range for the Vaisala PTB110 sensor and state whether the value -9999.0 hPa falls within that range, including the sensor's specified range.[39m
+[33mWorker node 3eee1daa-a09b-4b47-9d8e-a9840c8c3e32 (Maintenance information) get task 9a0cf5ca-d808-4df1-ab26-846e84908088.3: Search for troubleshooting information related to the Vaisala PTB110 sensor reporting -9999.0 hPa, and list possible causes and recommended maintenance actions.[39m
+======
+[32mResponse from Worker node f674a2df-f7ef-4005-9246-a21027c45902 (Weather data analysis):[39m
+
+[32mAt 2025-10-29T10:30:37 UTC, the satellite-derived weather data for latitude -7.768469, longitude 110.38192 shows an atmospheric pressure of about 994.8 hPa, a temperature of roughly 25.6 °C, and a wind direction of approximately 204° (south‑southwest). These values are within normal ranges for the region and contrast sharply with the anomalous -9999.0 hPa reading from the sensor, indicating a likely sensor fault.[39m
+======
+[36m🎯 Task 9a0cf5ca-d808-4df1-ab26-846e84908088.1 completed successfully.[39m
+   📝 Logged 2 chunks for query: 'Vaisala PTB110 pressure operating range...'
+   📝 Logged 2 chunks for query: 'Vaisala PTB110 sensor -9999.0 hPa troubleshooting...'
+======
+[32mResponse from Worker node 3eee1daa-a09b-4b47-9d8e-a9840c8c3e32 (Maintenance information):[39m
+
+[32mThe search results indicate that a -9999.0 hPa reading from a Vaisala PTB110 sensor is an invalid data sentinel value, typically caused by sensor malfunction or communication failure. Possible causes include:
+1. Sensor calibration drift or failure.
+2. Loose or damaged electrical connections.
+3. Environmental conditions outside the sensor’s operating humidity range, leading to condensation or moisture interference.
+4. Incorrect pressure range settings or incompatibility with the PTB210 model specifications.
+Recommended maintenance actions:
+- Verify and, if necessary, recalibrate the PTB110 sensor according to Vaisala’s calibration procedure.
+- Inspect all wiring and connectors for secure attachment, corrosion, or damage; replace any faulty components.
+- Check the sensor’s operating humidity and temperature conditions; ensure they remain within specified limits and address any condensation issues.
+- Confirm that the pressure range settings match the expected atmospheric pressure range for the site; adjust settings or replace the sensor if incompatible.
+- Perform a communication test between the sensor and the data acquisition system to rule out software or firmware issues.
+- If problems persist after these steps, consider replacing the sensor with a new or refurbished unit.[39m
+======
+[36m🎯 Task 9a0cf5ca-d808-4df1-ab26-846e84908088.3 completed successfully.[39m
+======
+[32mResponse from Worker node 9795c0a7-f6a2-4fe5-a8c1-f39d6a9e0540 (Sensor specifications):[39m
+
+[32mThe search results indicate that the operating range of the Vaisala PTB110 pressure sensor is not explicitly stated in the available sensor knowledge base. Therefore, it is not possible to confirm whether the value –9999.0 hPa falls within the sensor’s specified operating range based on the current information.[39m
+======
+[31mTask 9a0cf5ca-d808-4df1-ab26-846e84908088.2: Content validation failed - task marked as failed[39m
+[33mWorker node 9795c0a7-f6a2-4fe5-a8c1-f39d6a9e0540 (Sensor specifications) get task 9a0cf5ca-d808-4df1-ab26-846e84908088.2.1: Search the sensor knowledge base for the Vaisala PTB110 pressure sensor to find its specified operating pressure range, then determine if the value -9999.0 hPa lies within that range and report the result. The output should be a concise statement indicating the range and whether the value is within it.[39m
+   📝 Logged 2 chunks for query: 'Vaisala PTB110 pressure sensor operating pressure ...'
+======
+[32mResponse from Worker node 9795c0a7-f6a2-4fe5-a8c1-f39d6a9e0540 (Sensor specifications):[39m
+
+[31mNo information found in sensor knowledge base[39m
+======
+[33mWorker node 9795c0a7-f6a2-4fe5-a8c1-f39d6a9e0540 (Sensor specifications) get task 9a0cf5ca-d808-4df1-ab26-846e84908088.2.1.1: Search the sensor knowledge base for the Vaisala PTB110 pressure sensor to find its specified operating pressure range, then determine if the value -9999.0 hPa lies within that range and report the result. The output should be a concise statement indicating the range and whether the value is within it, e.g., "Operating pressure range: X–Y hPa. Value -9999.0 hPa is [within/outside] the range."[39m
+   📝 Logged 2 chunks for query: 'Vaisala PTB110 pressure sensor operating pressure ...'
+======
+[32mResponse from Worker node 9795c0a7-f6a2-4fe5-a8c1-f39d6a9e0540 (Sensor specifications):[39m
+
+[31mNo information found in sensor knowledge base[39m
+======
+[33mWorker node 9795c0a7-f6a2-4fe5-a8c1-f39d6a9e0540 (Sensor specifications) get task 9a0cf5ca-d808-4df1-ab26-846e84908088.2.1.1: Search the sensor knowledge base for the Vaisala PTB110 pressure sensor to find its specified operating pressure range. If the range is not found, search external resources for the operating range. Then determine if the value -9999.0 hPa lies within that range and report the result concisely, e.g., "Operating pressure range: X–Y hPa. Value -9999.0 hPa is [within/outside] the range."[39m
+   📝 Logged 2 chunks for query: 'Vaisala PTB110 pressure sensor operating pressure ...'
+======
+[32mResponse from Worker node 9795c0a7-f6a2-4fe5-a8c1-f39d6a9e0540 (Sensor specifications):[39m
+
+[31mNo information found in sensor knowledge base[39m
+======
+[33mWorker node 9795c0a7-f6a2-4fe5-a8c1-f39d6a9e0540 (Sensor specifications) get task 9a0cf5ca-d808-4df1-ab26-846e84908088.2.1.1: Search the sensor knowledge base for the Vaisala PTB110 pressure sensor operating pressure range. If not found, search external resources such as the manufacturer's datasheet or website for the operating range. Then determine if the value -9999.0 hPa is within that range and report concisely, e.g., 'Operating pressure range: X–Y hPa. Value -9999.0 hPa is [within/outside] the range.'[39m
+   📝 Logged 2 chunks for query: 'Vaisala PTB110 operating pressure range...'
+======
+[32mResponse from Worker node 9795c0a7-f6a2-4fe5-a8c1-f39d6a9e0540 (Sensor specifications):[39m
+
+[31mNo information found in sensor knowledge base[39m
+======
+[31mTask 9a0cf5ca-d808-4df1-ab26-846e84908088.2.1.1 has failed for 3 times, halting the workforce. Final error: No information found in sensor knowledge base[39m
+
+--------------------------------------------------------------------------------
+
+
+================================================================================
+FINAL OUTPUT - SYNTHESIZED RESULT
+================================================================================
+--- Subtask 9a0cf5ca-d808-4df1-ab26-846e84908088.1 Result ---
+At 2025-10-29T10:30:37 UTC, the satellite-derived weather data for latitude -7.768469, longitude 110.38192 shows an atmospheric pressure of about 994.8 hPa, a temperature of roughly 25.6 °C, and a wind direction of approximately 204° (south‑southwest). These values are within normal ranges for the region and contrast sharply with the anomalous -9999.0 hPa reading from the sensor, indicating a likely sensor fault.
+
+--- Subtask 9a0cf5ca-d808-4df1-ab26-846e84908088.2 Result ---
+The search results indicate that the operating range of the Vaisala PTB110 pressure sensor is not explicitly stated in the available sensor knowledge base. Therefore, it is not possible to confirm whether the value –9999.0 hPa falls within the sensor’s specified operating range based on the current information.
+
+--- Subtask 9a0cf5ca-d808-4df1-ab26-846e84908088.3 Result ---
+The search results indicate that a -9999.0 hPa reading from a Vaisala PTB110 sensor is an invalid data sentinel value, typically caused by sensor malfunction or communication failure. Possible causes include:
+1. Sensor calibration drift or failure.
+2. Loose or damaged electrical connections.
+3. Environmental conditions outside the sensor’s operating humidity range, leading to condensation or moisture interference.
+4. Incorrect pressure range settings or incompatibility with the PTB210 model specifications.
+Recommended maintenance actions:
+- Verify and, if necessary, recalibrate the PTB110 sensor according to Vaisala’s calibration procedure.
+- Inspect all wiring and connectors for secure attachment, corrosion, or damage; replace any faulty components.
+- Check the sensor’s operating humidity and temperature conditions; ensure they remain within specified limits and address any condensation issues.
+- Confirm that the pressure range settings match the expected atmospheric pressure range for the site; adjust settings or replace the sensor if incompatible.
+- Perform a communication test between the sensor and the data acquisition system to rule out software or firmware issues.
+- If problems persist after these steps, consider replacing the sensor with a new or refurbished unit.
+
+
+Output Statistics:
+  - length: 2210
+  - word_count: 307
+  - line_count: 19
+  - is_error: False
+================================================================================
+
+
+================================================================================
+DOCUMENT CHUNKS RETRIEVED FROM RAG
+================================================================================
+Total RAG Queries: 8
+Log File: chunk_retrieval_20251029_102829.jsonl
+--------------------------------------------------------------------------------
+
+
+Query #1:
+  Query: Vaisala PTB110 atmospheric pressure sensor specifications operational pressure range sensitivity sentinel -9999.0 hPa
+  Dataset: sensor_knowledge
+  Node Sets: pressure_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. PTB110 Maintenance
+PTB110 does not require regular maintenance.
+The sensor has no replaceable parts. If the sensor malfunctions, replace it.
+
+ADJUSTMENT AND CALIBRATION
+Calibration of the PTB110 series barometers is NIST traceable
+and the barometers are supplied with a NIST traceable
+calibration certificate.
+There are two push buttons available for the offset fine
+adjustment inside the barometer (see the figure on the previous
+page). The adjustment step is 0.05 hPa.
+OPERATING THE BUTTONS
+Restoring Adjustments
+To restore the adjustments, press and hold down the left button
+while switching on the barometer. After releasing the button, a
+green LED starts flashing.
+When the factory adjustments are in use, the green LED flashes
+twice. When the user adjustments are in use, the green LED
+flashes three times.
+Now you can change the factory adjustments to user adjustments
+or vice versa by pressing the left button.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+Using Analog Output Test Mode
+To activate the test mode, press and hold down the right button
+while switching on the barometer.
+The function forces the voltage or frequency output to 50% of
+the scale. As an indication of the test mode, the red LED is lit.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+Offset Correction
+To activate the offset correction mode, press and hold down both
+buttons switching on the barometer.
+The green and red LEDs are lit. Now you can adjust the offset
+correction upwards or downwards.
+ Each time when pressing the left button, the offset
+goes down by one step (5 Pa), and the green LED
+flashes once.
+ Each time when pressing the right button, the offset
+goes up by one step (5 Pa), and the red LED flashes
+once.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+
+
+BaroVue Maintenance
+
+Troubleshooting
+Symptom: Pressure and temperature values are returned as NAN.
+l Check that the sensor card is inserted fully in its socket and in the correct orientation (see
+Figure 9-1 [p. 29]).
+l Verify that the white wire is connected to the terminal specified by the
+SDI12Recorder() instruction.
+l Verify that the red wire is connected to a 12V terminal and that the black wire is connected
+to the G terminal.
+l Use a digital voltage meter to check the voltage to the sensor. If a switched 12V terminal is
+used, temporarily connect the red wire to a non-switched 12V terminal for test purposes.
+l Verify that the BaroVUE 10 SDI-12 address matches the address entered for the
+SDI12Recorder() instruction. The default address is 0. The address can be verified or
+changed with the commands described in SDI-12 command basics (p. 32) or by using the
+Device Configuration Utility (p. 21).
+
+Maintenance
+Required maintenance includes regularly changing the desiccant and recalibrating the sensor
+card. When the Enclosure Accessory Humidity Indicator Card changes from blue to pink, replace
+the desiccant in the enclosure and, if applicable, the desiccant chamber.
+The BaroVUE 10 calculates information about the quality of the measurement (see Quality metric
+[p. 19]). The quality metric gives information about the reliability of the data; a poor quality metric
+may mean the data is unreliable, and the device should be sent to the factory for calibration.
+However, it is recommended that the sensor card be sent to Campbell Scientific for calibration
+
+
+Sensor card replacement procedure
+CAUTION:
+The BaroVUE 10 is sensitive to static when the main case is opened. To avoid damage, take
+adequate anti-static measures when handling.
+1. 2. Contact Campbell Scientific for your replacement sensor card. When received, take this
+newly calibrated card with you to the site of the BaroVUE 10 installation.
+Open the main case by unclipping the latch and opening the main door. See Figure 8-1 (p.
+21).
+l Sensor card plugs into the silver card socket mounted on the motherboard (see
+Figure 9-1 [p. 29]).
+l Correct sensor-card orientation is with card notch facing down (towards the
+motherboard). The card revision number should be visible.
+CAUTION:
+the slot.
+If the sensor card is oriented incorrectly, it will not insert fully. Do not force the card into
+To remove the sensor card, push the card down towards the socket then release. Spring
+tension pushes the sensor card out of the socket.
+NOTE:
+The sensor card can be safely removed while the BaroVUE 10 is connected to power.
+Store the old sensor card in an electrostatic protective package and return it to Campbell
+Scientific for recalibration or general servicing.
+Unpack the replacement sensor card, avoiding static discharges to the element by touching
+the package before touching the element.
+Carefully align and insert the sensor card in the card socket on the motherboard.
+Confirm the correct orientation and gently push the sensor card into the socket until it
+clicks into place.
+Before closing the main case, double-check that the card is inserted in the correct
+orientation. Refer to Figure 8-1 (p. 21).
+Close the main case and secure it by pressing down on the latch and clipping it into
+position
+
+    2. [No DocumentChunk text found]
+
+
+Query #2:
+  Query: Vaisala PTB110 pressure sensor communication failure -9999.0 hPa troubleshooting
+  Dataset: maintenance_knowledge
+  Node Sets: pressure_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. [No DocumentChunk text found]
+    2. [No DocumentChunk text found]
+
+
+Query #3:
+  Query: Vaisala PTB110 pressure operating range
+  Dataset: sensor_knowledge
+  Node Sets: pressure_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. PTB110 Maintenance
+PTB110 does not require regular maintenance.
+The sensor has no replaceable parts. If the sensor malfunctions, replace it.
+
+ADJUSTMENT AND CALIBRATION
+Calibration of the PTB110 series barometers is NIST traceable
+and the barometers are supplied with a NIST traceable
+calibration certificate.
+There are two push buttons available for the offset fine
+adjustment inside the barometer (see the figure on the previous
+page). The adjustment step is 0.05 hPa.
+OPERATING THE BUTTONS
+Restoring Adjustments
+To restore the adjustments, press and hold down the left button
+while switching on the barometer. After releasing the button, a
+green LED starts flashing.
+When the factory adjustments are in use, the green LED flashes
+twice. When the user adjustments are in use, the green LED
+flashes three times.
+Now you can change the factory adjustments to user adjustments
+or vice versa by pressing the left button.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+Using Analog Output Test Mode
+To activate the test mode, press and hold down the right button
+while switching on the barometer.
+The function forces the voltage or frequency output to 50% of
+the scale. As an indication of the test mode, the red LED is lit.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+Offset Correction
+To activate the offset correction mode, press and hold down both
+buttons switching on the barometer.
+The green and red LEDs are lit. Now you can adjust the offset
+correction upwards or downwards.
+ Each time when pressing the left button, the offset
+goes down by one step (5 Pa), and the green LED
+flashes once.
+ Each time when pressing the right button, the offset
+goes up by one step (5 Pa), and the red LED flashes
+once.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+
+
+BaroVue Maintenance
+
+Troubleshooting
+Symptom: Pressure and temperature values are returned as NAN.
+l Check that the sensor card is inserted fully in its socket and in the correct orientation (see
+Figure 9-1 [p. 29]).
+l Verify that the white wire is connected to the terminal specified by the
+SDI12Recorder() instruction.
+l Verify that the red wire is connected to a 12V terminal and that the black wire is connected
+to the G terminal.
+l Use a digital voltage meter to check the voltage to the sensor. If a switched 12V terminal is
+used, temporarily connect the red wire to a non-switched 12V terminal for test purposes.
+l Verify that the BaroVUE 10 SDI-12 address matches the address entered for the
+SDI12Recorder() instruction. The default address is 0. The address can be verified or
+changed with the commands described in SDI-12 command basics (p. 32) or by using the
+Device Configuration Utility (p. 21).
+
+Maintenance
+Required maintenance includes regularly changing the desiccant and recalibrating the sensor
+card. When the Enclosure Accessory Humidity Indicator Card changes from blue to pink, replace
+the desiccant in the enclosure and, if applicable, the desiccant chamber.
+The BaroVUE 10 calculates information about the quality of the measurement (see Quality metric
+[p. 19]). The quality metric gives information about the reliability of the data; a poor quality metric
+may mean the data is unreliable, and the device should be sent to the factory for calibration.
+However, it is recommended that the sensor card be sent to Campbell Scientific for calibration
+
+
+Sensor card replacement procedure
+CAUTION:
+The BaroVUE 10 is sensitive to static when the main case is opened. To avoid damage, take
+adequate anti-static measures when handling.
+1. 2. Contact Campbell Scientific for your replacement sensor card. When received, take this
+newly calibrated card with you to the site of the BaroVUE 10 installation.
+Open the main case by unclipping the latch and opening the main door. See Figure 8-1 (p.
+21).
+l Sensor card plugs into the silver card socket mounted on the motherboard (see
+Figure 9-1 [p. 29]).
+l Correct sensor-card orientation is with card notch facing down (towards the
+motherboard). The card revision number should be visible.
+CAUTION:
+the slot.
+If the sensor card is oriented incorrectly, it will not insert fully. Do not force the card into
+To remove the sensor card, push the card down towards the socket then release. Spring
+tension pushes the sensor card out of the socket.
+NOTE:
+The sensor card can be safely removed while the BaroVUE 10 is connected to power.
+Store the old sensor card in an electrostatic protective package and return it to Campbell
+Scientific for recalibration or general servicing.
+Unpack the replacement sensor card, avoiding static discharges to the element by touching
+the package before touching the element.
+Carefully align and insert the sensor card in the card socket on the motherboard.
+Confirm the correct orientation and gently push the sensor card into the socket until it
+clicks into place.
+Before closing the main case, double-check that the card is inserted in the correct
+orientation. Refer to Figure 8-1 (p. 21).
+Close the main case and secure it by pressing down on the latch and clipping it into
+position
+
+    2. [No DocumentChunk text found]
+
+
+Query #4:
+  Query: Vaisala PTB110 sensor -9999.0 hPa troubleshooting
+  Dataset: maintenance_knowledge
+  Node Sets: pressure_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. [No DocumentChunk text found]
+    2. [No DocumentChunk text found]
+
+
+Query #5:
+  Query: Vaisala PTB110 pressure sensor operating pressure range
+  Dataset: sensor_knowledge
+  Node Sets: pressure_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. PTB110 Maintenance
+PTB110 does not require regular maintenance.
+The sensor has no replaceable parts. If the sensor malfunctions, replace it.
+
+ADJUSTMENT AND CALIBRATION
+Calibration of the PTB110 series barometers is NIST traceable
+and the barometers are supplied with a NIST traceable
+calibration certificate.
+There are two push buttons available for the offset fine
+adjustment inside the barometer (see the figure on the previous
+page). The adjustment step is 0.05 hPa.
+OPERATING THE BUTTONS
+Restoring Adjustments
+To restore the adjustments, press and hold down the left button
+while switching on the barometer. After releasing the button, a
+green LED starts flashing.
+When the factory adjustments are in use, the green LED flashes
+twice. When the user adjustments are in use, the green LED
+flashes three times.
+Now you can change the factory adjustments to user adjustments
+or vice versa by pressing the left button.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+Using Analog Output Test Mode
+To activate the test mode, press and hold down the right button
+while switching on the barometer.
+The function forces the voltage or frequency output to 50% of
+the scale. As an indication of the test mode, the red LED is lit.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+Offset Correction
+To activate the offset correction mode, press and hold down both
+buttons switching on the barometer.
+The green and red LEDs are lit. Now you can adjust the offset
+correction upwards or downwards.
+ Each time when pressing the left button, the offset
+goes down by one step (5 Pa), and the green LED
+flashes once.
+ Each time when pressing the right button, the offset
+goes up by one step (5 Pa), and the red LED flashes
+once.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+
+
+BaroVue Maintenance
+
+Troubleshooting
+Symptom: Pressure and temperature values are returned as NAN.
+l Check that the sensor card is inserted fully in its socket and in the correct orientation (see
+Figure 9-1 [p. 29]).
+l Verify that the white wire is connected to the terminal specified by the
+SDI12Recorder() instruction.
+l Verify that the red wire is connected to a 12V terminal and that the black wire is connected
+to the G terminal.
+l Use a digital voltage meter to check the voltage to the sensor. If a switched 12V terminal is
+used, temporarily connect the red wire to a non-switched 12V terminal for test purposes.
+l Verify that the BaroVUE 10 SDI-12 address matches the address entered for the
+SDI12Recorder() instruction. The default address is 0. The address can be verified or
+changed with the commands described in SDI-12 command basics (p. 32) or by using the
+Device Configuration Utility (p. 21).
+
+Maintenance
+Required maintenance includes regularly changing the desiccant and recalibrating the sensor
+card. When the Enclosure Accessory Humidity Indicator Card changes from blue to pink, replace
+the desiccant in the enclosure and, if applicable, the desiccant chamber.
+The BaroVUE 10 calculates information about the quality of the measurement (see Quality metric
+[p. 19]). The quality metric gives information about the reliability of the data; a poor quality metric
+may mean the data is unreliable, and the device should be sent to the factory for calibration.
+However, it is recommended that the sensor card be sent to Campbell Scientific for calibration
+
+
+Sensor card replacement procedure
+CAUTION:
+The BaroVUE 10 is sensitive to static when the main case is opened. To avoid damage, take
+adequate anti-static measures when handling.
+1. 2. Contact Campbell Scientific for your replacement sensor card. When received, take this
+newly calibrated card with you to the site of the BaroVUE 10 installation.
+Open the main case by unclipping the latch and opening the main door. See Figure 8-1 (p.
+21).
+l Sensor card plugs into the silver card socket mounted on the motherboard (see
+Figure 9-1 [p. 29]).
+l Correct sensor-card orientation is with card notch facing down (towards the
+motherboard). The card revision number should be visible.
+CAUTION:
+the slot.
+If the sensor card is oriented incorrectly, it will not insert fully. Do not force the card into
+To remove the sensor card, push the card down towards the socket then release. Spring
+tension pushes the sensor card out of the socket.
+NOTE:
+The sensor card can be safely removed while the BaroVUE 10 is connected to power.
+Store the old sensor card in an electrostatic protective package and return it to Campbell
+Scientific for recalibration or general servicing.
+Unpack the replacement sensor card, avoiding static discharges to the element by touching
+the package before touching the element.
+Carefully align and insert the sensor card in the card socket on the motherboard.
+Confirm the correct orientation and gently push the sensor card into the socket until it
+clicks into place.
+Before closing the main case, double-check that the card is inserted in the correct
+orientation. Refer to Figure 8-1 (p. 21).
+Close the main case and secure it by pressing down on the latch and clipping it into
+position
+
+    2. [No DocumentChunk text found]
+
+
+Query #6:
+  Query: Vaisala PTB110 pressure sensor operating pressure range
+  Dataset: sensor_knowledge
+  Node Sets: pressure_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. PTB110 Maintenance
+PTB110 does not require regular maintenance.
+The sensor has no replaceable parts. If the sensor malfunctions, replace it.
+
+ADJUSTMENT AND CALIBRATION
+Calibration of the PTB110 series barometers is NIST traceable
+and the barometers are supplied with a NIST traceable
+calibration certificate.
+There are two push buttons available for the offset fine
+adjustment inside the barometer (see the figure on the previous
+page). The adjustment step is 0.05 hPa.
+OPERATING THE BUTTONS
+Restoring Adjustments
+To restore the adjustments, press and hold down the left button
+while switching on the barometer. After releasing the button, a
+green LED starts flashing.
+When the factory adjustments are in use, the green LED flashes
+twice. When the user adjustments are in use, the green LED
+flashes three times.
+Now you can change the factory adjustments to user adjustments
+or vice versa by pressing the left button.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+Using Analog Output Test Mode
+To activate the test mode, press and hold down the right button
+while switching on the barometer.
+The function forces the voltage or frequency output to 50% of
+the scale. As an indication of the test mode, the red LED is lit.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+Offset Correction
+To activate the offset correction mode, press and hold down both
+buttons switching on the barometer.
+The green and red LEDs are lit. Now you can adjust the offset
+correction upwards or downwards.
+ Each time when pressing the left button, the offset
+goes down by one step (5 Pa), and the green LED
+flashes once.
+ Each time when pressing the right button, the offset
+goes up by one step (5 Pa), and the red LED flashes
+once.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+
+
+BaroVue Maintenance
+
+Troubleshooting
+Symptom: Pressure and temperature values are returned as NAN.
+l Check that the sensor card is inserted fully in its socket and in the correct orientation (see
+Figure 9-1 [p. 29]).
+l Verify that the white wire is connected to the terminal specified by the
+SDI12Recorder() instruction.
+l Verify that the red wire is connected to a 12V terminal and that the black wire is connected
+to the G terminal.
+l Use a digital voltage meter to check the voltage to the sensor. If a switched 12V terminal is
+used, temporarily connect the red wire to a non-switched 12V terminal for test purposes.
+l Verify that the BaroVUE 10 SDI-12 address matches the address entered for the
+SDI12Recorder() instruction. The default address is 0. The address can be verified or
+changed with the commands described in SDI-12 command basics (p. 32) or by using the
+Device Configuration Utility (p. 21).
+
+Maintenance
+Required maintenance includes regularly changing the desiccant and recalibrating the sensor
+card. When the Enclosure Accessory Humidity Indicator Card changes from blue to pink, replace
+the desiccant in the enclosure and, if applicable, the desiccant chamber.
+The BaroVUE 10 calculates information about the quality of the measurement (see Quality metric
+[p. 19]). The quality metric gives information about the reliability of the data; a poor quality metric
+may mean the data is unreliable, and the device should be sent to the factory for calibration.
+However, it is recommended that the sensor card be sent to Campbell Scientific for calibration
+
+
+Sensor card replacement procedure
+CAUTION:
+The BaroVUE 10 is sensitive to static when the main case is opened. To avoid damage, take
+adequate anti-static measures when handling.
+1. 2. Contact Campbell Scientific for your replacement sensor card. When received, take this
+newly calibrated card with you to the site of the BaroVUE 10 installation.
+Open the main case by unclipping the latch and opening the main door. See Figure 8-1 (p.
+21).
+l Sensor card plugs into the silver card socket mounted on the motherboard (see
+Figure 9-1 [p. 29]).
+l Correct sensor-card orientation is with card notch facing down (towards the
+motherboard). The card revision number should be visible.
+CAUTION:
+the slot.
+If the sensor card is oriented incorrectly, it will not insert fully. Do not force the card into
+To remove the sensor card, push the card down towards the socket then release. Spring
+tension pushes the sensor card out of the socket.
+NOTE:
+The sensor card can be safely removed while the BaroVUE 10 is connected to power.
+Store the old sensor card in an electrostatic protective package and return it to Campbell
+Scientific for recalibration or general servicing.
+Unpack the replacement sensor card, avoiding static discharges to the element by touching
+the package before touching the element.
+Carefully align and insert the sensor card in the card socket on the motherboard.
+Confirm the correct orientation and gently push the sensor card into the socket until it
+clicks into place.
+Before closing the main case, double-check that the card is inserted in the correct
+orientation. Refer to Figure 8-1 (p. 21).
+Close the main case and secure it by pressing down on the latch and clipping it into
+position
+
+    2. [No DocumentChunk text found]
+
+
+Query #7:
+  Query: Vaisala PTB110 pressure sensor operating pressure range
+  Dataset: sensor_knowledge
+  Node Sets: pressure_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. PTB110 Maintenance
+PTB110 does not require regular maintenance.
+The sensor has no replaceable parts. If the sensor malfunctions, replace it.
+
+ADJUSTMENT AND CALIBRATION
+Calibration of the PTB110 series barometers is NIST traceable
+and the barometers are supplied with a NIST traceable
+calibration certificate.
+There are two push buttons available for the offset fine
+adjustment inside the barometer (see the figure on the previous
+page). The adjustment step is 0.05 hPa.
+OPERATING THE BUTTONS
+Restoring Adjustments
+To restore the adjustments, press and hold down the left button
+while switching on the barometer. After releasing the button, a
+green LED starts flashing.
+When the factory adjustments are in use, the green LED flashes
+twice. When the user adjustments are in use, the green LED
+flashes three times.
+Now you can change the factory adjustments to user adjustments
+or vice versa by pressing the left button.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+Using Analog Output Test Mode
+To activate the test mode, press and hold down the right button
+while switching on the barometer.
+The function forces the voltage or frequency output to 50% of
+the scale. As an indication of the test mode, the red LED is lit.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+Offset Correction
+To activate the offset correction mode, press and hold down both
+buttons switching on the barometer.
+The green and red LEDs are lit. Now you can adjust the offset
+correction upwards or downwards.
+ Each time when pressing the left button, the offset
+goes down by one step (5 Pa), and the green LED
+flashes once.
+ Each time when pressing the right button, the offset
+goes up by one step (5 Pa), and the red LED flashes
+once.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+
+
+BaroVue Maintenance
+
+Troubleshooting
+Symptom: Pressure and temperature values are returned as NAN.
+l Check that the sensor card is inserted fully in its socket and in the correct orientation (see
+Figure 9-1 [p. 29]).
+l Verify that the white wire is connected to the terminal specified by the
+SDI12Recorder() instruction.
+l Verify that the red wire is connected to a 12V terminal and that the black wire is connected
+to the G terminal.
+l Use a digital voltage meter to check the voltage to the sensor. If a switched 12V terminal is
+used, temporarily connect the red wire to a non-switched 12V terminal for test purposes.
+l Verify that the BaroVUE 10 SDI-12 address matches the address entered for the
+SDI12Recorder() instruction. The default address is 0. The address can be verified or
+changed with the commands described in SDI-12 command basics (p. 32) or by using the
+Device Configuration Utility (p. 21).
+
+Maintenance
+Required maintenance includes regularly changing the desiccant and recalibrating the sensor
+card. When the Enclosure Accessory Humidity Indicator Card changes from blue to pink, replace
+the desiccant in the enclosure and, if applicable, the desiccant chamber.
+The BaroVUE 10 calculates information about the quality of the measurement (see Quality metric
+[p. 19]). The quality metric gives information about the reliability of the data; a poor quality metric
+may mean the data is unreliable, and the device should be sent to the factory for calibration.
+However, it is recommended that the sensor card be sent to Campbell Scientific for calibration
+
+
+Sensor card replacement procedure
+CAUTION:
+The BaroVUE 10 is sensitive to static when the main case is opened. To avoid damage, take
+adequate anti-static measures when handling.
+1. 2. Contact Campbell Scientific for your replacement sensor card. When received, take this
+newly calibrated card with you to the site of the BaroVUE 10 installation.
+Open the main case by unclipping the latch and opening the main door. See Figure 8-1 (p.
+21).
+l Sensor card plugs into the silver card socket mounted on the motherboard (see
+Figure 9-1 [p. 29]).
+l Correct sensor-card orientation is with card notch facing down (towards the
+motherboard). The card revision number should be visible.
+CAUTION:
+the slot.
+If the sensor card is oriented incorrectly, it will not insert fully. Do not force the card into
+To remove the sensor card, push the card down towards the socket then release. Spring
+tension pushes the sensor card out of the socket.
+NOTE:
+The sensor card can be safely removed while the BaroVUE 10 is connected to power.
+Store the old sensor card in an electrostatic protective package and return it to Campbell
+Scientific for recalibration or general servicing.
+Unpack the replacement sensor card, avoiding static discharges to the element by touching
+the package before touching the element.
+Carefully align and insert the sensor card in the card socket on the motherboard.
+Confirm the correct orientation and gently push the sensor card into the socket until it
+clicks into place.
+Before closing the main case, double-check that the card is inserted in the correct
+orientation. Refer to Figure 8-1 (p. 21).
+Close the main case and secure it by pressing down on the latch and clipping it into
+position
+
+    2. [No DocumentChunk text found]
+
+
+Query #8:
+  Query: Vaisala PTB110 operating pressure range
+  Dataset: sensor_knowledge
+  Node Sets: pressure_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. PTB110 Maintenance
+PTB110 does not require regular maintenance.
+The sensor has no replaceable parts. If the sensor malfunctions, replace it.
+
+ADJUSTMENT AND CALIBRATION
+Calibration of the PTB110 series barometers is NIST traceable
+and the barometers are supplied with a NIST traceable
+calibration certificate.
+There are two push buttons available for the offset fine
+adjustment inside the barometer (see the figure on the previous
+page). The adjustment step is 0.05 hPa.
+OPERATING THE BUTTONS
+Restoring Adjustments
+To restore the adjustments, press and hold down the left button
+while switching on the barometer. After releasing the button, a
+green LED starts flashing.
+When the factory adjustments are in use, the green LED flashes
+twice. When the user adjustments are in use, the green LED
+flashes three times.
+Now you can change the factory adjustments to user adjustments
+or vice versa by pressing the left button.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+Using Analog Output Test Mode
+To activate the test mode, press and hold down the right button
+while switching on the barometer.
+The function forces the voltage or frequency output to 50% of
+the scale. As an indication of the test mode, the red LED is lit.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+Offset Correction
+To activate the offset correction mode, press and hold down both
+buttons switching on the barometer.
+The green and red LEDs are lit. Now you can adjust the offset
+correction upwards or downwards.
+ Each time when pressing the left button, the offset
+goes down by one step (5 Pa), and the green LED
+flashes once.
+ Each time when pressing the right button, the offset
+goes up by one step (5 Pa), and the red LED flashes
+once.
+Return to the normal operating mode by switching the power off
+and on in sequence.
+
+
+BaroVue Maintenance
+
+Troubleshooting
+Symptom: Pressure and temperature values are returned as NAN.
+l Check that the sensor card is inserted fully in its socket and in the correct orientation (see
+Figure 9-1 [p. 29]).
+l Verify that the white wire is connected to the terminal specified by the
+SDI12Recorder() instruction.
+l Verify that the red wire is connected to a 12V terminal and that the black wire is connected
+to the G terminal.
+l Use a digital voltage meter to check the voltage to the sensor. If a switched 12V terminal is
+used, temporarily connect the red wire to a non-switched 12V terminal for test purposes.
+l Verify that the BaroVUE 10 SDI-12 address matches the address entered for the
+SDI12Recorder() instruction. The default address is 0. The address can be verified or
+changed with the commands described in SDI-12 command basics (p. 32) or by using the
+Device Configuration Utility (p. 21).
+
+Maintenance
+Required maintenance includes regularly changing the desiccant and recalibrating the sensor
+card. When the Enclosure Accessory Humidity Indicator Card changes from blue to pink, replace
+the desiccant in the enclosure and, if applicable, the desiccant chamber.
+The BaroVUE 10 calculates information about the quality of the measurement (see Quality metric
+[p. 19]). The quality metric gives information about the reliability of the data; a poor quality metric
+may mean the data is unreliable, and the device should be sent to the factory for calibration.
+However, it is recommended that the sensor card be sent to Campbell Scientific for calibration
+
+
+Sensor card replacement procedure
+CAUTION:
+The BaroVUE 10 is sensitive to static when the main case is opened. To avoid damage, take
+adequate anti-static measures when handling.
+1. 2. Contact Campbell Scientific for your replacement sensor card. When received, take this
+newly calibrated card with you to the site of the BaroVUE 10 installation.
+Open the main case by unclipping the latch and opening the main door. See Figure 8-1 (p.
+21).
+l Sensor card plugs into the silver card socket mounted on the motherboard (see
+Figure 9-1 [p. 29]).
+l Correct sensor-card orientation is with card notch facing down (towards the
+motherboard). The card revision number should be visible.
+CAUTION:
+the slot.
+If the sensor card is oriented incorrectly, it will not insert fully. Do not force the card into
+To remove the sensor card, push the card down towards the socket then release. Spring
+tension pushes the sensor card out of the socket.
+NOTE:
+The sensor card can be safely removed while the BaroVUE 10 is connected to power.
+Store the old sensor card in an electrostatic protective package and return it to Campbell
+Scientific for recalibration or general servicing.
+Unpack the replacement sensor card, avoiding static discharges to the element by touching
+the package before touching the element.
+Carefully align and insert the sensor card in the card socket on the motherboard.
+Confirm the correct orientation and gently push the sensor card into the socket until it
+clicks into place.
+Before closing the main case, double-check that the card is inserted in the correct
+orientation. Refer to Figure 8-1 (p. 21).
+Close the main case and secure it by pressing down on the latch and clipping it into
+position
+
+    2. [No DocumentChunk text found]
+
+================================================================================
+
+================================================================================
+
+
+================================================================================
+PROCESSING SUMMARY
+================================================================================
+LLM: gpt_oss_20b
+Total Processing Time: 165.51 seconds
+Total Errors: 0
+
+Agent Call Statistics:
+
+Tool Call Statistics:
+  - sensor_search_sensor_knowledge: 5 calls
+  - maintenance_search_maintenance_knowledge: 1 calls
+  - get_weather: 1 calls
+================================================================================
+
+END OF LOG
+================================================================================

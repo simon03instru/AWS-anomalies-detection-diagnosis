@@ -1,0 +1,8 @@
+The anomaly appears to stem from a sensor issue rather than extreme weather. At the anomaly timestamp (2025‑10‑03 12:15 UTC), the environment was hot (31.5 °C), very dry (31 % RH), with strong winds (≈27 km/h) and no precipitation, so weather conditions alone are unlikely to explain any sensor outliers. The HMP155 probe, which measures temperature and humidity, has no detailed specifications available in the knowledge base, and maintenance notes indicate that data validity problems (e.g., sentinel values) often point to calibration or hardware faults. 
+
+Actionable steps:
+1. Verify the sensor’s calibration using the MI70 indicator and USB calibration cable.
+2. Inspect the probe for physical damage or loose connections.
+3. Check the sensor firmware/software for updates or known bugs.
+4. If issues persist, contact the vendor for detailed specifications and support.
+5. Log the anomaly and monitor subsequent readings to confirm resolution.

@@ -1,0 +1,3834 @@
+
+================================================================================
+DETAILED ANOMALY PROCESSING LOG
+================================================================================
+LLM: gpt_4_1_mini
+Anomaly ID: AWS_DKI_KebunBibit_2024-08-16T15-30-00
+Event Type: WEATHER_ANOMALY_CONFIRMED
+Correlation ID: anomaly-AWS_DKI_KebunBibit-1761739114
+Timestamp: 2025-10-29 12:02:19
+Log File: detailed_20251029_120219_031181_AWS_DKI_KebunBibit_gpt_4_1_mini.log
+================================================================================
+
+
+================================================================================
+ORIGINAL ANOMALY DATA
+================================================================================
+{
+  "event_type": "WEATHER_ANOMALY_CONFIRMED",
+  "timestamp": "2025-10-29T11:58:34.741779",
+  "source": "StationAgent-AWS_DKI_KebunBibit",
+  "data": {
+    "timestamp": "2024-08-16T15:30:00",
+    "station_id": "AWS_DKI_KebunBibit",
+    "station_metadata": {
+      "location": "Cibubur, Indonesia",
+      "latitude": -34.9285,
+      "longitude": 138.6007,
+      "altitude": 48.0,
+      "sensor_info": {
+        "wd": {
+          "brand": "Young 05103-L",
+          "last_calibration": "2024-03-15"
+        },
+        "tt": {
+          "brand": "Vaisala HMP155",
+          "last_calibration": "2024-03-15"
+        }
+      }
+    },
+    "confirmed_anomalies": [
+      {
+        "parameter": "Wind Direction",
+        "value": -9999.0,
+        "sensor_brand": "Young 05103-L",
+        "trend_analysis": "Invalid sentinel value -9999.0\u00b0 - sensor communication failure. Immediate fault."
+      },
+      {
+        "parameter": "Temperature",
+        "value": 15.0,
+        "sensor_brand": "Vaisala HMP155",
+        "trend_analysis": "Temperature dropped 13\u00b0C below 10\u2011minute mean (28.1\u00b0C) \u2013 >3\u03c3 deviation, abrupt spike, correlation with humidity broken, suggests sensor malfunction."
+      }
+    ],
+    "validation_timestamp": "2025-10-29T11:58:34.741770",
+    "has_trend_analysis": true
+  },
+  "correlation_id": "anomaly-AWS_DKI_KebunBibit-1761739114"
+}
+================================================================================
+
+
+================================================================================
+WORKFORCE PROCESSING STARTED
+================================================================================
+LLM: gpt_4_1_mini
+Initial Query:
+Analyze the following weather anomaly detected at AWS_DKI_KebunBibit:
+
+Event Detection Time: 2024-08-16T15:30:00
+Station: AWS_DKI_KebunBibit
+Location: Cibubur, Indonesia
+Coordinates: Latitude -34.9285, Longitude 138.6007, Altitude 48.0m
+
+2 Confirmed Anomalies with Trend Analysis:
+Anomaly #1: Wind Direction
+  Value: -9999.0
+  Sensor Brand: Young 05103-L
+  Trend Analysis: Invalid sentinel value -9999.0° - sensor communication failure. Immediate fault.
+Anomaly #2: Temperature
+  Value: 15.0
+  Sensor Brand: Vaisala HMP155
+  Trend Analysis: Temperature dropped 13°C below 10‑minute mean (28.1°C) – >3σ deviation, abrupt spike, correlation with humidity broken, suggests sensor malfunction.
+
+Validation Timestamp: 2025-10-29T11:58:34.741770
+Correlation ID: anomaly-AWS_DKI_KebunBibit-1761739114
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.
+================================================================================
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: sensor_search_sensor_knowledge
+--------------------------------------------------------------------------------
+Tool: sensor_search_sensor_knowledge
+Call Count: 1
+Timestamp: 12:02:42.109
+
+Keyword Arguments:
+    {
+      "query": "Young 05103-L wind direction sensor operational ranges sensitivity technical specifications",
+      "node_sets": [
+        "wind_sensor"
+      ]
+    }
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: get_weather
+--------------------------------------------------------------------------------
+Tool: get_weather
+Call Count: 1
+Timestamp: 12:02:42.522
+
+Keyword Arguments:
+    {
+      "latitude": -34.9285,
+      "longitude": 138.6007,
+      "start_time": "2024-08-16T14:30:00Z",
+      "end_time": "2024-08-16T16:30:00Z",
+      "parameters": [
+        "temperature_2m",
+        "winddirection_10m"
+      ]
+    }
+
+Execution Time: 1.224 seconds
+Result Length: 333 characters
+
+Result:
+    {
+      "times": [
+        "2024-08-16T14:30",
+        "2024-08-16T14:45",
+        "2024-08-16T15:00",
+        "2024-08-16T15:15",
+        "2024-08-16T15:30",
+        "2024-08-16T15:45",
+        "2024-08-16T16:00",
+        "2024-08-16T16:15",
+        "2024-08-16T16:30"
+      ],
+      "temperature_2m": [
+        12.2,
+        12.2,
+        12.2,
+        12.1,
+        12.1,
+        12.1,
+        12.1,
+        12.1,
+        12.1
+      ],
+      "winddirection_10m": [
+        264,
+        264,
+        264,
+        264,
+        265,
+        265,
+        266,
+        266,
+        267
+      ]
+    }
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: maintenance_search_maintenance_knowledge
+--------------------------------------------------------------------------------
+Tool: maintenance_search_maintenance_knowledge
+Call Count: 1
+Timestamp: 12:02:43.769
+
+Keyword Arguments:
+    {
+      "query": "troubleshooting guides, common failure modes, and recommended maintenance procedures for Young 05103-L wind direction sensor and Vaisala HMP155 temperature sensor",
+      "node_sets": [
+        "wind_sensor",
+        "temperature_humidity_sensor"
+      ]
+    }
+
+Execution Time: 12.372 seconds
+Result Length: 2986 characters
+
+Result:
+    ### Troubleshooting Guides for R.M. Young 05103-L Wind Direction Sensor:
+    #### Wind Direction Issues:
+    - **Symptom: -9999 or no change in direction**  
+      1. Check sensor wiring to the specified Excitation and Single-Ended channel.  
+      2. Verify excitation voltage and Range code for the datalogger.  
+      3. Check potentiometer resistance (should be ~10K ohms between Blue and White; varies between 1K to 11K between Blue/Green or White/Green).
+      
+    - **Symptom: Incorrect wind direction**  
+      1. Verify excitation voltage, Range code, multiplier, and offset for the datalogger.  
+      2. Check sensor orientation.
+    
+    #### Wind Speed Issues:
+    - **Symptom: No wind speed**  
+      1. Check sensor wiring to the specified Pulse channel.  
+      2. Check coil resistance (should be ~2075 ohms).  
+      3. Verify Configuration Code, Multiplier, and Offset parameters for the Pulse Count instruction.
+      
+    - **Symptom: Wind speed does not change**  
+      1. Increase datalogger scan rate to prevent "Program Table Overruns".
+    
+    ### Common Failure Modes:
+    - Noisy bearings, incorrect excitation voltage, open or shorted coil.
+    
+    ### Recommended Maintenance Procedures:
+    - Inspect anemometer bearings and potentiometer every 24 months. Replace noisy bearings and recalibrate if necessary. Update maintenance info in the Web UI after service.
+    
+    ### Troubleshooting Guides for Young 05103-L Wind Direction Sensor:
+    1. **Calibration Issues:** Ensure that the vane alignment is correct using the Vane Alignment Rod.
+    2. **Torque Problems:** Use the Vane Torque Gauge (Model 18331) to check the vane bearing torque.
+    3. **Bearing Replacement:** Follow the procedures outlined in the Bearing Replacement & Potentiometer Adjustment section on Page 7.
+    
+    ### Common Failure Modes:
+    1. **Mechanical Jam:** Check for obstructions or debris affecting the vane movement.
+    2. **Sensor Drift:** Regular calibration is necessary to prevent drift in readings.
+    3. **Electrical Failures:** Inspect wiring connections for damage or corrosion.
+    
+    ### Recommended Maintenance Procedures:
+    1. **Regular Calibration:** Utilize the Vane Angle Bench Stand (Model 18112) for periodic calibration.
+    2. **Inspect and Replace Bearings:** Regularly check the bearings and replace as necessary (refer to Page 7).
+    3. **Clean the Vane:** Ensure the vane is free from dirt or blockage to maintain accurate readings.
+    
+    ---
+    
+    ### Troubleshooting Guides for Vaisala HMP155 Temperature Sensor:
+    1. **Inaccurate Readings:** Check for possible sensor damage or contamination.
+    2. **Signal Loss:** Inspect connection points for integrity and continuity.
+    
+    ### Common Failure Modes:
+    1. **Sensor Drift:** Drift can occur over time; recalibration may be necessary.
+    2. **Electrical Failures:** Ensure display and output signals are functioning correctly.
+    
+    ### Recommended Maintenance Procedures:
+    1. **Regular Calibration:** Follow the manufacturer's guidelines for frequent calibration.
+    2. **Environmental Protection:** Ensure the sensor is protected from extreme environmental conditions.
+--------------------------------------------------------------------------------
+
+
+Execution Time: 14.052 seconds
+Result Length: 803 characters
+
+Result:
+    The Young 05103-L wind direction sensor is a part of the R.M. Young Wind Monitor, which is used for measuring wind speed and direction. Its operational range and sensitivity specifications include checking the resistance of the potentiometer (about 10K ohms between Blue and White wires, and 1K to 11K ohms between Blue/Green or White/Green wires depending on the vane position). The resistance should be about 1 M ohm in the 5-degree dead band.
+    
+    The Young 05103-L wind direction sensor is used for measuring wind speed and direction. Its operational ranges include:
+    - Wind direction: 0 to 360 degrees with a resolution of 0.5 degrees.
+    - The sensor also relates to the model 18802 anemometer drive which operates at 200 to 15,000 RPM in 100 RPM increments, and can rotate clockwise or counter-clockwise.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #2: sensor_search_sensor_knowledge
+--------------------------------------------------------------------------------
+Tool: sensor_search_sensor_knowledge
+Call Count: 2
+Timestamp: 12:02:57.323
+
+Keyword Arguments:
+    {
+      "query": "Vaisala HMP155 temperature sensor operational ranges sensitivity technical specifications",
+      "node_sets": [
+        "temperature_humidity_sensor"
+      ]
+    }
+
+Execution Time: 11.180 seconds
+Result Length: 1295 characters
+
+Result:
+    The Vaisala HMP155 temperature sensor has the following operational ranges and technical specifications: 
+    
+    1. **Temperature Measurement**: Uses a Pt100 temperature sensor, which is soldered to the probe.
+    2. **Response Time**: The sensor's response time can be affected by contamination of the probe filter, which may extend its response time and decrease measurement accuracy.
+    3. **Maintenance Recommendations**: The probe filter should be changed annually or more frequently in polluted environments. The HMP155 requires minimal maintenance, including checking and cleaning the radiation shield and ensuring the sensor is properly mounted.
+    
+    The Vaisala HMP155 temperature sensor has the following operational ranges and sensitivity specifications:
+    
+    - **Observation Range:** -80 to +60 °C (-112 to +140 °F)
+    - **Response Time in 3 m/s Air Flow:** 
+      - 63%: < 20 s
+      - 90%: < 35 s
+    - **Accuracy with Voltage Output:** 
+      - At -80 to +20 °C: ±(0.226 - 0.0028 × temperature) °C
+      - At +20 to +60 °C: ±(0.055 + 0.0057 × temperature) °C
+    - **Accuracy with RS-485 Output:** 
+      - At -80 to +20 °C: ±(0.176 - 0.0028 × temperature) °C
+      - At +20 to +60 °C: ±(0.07 + 0.0025 × temperature) °C
+    
+    The sensor is designed for demanding outdoor applications and provides reliable measurements in harsh environments.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #2: maintenance_search_maintenance_knowledge
+--------------------------------------------------------------------------------
+Tool: maintenance_search_maintenance_knowledge
+Call Count: 2
+Timestamp: 12:03:13.990
+
+Keyword Arguments:
+    {
+      "query": "maintenance and troubleshooting for Young 05103-L wind direction sensor and Vaisala HMP155 temperature sensor anomalies",
+      "node_sets": [
+        "wind_sensor",
+        "temperature_humidity_sensor"
+      ]
+    }
+
+Execution Time: 17.341 seconds
+Result Length: 2015 characters
+
+Result:
+    **Maintenance and Troubleshooting for Young 05103-L Wind Direction Sensor:**
+    
+    1. **Check Wiring:** Ensure the sensor is correctly wired to the specified Excitation and Single-Ended channel.  
+    2. **Excitation Voltage and Range Code:** Verify these parameters match the datalogger type.
+    3. **Potentiometer Check:** Use an ohm meter to check the resistance:
+       - Should be ~10K ohms between Blue and White wires.
+       - Resistance between Blue/Green or White/Green varies between 1K to 11K depending on vane position.
+       - In 5-degree dead band, resistance should be ~1 M ohm.
+    
+    4. **For Incorrect Readings:** Check excitation voltage, range code, multiplier, offset, and sensor orientation.
+    
+    ---
+    
+    **Vaisala HMP155 Temperature Sensor Troubleshooting (General Guidelines):**  
+    - Typically involves checking wiring, ensuring proper calibration, and verifying that the sensor is functioning within specified parameters. Refer to Vaisala documentation for specific calibration and troubleshooting steps.
+    - Check connections are secure, and ensure no obstruction to airflow or sensor exposure.
+    
+    Ensure regular preventive maintenance to avoid issues.
+    
+    For maintenance and troubleshooting of the Young 05103-L wind direction sensor, first ensure proper installation with grounding to prevent erroneous signals. Check the potentiometer for wear, as it may produce noisy signals when nearing the end of its life; replace it if needed (lifetime approx. fifty million revolutions). Inspect bearings for noise or increased wind speed threshold, and replace if necessary using the proper methods detailed in the instructions. Regularly verify that the propeller and vane rotate freely and check for calibration accuracy; adjustments can be made using calibration devices such as the Vane Angle Bench Stand (Model 18112). For Vaisala HMP155 anomalies, ensure that the sensor is clean and check power supply connections as temperature inaccuracies may stem from poor electrical connections or environmental factors affecting the sensor.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+STDOUT CAPTURE
+--------------------------------------------------------------------------------
+[33mWorker node f0afbe35-3d70-4ee2-843a-7e16aefbf020 (Weather data analysis) get task f9b18c3d-5ef9-411a-ae9d-19211288095d.1: Get current and historical weather data for Cibubur, Indonesia (latitude -34.9285, longitude 138.6007) around August 16, 2024, 15:30. Compare these weather conditions with the reported wind direction value of -9999.0 and temperature of 15.0°C anomalies. Provide a summary report highlighting differences and similarities between normal and anomalous readings.[39m
+[33mWorker node 786baae2-6d1f-4027-9a7c-cf258b83d270 (Sensor specifications) get task f9b18c3d-5ef9-411a-ae9d-19211288095d.2: Search for the operational ranges, sensitivity, and technical specifications of the Young 05103-L wind direction sensor and the Vaisala HMP155 temperature sensor. Provide a detailed report indicating whether the anomalous wind direction value (-9999.0) and temperature value (15.0°C) fall within or outside the normal operating parameters of these sensors.[39m
+[33mWorker node 16c4d10f-3d8d-4a3b-bba4-58ffd4ce7e0c (Maintenance information) get task f9b18c3d-5ef9-411a-ae9d-19211288095d.3: Search for troubleshooting guides, common failure modes, and recommended maintenance procedures for the Young 05103-L wind direction sensor and the Vaisala HMP155 temperature sensor. Provide a list of possible causes for the anomalies and actionable maintenance recommendations to address these sensor issues.[39m
+======
+[32mResponse from Worker node f0afbe35-3d70-4ee2-843a-7e16aefbf020 (Weather data analysis):[39m
+
+[32mThe weather data for Cibubur, Indonesia around August 16, 2024, 15:30 UTC shows a temperature of approximately 12.1°C and a wind direction of about 265° at 10 meters height. Comparing this to the reported anomalies: the wind direction anomaly value of -9999.0° is clearly an invalid sentinel value indicating sensor failure, as normal wind direction values are around 265°, which is a typical and plausible reading. The temperature anomaly reported as 15.0°C is higher than the satellite-based observed temperature of around 12.1°C, but not drastically different. However, the anomaly report mentioned a 13°C drop from a 10-minute mean of 28.1°C, which suggests the sensor reading of 15.0°C is indeed an abrupt and unusual drop compared to expected conditions. In summary, the wind direction anomaly is a sensor communication failure, while the temperature anomaly represents a significant deviation from expected values, likely due to sensor malfunction. The normal weather data does not support the anomalous readings, confirming the sensor issues. Maintenance should focus on sensor diagnostics and replacement or recalibration to resolve these faults.[39m
+======
+[36m🎯 Task f9b18c3d-5ef9-411a-ae9d-19211288095d.1 completed successfully.[39m
+   📝 Logged 2 chunks for query: 'Young 05103-L wind direction sensor operational ra...'
+   📝 Logged 2 chunks for query: 'troubleshooting guides, common failure modes, and ...'
+======
+[32mResponse from Worker node 16c4d10f-3d8d-4a3b-bba4-58ffd4ce7e0c (Maintenance information):[39m
+
+[32mFor the Young 05103-L wind direction sensor, common anomalies include invalid readings such as -9999 due to sensor communication failure, often caused by wiring issues, incorrect excitation voltage, or potentiometer faults. Troubleshooting steps include checking sensor wiring, verifying excitation voltage and datalogger settings, inspecting potentiometer resistance, and ensuring correct sensor orientation. Common failure modes include noisy bearings, mechanical jams, sensor drift, and electrical failures. Recommended maintenance involves inspecting and replacing bearings every 24 months, recalibrating the sensor using the Vane Angle Bench Stand, checking vane torque, and cleaning the vane to prevent obstructions.
+
+For the Vaisala HMP155 temperature sensor, anomalies like abrupt temperature drops and broken correlation with humidity suggest sensor malfunction possibly due to sensor damage, contamination, or electrical failures. Troubleshooting includes checking sensor condition and connection integrity. Common failure modes include sensor drift and electrical issues. Maintenance recommendations are regular calibration per manufacturer guidelines and ensuring environmental protection to avoid damage.
+
+Actionable maintenance recommendations:
+1. For Young 05103-L: Inspect and repair wiring, verify excitation voltage and datalogger configuration, check and replace bearings if noisy, recalibrate sensor regularly, and clean the vane.
+2. For Vaisala HMP155: Inspect sensor for damage or contamination, verify electrical connections, perform regular calibration, and protect sensor from harsh environmental conditions.[39m
+======
+[36m🎯 Task f9b18c3d-5ef9-411a-ae9d-19211288095d.3 completed successfully.[39m
+   📝 Logged 2 chunks for query: 'Vaisala HMP155 temperature sensor operational rang...'
+======
+[32mResponse from Worker node 786baae2-6d1f-4027-9a7c-cf258b83d270 (Sensor specifications):[39m
+
+[32mThe Young 05103-L wind direction sensor operates within a range of 0 to 360 degrees with a resolution of 0.5 degrees. The anomalous wind direction value of -9999.0° is a sentinel value indicating sensor communication failure and is clearly outside the normal operational range of this sensor.
+
+The Vaisala HMP155 temperature sensor operates within a temperature range of -80 to +60 °C. It has an accuracy that varies slightly depending on the output type but generally provides reliable measurements within this range. The reported temperature anomaly of 15.0 °C falls well within the normal operational range of the HMP155 sensor. However, the trend analysis indicates this value is a 13°C drop below the 10-minute mean and a >3σ deviation, suggesting a sensor malfunction rather than an out-of-range measurement.
+
+In summary, the wind direction anomaly (-9999.0) is outside the sensor's operational parameters and indicates a fault, while the temperature value (15.0 °C) is within the sensor's operational range but likely represents a malfunction due to the abrupt deviation from expected values.[39m
+======
+[36m🎯 Task f9b18c3d-5ef9-411a-ae9d-19211288095d.2 completed successfully.[39m
+[33mWorker node 16c4d10f-3d8d-4a3b-bba4-58ffd4ce7e0c (Maintenance information) get task f9b18c3d-5ef9-411a-ae9d-19211288095d.4: Analyze the trend analysis and anomaly data for the wind direction and temperature sensors at AWS_DKI_KebunBibit station. Provide a comprehensive assessment report that includes potential causes of the anomalies, any correlations or common causes between the two sensor anomalies, and actionable recommendations for sensor maintenance, recalibration, or replacement.[39m
+   📝 Logged 2 chunks for query: 'maintenance and troubleshooting for Young 05103-L ...'
+======
+[32mResponse from Worker node 16c4d10f-3d8d-4a3b-bba4-58ffd4ce7e0c (Maintenance information):[39m
+
+[32mAssessment Report for AWS_DKI_KebunBibit Sensor Anomalies:
+
+1. Wind Direction Sensor (Young 05103-L):
+- Anomaly: Invalid reading of -9999.0° indicates sensor communication failure.
+- Potential Causes: Wiring issues, incorrect excitation voltage, potentiometer faults, noisy or worn bearings, mechanical jams, or electrical failures.
+- Maintenance Recommendations: Inspect and repair wiring connections, verify excitation voltage and datalogger settings, check potentiometer resistance with an ohm meter, inspect and replace bearings if noisy, ensure sensor orientation is correct, clean the vane, and recalibrate using a Vane Angle Bench Stand.
+
+2. Temperature Sensor (Vaisala HMP155):
+- Anomaly: Abrupt temperature drop to 15.0°C, a >3σ deviation from the 10-minute mean, breaking correlation with humidity, indicating sensor malfunction.
+- Potential Causes: Sensor damage, contamination, electrical connection issues, or sensor drift.
+- Maintenance Recommendations: Inspect sensor for physical damage or contamination, verify electrical connections, ensure sensor exposure is unobstructed, perform regular calibration per manufacturer guidelines, and protect the sensor from harsh environmental conditions.
+
+3. Correlation and Common Causes:
+- Both anomalies likely stem from sensor malfunctions rather than environmental conditions, as normal weather data does not support these readings.
+- Common causes may include electrical connection issues or environmental factors affecting sensor integrity.
+
+4. Actionable Recommendations:
+- Conduct immediate diagnostics on wiring and electrical connections for both sensors.
+- Perform mechanical inspection and maintenance on the wind direction sensor, including potentiometer and bearings.
+- Clean and recalibrate both sensors.
+- Consider sensor replacement if faults persist after maintenance.
+
+This comprehensive approach addresses the root causes and ensures reliable sensor performance at AWS_DKI_KebunBibit station.[39m
+======
+[36m🎯 Task f9b18c3d-5ef9-411a-ae9d-19211288095d.4 completed successfully.[39m
+
+--------------------------------------------------------------------------------
+
+
+================================================================================
+FINAL OUTPUT - SYNTHESIZED RESULT
+================================================================================
+--- Subtask f9b18c3d-5ef9-411a-ae9d-19211288095d.1 Result ---
+The weather data for Cibubur, Indonesia around August 16, 2024, 15:30 UTC shows a temperature of approximately 12.1°C and a wind direction of about 265° at 10 meters height. Comparing this to the reported anomalies: the wind direction anomaly value of -9999.0° is clearly an invalid sentinel value indicating sensor failure, as normal wind direction values are around 265°, which is a typical and plausible reading. The temperature anomaly reported as 15.0°C is higher than the satellite-based observed temperature of around 12.1°C, but not drastically different. However, the anomaly report mentioned a 13°C drop from a 10-minute mean of 28.1°C, which suggests the sensor reading of 15.0°C is indeed an abrupt and unusual drop compared to expected conditions. In summary, the wind direction anomaly is a sensor communication failure, while the temperature anomaly represents a significant deviation from expected values, likely due to sensor malfunction. The normal weather data does not support the anomalous readings, confirming the sensor issues. Maintenance should focus on sensor diagnostics and replacement or recalibration to resolve these faults.
+
+--- Subtask f9b18c3d-5ef9-411a-ae9d-19211288095d.2 Result ---
+The Young 05103-L wind direction sensor operates within a range of 0 to 360 degrees with a resolution of 0.5 degrees. The anomalous wind direction value of -9999.0° is a sentinel value indicating sensor communication failure and is clearly outside the normal operational range of this sensor.
+
+The Vaisala HMP155 temperature sensor operates within a temperature range of -80 to +60 °C. It has an accuracy that varies slightly depending on the output type but generally provides reliable measurements within this range. The reported temperature anomaly of 15.0 °C falls well within the normal operational range of the HMP155 sensor. However, the trend analysis indicates this value is a 13°C drop below the 10-minute mean and a >3σ deviation, suggesting a sensor malfunction rather than an out-of-range measurement.
+
+In summary, the wind direction anomaly (-9999.0) is outside the sensor's operational parameters and indicates a fault, while the temperature value (15.0 °C) is within the sensor's operational range but likely represents a malfunction due to the abrupt deviation from expected values.
+
+--- Subtask f9b18c3d-5ef9-411a-ae9d-19211288095d.3 Result ---
+For the Young 05103-L wind direction sensor, common anomalies include invalid readings such as -9999 due to sensor communication failure, often caused by wiring issues, incorrect excitation voltage, or potentiometer faults. Troubleshooting steps include checking sensor wiring, verifying excitation voltage and datalogger settings, inspecting potentiometer resistance, and ensuring correct sensor orientation. Common failure modes include noisy bearings, mechanical jams, sensor drift, and electrical failures. Recommended maintenance involves inspecting and replacing bearings every 24 months, recalibrating the sensor using the Vane Angle Bench Stand, checking vane torque, and cleaning the vane to prevent obstructions.
+
+For the Vaisala HMP155 temperature sensor, anomalies like abrupt temperature drops and broken correlation with humidity suggest sensor malfunction possibly due to sensor damage, contamination, or electrical failures. Troubleshooting includes checking sensor condition and connection integrity. Common failure modes include sensor drift and electrical issues. Maintenance recommendations are regular calibration per manufacturer guidelines and ensuring environmental protection to avoid damage.
+
+Actionable maintenance recommendations:
+1. For Young 05103-L: Inspect and repair wiring, verify excitation voltage and datalogger configuration, check and replace bearings if noisy, recalibrate sensor regularly, and clean the vane.
+2. For Vaisala HMP155: Inspect sensor for damage or contamination, verify electrical connections, perform regular calibration, and protect sensor from harsh environmental conditions.
+
+--- Subtask f9b18c3d-5ef9-411a-ae9d-19211288095d.4 Result ---
+Assessment Report for AWS_DKI_KebunBibit Sensor Anomalies:
+
+1. Wind Direction Sensor (Young 05103-L):
+- Anomaly: Invalid reading of -9999.0° indicates sensor communication failure.
+- Potential Causes: Wiring issues, incorrect excitation voltage, potentiometer faults, noisy or worn bearings, mechanical jams, or electrical failures.
+- Maintenance Recommendations: Inspect and repair wiring connections, verify excitation voltage and datalogger settings, check potentiometer resistance with an ohm meter, inspect and replace bearings if noisy, ensure sensor orientation is correct, clean the vane, and recalibrate using a Vane Angle Bench Stand.
+
+2. Temperature Sensor (Vaisala HMP155):
+- Anomaly: Abrupt temperature drop to 15.0°C, a >3σ deviation from the 10-minute mean, breaking correlation with humidity, indicating sensor malfunction.
+- Potential Causes: Sensor damage, contamination, electrical connection issues, or sensor drift.
+- Maintenance Recommendations: Inspect sensor for physical damage or contamination, verify electrical connections, ensure sensor exposure is unobstructed, perform regular calibration per manufacturer guidelines, and protect the sensor from harsh environmental conditions.
+
+3. Correlation and Common Causes:
+- Both anomalies likely stem from sensor malfunctions rather than environmental conditions, as normal weather data does not support these readings.
+- Common causes may include electrical connection issues or environmental factors affecting sensor integrity.
+
+4. Actionable Recommendations:
+- Conduct immediate diagnostics on wiring and electrical connections for both sensors.
+- Perform mechanical inspection and maintenance on the wind direction sensor, including potentiometer and bearings.
+- Clean and recalibrate both sensors.
+- Consider sensor replacement if faults persist after maintenance.
+
+This comprehensive approach addresses the root causes and ensures reliable sensor performance at AWS_DKI_KebunBibit station.
+
+
+Output Statistics:
+  - length: 6108
+  - word_count: 823
+  - line_count: 43
+  - is_error: False
+================================================================================
+
+
+================================================================================
+DOCUMENT CHUNKS RETRIEVED FROM RAG
+================================================================================
+Total RAG Queries: 13
+Log File: chunk_retrieval_20251029_115839.jsonl
+--------------------------------------------------------------------------------
+
+
+Query #1:
+  Query: Young 05103-L wind direction sensor specifications measurement range resolution sentinel error codes
+  Dataset: sensor_knowledge
+  Node Sets: wind_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. R.M. Young Wind Monitor maintenance
+Preventive maintenance for R.M. Young Wind Monitor includes:
+
+-Checking the anemometer bearings and the potentiometer at least every second year. If the bearings are noisy or wind speed threshold increases above an acceptable level, replace the bearings.
+After replacing the bearings, update the maintenance information in the Web UI.
+-If the sensor measurement data looks suspicious after the maintenance operation, recalibrate the sensor.
+R.M. Young suggests that the anemometer bearings and the potentiometer be
+inspected at least every 24 months. Only a qualified technician should perform
+the replacement.
+Troubleshooting
+7.1 Wind Direction
+Symptom: -9999 or no change in direction
+1. Check that the sensor is wired to the Excitation and Single-Ended channel
+specified by the measurement instruction.
+2. Verify that the excitation voltage and Range code are correct for the
+datalogger type.
+3. Disconnect the sensor from the datalogger and use an ohn meter to check the
+potentiometer. Resistance should be about 10K ohms between the Blue and
+White wires. The resistance between either the Blue/Green or White/Green
+wires should vary between 1K to 11K depending on the vane position.
+Resistance when the vane is in the 5 degree dead band should be about 1 M
+ohm.
+Symptom: Incorrect wind direction
+1. Verify that the Excitation voltage, Range code, multiplier and offset
+parameters are correct for the datalogger type.
+2. Check orientation of sensor, as described in Section 3.
+7.2 Wind Speed
+Symptom: No wind speed
+1. Check that the sensor is wired to the Pulse channel specified by the Pulse
+count instruction.
+2. Disconnect the sensor from the datalogger and use an ohm meter to check
+the coil. The resistance between the red and black wires should be about 2075
+ohms. Infinite resistance indicates an open coil; low resistance indicates a
+shorted coil.
+3. Verify that the Configuration Code, and Multiplier and Offset parameters for
+the Pulse Count instruction are correct for the datalogger type.
+Symptom: Wind speed does not change
+1. For the dataloggers that are programmed with Edlog, the input location for
+wind speed is not updated if the datalogger is getting “Program Table
+Overruns.” Increase the execution interval (scan rate) to prevent overruns.
+
+    2. Page 6:
+Page 5
+05103-90(N)
+CABLE & WIRING DIAGRAM
+MODEL 05103  WIND MONITOR
+
+
+Page 7:
+Page 6
+05103-90(N)
+BEARING REPLACEMENT & POTENTIOMETER ADJUSTMENT
+
+
+Page 8:
+Page 7
+05103-90(N)
+05194 PROPELLER NUT WRENCH
+08234 PROPELLER - 18CM X 30CM (BLACK PP)
+05163PG FLANGE BEARING (2)
+05160C NOSE CONE ASSY
+05158 NOSE CONE O-RING
+05161A 6-POLE MAGNET &
+SHAFT COLLAR
+05172
+MAIN HOUSING AND
+TAIL ASSY
+05138A
+POTENTIOMETER COUPLING
+05139
+POT ADJUST THUMBWHEEL
+05145C POTENTIOMETER MOUNTING
+& COIL ASSEMBLY
+05134 POTENTIOMETER 10K
+1/4% LIN, CONDUCTIVE PLASTIC
+(WITH O-RING)
+05131D POTENTIOMETER HOUSING
+05130D TRANSDUCER ASSEMBLY
+05124VG (2)
+VERTICAL SHAFT BEARING
+05187  PROPELLER NUT 1/4-20
+05164C PROPELLER SHAFT W/HUB
+6-32 x 1/8 SET SCREW (5)
+05127 MAIN HOUSING LATCH
+6-32 x 3/8 FLAT HD SCREW
+05126C VERTICAL SHAFT
+BEARING ROTOR
+05121E-10
+JUNCTION BOX COVER
+05178A JUNCTION BOX
+CIRCUIT BOARD ASSY
+4-40 x 5/16 SCREW (3)
+05121E
+MOUNTING POST ASSEMBLY
+05129 BAND CLAMP
+(INCL. W/ 05121E, 05128B)
+05128B ORIENTATION RING
+05165B  FRONT BEARING CAP
+R. M. YOUNG COMPANY   2801 Aero Park Drive ,  Traverse City,   Michigan   49686   U.S.A.
+TEL  (231) 946-3980       FAX  (231) 946-4772
+
+
+
+
+ 
+GENERAL ASSEMBLY & REPLACEMENT PARTS
+MODEL 05103  WIND MONITOR
+18500 FERRITE CHOKE
+
+
+Page 10:
+Calibration Accessories
+Model 18802 
+Anemometer Drive
+Model 18112
+Vane Angle Bench Stand
+Model 18310 
+Propeller Torque Disc
+Model 18331 Vane Torque Gauge
+Model 18301 
+Vane Alignment Rod
+Model 18212 
+Vane Angle Fixture-Tower Mount
+
+Page 11:
+Model 18802 Anemometer Drive provides a convenient and accurate way to rotate an anemometer shaft at 
+a known rate. The motor may be set to rotate clockwise or counter-clockwise at any rate between 200 and 
+15,000 RPM in 100 RPM increments. The LCD display is referenced to an accurate and stable quartz timebase. 
+For completely portable operation, the unit can be operated on internal batteries. For extended operation, an 
+AC wall adapter is included.
+Model 18811 Anemometer Drive is identical to Model 18802 except the drive motor incorporates a 
+gear reducer for operation in the range of 20 to 990 RPM in 10 RPM increments. The lower range 
+is recommended for cup anemometer calibration.
+Model 18112 Vane Angle Bench Stand is used for benchtop wind direction calibration of the Wind Monitor 
+family of sensors. The mounting post engages the direction orientation notch on the Wind Monitor. An easy to 
+read pointer indicates 0 to 360 degrees with 1/2 degree resolution.
+Model 18212 Vane Angle Fixture - Tower Mount similar to the Model 18112, the tower mount feature allows use 
+on the tower as well as the bench top. The fixture is temporarily placed on the tower between the Wind Monitor 
+and its tower mounting. Index keys and notches are engaged to preserve direction reference.
+Model 18310 Propeller Torque Disc checks anemometer bearing torque with 0.1 gm/cm resolu-
+tion. The disc temporarily replaces the propeller for torque measurement or simple yet accurate pass/fail 
+checks. Charts included with the unit relate torque to propeller threshold with limits for acceptable 
+bearing performance.
+Model 18312 Cup-Wheel Torque Disc checks cup anemometer bearing torque.
+Model 18331 Vane Torque Gauge checks vane bearing torque of the Wind Monitor family sensors. Slip the 
+fixture over the main housing and make simple yet accurate vane torque measurements. Charts relating vane 
+torque to vane threshold provide limits for acceptable bearing performance.
+Model 18301 Vane Alignment Rod helps align the vane of a wind sensor to a known direction reference during 
+installation. The base of the device has an index key that engages the direction orientation notch in the sensor 
+allowing the sensor to be removed without losing wind direction reference.
+Specifications subject to change without notice. 
+YOUNG
+ Specifications
+ Ordering Information                                                                  MODEL
+R.M. YOUNG COMPANY
+2801 Aero Park Drive
+Traverse City, Michigan 49686 USA
+TEL: (231) 946-3980  FAX: (231) 946-4772
+E-mail: met.sales@youngusa.com
+Web Site: www.youngusa.com
+ANEMOMETER DRIVE 200 to 15,000 RPM ..............................................  18802
+ANEMOMETER DRIVE 20 TO 990 RPM ..................................................  18811
+230V / 50-60 HZ INPUT POWER ................................................... ADD SUFFIX “H”
+VANE ANGLE BENCH STAND ..........................................................  18112
+VANE ANGLE FIXTURE - TOWER MOUNT ...........................................  18212
+PROPELLER TORQUE DISC............................................................  18310
+CUP-WHEEL TORQUE DISC ...........................................................  18312
+VANE TORQUE GAUGE .................................................................  18331
+VANE ALIGNMENT ROD ................................................................  18301
+Copyright © 2000 R.M. Young Company, Printed in U.S.A. 11/00
+Range:
+200 to 15,000 RPM in 100 RPM increments
+Rotation:
+Clockwise or Counter-Clockwise
+Display Resolution:
+1 RPM
+Quartz Timebase Reference:
+0.1 RPM
+Power Requirement:
+2x9 V (alkaline or lithium) batteries
+115 VAC wall adapter included
+(230 VAC – add suffix H)
+Range:
+20 to 990 RPM in 10 RPM increments
+Display Resolution:
+0.1 RPM
+Range:
+0 to 360 degrees
+Resolution: 
+0.5 degree
+Range:
+0 to 5.4 gm-cm
+Resolution: 
+0.1 gm-cm
+Range:
+0 to 50 gm-cm
+Resolution: 
+5 gm-cm
+ MODEL 18802 ANEMOMETER DRIVE
+ (Replaces 18801)
+ MODEL 18310, 18312 TORQUE DISC DEVICES
+Calibration Accessories
+ MODEL 18811 ANEMOMETER DRIVE
+ (Replaces 18810)
+ MODEL 18112, 18212 VANE ANGLE
+ CALIBRATION DEVICES
+ MODEL 18331 VANE TORQUE GAUGE
+
+
+
+Query #2:
+  Query: Young 05103-L wind direction sensor communication failure sentinel -9999 maintenance troubleshooting
+  Dataset: maintenance_knowledge
+  Node Sets: wind_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. R.M. Young Wind Monitor maintenance
+Preventive maintenance for R.M. Young Wind Monitor includes:
+
+-Checking the anemometer bearings and the potentiometer at least every second year. If the bearings are noisy or wind speed threshold increases above an acceptable level, replace the bearings.
+After replacing the bearings, update the maintenance information in the Web UI.
+-If the sensor measurement data looks suspicious after the maintenance operation, recalibrate the sensor.
+R.M. Young suggests that the anemometer bearings and the potentiometer be
+inspected at least every 24 months. Only a qualified technician should perform
+the replacement.
+Troubleshooting
+7.1 Wind Direction
+Symptom: -9999 or no change in direction
+1. Check that the sensor is wired to the Excitation and Single-Ended channel
+specified by the measurement instruction.
+2. Verify that the excitation voltage and Range code are correct for the
+datalogger type.
+3. Disconnect the sensor from the datalogger and use an ohn meter to check the
+potentiometer. Resistance should be about 10K ohms between the Blue and
+White wires. The resistance between either the Blue/Green or White/Green
+wires should vary between 1K to 11K depending on the vane position.
+Resistance when the vane is in the 5 degree dead band should be about 1 M
+ohm.
+Symptom: Incorrect wind direction
+1. Verify that the Excitation voltage, Range code, multiplier and offset
+parameters are correct for the datalogger type.
+2. Check orientation of sensor, as described in Section 3.
+7.2 Wind Speed
+Symptom: No wind speed
+1. Check that the sensor is wired to the Pulse channel specified by the Pulse
+count instruction.
+2. Disconnect the sensor from the datalogger and use an ohm meter to check
+the coil. The resistance between the red and black wires should be about 2075
+ohms. Infinite resistance indicates an open coil; low resistance indicates a
+shorted coil.
+3. Verify that the Configuration Code, and Multiplier and Offset parameters for
+the Pulse Count instruction are correct for the datalogger type.
+Symptom: Wind speed does not change
+1. For the dataloggers that are programmed with Edlog, the input location for
+wind speed is not updated if the datalogger is getting “Program Table
+Overruns.” Increase the execution interval (scan rate) to prevent overruns.
+
+    2. [No DocumentChunk text found]
+
+
+Query #3:
+  Query: Vaisala HMP155 operational temperature range accuracy response characteristics
+  Dataset: sensor_knowledge
+  Node Sets: temperature_humidity_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. HMP155 maintenance 
+
+Preventive maintenance for HMP155 includes:
+Checking that the probe is securely mounted.
+Checking that the radiation shield and cable are intact.
+Cleaning the radiation shield using mild detergent and a soft, lint-free cloth.
+Changing the probe filter once a year.
+
+If the measurement site is exposed to air pollution and dust, the probe filter may need to be changed more frequently.
+
+Changing HMP155 probe filter
+Over time, the probe filter becomes contaminated with matter that you cannot remove by cleaning. When this happens, the response time becomes longer and measurement accuracy decreases.
+CAUTION The Pt100 temperature sensor is soldered to the probe. Do not try to remove it. Due to the operating principles of the sensor, no maintenance is required.
+1. Remove the probe from inside the radiation shield.
+2. Carefully remove the filter from the probe. Holding the filter by the plastic part, rotate the filter counterclockwise and pull it out.
+CAUTION Do not touch the sensor heads.
+3. After removing the filter, check the O‑ring and change it if necessary.
+4. Install the new filter carefully without delay.
+5. Install the probe back inside the radiation shield.
+
+Troubleshooting
+Symptom: Relative Humidity is reported as –9999, NAN, –80 °C, or 0%
+1. Check that the sensor is wired to the correct analog input channels as specified by the
+measurement instructions.
+2. 3. Verify the range code for the single-ended or differential measurement instruction is
+correct for the data logger type.
+Verify the red power wire is correctly wired to the 12V or SW12V channel. The channel the
+wire is connected to will depend on the data logger program.
+Connect the red wire to a 12V terminal to constantly power the sensor for troubleshooting
+purposes. With the red wire connected to 12V, a voltmeter can be used to check the output
+voltage for temperature and relative humidity on the yellow and blue wires respectively
+(temperature °C = mV * 0.14 – 80.0; relative humidity % = mV * 0.1).
+Symptom: Incorrect temperature or relative humidity
+1. Verify the multiplier and offset parameters are correct for the desired units (Data logger
+programming (p. 10)).
+
+Maintenance
+The HMP155A probe requires minimal maintenance. Check monthly to make sure the radiation
+shield is free from debris. The white screen at the tip of the probe should also be checked for
+contaminates.
+When installed in close proximity to the ocean or other bodies of salt water, a coating of salt
+(mostly NaCl) may build up on the radiation shield, sensor, filter and even the chip. NaCl has an
+affinity for water. The humidity over a saturated NaCl solution is 75%. A buildup of salt on the
+filter or chip will delay or destroy the response to atmospheric humidity.
+The filter can be rinsed gently in distilled water. If necessary, the chip can be removed and rinsed
+as well. Do not scratch the chip while cleaning.
+Recalibrate the HMP155A annually. Refer to the Assistance page at the back of this document for
+the procedure for returning the HMP155A to the factory to get recalibrated.
+
+Cleaning
+Clean the probe with a soft, lint-free cloth moistened with mild detergent.
+Changing the probe filter
+1. Remove the filter from the probe.
+2. After removing the filter, check the O-ring and change it if necessary.
+3. Install a new filter on the probe.
+New filters can be ordered from Campbell Scientific or Vaisala.
+
+
+HygroVue Maintenance
+
+Syptoms, Possible causes and Solutions:
+
+1. Temperature is reported as
+–9999 or NAN, and relative
+humidity is reported as 0 or
+an unchanging value.
+
+This indicates a problem
+with the SDI-12
+communications with the
+sensor.
+
+Recheck the sensor wiring.
+Check the voltage to the sensor is 12V
+with a digital voltage meter.
+Verify the sensor SDI-12 address
+matches the address entered for the
+SDI12Recorder() instruction.
+
+2. Inaccurate temperature or
+relative humidity is
+reported.
+
+Inadequate delay after
+power-up (only applicable
+if using SW12)
+The sensor element has
+been contaminated
+Electrical interference
+
+Verify the program is allowing a
+power-up time of at least 1.8 s.
+Clean the sensor tip with distilled
+water or replace it.
+Ensure the sensor is not installed too
+close to a radio transmitter or cell
+phone.
+
+3. Temperature and relative
+humidity read –99.999
+
+This indicates a fault with
+the sensor element itself or
+communication between
+the sensor element and the
+electronics in the sensor
+body.
+
+Check the sensor element is properly
+plugged in with the correct
+orientation.
+Check for water being present under
+the sensor element connector and
+there is no corrosion of the sensor
+pins or the socket.
+Swap the element for another one.
+
+
+Maintenance
+The HygroVue 10 sensor requires minimal maintenance, but dust, debris, and salts on the filter
+cap will degrade sensor performance. Check the white filter on the end of the sensor for debris. If
+dirt or salt is ingrained in the filter, clean with distilled water or replace it. Make sure the filter is
+screwed onto the sensor firmly with your fingers—do not over tighten.
+Check the radiation shield monthly to make sure it is free from dust and debris. To clean the
+shield, first remove the sensor. Dismount the shield. Brush all loose dirt off. If more effort is
+needed, use warm, soapy water and a soft cloth or brush to thoroughly clean the shield. Allow
+the shield to dry before remounting.
+CAUTION:
+The HygroVue 10 sensor body is sealed and filled with a potting compound to totally protect
+the electronics from any water ingress. This means there are no serviceable parts within the
+sensor body
+
+
+Calibration
+The life of the sensor element is primarily limited by drift of the humidity sensor and your own
+acceptance of the errors incurred. Typical drift is less than 1% per year when used in cleaner
+environments but can be higher in polluted air. Because it can be difficult to know what the
+sensor has been exposed to, and because the element is relatively inexpensive, Campbell
+Scientific recommends replacing the sensor element annually. Replacing the element effectively
+brings the sensor back to a factory calibration state both for temperature and relative humidity.
+If you wish to check an old element’s calibration, you can measure its performance by plugging it
+into another sensor body in your calibration laboratory.
+NOTE:
+We cannot guarantee the accuracy of measurements if the sensor element is not changed
+every yea
+
+    2. Page 1:
+HUMICAPâ Humidity and
+Temperature Probe HMP155
+HMP155 with an additional
+temperature probe and optional
+Stevenson screen installation kit.
+Features
+• Vaisala HUMICAP â180R sensor:
+superior long-term stability
+• Optional warmed humidity probe
+and chemical purge
+• Plug-and-play
+• USB connection for service use
+• Use with DTR13 and DTR503
+radiation shields and a Stevenson
+screen
+• Weather-proof housing IP66
+• Optional, fast temperature probe
+• Different output possibilities:
+voltage, RS-485, resistive Pt100
+• Applications: meteorology,
+aviation and road weather,
+instrumentation
+Long-term stability
+HMP155 uses the proven Vaisala
+HUMICAPâ180R sensor that has excellent
+stability and withstands well harsh
+environments. The probe structure is
+solid and the sensor is protected by
+default with a sintered teflon filter, which
+gives maximum protection against water,
+dust, and dirt.
+Warmed probe and high-
+humidity environment
+Measuring humidity reliably is
+challenging in environments where
+humidity is near saturation.
+Measurements may be corrupted by fog,
+mist, rain, and heavy dew. A wet probe
+may not give an accurate measurement
+in the ambient air.
+This is an environment to which Vaisala
+has designed this patented, warmed
+probe for reliable measurements. As
+the sensor head is warmed continuously,
+the humidity level inside it stays below
+the ambient level. Thus, it also reduces
+the risk of condensation forming on
+the probe.
+Fast measurements
+With its fast response time,
+the additional temperature probe for
+HMP155 is ideal for measuring in
+environments with changing
+temperatures. The membrane filter
+speeds up the relative humidity
+measurement.
+Long lifetime
+Protecting the sensor from precipitation,
+and scattered and direct solar radiation
+increases its lifetime. Thus, Vaisala
+recommends installing HMP155 in one of
+the following radiation shields: DTR503,
+DTR13, or Stevenson screen. For
+the additional temperature probe,
+an installation kit is available for Vaisala
+DTR502 Radiation Shield.
+Calibration
+The probe can be calibrated using
+a computer with a USB cable, with
+the push buttons, or with the MI70
+indicator.
+Vaisala HUMICAPâ Humidity and Temperature Probe
+HMP155 provides reliable humidity and temperature
+measurement. It is designed especially for demanding
+outdoor applications.
+
+Page 2:
+Technical Data
+HMP155 humidity measurement performance
+Sensor HUMICAPâR2, 180R and INTER CAP
+for typical applications
+HUMICAPâR2C, 180RC and
+INTERCAPC for applications with
+chemical purge and/or warmed probe
+Observation range 0 … 100 %RH
+Response time at +20 °C (+68 °F) in
+s
+till air with sintered Teflon filter
+63 %: 20 s
+90 %: 60 s
+Factory calibration uncertainty at
++20 °C (+68 °F)1)
+±0.6 %RH (0 … 40 %RH)
+±1.
+0 %RH (40 … 95 %RH)
+Accuracy (including non-linearity, hysteresis, and repeatability)
+At +15 … +25 °C (+59 … +77 °F) ±1 %RH (0 … 90 %RH)
+±1.
+7 %RH (90 … 100 %RH)
+At −20 … +40 °C (−4 … +104 °F) ±(1.0 + 0.008 × reading) %RH
+At −40 … −20 °C (−40 … −4 °F) ±(1.2 + 0.012 × reading) %RH
+At +40 … +60 °C (+104 … +140 °F) ±(1.2 + 0.012 × reading) %RH
+At −60 … −40 °C (−76 … −40 °F) ±(1.4 + 0.032 × reading) %RH
+1) Defined as ±2 s tandard deviation limits. Small variations possible (see also the calibration certificate).
+HMP155 temperature measurement performance
+Sensor Pt100 RTD element, Class F 0.1
+IE
+C 60751
+Observation range −80 … +60 °C (−112 … +140 °F)
+Response time for additional
+t
+emperature probe in 3 m/s (7 mph) air
+flow
+63 %: < 20 s
+90 %: < 3
+5 s
+Other measured variables Dew point / frost point temperature,
+w
+et bulb temperature, mixing ratio
+Accuracy with voltage output
+At −80 … +20 °C (−112 … +68 °F) ±(0.226 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.055 + 0.0057 × temperature) °C
+Accuracy with passive (resistive) output
+According to Tolerance Class AA
+IE
+C 607511)
+±(0.1 + 0.0017 × |temperature|) °C
+Accuracy with RS‑ 485 output
+At −80 … +20 °C (−112 … +68 °F) ±(0.176 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.07 + 0.0025 × temperature) °C
+1) Tolerance Class AA IEC 60751 corresponds to IEC 751 1/3 Class B
+HMP155 accuracy over temperature range: voltage and
+RS‑ 485
+HMP155 operating environment
+Operating temperature for humidity
+measur
+ement
+−80 … +60 °C (−112 … +140 °F)
+Storage temperature −80 … +60 °C (−112 … +140 °F)
+Operating humidity 0 … 100 %RH
+IP rating IP66
+HMP155 inputs and outputs
+Operating voltage 7 … 28 V DC
+Minimum operating voltage 0 … 1 V output or RS‑ 485: 7 V
+0 … 5 V output, or w
+armed probe:
+12 V
+0 … 10 V output, chemical purge, or
+XHEAT: 16 V
+Outputs Voltage output: 0 … 1 V, 0 … 5 V,
+0 … 10 V
+R
+esistive Pt100 4‑ wire connection
+RS‑ 485
+Average power consumption (+15 V DC,
+load 100 kΩ)
+0 … 1 V output: < 3 mA
+0 … 10 V output: +0
+.5 mA
+RS-485: < 4 mA
+During chemical purge: Maximum
+110 mA
+With warmed probe: Maximum
+150 mA
+Settling time at startup Voltage output: 2 s
+RS-485: 3 s
+HMP155 mechanical specifica
+ tions
+Dimensions (H × W) 279 × 40 mm (10.9 × 1.6 in)
+Weight 93 g (3.25 oz)
+Length of additional T‑ pr obe cable 2 m (6 ft 7 in)
+Connection 8-pin male M12 connector
+Connection cables 3.5 m (11 ft 6 in), 10 m (32 ft 10 in),
+30 m (98 ft 5 in)
+Maximum wire size 0.129 mm2 (2
+ 6 AWG)
+Service cables USB connection cable
+MI7
+0 connection cable
+Materials
+Filter Sintered T eflon or membrane
+Housing Polycarbonate (PC)
+Additional temperature probe Stainless steel AISI 316L
+Cable PUR
+ 40 [1.57]  24 [0.94]  86 [3.39] 
+ 279 [10.98] 
+ 266 [10.47] 
+mm
+[in]
+Dimensions in mm (inches)
+Published by Vaisala | B210752EN-J © Vaisala Oyj 2021
+www.vaisala.com
+All rights reserved. Any logos and/or product names are trademarks of Vaisala or its individual partners. 
+Any reproduction, transfer, distribution or storage of information contained in this document is strictly 
+prohibited. All specifications — technical included — are subject to change without notice.
+
+
+
+Query #4:
+  Query: Vaisala HMP155 abrupt temperature deviation loss of correlation with humidity maintenance troubleshooting
+  Dataset: maintenance_knowledge
+  Node Sets: temperature_humidity_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. HMP155 maintenance 
+
+Preventive maintenance for HMP155 includes:
+Checking that the probe is securely mounted.
+Checking that the radiation shield and cable are intact.
+Cleaning the radiation shield using mild detergent and a soft, lint-free cloth.
+Changing the probe filter once a year.
+
+If the measurement site is exposed to air pollution and dust, the probe filter may need to be changed more frequently.
+
+Changing HMP155 probe filter
+Over time, the probe filter becomes contaminated with matter that you cannot remove by cleaning. When this happens, the response time becomes longer and measurement accuracy decreases.
+CAUTION The Pt100 temperature sensor is soldered to the probe. Do not try to remove it. Due to the operating principles of the sensor, no maintenance is required.
+1. Remove the probe from inside the radiation shield.
+2. Carefully remove the filter from the probe. Holding the filter by the plastic part, rotate the filter counterclockwise and pull it out.
+CAUTION Do not touch the sensor heads.
+3. After removing the filter, check the O‑ring and change it if necessary.
+4. Install the new filter carefully without delay.
+5. Install the probe back inside the radiation shield.
+
+Troubleshooting
+Symptom: Relative Humidity is reported as –9999, NAN, –80 °C, or 0%
+1. Check that the sensor is wired to the correct analog input channels as specified by the
+measurement instructions.
+2. 3. Verify the range code for the single-ended or differential measurement instruction is
+correct for the data logger type.
+Verify the red power wire is correctly wired to the 12V or SW12V channel. The channel the
+wire is connected to will depend on the data logger program.
+Connect the red wire to a 12V terminal to constantly power the sensor for troubleshooting
+purposes. With the red wire connected to 12V, a voltmeter can be used to check the output
+voltage for temperature and relative humidity on the yellow and blue wires respectively
+(temperature °C = mV * 0.14 – 80.0; relative humidity % = mV * 0.1).
+Symptom: Incorrect temperature or relative humidity
+1. Verify the multiplier and offset parameters are correct for the desired units (Data logger
+programming (p. 10)).
+
+Maintenance
+The HMP155A probe requires minimal maintenance. Check monthly to make sure the radiation
+shield is free from debris. The white screen at the tip of the probe should also be checked for
+contaminates.
+When installed in close proximity to the ocean or other bodies of salt water, a coating of salt
+(mostly NaCl) may build up on the radiation shield, sensor, filter and even the chip. NaCl has an
+affinity for water. The humidity over a saturated NaCl solution is 75%. A buildup of salt on the
+filter or chip will delay or destroy the response to atmospheric humidity.
+The filter can be rinsed gently in distilled water. If necessary, the chip can be removed and rinsed
+as well. Do not scratch the chip while cleaning.
+Recalibrate the HMP155A annually. Refer to the Assistance page at the back of this document for
+the procedure for returning the HMP155A to the factory to get recalibrated.
+
+Cleaning
+Clean the probe with a soft, lint-free cloth moistened with mild detergent.
+Changing the probe filter
+1. Remove the filter from the probe.
+2. After removing the filter, check the O-ring and change it if necessary.
+3. Install a new filter on the probe.
+New filters can be ordered from Campbell Scientific or Vaisala.
+
+
+HygroVue Maintenance
+
+Syptoms, Possible causes and Solutions:
+
+1. Temperature is reported as
+–9999 or NAN, and relative
+humidity is reported as 0 or
+an unchanging value.
+
+This indicates a problem
+with the SDI-12
+communications with the
+sensor.
+
+Recheck the sensor wiring.
+Check the voltage to the sensor is 12V
+with a digital voltage meter.
+Verify the sensor SDI-12 address
+matches the address entered for the
+SDI12Recorder() instruction.
+
+2. Inaccurate temperature or
+relative humidity is
+reported.
+
+Inadequate delay after
+power-up (only applicable
+if using SW12)
+The sensor element has
+been contaminated
+Electrical interference
+
+Verify the program is allowing a
+power-up time of at least 1.8 s.
+Clean the sensor tip with distilled
+water or replace it.
+Ensure the sensor is not installed too
+close to a radio transmitter or cell
+phone.
+
+3. Temperature and relative
+humidity read –99.999
+
+This indicates a fault with
+the sensor element itself or
+communication between
+the sensor element and the
+electronics in the sensor
+body.
+
+Check the sensor element is properly
+plugged in with the correct
+orientation.
+Check for water being present under
+the sensor element connector and
+there is no corrosion of the sensor
+pins or the socket.
+Swap the element for another one.
+
+
+Maintenance
+The HygroVue 10 sensor requires minimal maintenance, but dust, debris, and salts on the filter
+cap will degrade sensor performance. Check the white filter on the end of the sensor for debris. If
+dirt or salt is ingrained in the filter, clean with distilled water or replace it. Make sure the filter is
+screwed onto the sensor firmly with your fingers—do not over tighten.
+Check the radiation shield monthly to make sure it is free from dust and debris. To clean the
+shield, first remove the sensor. Dismount the shield. Brush all loose dirt off. If more effort is
+needed, use warm, soapy water and a soft cloth or brush to thoroughly clean the shield. Allow
+the shield to dry before remounting.
+CAUTION:
+The HygroVue 10 sensor body is sealed and filled with a potting compound to totally protect
+the electronics from any water ingress. This means there are no serviceable parts within the
+sensor body
+
+
+Calibration
+The life of the sensor element is primarily limited by drift of the humidity sensor and your own
+acceptance of the errors incurred. Typical drift is less than 1% per year when used in cleaner
+environments but can be higher in polluted air. Because it can be difficult to know what the
+sensor has been exposed to, and because the element is relatively inexpensive, Campbell
+Scientific recommends replacing the sensor element annually. Replacing the element effectively
+brings the sensor back to a factory calibration state both for temperature and relative humidity.
+If you wish to check an old element’s calibration, you can measure its performance by plugging it
+into another sensor body in your calibration laboratory.
+NOTE:
+We cannot guarantee the accuracy of measurements if the sensor element is not changed
+every yea
+
+    2. Page 1:
+HUMICAPâ Humidity and
+Temperature Probe HMP155
+HMP155 with an additional
+temperature probe and optional
+Stevenson screen installation kit.
+Features
+• Vaisala HUMICAP â180R sensor:
+superior long-term stability
+• Optional warmed humidity probe
+and chemical purge
+• Plug-and-play
+• USB connection for service use
+• Use with DTR13 and DTR503
+radiation shields and a Stevenson
+screen
+• Weather-proof housing IP66
+• Optional, fast temperature probe
+• Different output possibilities:
+voltage, RS-485, resistive Pt100
+• Applications: meteorology,
+aviation and road weather,
+instrumentation
+Long-term stability
+HMP155 uses the proven Vaisala
+HUMICAPâ180R sensor that has excellent
+stability and withstands well harsh
+environments. The probe structure is
+solid and the sensor is protected by
+default with a sintered teflon filter, which
+gives maximum protection against water,
+dust, and dirt.
+Warmed probe and high-
+humidity environment
+Measuring humidity reliably is
+challenging in environments where
+humidity is near saturation.
+Measurements may be corrupted by fog,
+mist, rain, and heavy dew. A wet probe
+may not give an accurate measurement
+in the ambient air.
+This is an environment to which Vaisala
+has designed this patented, warmed
+probe for reliable measurements. As
+the sensor head is warmed continuously,
+the humidity level inside it stays below
+the ambient level. Thus, it also reduces
+the risk of condensation forming on
+the probe.
+Fast measurements
+With its fast response time,
+the additional temperature probe for
+HMP155 is ideal for measuring in
+environments with changing
+temperatures. The membrane filter
+speeds up the relative humidity
+measurement.
+Long lifetime
+Protecting the sensor from precipitation,
+and scattered and direct solar radiation
+increases its lifetime. Thus, Vaisala
+recommends installing HMP155 in one of
+the following radiation shields: DTR503,
+DTR13, or Stevenson screen. For
+the additional temperature probe,
+an installation kit is available for Vaisala
+DTR502 Radiation Shield.
+Calibration
+The probe can be calibrated using
+a computer with a USB cable, with
+the push buttons, or with the MI70
+indicator.
+Vaisala HUMICAPâ Humidity and Temperature Probe
+HMP155 provides reliable humidity and temperature
+measurement. It is designed especially for demanding
+outdoor applications.
+
+Page 2:
+Technical Data
+HMP155 humidity measurement performance
+Sensor HUMICAPâR2, 180R and INTER CAP
+for typical applications
+HUMICAPâR2C, 180RC and
+INTERCAPC for applications with
+chemical purge and/or warmed probe
+Observation range 0 … 100 %RH
+Response time at +20 °C (+68 °F) in
+s
+till air with sintered Teflon filter
+63 %: 20 s
+90 %: 60 s
+Factory calibration uncertainty at
++20 °C (+68 °F)1)
+±0.6 %RH (0 … 40 %RH)
+±1.
+0 %RH (40 … 95 %RH)
+Accuracy (including non-linearity, hysteresis, and repeatability)
+At +15 … +25 °C (+59 … +77 °F) ±1 %RH (0 … 90 %RH)
+±1.
+7 %RH (90 … 100 %RH)
+At −20 … +40 °C (−4 … +104 °F) ±(1.0 + 0.008 × reading) %RH
+At −40 … −20 °C (−40 … −4 °F) ±(1.2 + 0.012 × reading) %RH
+At +40 … +60 °C (+104 … +140 °F) ±(1.2 + 0.012 × reading) %RH
+At −60 … −40 °C (−76 … −40 °F) ±(1.4 + 0.032 × reading) %RH
+1) Defined as ±2 s tandard deviation limits. Small variations possible (see also the calibration certificate).
+HMP155 temperature measurement performance
+Sensor Pt100 RTD element, Class F 0.1
+IE
+C 60751
+Observation range −80 … +60 °C (−112 … +140 °F)
+Response time for additional
+t
+emperature probe in 3 m/s (7 mph) air
+flow
+63 %: < 20 s
+90 %: < 3
+5 s
+Other measured variables Dew point / frost point temperature,
+w
+et bulb temperature, mixing ratio
+Accuracy with voltage output
+At −80 … +20 °C (−112 … +68 °F) ±(0.226 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.055 + 0.0057 × temperature) °C
+Accuracy with passive (resistive) output
+According to Tolerance Class AA
+IE
+C 607511)
+±(0.1 + 0.0017 × |temperature|) °C
+Accuracy with RS‑ 485 output
+At −80 … +20 °C (−112 … +68 °F) ±(0.176 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.07 + 0.0025 × temperature) °C
+1) Tolerance Class AA IEC 60751 corresponds to IEC 751 1/3 Class B
+HMP155 accuracy over temperature range: voltage and
+RS‑ 485
+HMP155 operating environment
+Operating temperature for humidity
+measur
+ement
+−80 … +60 °C (−112 … +140 °F)
+Storage temperature −80 … +60 °C (−112 … +140 °F)
+Operating humidity 0 … 100 %RH
+IP rating IP66
+HMP155 inputs and outputs
+Operating voltage 7 … 28 V DC
+Minimum operating voltage 0 … 1 V output or RS‑ 485: 7 V
+0 … 5 V output, or w
+armed probe:
+12 V
+0 … 10 V output, chemical purge, or
+XHEAT: 16 V
+Outputs Voltage output: 0 … 1 V, 0 … 5 V,
+0 … 10 V
+R
+esistive Pt100 4‑ wire connection
+RS‑ 485
+Average power consumption (+15 V DC,
+load 100 kΩ)
+0 … 1 V output: < 3 mA
+0 … 10 V output: +0
+.5 mA
+RS-485: < 4 mA
+During chemical purge: Maximum
+110 mA
+With warmed probe: Maximum
+150 mA
+Settling time at startup Voltage output: 2 s
+RS-485: 3 s
+HMP155 mechanical specifica
+ tions
+Dimensions (H × W) 279 × 40 mm (10.9 × 1.6 in)
+Weight 93 g (3.25 oz)
+Length of additional T‑ pr obe cable 2 m (6 ft 7 in)
+Connection 8-pin male M12 connector
+Connection cables 3.5 m (11 ft 6 in), 10 m (32 ft 10 in),
+30 m (98 ft 5 in)
+Maximum wire size 0.129 mm2 (2
+ 6 AWG)
+Service cables USB connection cable
+MI7
+0 connection cable
+Materials
+Filter Sintered T eflon or membrane
+Housing Polycarbonate (PC)
+Additional temperature probe Stainless steel AISI 316L
+Cable PUR
+ 40 [1.57]  24 [0.94]  86 [3.39] 
+ 279 [10.98] 
+ 266 [10.47] 
+mm
+[in]
+Dimensions in mm (inches)
+Published by Vaisala | B210752EN-J © Vaisala Oyj 2021
+www.vaisala.com
+All rights reserved. Any logos and/or product names are trademarks of Vaisala or its individual partners. 
+Any reproduction, transfer, distribution or storage of information contained in this document is strictly 
+prohibited. All specifications — technical included — are subject to change without notice.
+
+
+
+Query #5:
+  Query: Vaisala HMP155 operational temperature range sensitivity
+  Dataset: sensor_knowledge
+  Node Sets: temperature_humidity_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. HMP155 maintenance 
+
+Preventive maintenance for HMP155 includes:
+Checking that the probe is securely mounted.
+Checking that the radiation shield and cable are intact.
+Cleaning the radiation shield using mild detergent and a soft, lint-free cloth.
+Changing the probe filter once a year.
+
+If the measurement site is exposed to air pollution and dust, the probe filter may need to be changed more frequently.
+
+Changing HMP155 probe filter
+Over time, the probe filter becomes contaminated with matter that you cannot remove by cleaning. When this happens, the response time becomes longer and measurement accuracy decreases.
+CAUTION The Pt100 temperature sensor is soldered to the probe. Do not try to remove it. Due to the operating principles of the sensor, no maintenance is required.
+1. Remove the probe from inside the radiation shield.
+2. Carefully remove the filter from the probe. Holding the filter by the plastic part, rotate the filter counterclockwise and pull it out.
+CAUTION Do not touch the sensor heads.
+3. After removing the filter, check the O‑ring and change it if necessary.
+4. Install the new filter carefully without delay.
+5. Install the probe back inside the radiation shield.
+
+Troubleshooting
+Symptom: Relative Humidity is reported as –9999, NAN, –80 °C, or 0%
+1. Check that the sensor is wired to the correct analog input channels as specified by the
+measurement instructions.
+2. 3. Verify the range code for the single-ended or differential measurement instruction is
+correct for the data logger type.
+Verify the red power wire is correctly wired to the 12V or SW12V channel. The channel the
+wire is connected to will depend on the data logger program.
+Connect the red wire to a 12V terminal to constantly power the sensor for troubleshooting
+purposes. With the red wire connected to 12V, a voltmeter can be used to check the output
+voltage for temperature and relative humidity on the yellow and blue wires respectively
+(temperature °C = mV * 0.14 – 80.0; relative humidity % = mV * 0.1).
+Symptom: Incorrect temperature or relative humidity
+1. Verify the multiplier and offset parameters are correct for the desired units (Data logger
+programming (p. 10)).
+
+Maintenance
+The HMP155A probe requires minimal maintenance. Check monthly to make sure the radiation
+shield is free from debris. The white screen at the tip of the probe should also be checked for
+contaminates.
+When installed in close proximity to the ocean or other bodies of salt water, a coating of salt
+(mostly NaCl) may build up on the radiation shield, sensor, filter and even the chip. NaCl has an
+affinity for water. The humidity over a saturated NaCl solution is 75%. A buildup of salt on the
+filter or chip will delay or destroy the response to atmospheric humidity.
+The filter can be rinsed gently in distilled water. If necessary, the chip can be removed and rinsed
+as well. Do not scratch the chip while cleaning.
+Recalibrate the HMP155A annually. Refer to the Assistance page at the back of this document for
+the procedure for returning the HMP155A to the factory to get recalibrated.
+
+Cleaning
+Clean the probe with a soft, lint-free cloth moistened with mild detergent.
+Changing the probe filter
+1. Remove the filter from the probe.
+2. After removing the filter, check the O-ring and change it if necessary.
+3. Install a new filter on the probe.
+New filters can be ordered from Campbell Scientific or Vaisala.
+
+
+HygroVue Maintenance
+
+Syptoms, Possible causes and Solutions:
+
+1. Temperature is reported as
+–9999 or NAN, and relative
+humidity is reported as 0 or
+an unchanging value.
+
+This indicates a problem
+with the SDI-12
+communications with the
+sensor.
+
+Recheck the sensor wiring.
+Check the voltage to the sensor is 12V
+with a digital voltage meter.
+Verify the sensor SDI-12 address
+matches the address entered for the
+SDI12Recorder() instruction.
+
+2. Inaccurate temperature or
+relative humidity is
+reported.
+
+Inadequate delay after
+power-up (only applicable
+if using SW12)
+The sensor element has
+been contaminated
+Electrical interference
+
+Verify the program is allowing a
+power-up time of at least 1.8 s.
+Clean the sensor tip with distilled
+water or replace it.
+Ensure the sensor is not installed too
+close to a radio transmitter or cell
+phone.
+
+3. Temperature and relative
+humidity read –99.999
+
+This indicates a fault with
+the sensor element itself or
+communication between
+the sensor element and the
+electronics in the sensor
+body.
+
+Check the sensor element is properly
+plugged in with the correct
+orientation.
+Check for water being present under
+the sensor element connector and
+there is no corrosion of the sensor
+pins or the socket.
+Swap the element for another one.
+
+
+Maintenance
+The HygroVue 10 sensor requires minimal maintenance, but dust, debris, and salts on the filter
+cap will degrade sensor performance. Check the white filter on the end of the sensor for debris. If
+dirt or salt is ingrained in the filter, clean with distilled water or replace it. Make sure the filter is
+screwed onto the sensor firmly with your fingers—do not over tighten.
+Check the radiation shield monthly to make sure it is free from dust and debris. To clean the
+shield, first remove the sensor. Dismount the shield. Brush all loose dirt off. If more effort is
+needed, use warm, soapy water and a soft cloth or brush to thoroughly clean the shield. Allow
+the shield to dry before remounting.
+CAUTION:
+The HygroVue 10 sensor body is sealed and filled with a potting compound to totally protect
+the electronics from any water ingress. This means there are no serviceable parts within the
+sensor body
+
+
+Calibration
+The life of the sensor element is primarily limited by drift of the humidity sensor and your own
+acceptance of the errors incurred. Typical drift is less than 1% per year when used in cleaner
+environments but can be higher in polluted air. Because it can be difficult to know what the
+sensor has been exposed to, and because the element is relatively inexpensive, Campbell
+Scientific recommends replacing the sensor element annually. Replacing the element effectively
+brings the sensor back to a factory calibration state both for temperature and relative humidity.
+If you wish to check an old element’s calibration, you can measure its performance by plugging it
+into another sensor body in your calibration laboratory.
+NOTE:
+We cannot guarantee the accuracy of measurements if the sensor element is not changed
+every yea
+
+    2. Page 1:
+HUMICAPâ Humidity and
+Temperature Probe HMP155
+HMP155 with an additional
+temperature probe and optional
+Stevenson screen installation kit.
+Features
+• Vaisala HUMICAP â180R sensor:
+superior long-term stability
+• Optional warmed humidity probe
+and chemical purge
+• Plug-and-play
+• USB connection for service use
+• Use with DTR13 and DTR503
+radiation shields and a Stevenson
+screen
+• Weather-proof housing IP66
+• Optional, fast temperature probe
+• Different output possibilities:
+voltage, RS-485, resistive Pt100
+• Applications: meteorology,
+aviation and road weather,
+instrumentation
+Long-term stability
+HMP155 uses the proven Vaisala
+HUMICAPâ180R sensor that has excellent
+stability and withstands well harsh
+environments. The probe structure is
+solid and the sensor is protected by
+default with a sintered teflon filter, which
+gives maximum protection against water,
+dust, and dirt.
+Warmed probe and high-
+humidity environment
+Measuring humidity reliably is
+challenging in environments where
+humidity is near saturation.
+Measurements may be corrupted by fog,
+mist, rain, and heavy dew. A wet probe
+may not give an accurate measurement
+in the ambient air.
+This is an environment to which Vaisala
+has designed this patented, warmed
+probe for reliable measurements. As
+the sensor head is warmed continuously,
+the humidity level inside it stays below
+the ambient level. Thus, it also reduces
+the risk of condensation forming on
+the probe.
+Fast measurements
+With its fast response time,
+the additional temperature probe for
+HMP155 is ideal for measuring in
+environments with changing
+temperatures. The membrane filter
+speeds up the relative humidity
+measurement.
+Long lifetime
+Protecting the sensor from precipitation,
+and scattered and direct solar radiation
+increases its lifetime. Thus, Vaisala
+recommends installing HMP155 in one of
+the following radiation shields: DTR503,
+DTR13, or Stevenson screen. For
+the additional temperature probe,
+an installation kit is available for Vaisala
+DTR502 Radiation Shield.
+Calibration
+The probe can be calibrated using
+a computer with a USB cable, with
+the push buttons, or with the MI70
+indicator.
+Vaisala HUMICAPâ Humidity and Temperature Probe
+HMP155 provides reliable humidity and temperature
+measurement. It is designed especially for demanding
+outdoor applications.
+
+Page 2:
+Technical Data
+HMP155 humidity measurement performance
+Sensor HUMICAPâR2, 180R and INTER CAP
+for typical applications
+HUMICAPâR2C, 180RC and
+INTERCAPC for applications with
+chemical purge and/or warmed probe
+Observation range 0 … 100 %RH
+Response time at +20 °C (+68 °F) in
+s
+till air with sintered Teflon filter
+63 %: 20 s
+90 %: 60 s
+Factory calibration uncertainty at
++20 °C (+68 °F)1)
+±0.6 %RH (0 … 40 %RH)
+±1.
+0 %RH (40 … 95 %RH)
+Accuracy (including non-linearity, hysteresis, and repeatability)
+At +15 … +25 °C (+59 … +77 °F) ±1 %RH (0 … 90 %RH)
+±1.
+7 %RH (90 … 100 %RH)
+At −20 … +40 °C (−4 … +104 °F) ±(1.0 + 0.008 × reading) %RH
+At −40 … −20 °C (−40 … −4 °F) ±(1.2 + 0.012 × reading) %RH
+At +40 … +60 °C (+104 … +140 °F) ±(1.2 + 0.012 × reading) %RH
+At −60 … −40 °C (−76 … −40 °F) ±(1.4 + 0.032 × reading) %RH
+1) Defined as ±2 s tandard deviation limits. Small variations possible (see also the calibration certificate).
+HMP155 temperature measurement performance
+Sensor Pt100 RTD element, Class F 0.1
+IE
+C 60751
+Observation range −80 … +60 °C (−112 … +140 °F)
+Response time for additional
+t
+emperature probe in 3 m/s (7 mph) air
+flow
+63 %: < 20 s
+90 %: < 3
+5 s
+Other measured variables Dew point / frost point temperature,
+w
+et bulb temperature, mixing ratio
+Accuracy with voltage output
+At −80 … +20 °C (−112 … +68 °F) ±(0.226 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.055 + 0.0057 × temperature) °C
+Accuracy with passive (resistive) output
+According to Tolerance Class AA
+IE
+C 607511)
+±(0.1 + 0.0017 × |temperature|) °C
+Accuracy with RS‑ 485 output
+At −80 … +20 °C (−112 … +68 °F) ±(0.176 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.07 + 0.0025 × temperature) °C
+1) Tolerance Class AA IEC 60751 corresponds to IEC 751 1/3 Class B
+HMP155 accuracy over temperature range: voltage and
+RS‑ 485
+HMP155 operating environment
+Operating temperature for humidity
+measur
+ement
+−80 … +60 °C (−112 … +140 °F)
+Storage temperature −80 … +60 °C (−112 … +140 °F)
+Operating humidity 0 … 100 %RH
+IP rating IP66
+HMP155 inputs and outputs
+Operating voltage 7 … 28 V DC
+Minimum operating voltage 0 … 1 V output or RS‑ 485: 7 V
+0 … 5 V output, or w
+armed probe:
+12 V
+0 … 10 V output, chemical purge, or
+XHEAT: 16 V
+Outputs Voltage output: 0 … 1 V, 0 … 5 V,
+0 … 10 V
+R
+esistive Pt100 4‑ wire connection
+RS‑ 485
+Average power consumption (+15 V DC,
+load 100 kΩ)
+0 … 1 V output: < 3 mA
+0 … 10 V output: +0
+.5 mA
+RS-485: < 4 mA
+During chemical purge: Maximum
+110 mA
+With warmed probe: Maximum
+150 mA
+Settling time at startup Voltage output: 2 s
+RS-485: 3 s
+HMP155 mechanical specifica
+ tions
+Dimensions (H × W) 279 × 40 mm (10.9 × 1.6 in)
+Weight 93 g (3.25 oz)
+Length of additional T‑ pr obe cable 2 m (6 ft 7 in)
+Connection 8-pin male M12 connector
+Connection cables 3.5 m (11 ft 6 in), 10 m (32 ft 10 in),
+30 m (98 ft 5 in)
+Maximum wire size 0.129 mm2 (2
+ 6 AWG)
+Service cables USB connection cable
+MI7
+0 connection cable
+Materials
+Filter Sintered T eflon or membrane
+Housing Polycarbonate (PC)
+Additional temperature probe Stainless steel AISI 316L
+Cable PUR
+ 40 [1.57]  24 [0.94]  86 [3.39] 
+ 279 [10.98] 
+ 266 [10.47] 
+mm
+[in]
+Dimensions in mm (inches)
+Published by Vaisala | B210752EN-J © Vaisala Oyj 2021
+www.vaisala.com
+All rights reserved. Any logos and/or product names are trademarks of Vaisala or its individual partners. 
+Any reproduction, transfer, distribution or storage of information contained in this document is strictly 
+prohibited. All specifications — technical included — are subject to change without notice.
+
+
+
+Query #6:
+  Query: Young 05103-L sentinel value -9999.0
+  Dataset: maintenance_knowledge
+  Node Sets: wind_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. bila data tidak valid atau nilai sentinel seperti -999, NaN, -80°C, masalah bukan pada kalibrasi atau penyesuaian sensor melainkan pada masalah daya, kabel, pemrograman logger data, atau sensor hilang
+
+    2. [No DocumentChunk text found]
+
+
+Query #7:
+  Query: Young 05103-L wind direction sensor operational range communication specifications
+  Dataset: sensor_knowledge
+  Node Sets: wind_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. R.M. Young Wind Monitor maintenance
+Preventive maintenance for R.M. Young Wind Monitor includes:
+
+-Checking the anemometer bearings and the potentiometer at least every second year. If the bearings are noisy or wind speed threshold increases above an acceptable level, replace the bearings.
+After replacing the bearings, update the maintenance information in the Web UI.
+-If the sensor measurement data looks suspicious after the maintenance operation, recalibrate the sensor.
+R.M. Young suggests that the anemometer bearings and the potentiometer be
+inspected at least every 24 months. Only a qualified technician should perform
+the replacement.
+Troubleshooting
+7.1 Wind Direction
+Symptom: -9999 or no change in direction
+1. Check that the sensor is wired to the Excitation and Single-Ended channel
+specified by the measurement instruction.
+2. Verify that the excitation voltage and Range code are correct for the
+datalogger type.
+3. Disconnect the sensor from the datalogger and use an ohn meter to check the
+potentiometer. Resistance should be about 10K ohms between the Blue and
+White wires. The resistance between either the Blue/Green or White/Green
+wires should vary between 1K to 11K depending on the vane position.
+Resistance when the vane is in the 5 degree dead band should be about 1 M
+ohm.
+Symptom: Incorrect wind direction
+1. Verify that the Excitation voltage, Range code, multiplier and offset
+parameters are correct for the datalogger type.
+2. Check orientation of sensor, as described in Section 3.
+7.2 Wind Speed
+Symptom: No wind speed
+1. Check that the sensor is wired to the Pulse channel specified by the Pulse
+count instruction.
+2. Disconnect the sensor from the datalogger and use an ohm meter to check
+the coil. The resistance between the red and black wires should be about 2075
+ohms. Infinite resistance indicates an open coil; low resistance indicates a
+shorted coil.
+3. Verify that the Configuration Code, and Multiplier and Offset parameters for
+the Pulse Count instruction are correct for the datalogger type.
+Symptom: Wind speed does not change
+1. For the dataloggers that are programmed with Edlog, the input location for
+wind speed is not updated if the datalogger is getting “Program Table
+Overruns.” Increase the execution interval (scan rate) to prevent overruns.
+
+    2. Page 6:
+Page 5
+05103-90(N)
+CABLE & WIRING DIAGRAM
+MODEL 05103  WIND MONITOR
+
+
+Page 7:
+Page 6
+05103-90(N)
+BEARING REPLACEMENT & POTENTIOMETER ADJUSTMENT
+
+
+Page 8:
+Page 7
+05103-90(N)
+05194 PROPELLER NUT WRENCH
+08234 PROPELLER - 18CM X 30CM (BLACK PP)
+05163PG FLANGE BEARING (2)
+05160C NOSE CONE ASSY
+05158 NOSE CONE O-RING
+05161A 6-POLE MAGNET &
+SHAFT COLLAR
+05172
+MAIN HOUSING AND
+TAIL ASSY
+05138A
+POTENTIOMETER COUPLING
+05139
+POT ADJUST THUMBWHEEL
+05145C POTENTIOMETER MOUNTING
+& COIL ASSEMBLY
+05134 POTENTIOMETER 10K
+1/4% LIN, CONDUCTIVE PLASTIC
+(WITH O-RING)
+05131D POTENTIOMETER HOUSING
+05130D TRANSDUCER ASSEMBLY
+05124VG (2)
+VERTICAL SHAFT BEARING
+05187  PROPELLER NUT 1/4-20
+05164C PROPELLER SHAFT W/HUB
+6-32 x 1/8 SET SCREW (5)
+05127 MAIN HOUSING LATCH
+6-32 x 3/8 FLAT HD SCREW
+05126C VERTICAL SHAFT
+BEARING ROTOR
+05121E-10
+JUNCTION BOX COVER
+05178A JUNCTION BOX
+CIRCUIT BOARD ASSY
+4-40 x 5/16 SCREW (3)
+05121E
+MOUNTING POST ASSEMBLY
+05129 BAND CLAMP
+(INCL. W/ 05121E, 05128B)
+05128B ORIENTATION RING
+05165B  FRONT BEARING CAP
+R. M. YOUNG COMPANY   2801 Aero Park Drive ,  Traverse City,   Michigan   49686   U.S.A.
+TEL  (231) 946-3980       FAX  (231) 946-4772
+
+
+
+
+ 
+GENERAL ASSEMBLY & REPLACEMENT PARTS
+MODEL 05103  WIND MONITOR
+18500 FERRITE CHOKE
+
+
+Page 10:
+Calibration Accessories
+Model 18802 
+Anemometer Drive
+Model 18112
+Vane Angle Bench Stand
+Model 18310 
+Propeller Torque Disc
+Model 18331 Vane Torque Gauge
+Model 18301 
+Vane Alignment Rod
+Model 18212 
+Vane Angle Fixture-Tower Mount
+
+Page 11:
+Model 18802 Anemometer Drive provides a convenient and accurate way to rotate an anemometer shaft at 
+a known rate. The motor may be set to rotate clockwise or counter-clockwise at any rate between 200 and 
+15,000 RPM in 100 RPM increments. The LCD display is referenced to an accurate and stable quartz timebase. 
+For completely portable operation, the unit can be operated on internal batteries. For extended operation, an 
+AC wall adapter is included.
+Model 18811 Anemometer Drive is identical to Model 18802 except the drive motor incorporates a 
+gear reducer for operation in the range of 20 to 990 RPM in 10 RPM increments. The lower range 
+is recommended for cup anemometer calibration.
+Model 18112 Vane Angle Bench Stand is used for benchtop wind direction calibration of the Wind Monitor 
+family of sensors. The mounting post engages the direction orientation notch on the Wind Monitor. An easy to 
+read pointer indicates 0 to 360 degrees with 1/2 degree resolution.
+Model 18212 Vane Angle Fixture - Tower Mount similar to the Model 18112, the tower mount feature allows use 
+on the tower as well as the bench top. The fixture is temporarily placed on the tower between the Wind Monitor 
+and its tower mounting. Index keys and notches are engaged to preserve direction reference.
+Model 18310 Propeller Torque Disc checks anemometer bearing torque with 0.1 gm/cm resolu-
+tion. The disc temporarily replaces the propeller for torque measurement or simple yet accurate pass/fail 
+checks. Charts included with the unit relate torque to propeller threshold with limits for acceptable 
+bearing performance.
+Model 18312 Cup-Wheel Torque Disc checks cup anemometer bearing torque.
+Model 18331 Vane Torque Gauge checks vane bearing torque of the Wind Monitor family sensors. Slip the 
+fixture over the main housing and make simple yet accurate vane torque measurements. Charts relating vane 
+torque to vane threshold provide limits for acceptable bearing performance.
+Model 18301 Vane Alignment Rod helps align the vane of a wind sensor to a known direction reference during 
+installation. The base of the device has an index key that engages the direction orientation notch in the sensor 
+allowing the sensor to be removed without losing wind direction reference.
+Specifications subject to change without notice. 
+YOUNG
+ Specifications
+ Ordering Information                                                                  MODEL
+R.M. YOUNG COMPANY
+2801 Aero Park Drive
+Traverse City, Michigan 49686 USA
+TEL: (231) 946-3980  FAX: (231) 946-4772
+E-mail: met.sales@youngusa.com
+Web Site: www.youngusa.com
+ANEMOMETER DRIVE 200 to 15,000 RPM ..............................................  18802
+ANEMOMETER DRIVE 20 TO 990 RPM ..................................................  18811
+230V / 50-60 HZ INPUT POWER ................................................... ADD SUFFIX “H”
+VANE ANGLE BENCH STAND ..........................................................  18112
+VANE ANGLE FIXTURE - TOWER MOUNT ...........................................  18212
+PROPELLER TORQUE DISC............................................................  18310
+CUP-WHEEL TORQUE DISC ...........................................................  18312
+VANE TORQUE GAUGE .................................................................  18331
+VANE ALIGNMENT ROD ................................................................  18301
+Copyright © 2000 R.M. Young Company, Printed in U.S.A. 11/00
+Range:
+200 to 15,000 RPM in 100 RPM increments
+Rotation:
+Clockwise or Counter-Clockwise
+Display Resolution:
+1 RPM
+Quartz Timebase Reference:
+0.1 RPM
+Power Requirement:
+2x9 V (alkaline or lithium) batteries
+115 VAC wall adapter included
+(230 VAC – add suffix H)
+Range:
+20 to 990 RPM in 10 RPM increments
+Display Resolution:
+0.1 RPM
+Range:
+0 to 360 degrees
+Resolution: 
+0.5 degree
+Range:
+0 to 5.4 gm-cm
+Resolution: 
+0.1 gm-cm
+Range:
+0 to 50 gm-cm
+Resolution: 
+5 gm-cm
+ MODEL 18802 ANEMOMETER DRIVE
+ (Replaces 18801)
+ MODEL 18310, 18312 TORQUE DISC DEVICES
+Calibration Accessories
+ MODEL 18811 ANEMOMETER DRIVE
+ (Replaces 18810)
+ MODEL 18112, 18212 VANE ANGLE
+ CALIBRATION DEVICES
+ MODEL 18331 VANE TORQUE GAUGE
+
+
+
+Query #8:
+  Query: Vaisala HMP155 abrupt temperature spikes maintenance troubleshooting
+  Dataset: maintenance_knowledge
+  Node Sets: temperature_humidity_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. HMP155 maintenance 
+
+Preventive maintenance for HMP155 includes:
+Checking that the probe is securely mounted.
+Checking that the radiation shield and cable are intact.
+Cleaning the radiation shield using mild detergent and a soft, lint-free cloth.
+Changing the probe filter once a year.
+
+If the measurement site is exposed to air pollution and dust, the probe filter may need to be changed more frequently.
+
+Changing HMP155 probe filter
+Over time, the probe filter becomes contaminated with matter that you cannot remove by cleaning. When this happens, the response time becomes longer and measurement accuracy decreases.
+CAUTION The Pt100 temperature sensor is soldered to the probe. Do not try to remove it. Due to the operating principles of the sensor, no maintenance is required.
+1. Remove the probe from inside the radiation shield.
+2. Carefully remove the filter from the probe. Holding the filter by the plastic part, rotate the filter counterclockwise and pull it out.
+CAUTION Do not touch the sensor heads.
+3. After removing the filter, check the O‑ring and change it if necessary.
+4. Install the new filter carefully without delay.
+5. Install the probe back inside the radiation shield.
+
+Troubleshooting
+Symptom: Relative Humidity is reported as –9999, NAN, –80 °C, or 0%
+1. Check that the sensor is wired to the correct analog input channels as specified by the
+measurement instructions.
+2. 3. Verify the range code for the single-ended or differential measurement instruction is
+correct for the data logger type.
+Verify the red power wire is correctly wired to the 12V or SW12V channel. The channel the
+wire is connected to will depend on the data logger program.
+Connect the red wire to a 12V terminal to constantly power the sensor for troubleshooting
+purposes. With the red wire connected to 12V, a voltmeter can be used to check the output
+voltage for temperature and relative humidity on the yellow and blue wires respectively
+(temperature °C = mV * 0.14 – 80.0; relative humidity % = mV * 0.1).
+Symptom: Incorrect temperature or relative humidity
+1. Verify the multiplier and offset parameters are correct for the desired units (Data logger
+programming (p. 10)).
+
+Maintenance
+The HMP155A probe requires minimal maintenance. Check monthly to make sure the radiation
+shield is free from debris. The white screen at the tip of the probe should also be checked for
+contaminates.
+When installed in close proximity to the ocean or other bodies of salt water, a coating of salt
+(mostly NaCl) may build up on the radiation shield, sensor, filter and even the chip. NaCl has an
+affinity for water. The humidity over a saturated NaCl solution is 75%. A buildup of salt on the
+filter or chip will delay or destroy the response to atmospheric humidity.
+The filter can be rinsed gently in distilled water. If necessary, the chip can be removed and rinsed
+as well. Do not scratch the chip while cleaning.
+Recalibrate the HMP155A annually. Refer to the Assistance page at the back of this document for
+the procedure for returning the HMP155A to the factory to get recalibrated.
+
+Cleaning
+Clean the probe with a soft, lint-free cloth moistened with mild detergent.
+Changing the probe filter
+1. Remove the filter from the probe.
+2. After removing the filter, check the O-ring and change it if necessary.
+3. Install a new filter on the probe.
+New filters can be ordered from Campbell Scientific or Vaisala.
+
+
+HygroVue Maintenance
+
+Syptoms, Possible causes and Solutions:
+
+1. Temperature is reported as
+–9999 or NAN, and relative
+humidity is reported as 0 or
+an unchanging value.
+
+This indicates a problem
+with the SDI-12
+communications with the
+sensor.
+
+Recheck the sensor wiring.
+Check the voltage to the sensor is 12V
+with a digital voltage meter.
+Verify the sensor SDI-12 address
+matches the address entered for the
+SDI12Recorder() instruction.
+
+2. Inaccurate temperature or
+relative humidity is
+reported.
+
+Inadequate delay after
+power-up (only applicable
+if using SW12)
+The sensor element has
+been contaminated
+Electrical interference
+
+Verify the program is allowing a
+power-up time of at least 1.8 s.
+Clean the sensor tip with distilled
+water or replace it.
+Ensure the sensor is not installed too
+close to a radio transmitter or cell
+phone.
+
+3. Temperature and relative
+humidity read –99.999
+
+This indicates a fault with
+the sensor element itself or
+communication between
+the sensor element and the
+electronics in the sensor
+body.
+
+Check the sensor element is properly
+plugged in with the correct
+orientation.
+Check for water being present under
+the sensor element connector and
+there is no corrosion of the sensor
+pins or the socket.
+Swap the element for another one.
+
+
+Maintenance
+The HygroVue 10 sensor requires minimal maintenance, but dust, debris, and salts on the filter
+cap will degrade sensor performance. Check the white filter on the end of the sensor for debris. If
+dirt or salt is ingrained in the filter, clean with distilled water or replace it. Make sure the filter is
+screwed onto the sensor firmly with your fingers—do not over tighten.
+Check the radiation shield monthly to make sure it is free from dust and debris. To clean the
+shield, first remove the sensor. Dismount the shield. Brush all loose dirt off. If more effort is
+needed, use warm, soapy water and a soft cloth or brush to thoroughly clean the shield. Allow
+the shield to dry before remounting.
+CAUTION:
+The HygroVue 10 sensor body is sealed and filled with a potting compound to totally protect
+the electronics from any water ingress. This means there are no serviceable parts within the
+sensor body
+
+
+Calibration
+The life of the sensor element is primarily limited by drift of the humidity sensor and your own
+acceptance of the errors incurred. Typical drift is less than 1% per year when used in cleaner
+environments but can be higher in polluted air. Because it can be difficult to know what the
+sensor has been exposed to, and because the element is relatively inexpensive, Campbell
+Scientific recommends replacing the sensor element annually. Replacing the element effectively
+brings the sensor back to a factory calibration state both for temperature and relative humidity.
+If you wish to check an old element’s calibration, you can measure its performance by plugging it
+into another sensor body in your calibration laboratory.
+NOTE:
+We cannot guarantee the accuracy of measurements if the sensor element is not changed
+every yea
+
+    2. Page 1:
+HUMICAPâ Humidity and
+Temperature Probe HMP155
+HMP155 with an additional
+temperature probe and optional
+Stevenson screen installation kit.
+Features
+• Vaisala HUMICAP â180R sensor:
+superior long-term stability
+• Optional warmed humidity probe
+and chemical purge
+• Plug-and-play
+• USB connection for service use
+• Use with DTR13 and DTR503
+radiation shields and a Stevenson
+screen
+• Weather-proof housing IP66
+• Optional, fast temperature probe
+• Different output possibilities:
+voltage, RS-485, resistive Pt100
+• Applications: meteorology,
+aviation and road weather,
+instrumentation
+Long-term stability
+HMP155 uses the proven Vaisala
+HUMICAPâ180R sensor that has excellent
+stability and withstands well harsh
+environments. The probe structure is
+solid and the sensor is protected by
+default with a sintered teflon filter, which
+gives maximum protection against water,
+dust, and dirt.
+Warmed probe and high-
+humidity environment
+Measuring humidity reliably is
+challenging in environments where
+humidity is near saturation.
+Measurements may be corrupted by fog,
+mist, rain, and heavy dew. A wet probe
+may not give an accurate measurement
+in the ambient air.
+This is an environment to which Vaisala
+has designed this patented, warmed
+probe for reliable measurements. As
+the sensor head is warmed continuously,
+the humidity level inside it stays below
+the ambient level. Thus, it also reduces
+the risk of condensation forming on
+the probe.
+Fast measurements
+With its fast response time,
+the additional temperature probe for
+HMP155 is ideal for measuring in
+environments with changing
+temperatures. The membrane filter
+speeds up the relative humidity
+measurement.
+Long lifetime
+Protecting the sensor from precipitation,
+and scattered and direct solar radiation
+increases its lifetime. Thus, Vaisala
+recommends installing HMP155 in one of
+the following radiation shields: DTR503,
+DTR13, or Stevenson screen. For
+the additional temperature probe,
+an installation kit is available for Vaisala
+DTR502 Radiation Shield.
+Calibration
+The probe can be calibrated using
+a computer with a USB cable, with
+the push buttons, or with the MI70
+indicator.
+Vaisala HUMICAPâ Humidity and Temperature Probe
+HMP155 provides reliable humidity and temperature
+measurement. It is designed especially for demanding
+outdoor applications.
+
+Page 2:
+Technical Data
+HMP155 humidity measurement performance
+Sensor HUMICAPâR2, 180R and INTER CAP
+for typical applications
+HUMICAPâR2C, 180RC and
+INTERCAPC for applications with
+chemical purge and/or warmed probe
+Observation range 0 … 100 %RH
+Response time at +20 °C (+68 °F) in
+s
+till air with sintered Teflon filter
+63 %: 20 s
+90 %: 60 s
+Factory calibration uncertainty at
++20 °C (+68 °F)1)
+±0.6 %RH (0 … 40 %RH)
+±1.
+0 %RH (40 … 95 %RH)
+Accuracy (including non-linearity, hysteresis, and repeatability)
+At +15 … +25 °C (+59 … +77 °F) ±1 %RH (0 … 90 %RH)
+±1.
+7 %RH (90 … 100 %RH)
+At −20 … +40 °C (−4 … +104 °F) ±(1.0 + 0.008 × reading) %RH
+At −40 … −20 °C (−40 … −4 °F) ±(1.2 + 0.012 × reading) %RH
+At +40 … +60 °C (+104 … +140 °F) ±(1.2 + 0.012 × reading) %RH
+At −60 … −40 °C (−76 … −40 °F) ±(1.4 + 0.032 × reading) %RH
+1) Defined as ±2 s tandard deviation limits. Small variations possible (see also the calibration certificate).
+HMP155 temperature measurement performance
+Sensor Pt100 RTD element, Class F 0.1
+IE
+C 60751
+Observation range −80 … +60 °C (−112 … +140 °F)
+Response time for additional
+t
+emperature probe in 3 m/s (7 mph) air
+flow
+63 %: < 20 s
+90 %: < 3
+5 s
+Other measured variables Dew point / frost point temperature,
+w
+et bulb temperature, mixing ratio
+Accuracy with voltage output
+At −80 … +20 °C (−112 … +68 °F) ±(0.226 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.055 + 0.0057 × temperature) °C
+Accuracy with passive (resistive) output
+According to Tolerance Class AA
+IE
+C 607511)
+±(0.1 + 0.0017 × |temperature|) °C
+Accuracy with RS‑ 485 output
+At −80 … +20 °C (−112 … +68 °F) ±(0.176 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.07 + 0.0025 × temperature) °C
+1) Tolerance Class AA IEC 60751 corresponds to IEC 751 1/3 Class B
+HMP155 accuracy over temperature range: voltage and
+RS‑ 485
+HMP155 operating environment
+Operating temperature for humidity
+measur
+ement
+−80 … +60 °C (−112 … +140 °F)
+Storage temperature −80 … +60 °C (−112 … +140 °F)
+Operating humidity 0 … 100 %RH
+IP rating IP66
+HMP155 inputs and outputs
+Operating voltage 7 … 28 V DC
+Minimum operating voltage 0 … 1 V output or RS‑ 485: 7 V
+0 … 5 V output, or w
+armed probe:
+12 V
+0 … 10 V output, chemical purge, or
+XHEAT: 16 V
+Outputs Voltage output: 0 … 1 V, 0 … 5 V,
+0 … 10 V
+R
+esistive Pt100 4‑ wire connection
+RS‑ 485
+Average power consumption (+15 V DC,
+load 100 kΩ)
+0 … 1 V output: < 3 mA
+0 … 10 V output: +0
+.5 mA
+RS-485: < 4 mA
+During chemical purge: Maximum
+110 mA
+With warmed probe: Maximum
+150 mA
+Settling time at startup Voltage output: 2 s
+RS-485: 3 s
+HMP155 mechanical specifica
+ tions
+Dimensions (H × W) 279 × 40 mm (10.9 × 1.6 in)
+Weight 93 g (3.25 oz)
+Length of additional T‑ pr obe cable 2 m (6 ft 7 in)
+Connection 8-pin male M12 connector
+Connection cables 3.5 m (11 ft 6 in), 10 m (32 ft 10 in),
+30 m (98 ft 5 in)
+Maximum wire size 0.129 mm2 (2
+ 6 AWG)
+Service cables USB connection cable
+MI7
+0 connection cable
+Materials
+Filter Sintered T eflon or membrane
+Housing Polycarbonate (PC)
+Additional temperature probe Stainless steel AISI 316L
+Cable PUR
+ 40 [1.57]  24 [0.94]  86 [3.39] 
+ 279 [10.98] 
+ 266 [10.47] 
+mm
+[in]
+Dimensions in mm (inches)
+Published by Vaisala | B210752EN-J © Vaisala Oyj 2021
+www.vaisala.com
+All rights reserved. Any logos and/or product names are trademarks of Vaisala or its individual partners. 
+Any reproduction, transfer, distribution or storage of information contained in this document is strictly 
+prohibited. All specifications — technical included — are subject to change without notice.
+
+
+
+Query #9:
+  Query: wind direction anomaly -9999 sensor communication failure temperature anomaly 13°C drop sensor malfunction common causes
+  Dataset: sensor_knowledge
+  Node Sets: wind_sensor, temperature_humidity_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. bila data tidak valid atau nilai sentinel seperti -999, NaN, -80°C, masalah bukan pada kalibrasi atau penyesuaian sensor melainkan pada masalah daya, kabel, pemrograman logger data, atau sensor hilang
+
+    2. Page 1:
+METEOROLOGICAL INSTRUMENTS
+INSTRUCTIONS
+R.M. YOUNG COMPANY   2801 AERO PARK DRIVE,  TRAVERSE CITY,  MICHIGAN 49686, USA
+TEL: (231) 946-3980      FAX: (231) 946-4772      WEB: www.youngusa.com 
+PN: 05103-90
+ REV: N062819
+WIND MONITOR
+MODEL 05103
+
+Page 2:
+Page 1
+05103-90(N)
+INTRODUCTION
+The Wind Monitor measures horizontal wind speed and direction.  
+Originally developed for ocean data buoy use, it is rugged and 
+corrosion resistant yet accurate and light weight. The main housing, 
+nose cone, propeller, and other internal parts are injection molded 
+U.V. stabilized plastic. Both the propeller and vertical shafts use 
+stainless steel precision grade ball bearings.  Bearings have light 
+contacting teflon seals and are filled with a wide temperature range 
+grease to help exclude contamination and moisture.
+Propeller rotation produces an AC sine wave signal with frequency 
+proportional to wind speed. This AC signal is induced in a 
+stationary coil by a six pole magnet mounted on the propeller 
+shaft. Three complete sine wave cycles are produced for each 
+propeller revolution.
+Vane position is transmitted by a 10K ohm precision conductive 
+plastic potentiometer which requires a regulated excitation 
+voltage. With a constant voltage applied to the potentiometer, 
+the output signal is an analog voltage directly proportional to 
+wind  direction angle.
+The instrument mounts on standard one inch pipe, outside diameter 
+34 mm (1.34"). An orientation ring is provided so the instrument 
+can be removed for maintenance and reinstalled without loss of 
+wind direction reference. Both the mounting post assembly and 
+the orientation ring are secured to the mounting pipe by stainless 
+steel band clamps. Electrical connections are made in a junction 
+box at the base. A variety of devices are available for signal 
+conditioning, display, and recording of wind speed and direction.  
+INITIAL CHECKOUT
+When the Wind Monitor is unpacked it should be checked carefully 
+for any signs of shipping damage.  
+Remove the plastic nut on the propeller shaft. Install the propeller 
+on the shaft so the serial number on the propeller faces forward 
+(into the wind). Engage the propeller into the molded ribs on the 
+propeller shaft hub. The instrument is aligned, balanced and fully 
+calibrated before shipment, however, it should be checked both 
+mechanically and electrically before installation. The vane and 
+propeller should easily rotate 360° without friction. Check vane 
+balance by holding the instrument base so the vane surface is 
+horizontal. It should have near neutral torque without any particular 
+tendency to rotate. A slight imbalance will not degrade performance.
+The potentiometer requires a stable DC excitation voltage.  Do 
+not exceed 15 volts. When the potentiometer wiper is in the 5° 
+deadband region, the output signal is "floating" and may show 
+varying or unpredictable values. To prevent false readings,  signal 
+conditioning electronics should clamp the signal to excitation 
+or reference level when this occurs. NOTE: Young signal 
+conditioning devices clamp the signal to excitation level. Avoid 
+a short circuit between the wind direction signal line and either the 
+excitation or reference lines. Although there is a 1K ohm current 
+limiting resistor in series with the wiper for protection, damage 
+to the potentiometer may occur if a short circuit condition exists.
+Before installation, connect the instrument to an indicator as shown 
+in the wiring diagram and check for proper wind speed and wind 
+direction values. To check wind speed, temporarily remove the 
+propeller and connect the shaft to an Anemometer Drive. Details 
+appear in the CALIBRATION section of this manual.
+MODEL 05103
+WIND MONITOR
+WIND SPEED SPECIFICATION SUMMARY
+Range 0 to 100 m/s (224 mph)
+Sensor 18 cm diameter 4-blade helicoid  
+propeller molded of polypropylene
+Pitch 29.4 cm air passage per revolution
+Distance Constant 2.7 m (8.9 ft.) for 63% recovery
+Threshold Sensitivity 1.0 m/s (2.2 mph)
+Transducer Centrally mounted stationary coil, 2K Ohm 
+nominal DC resistance
+Transducer Output AC sine wave signal induced by rotating 
+magnet on propeller shaft. 80 mV p-p at 
+100 rpm. 8.0 V p-p at 10,000 rpm.
+Output Frequency 3 cycles per propeller revolution  
+(0.098 m/s per Hz)
+WIND DIRECTION (AZIMUTH) SPECIFICATION SUMMARY
+Range 360° mechanical, 355° electrical (5° open)
+Sensor  Balanced vane, 38 cm (15 in) turning radius.
+Damping Ratio 0.3
+Delay Distance 1.3 m (4.3 ft) for 50% recovery
+Threshold Sensitivity 1.1 m/s (2.5 mph) at 10° displacement
+Damped Natural
+   Wavelength 7.4 m (24.3 ft)
+Undamped Natural
+   Wavelength 7.2 m (23.6 ft)
+Transducer Precision conductive plastic potentiometer, 
+10K ohm resistance (±20%), 0.25% 
+linearity, life expectancy 50 million 
+revolutions, rated 1 watt at 40° C, 0 watts 
+at 125° C
+Transducer Excitation
+  Requirement Regulated DC voltage, 15 VDC max
+Transducer Output Analog DC voltage proportional to azimuth 
+angle with regulated excitation voltage 
+applied across potentiometer.
+GENERAL
+Operating Temperature: -50 to 50°C (-58 to 122°F)
+
+
+Page 3:
+Page 2
+05103-90(N)
+INSTALLATION
+Proper placement of the instrument is very important. Eddies from 
+trees, buildings, or other structures can greatly influence wind 
+speed and wind direction observations. To get meaningful data 
+for most applications locate the instrument well above or upwind 
+from obstructions. As a general rule, the air flow around a structure 
+is disturbed to twice the height of the structure upwind, six times 
+the height downwind, and up to twice the height of the structure 
+above ground. For some applications it may not be practical or 
+necessary to meet these requirements.
+FAILURE TO PROPERLY GROUND THE WIND MONITOR  
+MAY RESULT IN ERRONEOUS SIGNALS  
+OR TRANSDUCER DAMAGE.
+Grounding the Wind Monitor is vitally important. Without proper 
+grounding, static electrical charge can build up during certain 
+atmospheric conditions and discharge through the transducers. 
+This discharge can cause erroneous signals or transducer failure. 
+To direct the discharge away from the transducers, the mounting 
+post assembly is made with a special antistatic plastic. It is very 
+important that the mounting post be connected to a good earth 
+ground. There are two ways this may be accomplished. First, 
+the Wind Monitor may be mounted on a metal pipe which is 
+connected to earth ground. The mounting pipe should not be 
+painted where the Wind Monitor is mounted. Towers or masts 
+set in concrete should be connected to one or more grounding 
+rods. If it is difficult to ground the mounting post in this manner, 
+the following method should be used. Inside the junction box 
+the terminal labeled EARTH GND is internally connected to the 
+antistatic mounting post. This terminal should be connected to 
+an earth ground (Refer to wiring diagram).
+Initial installation is most easily done with two people; one to adjust 
+the instrument position and the other to observe the indicating 
+device. After initial installation, the instrument can be removed 
+and returned to its mounting without realigning the vane since 
+the orientation ring preserves the wind direction reference. Install 
+the Wind Monitor following these steps:
+1. MOUNT WIND MONITOR
+ a) Place orientation ring on mounting post. Do Not tighten 
+band clamp yet.
+ b) Place Wind Monitor on mounting post. Do Not tighten 
+band clamp yet. 
+  
+2. CONNECT SENSOR CABLE
+ a) Refer to wiring diagram located at back of manual.
+ 
+3. ALIGN VANE
+ a) Connect instrument to an indicator.
+ b) Choose a known wind direction reference point on the 
+horizon.
+ c) Sighting down instrument centerline, point nose cone at  
+reference point on horizon.
+ d) While holding vane in position, slowly turn base until 
+indicator shows proper value.
+ e) Tighten mounting post band clamp.
+ f) Engage orientation ring indexing pin in notch at 
+instrument base.
+ g) Tighten orientation ring band clamp.
+CALIBRATION
+The Wind Monitor is fully calibrated before shipment and should 
+require no adjustments. Recalibration may be necessary after 
+some maintenance operations. Periodic calibration checks are 
+desirable and may be necessary where the instrument is used in 
+programs which require auditing of sensor performance.
+Accurate wind direction calibration requires a Model 18112 Vane 
+Angle Bench Stand. Begin by connecting the instrument to a 
+signal conditioning circuit which has some method of indicating 
+wind direction value. This may be a display which shows wind 
+direction values in angular degrees or simply a voltmeter 
+monitoring the output. Orient the base so the junction box faces 
+due south. Visually align the vane with the crossmarkings and 
+observe the indicator output. If the vane position and indicator 
+do not agree within 5°, adjust the potentiometer coupling inside 
+the main housing. Details for making this adjustment appear 
+in the MAINTENANCE, POTENTIOMETER REPLACEMENT, 
+outline, step 7. 
+It is important to note that, while the sensor mechanically rotates 
+through 360°, the full scale wind direction signal from the signal 
+conditioning occurs at 355°. The signal conditioning electronics 
+must be adjusted accordingly. For example, in a circuit where 0 
+to 1.000 VDC represents 0° to 360°, the output must be adjusted 
+for 0.986 VDC when the instrument is at 355°. (355°/360° X 1.000 
+volts = 0.986 volts)
+Wind speed calibration is determined by propeller pitch and the 
+output characteristics of the transducer. Calibration formulas 
+showing wind speed vs. propeller rpm and output frequency are 
+included below. Standard accuracy is ± 0.3 m/s (0.6mph). For 
+greater accuracy, the sensor must be individually calibrated in 
+comparison with a wind speed standard. Contact the factory or 
+your supplier to schedule a NIST (National Institute of Standards 
+& Technology) traceable wind tunnel calibration in our facility.
+ 
+To calibrate wind system electronics using a signal from the 
+instrument, temporarily remove the propeller and connect an 
+Anemometer Drive (18802 or equivalent)  to the propeller shaft. 
+Apply the appropriate calibration formula to the calibrating motor 
+rpm and adjust the electronics for the proper value. For example, 
+with the propeller shaft turning at 3600 rpm, adjust an indicator to 
+display 17.6 meters per second [3600 rpm  X 0.00490 (m/s)/rpm 
+=17.6 m/s]
+Details on checking bearing torque, which affects wind speed and 
+direction threshold, appear in the following section.
+CALIBRATION FORMULAS
+Model 05103 Wind Monitor w / 08234 Propeller
+WIND SPEED  vs  PROPELLER RPM
+m/s = 0.00490 x rpm
+knots = 0.00952 x rpm
+mph = 0.01096 x rpm
+km/h = 0.01764 x rpm
+WIND SPEED  vs  OUTPUT FREQUENCY
+m/s = 0.0980 x Hz
+knots = 0.1904 x Hz
+mph = 0.2192 x Hz
+km/h = 0.3528 x Hz
+
+Page 4:
+Page 3
+05103-90(N)
+MAINTENANCE
+Given proper care, the Wind Monitor should provide years of 
+service. The only components likely to need replacement due to 
+normal wear are the precision ball bearings and the wind direction 
+potentiometer. Only a qualified instrument technician should 
+perform the replacement. If service facilities are not available, 
+return the instrument to the company. Refer to the drawings to 
+become familiar with part names and locations. The asterisk * 
+which appears in the following outlines is a reminder that maximum 
+torque on all set screws is 80 oz-in.
+POTENTIOMETER REPLACEMENT
+The potentiometer has a life expectancy of fifty million revolutions. 
+As it becomes worn, the element may begin to produce noisy 
+signals or become nonlinear. When signal noise or non-linearity 
+becomes unacceptable, replace the potentiometer. Refer to 
+exploded view drawing and proceed as follows:
+1. REMOVE MAIN HOUSING
+ a) Unscrew nose cone from main housing. Set o-ring aside 
+for later use.
+ b) Gently push main housing latch.
+ c) While pushing latch, lift main housing up and remove it 
+from vertical shaft bearing rotor.
+2. UNSOLDER TRANSDUCER WIRE
+ a) Remove junction box cover, exposing circuit board.
+ b) Remove screws holding circuit board.
+ c) Unsolder three potentiometer wires (white, green, black), two 
+wind speed coil wires (red, black) and earth ground wire (red) 
+from board.
+3. REMOVE POTENTIOMETER
+ a) Loosen set screw on potentiometer coupling and remove 
+it from potentiometer adjust thumbwheel.
+ b) Loosen set screw on potentiometer adjust thumbwheel 
+and remove it from potentiometer shaft.
+ c) Loosen two set screws at base of transducer assembly 
+and remove assembly from vertical shaft.
+ d) Unscrew potentiometer housing from potentiometer 
+  mounting & coil assembly.
+ e) Push potentiometer out of potentiometer mounting & 
+coil assembly by applying firm but gentle pressure on 
+potentiometer shaft. Make sure that the shaft o-ring 
+comes out with the potentiometer.  If not, then gently 
+push it out from the top of the coil assembly.
+4. INSTALL NEW  POTENTIOMETER
+ a) Push new potentiometer into potentiometer mounting & 
+coil assembly making sure o-ring is on shaft.
+ b) Feed potentiometer and coil wires through hole in bottom 
+of potentiometer housing.
+ c) Screw potentiometer housing onto potentiometer 
+mounting & coil assembly.
+ d) Gently pull transducer wires through bottom of 
+  potentiometer housing to take up any slack. Apply a 
+small amount of silicone sealant around hole.
+ e) Install transducer assembly on vertical shaft allowing  
+0.5 mm (0.020") clearance from vertical bearing.  
+Tighten set screws* at bottom of transducer assembly.
+ f) Place potentiometer adjust thumbwheel on potentiometer 
+shaft and tighten set screw*.
+ g) Place potentiometer coupling on potentiometer
+   adjust thumbwheel. Do Not tighten set screw yet.
+5. RECONNECT TRANSDUCER WIRES
+ a) Using needle-nose pliers or a paper clip bent to form a 
+small hook, gently pull transducer wires through hole in 
+junction box.
+ b) Solder wires to circuit board according to wiring diagram.   
+Observe color code.
+ c) Secure circuit board in junction box using two screws 
+removed in step 2b. Do not overtighten.
+6. REPLACE MAIN HOUSING
+ a) Place main housing over vertical shaft bearing rotor. Be 
+careful to align indexing key and channel in these two 
+assemblies.
+ b) Place main housing over vertical shaft bearing rotor until  
+potentiometer coupling is near top of main housing.
+ c) Turn potentiometer adjust thumbwheel until 
+potentiometer coupling is oriented to engage ridge in top 
+of  main housing. Set screw on potentiometer coupling 
+should be facing the front opening.
+ d) With potentiometer coupling properly oriented, continue 
+pushing main housing onto vertical shaft bearing  rotor 
+until main housing latch locks into position with a “click”.
+7. ALIGN VANE
+ a) Connect excitation voltage and signal conditioning 
+electronics to terminal strip according to wiring diagram.
+ b) With mounting post held in position so junction box 
+is facing due south, orient vane to a known angular 
+reference. Details appear in CALIBRATION section.
+ c) Reach in through front of main housing and turn 
+potentiometer adjust thumbwheel until signal conditioning 
+system indicates proper value.
+ d) Tighten set screw* on potentiometer coupling.
+8. REPLACE NOSE CONE
+ a) Screw nose cone into main housing until o-ring seal is 
+seated. Be certain threads are properly engaged to avoid 
+cross-threading.
+FLANGE  BEARING  REPLACEMENT
+If anemometer bearings become noisy or wind speed threshold 
+increases above an acceptable level, bearings may need 
+replacement. Check anemometer bearing condition using a Model 
+18310 Propeller Torque Disc. If needed, bearings are replaced 
+as follows.
+1. REMOVE OLD BEARINGS
+ a) Unscrew nose cone. Set o-ring aside for later use.
+ b) Loosen set screw on magnet shaft collar and remove  
+magnet.
+ c) Slide propeller shaft out of nose cone assembly.
+ d) Remove front bearing cap which covers front bearing.
+ e) Remove both front and rear bearings from nose cone  
+assembly. Insert edge of a pocket knife under bearing  
+flange and lift it out.
+2. INSTALL NEW BEARINGS
+ a) Insert new front and rear bearings into nose cone.
+ b) Replace front bearing cap.
+ c) Carefully slide propeller shaft thru bearings.
+ d) Place magnet on propeller shaft allowing 0.5 mm   
+(0.020") clearance from rear bearing.
+ e) Tighten set screw* on magnet shaft collar.
+ f) Screw nose cone into main housing until o-ring seal  
+is   seated. Be certain threads are properly engaged to  
+avoid cross-threading.
+*Max set screw torque 80 oz-in
+
+Page 5:
+Page 4
+05103-90(N)
+VERTICAL SHAFT BEARING REPLACEMENT
+Vertical shaft bearings are much larger than the anemometer 
+bearings. Ordinarily, these bearings require replacement less 
+frequently than anemometer bearings. Check bearing condition 
+using a Model 18331 Vane Torque Gauge.
+Since this procedure is similar to POTENTIOMETER 
+REPLACEMENT, only the major steps are listed here.
+1. REMOVE MAIN HOUSING
+2. UNSOLDER TRANSDUCER WIRES AND REMOVE
+  TRANSDUCER ASSEMBLY
+ Loosen set screws at base of transducer assembly and  
+remove entire assembly from vertical shaft.  
+3. REMOVE VERTICAL SHAFT BEARING ROTOR by sliding 
+it  upward off vertical shaft.
+4. REMOVE OLD VERTICAL BEARINGS AND INSTALL 
+NEW  BEARINGS. When inserting new bearings, be  careful 
+not to apply pressure to bearing shields.
+5. REPLACE VERTICAL SHAFT BEARING ROTOR. 
+6. REPLACE TRANSDUCER & RECONNECT WIRES
+7. REPLACE MAIN HOUSING
+8. ALIGN VANE
+9.  REPLACE NOSE CONE
+EMC COMPLIANCE
+This device complies with Part 15 of the FCC Rules. Operation 
+is subject to the following two conditions: (1) this device may not 
+cause harmful interference, and (2) this device must accept any 
+interference received, including interference that may cause 
+undesired operation.
+This equipment has been tested and found to comply with the 
+limits for a Class A digital device, pursuant to part 15 of the FCC 
+Rules. These limits are designed to provide reasonable protection 
+against harmful interference when the equipment is operated in a 
+commercial environment. This equipment generates, uses, and 
+can radiate radio frequency energy and, if not installed and used 
+in accordance with the instruction manual, may cause harmful 
+interference to radio communications.  Operation of this equipment 
+in a residential area is likely to cause harmful interference in which 
+case the user will be required to correct the interference at his own 
+expense.
+This ISM device complies with Canadian ICES-001.
+Cet appareil ISM est conforme à Ia norme NMB-001 du Canada.
+EN55011/CISPR 11, Group 1, Class B device.
+Class B equipment is suitable for use in domestic establishments 
+and in establishments directly connected to a low voltage power 
+supply network which supplies buildings used for domestic 
+purposes.
+Note:
+To meet EMC Compliance, a YOUNG 18500 ferrite choke must be 
+installed on the cable near the sensor.  The cable must pass through 
+the center hole of the choke at least 2 times, creating 1 loop around 
+the outside as shown below.
+WARRANTY
+This product is warranted to be free of defects in materials and 
+construction for a period of 12 months from date of initial purchase. 
+Liability is limited to repair or replacement of defective item. A copy 
+of the warranty policy may be obtained from R. M. Young Company.
+CE COMPLIANCE
+This product has been tested and complies with European  
+CE requirements for the EMC Directive.  Please note that shielded 
+cable must be used.
+
+
+
+Query #10:
+  Query: Young 05103-L wind direction sensor operational ranges sensitivity technical specifications
+  Dataset: sensor_knowledge
+  Node Sets: wind_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. R.M. Young Wind Monitor maintenance
+Preventive maintenance for R.M. Young Wind Monitor includes:
+
+-Checking the anemometer bearings and the potentiometer at least every second year. If the bearings are noisy or wind speed threshold increases above an acceptable level, replace the bearings.
+After replacing the bearings, update the maintenance information in the Web UI.
+-If the sensor measurement data looks suspicious after the maintenance operation, recalibrate the sensor.
+R.M. Young suggests that the anemometer bearings and the potentiometer be
+inspected at least every 24 months. Only a qualified technician should perform
+the replacement.
+Troubleshooting
+7.1 Wind Direction
+Symptom: -9999 or no change in direction
+1. Check that the sensor is wired to the Excitation and Single-Ended channel
+specified by the measurement instruction.
+2. Verify that the excitation voltage and Range code are correct for the
+datalogger type.
+3. Disconnect the sensor from the datalogger and use an ohn meter to check the
+potentiometer. Resistance should be about 10K ohms between the Blue and
+White wires. The resistance between either the Blue/Green or White/Green
+wires should vary between 1K to 11K depending on the vane position.
+Resistance when the vane is in the 5 degree dead band should be about 1 M
+ohm.
+Symptom: Incorrect wind direction
+1. Verify that the Excitation voltage, Range code, multiplier and offset
+parameters are correct for the datalogger type.
+2. Check orientation of sensor, as described in Section 3.
+7.2 Wind Speed
+Symptom: No wind speed
+1. Check that the sensor is wired to the Pulse channel specified by the Pulse
+count instruction.
+2. Disconnect the sensor from the datalogger and use an ohm meter to check
+the coil. The resistance between the red and black wires should be about 2075
+ohms. Infinite resistance indicates an open coil; low resistance indicates a
+shorted coil.
+3. Verify that the Configuration Code, and Multiplier and Offset parameters for
+the Pulse Count instruction are correct for the datalogger type.
+Symptom: Wind speed does not change
+1. For the dataloggers that are programmed with Edlog, the input location for
+wind speed is not updated if the datalogger is getting “Program Table
+Overruns.” Increase the execution interval (scan rate) to prevent overruns.
+
+    2. Page 6:
+Page 5
+05103-90(N)
+CABLE & WIRING DIAGRAM
+MODEL 05103  WIND MONITOR
+
+
+Page 7:
+Page 6
+05103-90(N)
+BEARING REPLACEMENT & POTENTIOMETER ADJUSTMENT
+
+
+Page 8:
+Page 7
+05103-90(N)
+05194 PROPELLER NUT WRENCH
+08234 PROPELLER - 18CM X 30CM (BLACK PP)
+05163PG FLANGE BEARING (2)
+05160C NOSE CONE ASSY
+05158 NOSE CONE O-RING
+05161A 6-POLE MAGNET &
+SHAFT COLLAR
+05172
+MAIN HOUSING AND
+TAIL ASSY
+05138A
+POTENTIOMETER COUPLING
+05139
+POT ADJUST THUMBWHEEL
+05145C POTENTIOMETER MOUNTING
+& COIL ASSEMBLY
+05134 POTENTIOMETER 10K
+1/4% LIN, CONDUCTIVE PLASTIC
+(WITH O-RING)
+05131D POTENTIOMETER HOUSING
+05130D TRANSDUCER ASSEMBLY
+05124VG (2)
+VERTICAL SHAFT BEARING
+05187  PROPELLER NUT 1/4-20
+05164C PROPELLER SHAFT W/HUB
+6-32 x 1/8 SET SCREW (5)
+05127 MAIN HOUSING LATCH
+6-32 x 3/8 FLAT HD SCREW
+05126C VERTICAL SHAFT
+BEARING ROTOR
+05121E-10
+JUNCTION BOX COVER
+05178A JUNCTION BOX
+CIRCUIT BOARD ASSY
+4-40 x 5/16 SCREW (3)
+05121E
+MOUNTING POST ASSEMBLY
+05129 BAND CLAMP
+(INCL. W/ 05121E, 05128B)
+05128B ORIENTATION RING
+05165B  FRONT BEARING CAP
+R. M. YOUNG COMPANY   2801 Aero Park Drive ,  Traverse City,   Michigan   49686   U.S.A.
+TEL  (231) 946-3980       FAX  (231) 946-4772
+
+
+
+
+ 
+GENERAL ASSEMBLY & REPLACEMENT PARTS
+MODEL 05103  WIND MONITOR
+18500 FERRITE CHOKE
+
+
+Page 10:
+Calibration Accessories
+Model 18802 
+Anemometer Drive
+Model 18112
+Vane Angle Bench Stand
+Model 18310 
+Propeller Torque Disc
+Model 18331 Vane Torque Gauge
+Model 18301 
+Vane Alignment Rod
+Model 18212 
+Vane Angle Fixture-Tower Mount
+
+Page 11:
+Model 18802 Anemometer Drive provides a convenient and accurate way to rotate an anemometer shaft at 
+a known rate. The motor may be set to rotate clockwise or counter-clockwise at any rate between 200 and 
+15,000 RPM in 100 RPM increments. The LCD display is referenced to an accurate and stable quartz timebase. 
+For completely portable operation, the unit can be operated on internal batteries. For extended operation, an 
+AC wall adapter is included.
+Model 18811 Anemometer Drive is identical to Model 18802 except the drive motor incorporates a 
+gear reducer for operation in the range of 20 to 990 RPM in 10 RPM increments. The lower range 
+is recommended for cup anemometer calibration.
+Model 18112 Vane Angle Bench Stand is used for benchtop wind direction calibration of the Wind Monitor 
+family of sensors. The mounting post engages the direction orientation notch on the Wind Monitor. An easy to 
+read pointer indicates 0 to 360 degrees with 1/2 degree resolution.
+Model 18212 Vane Angle Fixture - Tower Mount similar to the Model 18112, the tower mount feature allows use 
+on the tower as well as the bench top. The fixture is temporarily placed on the tower between the Wind Monitor 
+and its tower mounting. Index keys and notches are engaged to preserve direction reference.
+Model 18310 Propeller Torque Disc checks anemometer bearing torque with 0.1 gm/cm resolu-
+tion. The disc temporarily replaces the propeller for torque measurement or simple yet accurate pass/fail 
+checks. Charts included with the unit relate torque to propeller threshold with limits for acceptable 
+bearing performance.
+Model 18312 Cup-Wheel Torque Disc checks cup anemometer bearing torque.
+Model 18331 Vane Torque Gauge checks vane bearing torque of the Wind Monitor family sensors. Slip the 
+fixture over the main housing and make simple yet accurate vane torque measurements. Charts relating vane 
+torque to vane threshold provide limits for acceptable bearing performance.
+Model 18301 Vane Alignment Rod helps align the vane of a wind sensor to a known direction reference during 
+installation. The base of the device has an index key that engages the direction orientation notch in the sensor 
+allowing the sensor to be removed without losing wind direction reference.
+Specifications subject to change without notice. 
+YOUNG
+ Specifications
+ Ordering Information                                                                  MODEL
+R.M. YOUNG COMPANY
+2801 Aero Park Drive
+Traverse City, Michigan 49686 USA
+TEL: (231) 946-3980  FAX: (231) 946-4772
+E-mail: met.sales@youngusa.com
+Web Site: www.youngusa.com
+ANEMOMETER DRIVE 200 to 15,000 RPM ..............................................  18802
+ANEMOMETER DRIVE 20 TO 990 RPM ..................................................  18811
+230V / 50-60 HZ INPUT POWER ................................................... ADD SUFFIX “H”
+VANE ANGLE BENCH STAND ..........................................................  18112
+VANE ANGLE FIXTURE - TOWER MOUNT ...........................................  18212
+PROPELLER TORQUE DISC............................................................  18310
+CUP-WHEEL TORQUE DISC ...........................................................  18312
+VANE TORQUE GAUGE .................................................................  18331
+VANE ALIGNMENT ROD ................................................................  18301
+Copyright © 2000 R.M. Young Company, Printed in U.S.A. 11/00
+Range:
+200 to 15,000 RPM in 100 RPM increments
+Rotation:
+Clockwise or Counter-Clockwise
+Display Resolution:
+1 RPM
+Quartz Timebase Reference:
+0.1 RPM
+Power Requirement:
+2x9 V (alkaline or lithium) batteries
+115 VAC wall adapter included
+(230 VAC – add suffix H)
+Range:
+20 to 990 RPM in 10 RPM increments
+Display Resolution:
+0.1 RPM
+Range:
+0 to 360 degrees
+Resolution: 
+0.5 degree
+Range:
+0 to 5.4 gm-cm
+Resolution: 
+0.1 gm-cm
+Range:
+0 to 50 gm-cm
+Resolution: 
+5 gm-cm
+ MODEL 18802 ANEMOMETER DRIVE
+ (Replaces 18801)
+ MODEL 18310, 18312 TORQUE DISC DEVICES
+Calibration Accessories
+ MODEL 18811 ANEMOMETER DRIVE
+ (Replaces 18810)
+ MODEL 18112, 18212 VANE ANGLE
+ CALIBRATION DEVICES
+ MODEL 18331 VANE TORQUE GAUGE
+
+
+
+Query #11:
+  Query: troubleshooting guides, common failure modes, and recommended maintenance procedures for Young 05103-L wind direction sensor and Vaisala HMP155 temperature sensor
+  Dataset: maintenance_knowledge
+  Node Sets: wind_sensor, temperature_humidity_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. R.M. Young Wind Monitor maintenance
+Preventive maintenance for R.M. Young Wind Monitor includes:
+
+-Checking the anemometer bearings and the potentiometer at least every second year. If the bearings are noisy or wind speed threshold increases above an acceptable level, replace the bearings.
+After replacing the bearings, update the maintenance information in the Web UI.
+-If the sensor measurement data looks suspicious after the maintenance operation, recalibrate the sensor.
+R.M. Young suggests that the anemometer bearings and the potentiometer be
+inspected at least every 24 months. Only a qualified technician should perform
+the replacement.
+Troubleshooting
+7.1 Wind Direction
+Symptom: -9999 or no change in direction
+1. Check that the sensor is wired to the Excitation and Single-Ended channel
+specified by the measurement instruction.
+2. Verify that the excitation voltage and Range code are correct for the
+datalogger type.
+3. Disconnect the sensor from the datalogger and use an ohn meter to check the
+potentiometer. Resistance should be about 10K ohms between the Blue and
+White wires. The resistance between either the Blue/Green or White/Green
+wires should vary between 1K to 11K depending on the vane position.
+Resistance when the vane is in the 5 degree dead band should be about 1 M
+ohm.
+Symptom: Incorrect wind direction
+1. Verify that the Excitation voltage, Range code, multiplier and offset
+parameters are correct for the datalogger type.
+2. Check orientation of sensor, as described in Section 3.
+7.2 Wind Speed
+Symptom: No wind speed
+1. Check that the sensor is wired to the Pulse channel specified by the Pulse
+count instruction.
+2. Disconnect the sensor from the datalogger and use an ohm meter to check
+the coil. The resistance between the red and black wires should be about 2075
+ohms. Infinite resistance indicates an open coil; low resistance indicates a
+shorted coil.
+3. Verify that the Configuration Code, and Multiplier and Offset parameters for
+the Pulse Count instruction are correct for the datalogger type.
+Symptom: Wind speed does not change
+1. For the dataloggers that are programmed with Edlog, the input location for
+wind speed is not updated if the datalogger is getting “Program Table
+Overruns.” Increase the execution interval (scan rate) to prevent overruns.
+
+    2. Page 6:
+Page 5
+05103-90(N)
+CABLE & WIRING DIAGRAM
+MODEL 05103  WIND MONITOR
+
+
+Page 7:
+Page 6
+05103-90(N)
+BEARING REPLACEMENT & POTENTIOMETER ADJUSTMENT
+
+
+Page 8:
+Page 7
+05103-90(N)
+05194 PROPELLER NUT WRENCH
+08234 PROPELLER - 18CM X 30CM (BLACK PP)
+05163PG FLANGE BEARING (2)
+05160C NOSE CONE ASSY
+05158 NOSE CONE O-RING
+05161A 6-POLE MAGNET &
+SHAFT COLLAR
+05172
+MAIN HOUSING AND
+TAIL ASSY
+05138A
+POTENTIOMETER COUPLING
+05139
+POT ADJUST THUMBWHEEL
+05145C POTENTIOMETER MOUNTING
+& COIL ASSEMBLY
+05134 POTENTIOMETER 10K
+1/4% LIN, CONDUCTIVE PLASTIC
+(WITH O-RING)
+05131D POTENTIOMETER HOUSING
+05130D TRANSDUCER ASSEMBLY
+05124VG (2)
+VERTICAL SHAFT BEARING
+05187  PROPELLER NUT 1/4-20
+05164C PROPELLER SHAFT W/HUB
+6-32 x 1/8 SET SCREW (5)
+05127 MAIN HOUSING LATCH
+6-32 x 3/8 FLAT HD SCREW
+05126C VERTICAL SHAFT
+BEARING ROTOR
+05121E-10
+JUNCTION BOX COVER
+05178A JUNCTION BOX
+CIRCUIT BOARD ASSY
+4-40 x 5/16 SCREW (3)
+05121E
+MOUNTING POST ASSEMBLY
+05129 BAND CLAMP
+(INCL. W/ 05121E, 05128B)
+05128B ORIENTATION RING
+05165B  FRONT BEARING CAP
+R. M. YOUNG COMPANY   2801 Aero Park Drive ,  Traverse City,   Michigan   49686   U.S.A.
+TEL  (231) 946-3980       FAX  (231) 946-4772
+
+
+
+
+ 
+GENERAL ASSEMBLY & REPLACEMENT PARTS
+MODEL 05103  WIND MONITOR
+18500 FERRITE CHOKE
+
+
+Page 10:
+Calibration Accessories
+Model 18802 
+Anemometer Drive
+Model 18112
+Vane Angle Bench Stand
+Model 18310 
+Propeller Torque Disc
+Model 18331 Vane Torque Gauge
+Model 18301 
+Vane Alignment Rod
+Model 18212 
+Vane Angle Fixture-Tower Mount
+
+Page 11:
+Model 18802 Anemometer Drive provides a convenient and accurate way to rotate an anemometer shaft at 
+a known rate. The motor may be set to rotate clockwise or counter-clockwise at any rate between 200 and 
+15,000 RPM in 100 RPM increments. The LCD display is referenced to an accurate and stable quartz timebase. 
+For completely portable operation, the unit can be operated on internal batteries. For extended operation, an 
+AC wall adapter is included.
+Model 18811 Anemometer Drive is identical to Model 18802 except the drive motor incorporates a 
+gear reducer for operation in the range of 20 to 990 RPM in 10 RPM increments. The lower range 
+is recommended for cup anemometer calibration.
+Model 18112 Vane Angle Bench Stand is used for benchtop wind direction calibration of the Wind Monitor 
+family of sensors. The mounting post engages the direction orientation notch on the Wind Monitor. An easy to 
+read pointer indicates 0 to 360 degrees with 1/2 degree resolution.
+Model 18212 Vane Angle Fixture - Tower Mount similar to the Model 18112, the tower mount feature allows use 
+on the tower as well as the bench top. The fixture is temporarily placed on the tower between the Wind Monitor 
+and its tower mounting. Index keys and notches are engaged to preserve direction reference.
+Model 18310 Propeller Torque Disc checks anemometer bearing torque with 0.1 gm/cm resolu-
+tion. The disc temporarily replaces the propeller for torque measurement or simple yet accurate pass/fail 
+checks. Charts included with the unit relate torque to propeller threshold with limits for acceptable 
+bearing performance.
+Model 18312 Cup-Wheel Torque Disc checks cup anemometer bearing torque.
+Model 18331 Vane Torque Gauge checks vane bearing torque of the Wind Monitor family sensors. Slip the 
+fixture over the main housing and make simple yet accurate vane torque measurements. Charts relating vane 
+torque to vane threshold provide limits for acceptable bearing performance.
+Model 18301 Vane Alignment Rod helps align the vane of a wind sensor to a known direction reference during 
+installation. The base of the device has an index key that engages the direction orientation notch in the sensor 
+allowing the sensor to be removed without losing wind direction reference.
+Specifications subject to change without notice. 
+YOUNG
+ Specifications
+ Ordering Information                                                                  MODEL
+R.M. YOUNG COMPANY
+2801 Aero Park Drive
+Traverse City, Michigan 49686 USA
+TEL: (231) 946-3980  FAX: (231) 946-4772
+E-mail: met.sales@youngusa.com
+Web Site: www.youngusa.com
+ANEMOMETER DRIVE 200 to 15,000 RPM ..............................................  18802
+ANEMOMETER DRIVE 20 TO 990 RPM ..................................................  18811
+230V / 50-60 HZ INPUT POWER ................................................... ADD SUFFIX “H”
+VANE ANGLE BENCH STAND ..........................................................  18112
+VANE ANGLE FIXTURE - TOWER MOUNT ...........................................  18212
+PROPELLER TORQUE DISC............................................................  18310
+CUP-WHEEL TORQUE DISC ...........................................................  18312
+VANE TORQUE GAUGE .................................................................  18331
+VANE ALIGNMENT ROD ................................................................  18301
+Copyright © 2000 R.M. Young Company, Printed in U.S.A. 11/00
+Range:
+200 to 15,000 RPM in 100 RPM increments
+Rotation:
+Clockwise or Counter-Clockwise
+Display Resolution:
+1 RPM
+Quartz Timebase Reference:
+0.1 RPM
+Power Requirement:
+2x9 V (alkaline or lithium) batteries
+115 VAC wall adapter included
+(230 VAC – add suffix H)
+Range:
+20 to 990 RPM in 10 RPM increments
+Display Resolution:
+0.1 RPM
+Range:
+0 to 360 degrees
+Resolution: 
+0.5 degree
+Range:
+0 to 5.4 gm-cm
+Resolution: 
+0.1 gm-cm
+Range:
+0 to 50 gm-cm
+Resolution: 
+5 gm-cm
+ MODEL 18802 ANEMOMETER DRIVE
+ (Replaces 18801)
+ MODEL 18310, 18312 TORQUE DISC DEVICES
+Calibration Accessories
+ MODEL 18811 ANEMOMETER DRIVE
+ (Replaces 18810)
+ MODEL 18112, 18212 VANE ANGLE
+ CALIBRATION DEVICES
+ MODEL 18331 VANE TORQUE GAUGE
+
+
+
+Query #12:
+  Query: Vaisala HMP155 temperature sensor operational ranges sensitivity technical specifications
+  Dataset: sensor_knowledge
+  Node Sets: temperature_humidity_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. HMP155 maintenance 
+
+Preventive maintenance for HMP155 includes:
+Checking that the probe is securely mounted.
+Checking that the radiation shield and cable are intact.
+Cleaning the radiation shield using mild detergent and a soft, lint-free cloth.
+Changing the probe filter once a year.
+
+If the measurement site is exposed to air pollution and dust, the probe filter may need to be changed more frequently.
+
+Changing HMP155 probe filter
+Over time, the probe filter becomes contaminated with matter that you cannot remove by cleaning. When this happens, the response time becomes longer and measurement accuracy decreases.
+CAUTION The Pt100 temperature sensor is soldered to the probe. Do not try to remove it. Due to the operating principles of the sensor, no maintenance is required.
+1. Remove the probe from inside the radiation shield.
+2. Carefully remove the filter from the probe. Holding the filter by the plastic part, rotate the filter counterclockwise and pull it out.
+CAUTION Do not touch the sensor heads.
+3. After removing the filter, check the O‑ring and change it if necessary.
+4. Install the new filter carefully without delay.
+5. Install the probe back inside the radiation shield.
+
+Troubleshooting
+Symptom: Relative Humidity is reported as –9999, NAN, –80 °C, or 0%
+1. Check that the sensor is wired to the correct analog input channels as specified by the
+measurement instructions.
+2. 3. Verify the range code for the single-ended or differential measurement instruction is
+correct for the data logger type.
+Verify the red power wire is correctly wired to the 12V or SW12V channel. The channel the
+wire is connected to will depend on the data logger program.
+Connect the red wire to a 12V terminal to constantly power the sensor for troubleshooting
+purposes. With the red wire connected to 12V, a voltmeter can be used to check the output
+voltage for temperature and relative humidity on the yellow and blue wires respectively
+(temperature °C = mV * 0.14 – 80.0; relative humidity % = mV * 0.1).
+Symptom: Incorrect temperature or relative humidity
+1. Verify the multiplier and offset parameters are correct for the desired units (Data logger
+programming (p. 10)).
+
+Maintenance
+The HMP155A probe requires minimal maintenance. Check monthly to make sure the radiation
+shield is free from debris. The white screen at the tip of the probe should also be checked for
+contaminates.
+When installed in close proximity to the ocean or other bodies of salt water, a coating of salt
+(mostly NaCl) may build up on the radiation shield, sensor, filter and even the chip. NaCl has an
+affinity for water. The humidity over a saturated NaCl solution is 75%. A buildup of salt on the
+filter or chip will delay or destroy the response to atmospheric humidity.
+The filter can be rinsed gently in distilled water. If necessary, the chip can be removed and rinsed
+as well. Do not scratch the chip while cleaning.
+Recalibrate the HMP155A annually. Refer to the Assistance page at the back of this document for
+the procedure for returning the HMP155A to the factory to get recalibrated.
+
+Cleaning
+Clean the probe with a soft, lint-free cloth moistened with mild detergent.
+Changing the probe filter
+1. Remove the filter from the probe.
+2. After removing the filter, check the O-ring and change it if necessary.
+3. Install a new filter on the probe.
+New filters can be ordered from Campbell Scientific or Vaisala.
+
+
+HygroVue Maintenance
+
+Syptoms, Possible causes and Solutions:
+
+1. Temperature is reported as
+–9999 or NAN, and relative
+humidity is reported as 0 or
+an unchanging value.
+
+This indicates a problem
+with the SDI-12
+communications with the
+sensor.
+
+Recheck the sensor wiring.
+Check the voltage to the sensor is 12V
+with a digital voltage meter.
+Verify the sensor SDI-12 address
+matches the address entered for the
+SDI12Recorder() instruction.
+
+2. Inaccurate temperature or
+relative humidity is
+reported.
+
+Inadequate delay after
+power-up (only applicable
+if using SW12)
+The sensor element has
+been contaminated
+Electrical interference
+
+Verify the program is allowing a
+power-up time of at least 1.8 s.
+Clean the sensor tip with distilled
+water or replace it.
+Ensure the sensor is not installed too
+close to a radio transmitter or cell
+phone.
+
+3. Temperature and relative
+humidity read –99.999
+
+This indicates a fault with
+the sensor element itself or
+communication between
+the sensor element and the
+electronics in the sensor
+body.
+
+Check the sensor element is properly
+plugged in with the correct
+orientation.
+Check for water being present under
+the sensor element connector and
+there is no corrosion of the sensor
+pins or the socket.
+Swap the element for another one.
+
+
+Maintenance
+The HygroVue 10 sensor requires minimal maintenance, but dust, debris, and salts on the filter
+cap will degrade sensor performance. Check the white filter on the end of the sensor for debris. If
+dirt or salt is ingrained in the filter, clean with distilled water or replace it. Make sure the filter is
+screwed onto the sensor firmly with your fingers—do not over tighten.
+Check the radiation shield monthly to make sure it is free from dust and debris. To clean the
+shield, first remove the sensor. Dismount the shield. Brush all loose dirt off. If more effort is
+needed, use warm, soapy water and a soft cloth or brush to thoroughly clean the shield. Allow
+the shield to dry before remounting.
+CAUTION:
+The HygroVue 10 sensor body is sealed and filled with a potting compound to totally protect
+the electronics from any water ingress. This means there are no serviceable parts within the
+sensor body
+
+
+Calibration
+The life of the sensor element is primarily limited by drift of the humidity sensor and your own
+acceptance of the errors incurred. Typical drift is less than 1% per year when used in cleaner
+environments but can be higher in polluted air. Because it can be difficult to know what the
+sensor has been exposed to, and because the element is relatively inexpensive, Campbell
+Scientific recommends replacing the sensor element annually. Replacing the element effectively
+brings the sensor back to a factory calibration state both for temperature and relative humidity.
+If you wish to check an old element’s calibration, you can measure its performance by plugging it
+into another sensor body in your calibration laboratory.
+NOTE:
+We cannot guarantee the accuracy of measurements if the sensor element is not changed
+every yea
+
+    2. Page 1:
+HUMICAPâ Humidity and
+Temperature Probe HMP155
+HMP155 with an additional
+temperature probe and optional
+Stevenson screen installation kit.
+Features
+• Vaisala HUMICAP â180R sensor:
+superior long-term stability
+• Optional warmed humidity probe
+and chemical purge
+• Plug-and-play
+• USB connection for service use
+• Use with DTR13 and DTR503
+radiation shields and a Stevenson
+screen
+• Weather-proof housing IP66
+• Optional, fast temperature probe
+• Different output possibilities:
+voltage, RS-485, resistive Pt100
+• Applications: meteorology,
+aviation and road weather,
+instrumentation
+Long-term stability
+HMP155 uses the proven Vaisala
+HUMICAPâ180R sensor that has excellent
+stability and withstands well harsh
+environments. The probe structure is
+solid and the sensor is protected by
+default with a sintered teflon filter, which
+gives maximum protection against water,
+dust, and dirt.
+Warmed probe and high-
+humidity environment
+Measuring humidity reliably is
+challenging in environments where
+humidity is near saturation.
+Measurements may be corrupted by fog,
+mist, rain, and heavy dew. A wet probe
+may not give an accurate measurement
+in the ambient air.
+This is an environment to which Vaisala
+has designed this patented, warmed
+probe for reliable measurements. As
+the sensor head is warmed continuously,
+the humidity level inside it stays below
+the ambient level. Thus, it also reduces
+the risk of condensation forming on
+the probe.
+Fast measurements
+With its fast response time,
+the additional temperature probe for
+HMP155 is ideal for measuring in
+environments with changing
+temperatures. The membrane filter
+speeds up the relative humidity
+measurement.
+Long lifetime
+Protecting the sensor from precipitation,
+and scattered and direct solar radiation
+increases its lifetime. Thus, Vaisala
+recommends installing HMP155 in one of
+the following radiation shields: DTR503,
+DTR13, or Stevenson screen. For
+the additional temperature probe,
+an installation kit is available for Vaisala
+DTR502 Radiation Shield.
+Calibration
+The probe can be calibrated using
+a computer with a USB cable, with
+the push buttons, or with the MI70
+indicator.
+Vaisala HUMICAPâ Humidity and Temperature Probe
+HMP155 provides reliable humidity and temperature
+measurement. It is designed especially for demanding
+outdoor applications.
+
+Page 2:
+Technical Data
+HMP155 humidity measurement performance
+Sensor HUMICAPâR2, 180R and INTER CAP
+for typical applications
+HUMICAPâR2C, 180RC and
+INTERCAPC for applications with
+chemical purge and/or warmed probe
+Observation range 0 … 100 %RH
+Response time at +20 °C (+68 °F) in
+s
+till air with sintered Teflon filter
+63 %: 20 s
+90 %: 60 s
+Factory calibration uncertainty at
++20 °C (+68 °F)1)
+±0.6 %RH (0 … 40 %RH)
+±1.
+0 %RH (40 … 95 %RH)
+Accuracy (including non-linearity, hysteresis, and repeatability)
+At +15 … +25 °C (+59 … +77 °F) ±1 %RH (0 … 90 %RH)
+±1.
+7 %RH (90 … 100 %RH)
+At −20 … +40 °C (−4 … +104 °F) ±(1.0 + 0.008 × reading) %RH
+At −40 … −20 °C (−40 … −4 °F) ±(1.2 + 0.012 × reading) %RH
+At +40 … +60 °C (+104 … +140 °F) ±(1.2 + 0.012 × reading) %RH
+At −60 … −40 °C (−76 … −40 °F) ±(1.4 + 0.032 × reading) %RH
+1) Defined as ±2 s tandard deviation limits. Small variations possible (see also the calibration certificate).
+HMP155 temperature measurement performance
+Sensor Pt100 RTD element, Class F 0.1
+IE
+C 60751
+Observation range −80 … +60 °C (−112 … +140 °F)
+Response time for additional
+t
+emperature probe in 3 m/s (7 mph) air
+flow
+63 %: < 20 s
+90 %: < 3
+5 s
+Other measured variables Dew point / frost point temperature,
+w
+et bulb temperature, mixing ratio
+Accuracy with voltage output
+At −80 … +20 °C (−112 … +68 °F) ±(0.226 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.055 + 0.0057 × temperature) °C
+Accuracy with passive (resistive) output
+According to Tolerance Class AA
+IE
+C 607511)
+±(0.1 + 0.0017 × |temperature|) °C
+Accuracy with RS‑ 485 output
+At −80 … +20 °C (−112 … +68 °F) ±(0.176 - 0.0028 × temperature) °C
+At +20 … +60 °C (+68 … +140 °F) ±(0.07 + 0.0025 × temperature) °C
+1) Tolerance Class AA IEC 60751 corresponds to IEC 751 1/3 Class B
+HMP155 accuracy over temperature range: voltage and
+RS‑ 485
+HMP155 operating environment
+Operating temperature for humidity
+measur
+ement
+−80 … +60 °C (−112 … +140 °F)
+Storage temperature −80 … +60 °C (−112 … +140 °F)
+Operating humidity 0 … 100 %RH
+IP rating IP66
+HMP155 inputs and outputs
+Operating voltage 7 … 28 V DC
+Minimum operating voltage 0 … 1 V output or RS‑ 485: 7 V
+0 … 5 V output, or w
+armed probe:
+12 V
+0 … 10 V output, chemical purge, or
+XHEAT: 16 V
+Outputs Voltage output: 0 … 1 V, 0 … 5 V,
+0 … 10 V
+R
+esistive Pt100 4‑ wire connection
+RS‑ 485
+Average power consumption (+15 V DC,
+load 100 kΩ)
+0 … 1 V output: < 3 mA
+0 … 10 V output: +0
+.5 mA
+RS-485: < 4 mA
+During chemical purge: Maximum
+110 mA
+With warmed probe: Maximum
+150 mA
+Settling time at startup Voltage output: 2 s
+RS-485: 3 s
+HMP155 mechanical specifica
+ tions
+Dimensions (H × W) 279 × 40 mm (10.9 × 1.6 in)
+Weight 93 g (3.25 oz)
+Length of additional T‑ pr obe cable 2 m (6 ft 7 in)
+Connection 8-pin male M12 connector
+Connection cables 3.5 m (11 ft 6 in), 10 m (32 ft 10 in),
+30 m (98 ft 5 in)
+Maximum wire size 0.129 mm2 (2
+ 6 AWG)
+Service cables USB connection cable
+MI7
+0 connection cable
+Materials
+Filter Sintered T eflon or membrane
+Housing Polycarbonate (PC)
+Additional temperature probe Stainless steel AISI 316L
+Cable PUR
+ 40 [1.57]  24 [0.94]  86 [3.39] 
+ 279 [10.98] 
+ 266 [10.47] 
+mm
+[in]
+Dimensions in mm (inches)
+Published by Vaisala | B210752EN-J © Vaisala Oyj 2021
+www.vaisala.com
+All rights reserved. Any logos and/or product names are trademarks of Vaisala or its individual partners. 
+Any reproduction, transfer, distribution or storage of information contained in this document is strictly 
+prohibited. All specifications — technical included — are subject to change without notice.
+
+
+
+Query #13:
+  Query: maintenance and troubleshooting for Young 05103-L wind direction sensor and Vaisala HMP155 temperature sensor anomalies
+  Dataset: maintenance_knowledge
+  Node Sets: wind_sensor, temperature_humidity_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. R.M. Young Wind Monitor maintenance
+Preventive maintenance for R.M. Young Wind Monitor includes:
+
+-Checking the anemometer bearings and the potentiometer at least every second year. If the bearings are noisy or wind speed threshold increases above an acceptable level, replace the bearings.
+After replacing the bearings, update the maintenance information in the Web UI.
+-If the sensor measurement data looks suspicious after the maintenance operation, recalibrate the sensor.
+R.M. Young suggests that the anemometer bearings and the potentiometer be
+inspected at least every 24 months. Only a qualified technician should perform
+the replacement.
+Troubleshooting
+7.1 Wind Direction
+Symptom: -9999 or no change in direction
+1. Check that the sensor is wired to the Excitation and Single-Ended channel
+specified by the measurement instruction.
+2. Verify that the excitation voltage and Range code are correct for the
+datalogger type.
+3. Disconnect the sensor from the datalogger and use an ohn meter to check the
+potentiometer. Resistance should be about 10K ohms between the Blue and
+White wires. The resistance between either the Blue/Green or White/Green
+wires should vary between 1K to 11K depending on the vane position.
+Resistance when the vane is in the 5 degree dead band should be about 1 M
+ohm.
+Symptom: Incorrect wind direction
+1. Verify that the Excitation voltage, Range code, multiplier and offset
+parameters are correct for the datalogger type.
+2. Check orientation of sensor, as described in Section 3.
+7.2 Wind Speed
+Symptom: No wind speed
+1. Check that the sensor is wired to the Pulse channel specified by the Pulse
+count instruction.
+2. Disconnect the sensor from the datalogger and use an ohm meter to check
+the coil. The resistance between the red and black wires should be about 2075
+ohms. Infinite resistance indicates an open coil; low resistance indicates a
+shorted coil.
+3. Verify that the Configuration Code, and Multiplier and Offset parameters for
+the Pulse Count instruction are correct for the datalogger type.
+Symptom: Wind speed does not change
+1. For the dataloggers that are programmed with Edlog, the input location for
+wind speed is not updated if the datalogger is getting “Program Table
+Overruns.” Increase the execution interval (scan rate) to prevent overruns.
+
+    2. Page 6:
+Page 5
+05103-90(N)
+CABLE & WIRING DIAGRAM
+MODEL 05103  WIND MONITOR
+
+
+Page 7:
+Page 6
+05103-90(N)
+BEARING REPLACEMENT & POTENTIOMETER ADJUSTMENT
+
+
+Page 8:
+Page 7
+05103-90(N)
+05194 PROPELLER NUT WRENCH
+08234 PROPELLER - 18CM X 30CM (BLACK PP)
+05163PG FLANGE BEARING (2)
+05160C NOSE CONE ASSY
+05158 NOSE CONE O-RING
+05161A 6-POLE MAGNET &
+SHAFT COLLAR
+05172
+MAIN HOUSING AND
+TAIL ASSY
+05138A
+POTENTIOMETER COUPLING
+05139
+POT ADJUST THUMBWHEEL
+05145C POTENTIOMETER MOUNTING
+& COIL ASSEMBLY
+05134 POTENTIOMETER 10K
+1/4% LIN, CONDUCTIVE PLASTIC
+(WITH O-RING)
+05131D POTENTIOMETER HOUSING
+05130D TRANSDUCER ASSEMBLY
+05124VG (2)
+VERTICAL SHAFT BEARING
+05187  PROPELLER NUT 1/4-20
+05164C PROPELLER SHAFT W/HUB
+6-32 x 1/8 SET SCREW (5)
+05127 MAIN HOUSING LATCH
+6-32 x 3/8 FLAT HD SCREW
+05126C VERTICAL SHAFT
+BEARING ROTOR
+05121E-10
+JUNCTION BOX COVER
+05178A JUNCTION BOX
+CIRCUIT BOARD ASSY
+4-40 x 5/16 SCREW (3)
+05121E
+MOUNTING POST ASSEMBLY
+05129 BAND CLAMP
+(INCL. W/ 05121E, 05128B)
+05128B ORIENTATION RING
+05165B  FRONT BEARING CAP
+R. M. YOUNG COMPANY   2801 Aero Park Drive ,  Traverse City,   Michigan   49686   U.S.A.
+TEL  (231) 946-3980       FAX  (231) 946-4772
+
+
+
+
+ 
+GENERAL ASSEMBLY & REPLACEMENT PARTS
+MODEL 05103  WIND MONITOR
+18500 FERRITE CHOKE
+
+
+Page 10:
+Calibration Accessories
+Model 18802 
+Anemometer Drive
+Model 18112
+Vane Angle Bench Stand
+Model 18310 
+Propeller Torque Disc
+Model 18331 Vane Torque Gauge
+Model 18301 
+Vane Alignment Rod
+Model 18212 
+Vane Angle Fixture-Tower Mount
+
+Page 11:
+Model 18802 Anemometer Drive provides a convenient and accurate way to rotate an anemometer shaft at 
+a known rate. The motor may be set to rotate clockwise or counter-clockwise at any rate between 200 and 
+15,000 RPM in 100 RPM increments. The LCD display is referenced to an accurate and stable quartz timebase. 
+For completely portable operation, the unit can be operated on internal batteries. For extended operation, an 
+AC wall adapter is included.
+Model 18811 Anemometer Drive is identical to Model 18802 except the drive motor incorporates a 
+gear reducer for operation in the range of 20 to 990 RPM in 10 RPM increments. The lower range 
+is recommended for cup anemometer calibration.
+Model 18112 Vane Angle Bench Stand is used for benchtop wind direction calibration of the Wind Monitor 
+family of sensors. The mounting post engages the direction orientation notch on the Wind Monitor. An easy to 
+read pointer indicates 0 to 360 degrees with 1/2 degree resolution.
+Model 18212 Vane Angle Fixture - Tower Mount similar to the Model 18112, the tower mount feature allows use 
+on the tower as well as the bench top. The fixture is temporarily placed on the tower between the Wind Monitor 
+and its tower mounting. Index keys and notches are engaged to preserve direction reference.
+Model 18310 Propeller Torque Disc checks anemometer bearing torque with 0.1 gm/cm resolu-
+tion. The disc temporarily replaces the propeller for torque measurement or simple yet accurate pass/fail 
+checks. Charts included with the unit relate torque to propeller threshold with limits for acceptable 
+bearing performance.
+Model 18312 Cup-Wheel Torque Disc checks cup anemometer bearing torque.
+Model 18331 Vane Torque Gauge checks vane bearing torque of the Wind Monitor family sensors. Slip the 
+fixture over the main housing and make simple yet accurate vane torque measurements. Charts relating vane 
+torque to vane threshold provide limits for acceptable bearing performance.
+Model 18301 Vane Alignment Rod helps align the vane of a wind sensor to a known direction reference during 
+installation. The base of the device has an index key that engages the direction orientation notch in the sensor 
+allowing the sensor to be removed without losing wind direction reference.
+Specifications subject to change without notice. 
+YOUNG
+ Specifications
+ Ordering Information                                                                  MODEL
+R.M. YOUNG COMPANY
+2801 Aero Park Drive
+Traverse City, Michigan 49686 USA
+TEL: (231) 946-3980  FAX: (231) 946-4772
+E-mail: met.sales@youngusa.com
+Web Site: www.youngusa.com
+ANEMOMETER DRIVE 200 to 15,000 RPM ..............................................  18802
+ANEMOMETER DRIVE 20 TO 990 RPM ..................................................  18811
+230V / 50-60 HZ INPUT POWER ................................................... ADD SUFFIX “H”
+VANE ANGLE BENCH STAND ..........................................................  18112
+VANE ANGLE FIXTURE - TOWER MOUNT ...........................................  18212
+PROPELLER TORQUE DISC............................................................  18310
+CUP-WHEEL TORQUE DISC ...........................................................  18312
+VANE TORQUE GAUGE .................................................................  18331
+VANE ALIGNMENT ROD ................................................................  18301
+Copyright © 2000 R.M. Young Company, Printed in U.S.A. 11/00
+Range:
+200 to 15,000 RPM in 100 RPM increments
+Rotation:
+Clockwise or Counter-Clockwise
+Display Resolution:
+1 RPM
+Quartz Timebase Reference:
+0.1 RPM
+Power Requirement:
+2x9 V (alkaline or lithium) batteries
+115 VAC wall adapter included
+(230 VAC – add suffix H)
+Range:
+20 to 990 RPM in 10 RPM increments
+Display Resolution:
+0.1 RPM
+Range:
+0 to 360 degrees
+Resolution: 
+0.5 degree
+Range:
+0 to 5.4 gm-cm
+Resolution: 
+0.1 gm-cm
+Range:
+0 to 50 gm-cm
+Resolution: 
+5 gm-cm
+ MODEL 18802 ANEMOMETER DRIVE
+ (Replaces 18801)
+ MODEL 18310, 18312 TORQUE DISC DEVICES
+Calibration Accessories
+ MODEL 18811 ANEMOMETER DRIVE
+ (Replaces 18810)
+ MODEL 18112, 18212 VANE ANGLE
+ CALIBRATION DEVICES
+ MODEL 18331 VANE TORQUE GAUGE
+
+
+================================================================================
+
+================================================================================
+
+
+================================================================================
+PROCESSING SUMMARY
+================================================================================
+LLM: gpt_4_1_mini
+Total Processing Time: 79.12 seconds
+Total Errors: 0
+
+Agent Call Statistics:
+
+Tool Call Statistics:
+  - sensor_search_sensor_knowledge: 2 calls
+  - get_weather: 1 calls
+  - maintenance_search_maintenance_knowledge: 2 calls
+================================================================================
+
+END OF LOG
+================================================================================

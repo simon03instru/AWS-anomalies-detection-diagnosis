@@ -1,0 +1,88 @@
+=============================
+Data Received
+=============================
+timestamp,tt,rh,pp,ws,wd,sr,rr
+2024-08-15 18:20:00+00,21.96,76.33,995.8249,0.693,316.4,0.0,0.0
+2024-08-15 18:30:00+00,21.91,76.16,995.7999,0.799,277.0,0.0,0.0
+2024-08-15 18:40:00+00,21.84,76.4,995.7599,0.973,297.3,0.0,0.0
+2024-08-15 18:50:00+00,21.83,76.72,995.7,1.026,299.9,0.0,0.0
+2024-08-15 19:00:00+00,21.74,77.1,995.635,1.1,265.1,0.0,0.0
+2024-08-15 19:10:00+00,21.76,77.37,995.535,1.036,316.0,0.0,0.0
+2024-08-15 19:20:00+00,21.78,77.39,995.5,1.223,310.5,0.0,0.0
+2024-08-15 19:30:00+00,21.7,77.7,995.5,0.878,282.8,0.0,0.0
+2024-08-15 19:40:00+00,21.7,77.72,995.4149,1.032,308.5,0.0,0.0
+2024-08-15 19:50:00+00,21.79,77.35,995.285,1.071,306.6,0.0,0.0
+2024-08-15 20:00:00+00,21.86,76.82,995.2,1.325,315.4,0.0,0.0
+2024-08-15 20:10:00+00,21.91,76.45,995.285,1.512,303.8,-9999,0.0
+
+
+=============================
+Station Agent Output:
+=============================
+Event Detection Time: 2024-08-15T20:10:00
+Station: AWS_DIY_UGM
+Location: UGM Yogyakarta, Indonesia
+Coordinates: Latitude -7.768469, Longitude 110.38192, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Solar Radiation
+  Value: -9999.0
+  Sensor Brand: Kipp & Zonen CMP3
+  Trend Analysis: Invalid sentinel value -9999.0 W/m² - sensor failure. Expected near 0 W/m² at night. Correlation with temperature (tt) and wind speed (ws) broken, confirming sensor fault.
+
+
+=============================
+Diagnosis Agent Output
+=============================
+Comprehensive Assessment of Solar Radiation Anomaly (AWS_DIY_UGM)
+
+**1. Current Weather Conditions (2024‑08‑15 20:10 local / 13:10 UTC)**
+- Direct solar radiation: **0 W/m²** (nighttime, no solar input)
+- Air temperature: **23.4 °C**
+- Wind speed (10 m): **4.1 m/s**
+- Relative humidity: **75 %**
+- Cloud cover: not directly provided but night conditions imply no solar contribution.
+
+**2. Plausibility of the Reported Value**
+- The sensor reported **‑9999 W/m²**, which is a sentinel value used by Kipp & Zonen CMP3 to flag missing or invalid data. 
+- Physically, solar radiation cannot be negative; the expected natural value at this time is ~0 W/m². Therefore the reading is **not physically plausible** and indicates a data‑acquisition fault rather than an atmospheric event.
+
+**3. Operational Range & Sensor Sensitivity**
+- CMP3 measurement range: **‑400 W/m² to 2000 W/m²** (maximum 2000 W/m²). Night‑time valid readings are near **0 W/m²**.
+- The sentinel **‑9999** lies far outside the sensor’s defined range and is reserved for communication or hardware failures. Hence the sensor output is **outside its operational range for this event**.
+
+**4. Correlation with Other Parameters**
+- Trend analysis notes a broken correlation between solar radiation, temperature, and wind speed. Under normal conditions, a drop in solar radiation at night coincides with stable temperature and modest wind; the abrupt sentinel disrupts this relationship, confirming a sensor fault.
+- No anomalies were observed in temperature or wind data, reinforcing that the issue is isolated to the solar sensor.
+
+**5. Troubleshooting Information (Kipp & Zonen CMP3)**
+| Step | Action | Expected Outcome |
+|------|--------|------------------|
+| 1. Wiring & Connections | Inspect connectors, ensure no corrosion or damage. | Secure, low‑resistance connections.
+| 2. Data‑Logger Configuration | Verify range settings match CMP3 specifications. | Correct data‑logger acceptance of sensor output.
+| 3. Impedance Test | Measure resistance across sensor leads (~100 Ω). | Low resistance → possible short; infinite → broken wire.
+| 4. Voltage Output Test | Illuminate sensor with a 60 W bulb; expect ~2.5 mV. | No voltage → faulty sensor.
+| 5. Power Supply Check | Confirm correct supply voltage to sensor/logger. | Stable voltage within spec.
+| 6. Calibration / Firmware | Run calibration routine; update firmware if needed. | Sensor reports within range.
+| 7. Environmental Inspection | Look for shading, water ingress, or debris. | Clean, unobstructed sensor.
+| 8. Manufacturer Support | Contact Kipp & Zonen if above steps fail. | Guidance or replacement.
+
+**6. Actionable Recommendations**
+1. **Immediate Data Handling**: Treat the ‑9999 value as a data gap; do not use it in analyses. Flag the timestamp in the database.
+2. **On‑Site Inspection** (within 1‑2 days):
+   - Verify all wiring and connectors for the CMP3 sensor.
+   - Measure lead resistance; repair or replace damaged cables.
+   - Check the power supply voltage at the logger and sensor.
+3. **Functional Test**: Perform the voltage output test with a known light source. If the sensor does not produce the expected ~2.5 mV, replace the CMP3 unit.
+4. **Data‑Logger Review**: Ensure the logger’s range setting includes the CMP3’s –400 W/m² lower limit and that it is configured to interpret ‑9999 as a sentinel.
+5. **Calibration & Firmware**: Run a calibration routine after any hardware repair and update firmware to the latest version.
+6. **Documentation**: Log the fault, steps taken, and outcome in the station maintenance record. Update the SOP to include a routine weekly check of sentinel occurrences.
+7. **Preventive Measures**:
+   - Schedule quarterly visual inspections of sensor housing to prevent water ingress.
+   - Implement automated alerts for sentinel values to trigger rapid response.
+8. **If Sensor Replacement is Needed**: Order a replacement CMP3, install following manufacturer guidelines, and perform a post‑installation validation (compare night‑time radiation to 0 W/m², verify correlation with temperature and wind).
+
+**7. Summary**
+- The ‑9999 W/m² reading is a clear sentinel indicating a communication or hardware failure of the Kipp & Zonen CMP3 solar radiation sensor.
+- Weather conditions at the time were consistent with a night‑time zero‑radiation environment, confirming the anomaly is not atmospheric.
+- Follow the outlined troubleshooting steps and recommended maintenance actions to restore reliable solar radiation measurements.

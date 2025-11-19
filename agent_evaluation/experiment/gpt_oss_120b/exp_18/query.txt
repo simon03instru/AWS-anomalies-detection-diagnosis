@@ -1,0 +1,22 @@
+Analyze the following weather anomaly detected at AWS_DKI_KebunBibit:
+
+Event Detection Time: 2024-08-16T15:30:00
+Station: AWS_DKI_KebunBibit
+Location: Cibubur, Indonesia
+Coordinates: Latitude -34.9285, Longitude 138.6007, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Atmospheric Pressure
+  Value: 100.58
+  Sensor Brand: Vaisala PTB110
+  Trend Analysis: Physically impossible pressure reading of 100.58 hPa (typical 950-1050 hPa). Deviation >900 hPa, >3 standard deviations from mean 1002.9 hPa. Correlation with wind speed absent. Immediate sensor fault likely.
+
+Validation Timestamp: 2025-10-29T11:43:21.605892
+Correlation ID: anomaly-AWS_DKI_KebunBibit-1761738201
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.

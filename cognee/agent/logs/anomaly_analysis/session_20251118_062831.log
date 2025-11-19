@@ -1,0 +1,11 @@
+======================================================================
+KAFKA WORKFORCE SESSION LOG
+======================================================================
+Session Start: 2025-11-18 06:28:31
+Kafka Broker: localhost:9092
+Topic: weather-anomalies
+Log Directory: /home/ubuntu/running/cognee/agent/logs/anomaly_analysis
+======================================================================
+
+[2025-11-18 06:30:52] New anomaly from AWS_DIY_STAGEOF_YOGYAKARTA - 1 parameter(s): Temperature
+[2025-11-18 06:32:25] SUCCESS: AWS_DIY_STAGEOF_YOGYAKARTA - 93.06s - 1 anomalies

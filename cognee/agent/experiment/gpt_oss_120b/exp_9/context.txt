@@ -1,0 +1,90 @@
+Weather Data:
+Result:
+    {
+      "times": [
+        "2024-08-15T19:00",
+        "2024-08-15T19:15",
+        "2024-08-15T19:30",
+        "2024-08-15T19:45",
+        "2024-08-15T20:00",
+        "2024-08-15T20:15",
+        "2024-08-15T20:30",
+        "2024-08-15T20:45",
+        "2024-08-15T21:00"
+      ],
+      "temperature_2m": [
+        20.7,
+        20.6,
+        20.6,
+        20.6,
+        20.5,
+        20.5,
+        20.4,
+        20.3,
+        20.2
+      ],
+      "windspeed_10m": [
+        5.9,
+        5.6,
+        5.9,
+        5.7,
+        5.7,
+        5.7,
+        5.5,
+        5.5,
+        5.5
+      ],
+      "relative_humidity_2m": [
+        85,
+        85,
+        86,
+        86,
+        86,
+        86,
+        87,
+        87,
+        87
+      ]
+    }
+
+  1. The R.M. Young 05103-L wind direction sensor has a measurement range referred to sentinel value -9999, which indicates either an error or no change in direction. To troubleshoot this, check wiring to the datalogger, verify excitation voltage and Range code, and inspect the potentiometer for resistance values.
+
+  2. The Young 05103-L wind direction sensor has a measurement range of 0 to 360 degrees with a resolution of 0.5 degrees. Sentinel values for measurements are represented by -9999.
+
+
+
+  1. To troubleshoot the Young 05103-L wind direction sensor communication failure (indicated by -9999 anomaly), follow these steps:
+
+1. **Check Wiring:** Ensure the sensor is correctly wired to the Excitation and Single-Ended channels as per the measurement instruction.
+2. **Verify Settings:** Confirm that the excitation voltage and Range code are appropriate for the datalogger type.
+3. **Test Potentiometer:** Disconnect the sensor and check the potentiometer resistance using an ohm meter:
+   - Resistance between Blue and White wires should be ~10K ohms.
+   - Resistance between Blue/Green or White/Green should vary between 1K to 11K depending on vane position; around 1 M ohm in the 5-degree dead band.
+4. **Inspect Components:** Check the anemometer bearings, as they should be inspected every 24 months; replace if noisy.
+5. **Recalibrate Sensor:** If measurement data seems suspicious after maintenance, recalibrate the sensor.
+
+Common failure modes include faulty wiring, incorrect settings, malfunctioning potentiometer, or sensor misalignment.
+
+  2. To troubleshoot the Young 05103-L wind direction sensor communication failure, which is marked by the -9999 anomaly, follow these steps:
+
+1. **Check Connections**: Ensure that the sensor's cable and wiring are properly connected and undamaged, as misconnection can cause communication errors.
+
+2. **Examine Potentiometer**: Inspect the 10K ohm precision conductive plastic potentiometer for wear and signal noise, as it may produce erratic readings. Replace if necessary.
+
+3. **Calibration**: Verify that the sensor is calibrated correctly. Use a Model 18112 Vane Angle Bench Stand for wind direction calibration, ensuring the potentiometer coupling is functioning properly.
+
+4. **Grounding**: Ensure proper grounding of the Wind Monitor to prevent static buildup, which can lead to erroneous signals or transducer damage. The mounting post should be connected to a good earth ground.
+
+5. **Bearing Check**: Check the condition of the precision ball bearings in the sensor; if noisy or making irregular movements, consider replacing them as they might affect the sensor's performance.
+
+Common failure modes include:
+- Faulty potentiometer leading to unstable output.
+- Corroded or damaged wiring connections.
+- Insufficient grounding causing electrical noise.
+
+Regular maintenance actions involve:
+- Periodically checking and calibrating the sensor.
+- Replacing worn components like bearings and the potentiometer.
+- Ensuring all electrical connections are clean and secure.
+
+

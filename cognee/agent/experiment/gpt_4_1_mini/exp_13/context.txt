@@ -1,0 +1,168 @@
+Weather Data:
+
+Result:
+    {
+      "times": [
+        "2024-08-19T00:00",
+        "2024-08-19T00:15",
+        "2024-08-19T00:30",
+        "2024-08-19T00:45",
+        "2024-08-19T01:00"
+      ],
+      "temperature_2m": [
+        22.3,
+        22.8,
+        23.3,
+        23.8,
+        24.3
+      ],
+      "relative_humidity_2m": [
+        87,
+        84,
+        81,
+        78,
+        76
+      ],
+      "precipitation": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+
+  1. **Vaisala HMP155 Humidity Sensor Specifications:**  
+- **Operational Humidity Range:** Not explicitly mentioned in the context.  
+- **Accuracy:** Not specified in the provided text.  
+- **Resolution:** Not specified in the provided text.  
+- **Response Characteristics:** Longer response time if the probe filter is contaminated, and maintenance is required to ensure proper function.
+
+  2. **Vaisala HMP155 Humidity Sensor Specifications:**
+
+- **Operational Humidity Range:** 0 … 100 %RH
+- **Accuracy:**  
+  - ±1 %RH (0 … 90 %RH) at +15 … +25 °C  
+  - ±1.7 %RH (90 … 100 %RH) at +15 … +25 °C  
+  - At −20 … +40 °C: ±(1.0 + 0.008 × reading) %RH  
+  - At −40 … −20 °C: ±(1.2 + 0.012 × reading) %RH  
+  - At +40 … +60 °C: ±(1.2 + 0.012 × reading) %RH  
+  - At −60 … −40 °C: ±(1.4 + 0.032 × reading) %RH
+- **Resolution:** Not specified in the document, but assumes high resolution given the specifications.
+- **Response Characteristics:**  
+  - 63% response time at +20 °C (+68 °F): 20 seconds  
+  - 90% response time at +20 °C: 60 seconds
+
+
+
+  1. To diagnose and correct the constant 100% humidity failure in the Vaisala HMP155, follow these steps:
+
+1. **Check the Wiring:** Ensure the sensor is wired to the correct analog input channels and that the red power wire is connected to the correct 12V or SW12V channel.
+
+2. **Voltage Testing:** With the red wire connected to a 12V terminal, use a voltmeter to check the output voltage for temperature and relative humidity on the yellow and blue wires.
+
+3. **Inspect the Sensor:** If the relative humidity reading is -9999, NaN, -80 °C, or 0%, check the wiring, voltage, and ensure the sensor is configured correctly.
+
+4. **Clean the Sensor:** Contaminants on the sensor or filter can lead to incorrect readings. Clean the probe and filter as needed, replacing the filter if it is contaminated.
+
+5. **Check the Calibration:** Recalibrate the HMP155 annually and verify that it has not drifted, as improper calibration can affect readings.
+
+6. **Look for Physical Damage:** Confirm that the sensor is not physically damaged and is securely mounted.
+
+7. **Replace Components if Necessary:** If issues persist after following the above steps, consider replacing the sensor element or other faulty components.
+
+  2. To diagnose failure modes related to a constant 100% humidity reading in the Vaisala HMP155 probe, follow these steps:
+
+1. **Inspect the Probe**: Check for any visible condensation or dirt on the probe, as a wet or dirty probe can lead to inaccurate measurements.
+2. **Temperature Check**: Ensure the probe's additional temperature sensor is operational. A malfunctioning temperature probe may affect humidity readings.
+3. **Power Supply**: Verify that the power supply is within acceptable range (7-28 V DC) and check connections.
+4. **Calibration Verification**: Check if the probe has been calibrated correctly using a USB cable or with the push buttons. Recalibration may be necessary.
+5. **Environmental Conditions**: Evaluate if the probe is exposed to external factors such as fog, mist, or rain that may cause false readings.
+6. **Clean the Sintered Teflon Filter**: If the filter is clogged, clean or replace it to ensure proper airflow around the sensor.
+7. **Check Connections**: Inspect all electrical connections, including the M12 connector and any extension cables for physical damage.
+8. **Monitor for Potential Failures**: If problems persist, consider replacing the probe or sending it in for professional service.
+
+Corrective maintenance may include cleaning the probe, recalibrating, or replacing damaged components.
+
+
+  1. The operational range sensitivity of the Vaisala HMP155 relative humidity sensor is not explicitly detailed in the provided context. However, general maintenance guidelines suggest that the sensor should be recalibrated annually, and contamination on the filter or sensor elements can significantly affect response time and measurement accuracy. Additionally, continuous exposure to air pollution and salt may necessitate more frequent maintenance.
+
+  2. The Vaisala HMP155 relative humidity sensor has an operational range of 0 to 100 %RH. Its accuracy is ±1 %RH for humidity levels of 0 to 90 %RH, and ±1.7 %RH for 90 to 100 %RH. It features a response time of 20 seconds for 63 %RH and 60 seconds for 90 %RH in still air at +20 °C.
+
+
+  1. To troubleshoot a 100% humidity reading on the Vaisala HMP155, follow these steps:
+
+1. **Check Wiring**: Ensure the sensor is properly wired to the correct analog input channels as per the measurement instructions.
+2. **Verify Power Connection**: Confirm that the red power wire is connected to the 12V or SW12V channel, as required by your data logger.
+3. **Inspect Probe Filter**: Check and potentially replace the probe filter if it's contaminated, as this can affect humidity readings.
+4. **Check Calibration**: Recalibrate the HMP155 annually to maintain accuracy.
+5. **Clean the Sensor**: If the sensor element is dirty or contaminated, clean it gently with distilled water.
+6. **Avoid Environmental Factors**: Ensure the sensor is not installed near sources of electrical interference, such as radio transmitters or cell phones. 
+7. **Test Output**: Use a voltmeter to measure the output voltage for temperature and humidity, ensuring the readings align with expected values.
+
+  2. To troubleshoot a 100% humidity reading on the Vaisala HMP155, consider the following steps:
+
+1. **Check Probe Condition**: Ensure the probe is not wet or contaminated, as a wet probe can give inaccurate readings in high humidity.
+
+2. **Calibration**: Verify that the HMP155 is calibrated correctly. Calibration can be done using a computer with a USB cable or with the MI70 indicator.
+
+3. **Environment Factors**: Evaluate the installation environment. Factors like fog, mist, or rain can affect readings. Ensure the probe is installed in a suitable radiation shield to protect it from precipitation and solar radiation.
+
+4. **Warmed Probe Feature**: If applicable, ensure the warmed probe feature is functioning. This helps to prevent condensation formation on the sensor.
+
+5. **Check Connections**: Inspect all connections to ensure they are secure and functioning correctly, including power supply and output connections.
+
+6. **Error Codes**: If the device displays any error codes, refer to the manual for troubleshooting specific to those codes.
+
+
+  1. ### Troubleshooting and Maintenance for Vaisala HMP155 Sensor
+
+#### Common Faults Causing 100% Relative Humidity Reading:
+1. **Incorrect Wiring:** Ensure the sensor is wired correctly to the analog input channels as specified.
+2. **Power Issues:** Verify the red power wire is connected to the correct 12V channel.
+3. **Sensor Contamination:** Check for salt or debris on the radiation shield and probe filter, which can impact measurements.
+
+#### Calibration Procedures:
+- Recalibrate the HMP155A annually. If checking calibration in a lab, measure the performance using a different sensor body.
+
+#### Recommended Maintenance Actions:
+1. **Monthly Checks:** Verify that the radiation shield and probe filter are clean and free from debris. 
+2. **Filter Replacement:** Change the probe filter annually or more frequently if exposed to pollutants.  
+3. **Cleaning:** Clean the probe and filter with mild detergent and distilled water.
+4. **O-ring Check:** After filter removal, inspect and replace the O-ring if necessary.
+5. **Check Electrical Connections:** Ensure sensor elements are correctly plugged in and check for corrosion at connections.
+
+  2. ### Troubleshooting and Maintenance Information for Vaisala HMP155 Sensor
+
+**Common Faults Causing 100% Relative Humidity Reading:**
+1. **Environmental Conditions:** High humidity environments (fog, rain, mist) may cause incorrect readings due to probe wetting. 
+2. **Condensation:** If condensation forms on the probe, it can lead to false 100% readings. 
+3. **Sensor Damage:** Physical damage to the sensor or filter can disrupt functionality.
+
+**Calibration Procedures:**
+- The HMP155 probe can be calibrated using a computer with a USB cable, manually via push buttons, or with the MI70 indicator.
+- Factory calibration uncertainties are ±0.6%RH (0-40%RH) and ±1.0%RH (40-95%RH).
+
+**Recommended Maintenance Actions:**
+1. **Regular Inspection:** Check the sensor and its filter for dust or moisture accumulation and clean as necessary.
+2. **Installation Shield:** Use appropriate radiation shields to protect against solar radiation and precipitation to extend sensor lifespan.
+3. **Periodic Calibration:** Perform calibration at recommended intervals, especially after harsh environmental exposure or if readings seem off.
+
+
+
+  1. The Vaisala HMP155 sensor specifications include an operational range of 0% to 100% relative humidity (RH). The temperature sensor (Pt100) is soldered to the probe and measures temperature with high sensitivity. The typical measurement accuracy for the HMP155 is less than 1% drift per year in clean environments, although it may vary in polluted air. The response to 100% RH can be affected by contaminants, hence regular maintenance, including filter changes, is crucial.
+
+  2. The Vaisala HMP155 sensor specifications include:
+
+- **Operational Range Relative Humidity:** 0 to 100% RH
+- **Temperature Sensor Range:** -80 to +60 °C (-112 to +140 °F)
+- **Sensor Sensitivity:** 
+  - Humidity: Accuracy ±1% RH (0-90% RH), ±1.7% RH (90-100% RH) at +15 to +25 °C
+  - Temperature: ±(0.226 - 0.0028 × temperature) °C at -80 to +20 °C, ±(0.055 + 0.0057 × temperature) °C at +20 to +60 °C
+- **Typical Measurement Accuracy:** 
+  - Humidity: ±0.6% RH (0-40%), ±1.0% RH (40-95%) at +20 °C
+  - Temperature: Varies with output type, generally within ±(0.1 + 0.0017 × |temperature|) °C
+- **Sensor Limits:** Operational temperature limits: -80 to +60 °C, Humidity operational limit: 0 to 100% RH
+- **Sensor Sensitivity Trend:** Fast response time (20 s for 63% humidity at +20 °C; better under calibrated conditions)
+
+

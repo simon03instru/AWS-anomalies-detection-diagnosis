@@ -1,0 +1,7 @@
+Metric,Comparison,Test,p_value,Significant
+Faithfulness,120B vs 20B,Tukey HSD,0.0012407954900935936,Yes
+Faithfulness,120B vs 4.1 Mini,Tukey HSD,0.4165130084451004,No
+Faithfulness,20B vs 4.1 Mini,Tukey HSD,0.04352293122828932,Yes
+Relevance,120B vs 20B,Dunn's (Bonferroni),0.5233386430341979,No
+Relevance,120B vs 4.1 Mini,Dunn's (Bonferroni),4.1635207671461405e-05,Yes
+Relevance,20B vs 4.1 Mini,Dunn's (Bonferroni),0.008431976632339513,Yes

@@ -1,0 +1,92 @@
+Weather Data:
+
+Result:
+    {
+      "times": [
+        "2024-08-19T07:30",
+        "2024-08-19T07:45"
+      ],
+      "temperature_2m": [
+        29.0,
+        28.8
+      ],
+      "precipitation": [
+        0.0,
+        0.0
+      ],
+      "relative_humidity_2m": [
+        58,
+        59
+      ],
+      "windspeed_10m": [
+        20.1,
+        20.1
+      ],
+      "winddirection_10m": [
+        156,
+        156
+      ],
+      "surface_pressure": [
+        993.7,
+        993.6
+      ]
+    }
+
+
+  1. The HMP155 temperature sensor utilizes a Pt100 temperature sensor that is soldered to the probe. However, specific operational temperature range and sensitivity specifications for the HMP155 are not mentioned in the provided context.
+
+  2. The Vaisala HMP155 temperature sensor has an operational temperature range of -80 to +60 °C (-112 to +140 °F). Its sensitivity specifications include an accuracy of ±(0.226 - 0.0028 × temperature) °C for the range of -80 to +20 °C and ±(0.055 + 0.0057 × temperature) °C for the range of +20 to +60 °C, along with a fast response time of < 20 seconds for 63% and < 35 seconds for 90% in 3 m/s air flow.
+
+  1. ### Troubleshooting Guides for Vaisala HMP155 Temperature Sensor
+
+#### Common Failure Modes:
+1. **Anomalous Readings:**
+   - **Symptoms:**  Relative Humidity reported as –9999, NAN, –80 °C, or 0%.
+     - **Causes:** Incorrect wiring, wrong range code, power issues.
+     - **Recommendations:** Ensure the sensor is correctly wired; verify range code and power connection; check output voltage using a voltmeter.
+   - **Symptoms:** Incorrect temperature or humidity readings.
+     - **Causes:** Incorrect multiplier or offset parameters.
+     - **Recommendations:** Check and verify data logger programming settings.
+2. **Communication Issues:**
+   - **Symptoms:** Temperature reported as –9999 or NAN.
+     - **Causes:** Problems with SDI-12 communications.
+     - **Recommendations:** Recheck sensor wiring and voltage supply to the sensor.
+
+### Recommended Maintenance Procedures:
+1. **Monthly Maintenance:** 
+   - Inspect the radiation shield for debris.
+   - Check the probe tip for contaminants.
+2. **Annual Maintenance:** 
+   - Change the probe filter (especially in polluted environments).
+   - Recalibrate the sensor as needed (factory recalibration is recommended once a year).
+   - Ensure proper cleaning with mild detergent and a soft cloth.
+   - If salt buildup occurs near bodies of salt water, clean the filter and chip carefully with distilled water.
+
+### Conclusion:
+Proper troubleshooting can resolve sensor anomalies, while regular maintenance ensures accuracy and extends the lifespan of the HMP155 temperature sensor.
+
+  2. ### Troubleshooting Guides for Vaisala HMP155 Temperature Sensor
+1. **Anomalous Readings**: Common causes include:
+   - Condensation on the sensor due to high humidity levels (fog, mist, rain).
+   - Probe contamination from dust or dirt blocking measurements.
+   - Incorrect calibration or faulty electronics.
+
+2. **Resolution Steps**:
+   - Ensure the warmed probe is functioning to prevent condensation.
+   - Regularly clean the sintered Teflon filter to maintain measurement accuracy. 
+   - Verify calibration and check for updates using the USB connection.
+
+### Common Failure Modes
+- **Sensor Drift**: Loss of accuracy over time due to environmental factors.
+- **Electrical Failures**: Failures due to improper voltage supply or damaged cables.
+- **Physical Damage**: Damage to the probe or housing from severe weather or impacts.
+
+### Recommended Maintenance Procedures
+1. **Regular Calibration**: Calibrate the sensor using a computer or the MI70 indicator.
+2. **Cleaning**: Clean the membrane filter regularly and inspect for dust or dirt.
+3. **Environmental Protection**: Install in a suitable shielding (like DTR503 or Stevenson screen) to protect from direct solar radiation and precipitation.
+4. **Visual Inspections**: Conduct regular checks for physical and electrical integrity.
+
+By following these guidelines, the performance and reliability of the HMP155 sensor can be maintained.
+
+

@@ -1,0 +1,22 @@
+Analyze the following weather anomaly detected at AWS_DIY_UGM:
+
+Event Detection Time: 2024-08-15T20:10:00
+Station: AWS_DIY_UGM
+Location: UGM Yogyakarta, Indonesia
+Coordinates: Latitude -7.768469, Longitude 110.38192, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Relative Humidity
+  Value: 30.0
+  Sensor Brand: Vaisala HMP155
+  Trend Analysis: Sudden drop to 30% humidity at 2024-08-15T20:10:00 UTC (local 03:10+7). Typical humidity ~76% (±2%). No rainfall, temperature normal (21.9°C), solar radiation zero (night). Expected negative correlation with temperature and positive with solar radiation broken. Likely sensor malfunction (fault).
+
+Validation Timestamp: 2025-10-29T10:43:19.897328
+Correlation ID: anomaly-AWS_DIY_UGM-1761734599
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.

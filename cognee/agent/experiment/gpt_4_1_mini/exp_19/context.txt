@@ -1,0 +1,127 @@
+Weather Data:
+
+Result:
+    {
+      "times": [
+        "2024-08-16T14:30",
+        "2024-08-16T14:45",
+        "2024-08-16T15:00",
+        "2024-08-16T15:15",
+        "2024-08-16T15:30",
+        "2024-08-16T15:45",
+        "2024-08-16T16:00",
+        "2024-08-16T16:15",
+        "2024-08-16T16:30"
+      ],
+      "precipitation": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.0,
+        0.0
+      ],
+      "relative_humidity_2m": [
+        88,
+        88,
+        88,
+        88,
+        88,
+        88,
+        88,
+        88,
+        87
+      ]
+    }
+
+
+
+  1. To troubleshoot sudden rainfall spikes in the HyQuest TB4 tipping bucket rain gauge, consider the following steps:
+1. Check for cleanliness of the catch filter, siphon, and interior of the bucket to ensure they are free from debris.
+2. Verify that the tipping bucket assembly moves freely and that it records each bucket tip correctly.
+3. If there are issues with data measurement, check that the sensor is properly wired and that the PulseCount parameters on the data logger are set correctly.
+4. For calibration, perform a check by pouring a known volume of water (314 cc) into the funnel to ensure the bucket tips correctly. 
+5. Ensure that all electrical connections are secured, especially the SDI-12 communication cables if applicable.
+Perform regular maintenance and calibration to avoid future issues.
+
+  2. The HyQuest TB4 tipping bucket rain gauge, known for its high accuracy across varying rainfall intensities, may experience sudden rainfall spikes due to environmental factors, sensor miscalibration, or debris blockage. Troubleshooting involves checking for blockages in the collection area, ensuring accurate calibration, and inspecting the functionality of the tipping mechanism.
+
+
+  1. The specifications for the HyQuest TB4 rainfall sensor include:
+
+- **Measurement Range:** Not specified in the provided context.
+- **Sensitivity:** Not specified in the provided context.
+
+For detailed specifications, the context does not provide specific numerical values for measurement range or sensitivity.
+
+  2. The HyQuest TB4 rainfall sensor specifications include a measurement range of up to 700 mm per hour, and its sensitivity varies with rainfall intensity: 
+- 0-50 mm/hr: better than +/- 1%
+- 50-100 mm/hr: better than +/- 3%
+- 100-150 mm/hr: better than +/- 5%
+- 150-200 mm/hr: better than +/- 7%
+- 200-300 mm/hr: better than +/- 10%.
+
+
+
+  1. For maintenance of the HyQuest TB4 tipping bucket rain gauge during sudden rainfall spikes, regularly clean the following items: catch filter, siphon, interior of bucket, top surface of adjusting screws, enclosure locking screws (lightly lubricate after cleaning), and all insect screens. Ensure that the tipping bucket assembly moves freely and that the data logger accurately records each bucket tip. Regularly check cleanliness and functionality to prevent issues during periods of heavy rainfall.
+
+  2. The maintenance for the HyQuest TB4 tipping bucket rain gauge, like the TB6, is designed to be minimal. It includes easy access to the tipping bucket mechanism and filter assembly, facilitated by quick release fasteners. The filter can be removed easily for cleaning, ensuring that any debris does not block the collector area.
+
+
+  1. The operational range sensitivity of the HyQuest TB4 rainfall sensor is not explicitly stated in the provided context. However, it mentions that the sensor is factory calibrated and a calibration check is recommended yearly, implying a focus on maintaining sensitivity to accurately measure rainfall.
+
+  2. The HyQuest TB4 rainfall sensor has a sensitivity range of 0-100 mm per hour with an accuracy of better than +/-2%, and it can measure rainfall intensities up to 700 mm per hour.
+
+
+
+  1. The HyQuest TB4 tipping bucket rain gauge requires routine maintenance primarily through cleaning, particularly after sudden rainfall spikes. Maintenance tasks include cleaning the catch filter, siphon, and bucket, ensuring all components function properly and are free of debris. Regular checks are essential to prevent measurement failures during sudden rainfall events.
+
+  2. The HyQuest TB4 tipping bucket rain gauge features an integrated syphon mechanism, which allows it to deliver high accuracy across a range of rainfall intensities. In the context of a sudden rainfall spike, the TB4 would be capable of accurately measuring sudden increases in rainfall depth, similar to its counterpart, the TB3 and the TB6 models. It is suitable for both urban and rural monitoring and can maintain performance during sudden weather changes.
+
+
+  1. The operational range sensitivity technical specifications for the HyQuest TB4 rainfall sensor are not explicitly detailed in the provided context. However, it mentions that the sensor is factory calibrated and includes items for regular maintenance such as cleanliness checks of the catch filter and interior of the bucket, which can affect sensor performance.
+
+  2. The HyQuest TB4 rainfall sensor has an operational range sensitivity with the following accuracy specifications: 0-100 mm per hour: better than +/-2%, 100-150 mm per hour: better than +/-4%, 150-200 mm per hour: better than +/-5%, and 0-50 mm per hour: better than +/-1%. The device can measure rainfall up to a maximum range of 700 mm per hour.
+
+
+
+  1. ### Troubleshooting and Maintenance for HyQuest TB4 Rainfall Sensor
+
+#### Common Causes for Sudden Rainfall Spikes:
+- Incorrect wiring or settings in the data logger.
+- Blockages in the catch filter or siphon, affecting measurement accuracy.
+
+#### Maintenance Actions:
+- Regularly clean the catch filter, siphon, interior of the bucket, and insect screens.
+- Ensure the tipping bucket assembly moves freely and the data logger records bucket tips accurately.
+- Lightly lubricate enclosure locking screws after cleaning.
+
+#### Calibration Actions:
+- Perform a calibration check once a year using a graduated cylinder to pour 314 cc of water into the funnel—expect 39 tips from the bucket.
+- Recalibration is not needed unless damage occurs or screws have loosened.
+
+#### Sensor Fault Diagnosis and Resolution Checklist:
+1. **No Precipitation Measurement:**  Check wiring, continuity with an ohm meter, and ensure the correct parameters are set in the data logger.
+2. **CS700H Communication Issue:** Verify all sensor and power cable connections.
+
+  2. ### Troubleshooting, Maintenance, and Calibration Information for HyQuest TB4 Rainfall Sensor:
+- **Common Causes for Sudden Rainfall Spikes:**
+  1. Debris in the catch area (e.g., leaves, bird droppings).
+  2. Faulty calibration or malfunction of tipping bucket mechanism.
+  3. Environmental factors such as wind effects or nearby water sources.
+
+- **Maintenance and Calibration Actions:**
+  1. Regularly clean the finger filter to prevent blockage.
+  2. Conduct functional tests using the Portable Field Calibration Device (FCD).
+  3. Check the sensor's enclosure and fasteners for wear and tear.
+
+- **Sensor Fault Diagnosis and Resolution Checklist:**
+  1. Inspect for physical damage or blockages in the tipping bucket mechanism.
+  2. Verify calibration using compatible software or devices like the pulse counter CMCbt.
+  3. Ensure proper environmental conditions are maintained (temperature, humidity). 
+  4. Test outputs to confirm they are functioning within specified accuracy ranges.
+
+

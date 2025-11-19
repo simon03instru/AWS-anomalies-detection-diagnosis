@@ -1,0 +1,42 @@
+### Comprehensive Assessment of Anomalies at AWS_DKI_KebunBibit (2024‑08‑16T15:30:00)
+
+**1. Summary of Findings**
+- **Wind‑direction sensor (Young 05103‑L)** reported a sentinel value of **‑9999°**, which the sensor specification identifies as a communication‑failure code. The model‑derived weather data shows a normal wind direction of **~265°** (steady across the 15‑minute interval), confirming that the environment was within the sensor’s measurement range (0‑360°) and there was no abnormal wind event.
+- **Temperature sensor (Vaisala HMP155)** reported **15 °C** while the surrounding air temperature from the weather model was **≈12.1 °C**. The trend analysis flagged a **13 °C drop** relative to the 10‑minute mean of **28.1 °C**, indicating an abrupt, unrealistic spike. The sensor’s operational range (‑80 °C to +60 °C) and its accuracy (≈±0.19 °C at 12 °C) make a 3 °C offset and a 13 °C instantaneous change impossible under normal conditions.
+
+**2. Operational‑Range Check**
+- **Young 05103‑L**: Valid range 0‑360°, resolution 0.5°. The sentinel value is outside this range and is defined as an error, confirming a fault rather than a legitimate measurement.
+- **Vaisala HMP155**: Valid range ‑80 °C to +60 °C, accuracy ±0.19 °C at the observed temperature. The reported 15 °C is **~3 °C higher** than the ambient temperature and the abrupt 13 °C deviation far exceeds the sensor’s accuracy and response time (63 % step change <20 s). Hence the reading is inconsistent with both the sensor’s specifications and the actual weather.
+
+**3. Potential Common Causes**
+| Possible Cause | Why it could affect both sensors |
+|----------------|---------------------------------|
+| **Power‑supply irregularities** (voltage drops, noise) | Both sensors rely on the same datalogger power rails; fluctuations can cause communication loss (‑9999) and erratic ADC conversion for temperature. |
+| **Wiring or connector faults** (loose, corrosion, water ingress) | A compromised cable bundle can introduce intermittent resistance, leading to loss of signal for wind direction and spurious voltage for temperature. |
+| **Data‑logger configuration / firmware bug** | Incorrect excitation voltage settings for the Young sensor or mis‑configured analog input scaling for the HMP155 can produce sentinel outputs and false temperature spikes. |
+| **Environmental contamination** (dust, moisture, condensation) | The HMP155 heater failure or condensation on the probe can cause temperature drift; excessive moisture on the Young sensor’s wiring harness can short the signal, triggering the ‑9999 code. |
+| **Electromagnetic interference (EMI)** from nearby equipment | EMI can corrupt serial/analog communication, resulting in both a sentinel error and sudden temperature jumps. |
+
+**4. Immediate (Short‑Term) Actions**
+1. **Inspect and reseat all cables** for the two sensors – verify continuity, correct polarity, and absence of corrosion.
+2. **Measure excitation voltage** at the Young sensor terminals; ensure it matches the sensor’s required range (typically 5‑12 V). Adjust datalogger settings if out of spec.
+3. **Check power rail stability** with a multimeter or data‑logger log; look for voltage dips >0.5 V.
+4. **Perform a sensor reset** via the datalogger software to clear any latched error states.
+5. **Visually inspect the HMP155 probe** for condensation, debris, or damaged heating element; clean or replace the filter/shield if needed.
+6. **Temporarily replace the suspect sensors** with known‑good spares to confirm whether the fault is sensor‑specific or systemic.
+7. **Log the raw ADC values** for the temperature channel for the next hour to see if the anomaly recurs.
+
+**5. Longer‑Term (Preventive / Mitigation) Recommendations**
+- **Implement a routine calibration schedule** (annual for HMP155, biennial for Young wind vane) and record calibration certificates.
+- **Add redundancy**: install a secondary temperature sensor (e.g., a PT100) and a backup wind‑direction sensor to cross‑validate data.
+- **Upgrade wiring** to shielded, UV‑rated cables with proper strain‑relief fittings to reduce EMI and moisture ingress.
+- **Deploy a power‑conditioning module** (UPS or line‑filter) for the datalogger to protect against voltage transients.
+- **Configure automated alerts** for sentinel values (‑9999) and temperature deviations >3 σ from the 10‑minute rolling mean, enabling faster response.
+- **Document a maintenance log** that captures each inspection, wiring test, and sensor replacement; use it to track sensor age and failure trends.
+- **Review site placement**: ensure the HMP155 probe remains within a ventilated radiation shield and that the Young wind vane is free from obstructions (e.g., nearby structures or vegetation) that could affect signal quality.
+
+**6. Correlation Assessment**
+Both anomalies occurred simultaneously, suggesting a **systemic issue** rather than isolated sensor failures. The most plausible shared root cause is a **power or wiring fault** affecting the datalogger’s sensor interfaces, potentially compounded by environmental moisture. Addressing the common infrastructure (power, cabling, datalogger configuration) should resolve both problems and improve overall data reliability.
+
+**Conclusion**
+The weather model data contradicts the sensor outputs, confirming that the wind‑direction reading of ‑9999° and the temperature spike to 15 °C are sensor‑fault artifacts. Immediate inspection of power and wiring, followed by sensor resets and cleaning, is recommended. Long‑term actions focus on preventive maintenance, redundancy, and robust power/communication design to mitigate future anomalies.

@@ -1,0 +1,31 @@
+
+**Assessment Summary**
+- **Observed weather (satellite, 07:40 local / 00:40 UTC)**: temperature ≈ 23.5 °C, relative humidity ≈ 79 %, direct solar radiation ≈ 155 W/m². These values are typical for an early‑morning tropical morning in Yogyakarta.
+- **Sensor readings**: temperature 0.92 °C, humidity 49.1 %, solar radiation 530.6 W/m². The temperature is ~22 °C lower than expected, humidity ~30 % lower, and radiation >3× higher. The discrepancies far exceed normal sensor‑to‑satellite differences, confirming a sensor fault rather than a real meteorological event.
+
+**Sensor Specification Check**
+- **Vaisala HMP155 temperature sensor**: operating range –80 °C to +60 °C, accuracy ±0.23 °C around 0 °C. The 0.92 °C reading is within the technical range but inconsistent with the ambient temperature, indicating calibration or hardware failure.
+- **Relative humidity sensor (part of HMP155)**: range 0‑100 % with ±3 % accuracy. A 49 % reading when ambient is ~79 % is outside normal error bounds, suggesting the humidity circuit is also compromised.
+- **Solar radiation sensor**: typical range 0‑1200 W/m². The reported 530 W/m² is plausible for a sunny morning, but satellite data (~155 W/m²) indicates partly cloudy conditions, pointing to possible mis‑alignment, shading, or calibration error.
+
+**Troubleshooting Findings (from manufacturer guidance)**
+1. Verify wiring and 12 V power to the temperature probe (red wire).  
+2. Measure the temperature output voltage (yellow wire); a voltage far below the expected range confirms a sensor fault.  
+3. Confirm humidity output (blue wire) matches the humidity reading – normal humidity voltage suggests the humidity circuit is still functional.  
+4. Inspect and clean the probe tip, radiation shield, and dome; debris or water can bias temperature low and radiation high.  
+5. Check the probe filter; replace if clogged.  
+6. Test the warmed‑probe feature; failure can cause low temperature bias in humid conditions.  
+7. Perform a calibration check or recalibrate the sensor; an outdated calibration can produce large offsets.  
+8. Use the USB diagnostic interface or self‑diagnostic mode to read raw sensor values; abnormal temperature voltage with normal humidity voltage points to a defective temperature element.
+
+**Actionable Recommendations**
+- **Immediate**: Replace the Vaisala HMP155 temperature sensor (or the entire unit) as the temperature output is clearly erroneous. Verify the humidity and radiation sensors after the temperature fix; if they remain inconsistent, clean/realign the pyranometer dome and recalibrate the humidity sensor.
+- **Short‑term data handling**: Until the temperature sensor is repaired, rely on satellite data or a nearby official AWS for temperature information in operational decisions. Flag temperature data from this station as unreliable in the data pipeline.
+- **Verification**: After replacement, perform on‑site calibration using a portable, calibrated thermometer and hygrometer. Compare at least 24 h of logged data against satellite/nearby stations to confirm alignment.
+- **Preventive maintenance**: Implement quarterly visual inspections (probe tip, shield, wiring), annual calibration checks, and a bi‑annual cleaning of the solar radiation dome. Document all inspections and any corrective actions in the station’s maintenance log.
+- **Threshold tuning**: Adjust the anomaly detection thresholds to trigger alerts when temperature deviates >5 °C from the 20‑interval mean, and when humidity or radiation deviate >20 % from expected values, to catch similar faults earlier.
+
+**Overall Conclusion**: The large mismatch between satellite‑derived weather conditions and the station’s sensor outputs, combined with the sensor‑specific troubleshooting guidance, confirms a malfunction of the Vaisala HMP155 temperature sensor (and likely the humidity circuit). Prompt replacement, verification, and enhanced maintenance routines are required to restore reliable observations at AWS_DIY_STAGEOF_YOGYAKARTA.
+
+
+At the timestamp 2024-08-19T07:40 (local time, 00:40 UTC), satellite‑derived reference values are approximately 23.5 °C temperature, 79 % relative humidity, and 155 W/m² direct solar radiation. The AWS reported 0.92 °C, 49.1 % RH, and 530.6 W/m². Both humidity (≈30 % lower than expected) and solar radiation (≈3 × higher than expected) deviate far beyond normal sensor tolerances, indicating that they are also anomalous. The simultaneous anomalies across temperature, humidity, and radiation suggest a common underlying fault – such as a power‑supply or data‑logger issue, wiring/connectivity problems, or damage to the sensor housing that affects multiple sensors. A mis‑aligned or dirty pyranometer dome could explain the radiation over‑reading, while moisture ingress or sensor drift could bias temperature and humidity together. In summary, humidity and solar radiation show clear anomalies at the same timestamp, likely linked to a shared hardware or data‑logging problem rather than independent weather phenomena.

@@ -1,0 +1,47 @@
+================================================================================
+CONTEXT - SENTENCE CHUNKS FROM RAG
+================================================================================
+
+RAG Query #1:
+  Query: Vaisala HMP155 temperature sensor operational temperature range accuracy
+  Dataset: sensor_knowledge
+  Node Sets: temperature_humidity_sensor
+  Results: 2
+
+  Retrieved Sentence Chunks:
+  ----------------------------------------------------------------------------
+
+  1. The HMP155 temperature sensor's operational temperature range is not explicitly stated in the provided context. However, it mentions that the Pt100 temperature sensor, which is soldered to the probe of the HMP155, does not require maintenance and implies stable operational performance if maintained correctly. For specific temperature range and accuracy details, additional technical documentation would be required.
+
+  2. The Vaisala HMP155 temperature sensor has an operational temperature range of -80 to +60 °C (-112 to +140 °F). Its accuracy varies within this range: 
+- At -80 to +20 °C: ±(0.226 - 0.0028 × temperature) °C 
+- At +20 to +60 °C: ±(0.055 + 0.0057 × temperature) °C.
+
+
+RAG Query #2:
+  Query: Vaisala HMP155 sudden temperature drop troubleshooting
+  Dataset: maintenance_knowledge
+  Node Sets: temperature_humidity_sensor
+  Results: 2
+
+  Retrieved Sentence Chunks:
+  ----------------------------------------------------------------------------
+
+  1. To troubleshoot a sudden temperature drop in the Vaisala HMP155 sensor, follow these steps:
+
+1. **Check Wiring**: Ensure the sensor is wired correctly to the appropriate analog input channels as per the measurement instructions.
+2. **Power Verification**: Verify that the red power wire is correctly connected to the 12V or SW12V channel for proper operation.
+3. **Output Voltage Check**: With the red wire connected to 12V, use a voltmeter to check the output voltage on the yellow (temperature) and blue (humidity) wires. The expected temperature output can be calculated using the formula: °C = mV * 0.14 – 80.0.
+4. **Sensor Maintenance**: Check for contamination on the probe or filter, as dirt or salt buildup can affect readings. Clean or replace the probe filter if necessary.
+5. **Recalibrate**: If performance issues persist, consider recalibrating the HMP155.
+6. **Electrical Interference**: Ensure that the sensor is not too close to sources of electrical interference, such as radios or cell phones.
+
+  2. To troubleshoot a sudden temperature drop with the Vaisala HMP155 probe, consider the following steps:
+1. **Check Sensor Calibration**: Ensure the probe is properly calibrated as inaccuracies can cause sudden changes in readings.
+2. **Inspect for Condensation**: Verify that the warmed probe is functioning properly to prevent condensation, which can corrupt measurements in high humidity environments.
+3. **Examine Installation**: Ensure that the probe is installed correctly, protected from direct precipitation and radiation using appropriate shields (DTR503, DTR13, Stevenson screen).
+4. **Evaluate Environmental Conditions**: Assess the operating conditions; extreme temperatures outside the specified range can affect performance.
+5. **Inspect Connections**: Check the electrical connections and ensure the probe is receiving adequate power (7-28 V DC).
+6. **Test the Additional Temperature Probe**: If using the optional fast temperature probe, verify that it is operational.
+
+

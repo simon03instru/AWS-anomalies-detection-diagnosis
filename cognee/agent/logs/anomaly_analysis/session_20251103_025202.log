@@ -1,0 +1,11 @@
+======================================================================
+KAFKA WORKFORCE SESSION LOG
+======================================================================
+Session Start: 2025-11-03 02:52:02
+Kafka Broker: localhost:9092
+Topic: weather-anomalies
+Log Directory: /home/ubuntu/running/cognee/agent/logs/anomaly_analysis
+======================================================================
+
+[2025-11-03 02:53:06] New anomaly from AWS_DIY_UGM - 1 parameter(s): Wind Speed
+[2025-11-03 02:54:25] SUCCESS: AWS_DIY_UGM - 78.99s - 1 anomalies

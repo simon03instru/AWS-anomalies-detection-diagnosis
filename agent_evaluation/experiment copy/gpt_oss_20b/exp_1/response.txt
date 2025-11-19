@@ -1,0 +1,13 @@
+Assessment: The satellite‑derived temperature at Yogyakarta on 2024‑08‑19 00:00 UTC was 22.3 °C, comfortably within the Vaisala HMP155 operating range (–80 °C to +60 °C). The sensor’s reported –9999 °C is a sentinel value that signals a communication or data‑corruption fault, not a real meteorological event. 
+
+Actionable Recommendations:
+1. **Inspect Wiring & Power** – Verify the sensor is wired to the correct analog input channels and that the 12 V (or SW12 V) power supply is connected and stable.
+2. **Measure Output Voltages** – Use a voltmeter to check the temperature (yellow wire) and humidity (blue wire) outputs. Convert voltage to temperature with *Temp °C = mV × 0.14 – 80.0* and to RH % with *RH % = mV × 0.1*; compare against expected ranges.
+3. **Check SDI‑12 Communication** – Confirm the SDI‑12 address matches the data logger’s configuration and that the sensor receives the required 12 V.
+4. **Clean & Inspect Sensor Tip** – Remove debris, salts, or corrosion that could affect readings.
+5. **Firmware & Calibration** – Update the sensor firmware if available, perform a factory reset, and re‑calibrate following Vaisala procedures.
+6. **Replace if Necessary** – If communication remains unstable after the above steps, replace the HMP155 unit.
+7. **Post‑Maintenance Validation** – After corrective action, enable a short‑term validation check by comparing the station’s output to a nearby reference station to catch any future anomalies early.
+8. **Documentation** – Log the fault event, all troubleshooting steps, dates, and any configuration changes in the station’s maintenance record.
+
+These steps address the sentinel value anomaly, restore reliable temperature readings, and establish a monitoring routine to prevent recurrence.

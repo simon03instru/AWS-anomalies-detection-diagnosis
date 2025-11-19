@@ -1,0 +1,51 @@
+### Comprehensive Assessment of Solar Radiation Anomaly (AWS_DIY_STAGEOF_YOGYAKARTA)
+
+**1. Observed Weather Conditions vs. Anomalous Reading**
+- Satellite‑derived data for 2024‑08‑19 07:30‑07:45 UTC shows clear‑to‑partly‑cloudy skies with direct solar radiation ranging from **492 W/m²** to **451 W/m²**. 
+- Ambient temperature was around **29 °C**, relative humidity 56‑60 %, wind speed ~20 m s⁻¹, surface pressure ~994 hPa. 
+- The reported sensor value of **‑9999 W/m²** is a sentinel code, not a physical measurement. Normal solar radiation at that time should be in the 400‑600 W/m² band, well within the Kipp & Zonen CMP3 operating range (0‑2000 W/m²).
+
+**2. Sensor Specification & Operational Range**
+- **Model:** Kipp & Zonen CMP3 pyranometer
+- **Nominal range:** 0‑2000 W/m² (typical field range 0‑1200 W/m²)
+- **Resolution:** 5‑20 µV/W/m² (sufficient for the observed 400‑600 W/m² levels)
+- **Valid output:** Positive values only; negative or extreme values (e.g., ‑9999) indicate a fault or communication error.
+- The sentinel value is far outside the sensor’s valid output range, confirming a malfunction rather than an atmospheric event.
+
+**3. Potential Causes & Diagnostic Findings**
+Based on the maintenance knowledge base, common reasons for a ‑9999 sentinel include:
+- Incorrect or loose wiring / damaged cable (impedance not ≈100 Ω)
+- Mismatched range code between sensor and data logger
+- Faulty power supply or voltage drop
+- Sensor internal fault (no voltage output under illumination)
+- Software/communication configuration errors
+- Physical obstruction or contamination of the optical window (less likely to produce ‑9999, but can affect readings)
+
+**4. Actionable Recommendations**
+| Step | Action | Reason |
+|------|--------|--------|
+| 1 | **Power‑cycle the CMP3 unit and data logger** | Clears transient communication glitches. |
+| 2 | **Inspect and reseat all cable connections** (red/blue leads) | Ensures proper impedance (~100 Ω) and eliminates loose contacts. |
+| 3 | **Measure cable impedance** with a multimeter; replace cable if impedance is too low (short) or infinite (open). |
+| 4 | **Verify range code** on the logger matches the CMP3 setting (usually “0” for default). |
+| 5 | **Check power supply voltage** at the sensor terminals (should be ~5 V). Replace or repair supply if out of spec. |
+| 6 | **Test sensor voltage output** under low light (≈2.5 mV). Absence of voltage indicates sensor failure. |
+| 7 | **Clean the pyranometer’s optical dome** (remove dust, water, insects). |
+| 8 | **Review logger configuration** for correct units, error‑handling thresholds, and communication protocol (e.g., RS‑232/RS‑485 settings). |
+| 9 | **If any hardware test fails, replace the CMP3 sensor or its cable assembly**. |
+|10| **Post‑maintenance monitoring**: Record the next 24‑48 h of solar radiation data and compare to satellite values (400‑600 W/m²). Confirm restored correlation with temperature (≈30 °C). |
+
+**5. Correlation with Other Parameters**
+- The temperature‑radiation correlation (normally positive) was broken at the anomaly time, reinforcing that the sensor output was invalid.
+- No abnormalities were observed in wind speed, humidity, or pressure that could explain a genuine radiation drop.
+- High wind (~20 m s⁻¹) could stress cabling, so prioritize checking for mechanical wear.
+
+**6. Next Steps for Station Operators**
+1. Execute the diagnostic checklist above within the next 12 hours.
+2. Document any findings (e.g., impedance values, voltage readings) and update the station log.
+3. If the sensor is replaced, calibrate the new CMP3 according to manufacturer guidelines before resuming normal data collection.
+4. Continue to log both satellite‑derived and in‑situ solar radiation for at least one week to verify long‑term stability.
+5. Report the resolution outcome to the central monitoring team, including any hardware replacements performed.
+
+**Conclusion**
+The ‑9999 W/m² reading is a clear indicator of a sensor communication failure, not an atmospheric anomaly. Normal weather conditions prevailed at the detection time, and the Kipp & Zonen CMP3 sensor’s specifications confirm that the value is outside any plausible operational range. Following the recommended troubleshooting and maintenance actions should restore reliable solar radiation measurements and re‑establish expected correlations with temperature and other meteorological parameters.

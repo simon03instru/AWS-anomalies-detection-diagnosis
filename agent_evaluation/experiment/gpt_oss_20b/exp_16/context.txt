@@ -1,0 +1,76 @@
+Weather Data:
+
+Result:
+    {
+      "times": [
+        "2025-10-29T10:30",
+        "2025-10-29T10:45",
+        "2025-10-29T11:00",
+        "2025-10-29T11:15",
+        "2025-10-29T11:30",
+        "2025-10-29T11:45",
+        "2025-10-29T12:00",
+        "2025-10-29T12:15",
+        "2025-10-29T12:30"
+      ],
+      "temperature_2m": [
+        16.2,
+        16.2,
+        16.3,
+        16.2,
+        16.2,
+        16.1,
+        16.1,
+        16.1,
+        16.1
+      ],
+      "direct_radiation": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+    
+
+  1. **Vaisala HMP155 Calibration Error & Troubleshooting:** 1. Ensure proper wiring and connection to the data logger; 2. Check calibration factors; 3. Inspect for short circuits or broken connections; 4. Verify voltage output by testing with a light source.  
+
+**Kipp & Zonen CMP3 Calibration Error & Troubleshooting:** 1. Confirm wiring to the correct terminal; 2. Check impedance should be around 100 ohms plus cable resistance; 3. Measure voltage output; 4. Inspect sensor cable for damage; 5. Recalibrate every two years.
+
+  2. For troubleshooting calibration errors and sensor issues with the Vaisala HMP155 and Kipp & Zonen CMP3:
+
+1. **HMP155 Calibration Error (Vaisala HUMICAPâ 180R sensor):** Ensure the probe is properly calibrated using a USB connection, push buttons, or through the MI70 indicator. For humidity measurements, verify that the sensor is not affected by condensation or humidity saturation. A warmed probe may be necessary in high-humidity environments to ensure accurate readings. Regular calibration and maintenance are crucial for long-term stability.
+
+2. **CMP3 Calibration Error:** Refer to Kipp & Zonen's documentation for specific calibration procedures or troubleshooting tips, as details for the CMP3 were not provided in the context. Generally, check for environmental factors, probe cleanliness, and proper connections as foundational checks.
+
+
+
+  1. The Vaisala HMP155 has a low-temperature bias regarding its operational temperature range accuracy, while the Kipp & Zonen CMP3 pyranometer can experience false positives in its solar radiation measurements at night.
+
+  2. The Vaisala HMP155 has an operational temperature range of −80 to +60 °C (−112 to +140 °F) with an accuracy of ±(0.226 - 0.0028 × temperature) °C at −80 to +20 °C and ±(0.055 + 0.0057 × temperature) °C at +20 to +60 °C. Its low temperature bias can result in inaccuracies, especially below −40 °C.
+
+For the Kipp & Zonen CMP3 solar radiation sensor, there is a risk of night-time false positives when measuring solar radiation in the absence of sunlight or artificial light sources, which could lead to erroneous readings.
+
+
+  1. For the Vaisala HMP155, if temperature readings are stuck low, check for any wiring issues or sensor malfunctions. This sensor may also require recalibration if readings are consistently faulty.
+
+For the Kipp & Zonen CMP3 pyranometer showing high solar radiation at night, inspect the outer dome for ice or dew, as this can artificially increase readings. Ensure the sensor is clean and calibrate it if it has drifted over time. Regular maintenance, including checking sensor connections and cable conditions, is vital.
+
+  2. For the Vaisala HMP155 stuck low temperature readings, ensure that the probe is not affected by environmental factors such as condensation, which can impact its measured temperature. You may also want to check if the probe is properly calibrated and the sensor is functioning correctly within its operating limits (-80 to +60 °C). The use of an appropriate Stevenson screen can help in protecting the probe from radiation and precipitation, thus improving measurement accuracy.
+
+Regarding the Kipp & Zonen CMP3 measuring high solar radiation at night, the problem may stem from a malfunctioning sensor, or it could be incorrectly picking up stray light or reflections. Ensure that the sensor is properly installed and is free from dust or obstructions. If ongoing issues persist, consider servicing or replacing the device, as the CMP3 lacks advanced features like temperature correction found in higher models such as CMP6.
+
+
+
+  1. The operational range sensitivity of the Vaisala HMP155 temperature sensor and Kipp & Zonen CMP3 solar radiation sensor is not explicitly provided in the given context. However, it is mentioned that the CMP3 pyranometer requires a calibration that may drift over time and should be checked regularly for proper functioning. The sensitivity and operational range can typically be found in specific product documentation or technical datasheets for both sensors.
+
+  2. The operational range sensitivity for the Kipp & Zonen CMP3 solar radiation sensor is not explicitly stated in the provided context. However, it is noted that the sensitivity of the CMP6 and SMP6 models is 5 to 20 µV/W/m², which implies a similar operational sensitivity characteristic may be relevant for the CMP3 given their similar applications. The operational range for solar radiation measurement is generally up to 2000 W/m².
+
+The Vaisala HMP155 temperature sensor's operational range is not mentioned in the provided context, so specific sensitivity or operational range information is unavailable.
+
+

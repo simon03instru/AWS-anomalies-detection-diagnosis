@@ -1,0 +1,27 @@
+Assessment Report on Wind Direction Anomaly at AWS_DIY_UGM:
+
+1. Summary of Anomaly and Trend Analysis:
+The wind direction sensor at AWS_DIY_UGM recorded a value of 999.0°, which is an invalid sentinel value outside the sensor's operational range of 0-360°. This reading is confirmed as a sensor communication failure or hardware fault by the trend analysis, indicating an immediate fault condition.
+
+2. Current Weather Conditions Comparison:
+At the time of the anomaly (2024-08-15T20:00 UTC), actual weather data showed a wind direction of 325°, well within the valid range, with steady wind speed and normal atmospheric conditions. This confirms the 999.0° reading is erroneous and not reflective of true conditions.
+
+3. Sensor Specifications and Fault Behavior:
+The Young 05103-L wind direction sensor operates between 0 and 360 degrees with a resolution of 0.5 degrees. The sensor outputs a sentinel fault value such as 999.0° when hardware or communication issues occur. This behavior aligns with the observed anomaly.
+
+4. Troubleshooting and Maintenance Recommendations:
+- Verify wiring connections for proper excitation and signal channels.
+- Confirm excitation voltage and datalogger configuration compatibility.
+- Measure potentiometer resistance to check sensor integrity.
+- Inspect sensor orientation and mechanical condition for obstructions or damage.
+- Recalibrate the sensor if initial checks do not resolve the issue.
+- Replace potentiometer or sensor components if damage or wear is detected.
+- Ensure proper grounding of the mounting post to prevent static discharge.
+- Check signal conditioning electronics for correct operation.
+- Secure all wiring connections and inspect junction boxes for damage.
+
+5. Actionable Recommendations:
+Immediate maintenance action is required to diagnose and resolve the fault. Following the above checklist will help identify the root cause and restore accurate wind direction measurements. If troubleshooting does not resolve the issue, sensor replacement should be considered to maintain data integrity.
+
+6. Conclusion:
+The 999.0° wind direction reading is a confirmed sensor fault, not a valid meteorological measurement. Prompt maintenance following the outlined procedures is essential to prevent data loss and ensure reliable weather monitoring at AWS_DIY_UGM.

@@ -1,0 +1,30 @@
+
+
+CONTOH KASUS 1
+--------------
+Contoh Kasus: Sensor suhu mencatat perubahan suhu yang sangat signifikan dalam waktu singkat (> 5 C)
+
+Diagnosis: Perubahan suhu tidak disertai perubahan pada parameter lain mengindikasikan terjadi kesalahan pembacaan suhu
+
+Troubleshooting:
+1. Cek pasokan daya (12 V Stabil); 
+2. Cek multiplier dan offset pada program data logger; 
+3.
+
+Rekomendasi:
+Segera 'flag' sensor dalam sistem monitoring; Lakukan langkah-langkah troubleshooting; Jika error tetap muncul ganti sensor dengan unit baru; Update konfigurasi data logger; Periksa kebersihan sensor
+
+
+CONTOH KASUS 2
+--------------
+Contoh Kasus: Output sensor suhu .9999
+
+Diagnosis: Kesalahan Pembacaan Sensor (No data)
+
+Troubleshooting:
+1. Kemungkinan kesalahan wiring/kabel lepas atau terkelupas; 
+2. Cek pasokan daya ke sensor; 
+3. Kemungkinan missing sensor
+
+Rekomendasi:
+Segera 'flag' sensor dalam sistem monitoring; Lakukan langkah-langkah troubleshooting; Bila tetap terjadi kesalahan pembacaan, segera ganti unit sensor.

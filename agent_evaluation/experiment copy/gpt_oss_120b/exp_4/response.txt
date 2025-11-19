@@ -1,0 +1,46 @@
+**Comprehensive Assessment of the Temperature Anomaly (AWS_DIY_STAGEOF_YOGYAKARTA – 2024‑08‑19T07:40 UTC)**
+
+1. **Weather Context**
+   - Satellite‑derived observations for the station’s coordinates (‑7.81665, 110.29481) around the anomaly time show a clear early‑morning cooling trend:
+     - 07:30 UTC: 29.0 °C, 58 % RH
+     - 07:45 UTC: 28.8 °C, 59 % RH
+     - 08:00 UTC: 28.5 °C, 60 % RH
+   - Interpolation to 07:40 UTC gives an estimated ambient temperature of **≈28.9 °C** and relative humidity of **≈58.5 %**.
+   - The sensor reported **10.92 °C** and **49 % RH**, i.e., ~18 °C lower temperature and ~9 % lower humidity than the ambient conditions – a discrepancy far beyond normal measurement uncertainty.
+
+2. **Sensor Specification Check**
+   - The Vaisala HMP155 is rated for –80 °C to +60 °C and 0–100 % RH, so the reported values are technically within the device’s measurement range.
+   - At 10.92 °C the temperature accuracy specification is ±0.226 °C, far smaller than the observed ~20 °C negative deviation, indicating a loss of sensor accuracy rather than a legitimate atmospheric reading.
+   - Expected temperature‑humidity correlation (higher RH when temperature drops) is broken: the sensor shows a large temperature drop without the corresponding humidity rise, further pointing to a sensor fault.
+
+3. **Possible Causes**
+   - **Temperature‑sensor mis‑calibration or drift** – the internal temperature element may have shifted or the calibration coefficients (multiplier/offset) may be corrupted.
+   - **Electrical / wiring issues** – incorrect power supply voltage, loose connections, or noise on the temperature channel can produce spurious low values.
+   - **Physical contamination** – a blocked or dirty Teflon filter, moisture ingress, or debris on the probe can affect the temperature element.
+   - **Environmental interference** – placement near a heat sink, direct sunlight, or a cooling source could bias the reading, though the broken RH correlation makes this unlikely.
+   - **Data‑logging or communication error** – corrupted data packets could replace the true temperature value with an outlier.
+   - **Sensor hardware failure** – degradation of the thermistor or internal electronics can cause large, abrupt offsets.
+
+4. **Maintenance & Troubleshooting Guidance (per Vaisala HMP155 KB)**
+   - **Visual inspection** of the probe and housing for damage, condensation, or debris; clean/replace the sintered filter if needed.
+   - **Verify wiring and power**: confirm the red power wire supplies the correct 12 V (or SW12V) and that temperature/humidity signal wires are correctly connected.
+   - **Measure output voltages** on the temperature and humidity channels with a calibrated meter; compare against spec tables for the current temperature.
+   - **Check calibration settings** in the logger software; ensure factory‑provided multiplier and offset are applied. Re‑calibrate on‑site using the USB/MI70 interface if they differ.
+   - **Response‑time test**: expose the probe to a rapid temperature change and confirm the sensor reaches 63 % of the step change in <20 s. Excessive lag suggests probe degradation.
+   - **Correlation test**: plot simultaneous temperature and RH; a healthy sensor shows the expected inverse relationship. Persistent broken correlation confirms temperature‑sensor fault.
+   - **Corrective actions**:
+     * If wiring or voltage issues are found, correct them and re‑record data.
+     * Clean or replace the humidity filter if blocked.
+     * If calibration or response‑time tests fail, perform an on‑site recalibration; if the sensor still deviates, replace the temperature element or the entire HMP155 unit.
+   - **Post‑maintenance validation**: after any repair, log data for at least 24 h and verify that temperature values align with satellite‑derived estimates (≈29 °C) and that the temperature‑RH relationship is restored.
+
+5. **Actionable Recommendations for Station Operators**
+   1. **Immediate inspection** – check the probe for physical damage, condensation, and filter blockage.
+   2. **Electrical verification** – confirm correct 12 V supply and secure signal wiring.
+   3. **Perform on‑site calibration** using the manufacturer’s tool; adjust multiplier/offset if they differ from factory defaults.
+   4. **Run a response‑time test** to assess probe health.
+   5. **If any test fails, replace the HMP155 module** (or at least the temperature element) rather than attempting further field calibration.
+   6. **After corrective work, monitor the next 24‑48 h** and compare sensor readings with satellite‑derived values; log any residual offsets.
+   7. **Document the incident** in the station’s maintenance log, including the root‑cause analysis and actions taken, to aid future troubleshooting.
+
+**Conclusion** – The ambient conditions at the anomaly time were typical for early morning Yogyakarta (≈29 °C, 58 % RH). The sensor’s reported temperature of 10.92 °C is a clear outlier caused by sensor mis‑calibration or hardware failure, compounded by a broken temperature‑humidity correlation. Following the inspection, wiring, calibration, and response‑time checks outlined above, and replacing the sensor if necessary, should restore reliable temperature and humidity measurements.

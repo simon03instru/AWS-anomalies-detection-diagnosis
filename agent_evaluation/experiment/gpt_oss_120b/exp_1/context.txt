@@ -1,0 +1,121 @@
+Weather Data from Satellite or API:
+
+Result:
+    {
+      "times": [
+        "2024-08-15T02:30",
+        "2024-08-15T02:45",
+        "2024-08-15T03:00",
+        "2024-08-15T03:15",
+        "2024-08-15T03:30",
+        "2024-08-15T03:45",
+        "2024-08-15T04:00",
+        "2024-08-15T04:15",
+        "2024-08-15T04:30"
+      ],
+      "temperature_2m": [
+        27.3,
+        27.8,
+        28.1,
+        28.5,
+        29.0,
+        29.3,
+        29.5,
+        29.8,
+        30.0
+      ],
+      "precipitation": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "relative_humidity_2m": [
+        63,
+        61,
+        59,
+        57,
+        56,
+        54,
+        53,
+        52,
+        52
+      ],
+      "windspeed_10m": [
+        8.4,
+        8.7,
+        9.1,
+        9.4,
+        10.1,
+        10.4,
+        11.2,
+        11.5,
+        12.3
+      ],
+      "direct_radiation": [
+        313.0,
+        335.0,
+        367.0,
+        402.0,
+        431.0,
+        447.0,
+        447.0,
+        440.0,
+        434.0
+      ],
+      "winddirection_10m": [
+        173,
+        173,
+        173,
+        173,
+        176,
+        178,
+        178,
+        178,
+        177
+      ],
+      "surface_pressure": [
+        996.1,
+        995.9,
+        995.6,
+        995.4,
+        995.2,
+        994.9,
+        994.6,
+        994.3,
+        994.2
+      ]
+    }
+
+  1. The operational range sensitivity specifications for the Kipp & Zonen CMP3 pyranometer involve checking the data returned from the sensor, as it shows the first indication of a fault. The recommended recalibration period is every two years due to potential drift with time and exposure to radiation. Specific troubleshooting steps include verifying wiring and impedance, checking voltage output, and ensuring the right calibration factor is entered into the data logger.
+
+  2. The Kipp & Zonen CMP3 pyranometer's operational range sensitivity specifications are not explicitly detailed in the provided context. However, it is noted that the CMP6 (which is an improved model) has a sensitivity of 5 to 20 µV/W/m² and an expected output range of 0 to 1500 W/m². The CMP6 is also classified under ISO 9060:2018 as Spectrally Flat Class B, ensuring high-quality measurements of solar irradiance.
+
+  1. Common causes for zero radiation output in the Kipp & Zonen CMP3 pyranometer include:
+
+1. **Wiring Issues**: Check that the sensor is wired to the correct terminal specified by the measurement instruction.
+2. **Calibration Factor**: Ensure that the correct calibration factor is entered into the data logger program.
+3. **Impedance Check**: Measure the impedance across the sensor wires; it should be around 100 ohms plus cable resistance. Low resistance may indicate a short circuit or water ingress.
+4. **Voltage Output**: Disconnect the sensor cable and check for a voltage output. It should be approximately 2.5 mV when positioned below a 60 W incandescent light bulb. No voltage suggests a sensor problem.
+5. **Environmental Factors**: Dew, frost, or ice on the outer dome can affect readings. Also, check for electromagnetic radiation interference affecting the signal.
+
+  2. Common causes of zero radiation output in Kipp & Zonen CMP3 pyranometers may include:
+1. Calibration Issues: The sensor may not be properly calibrated, leading to incorrect readings.
+2. Component Failure: Internal components like the thermopile sensor may have failed.
+3. Environmental Obstructions: Physical blockage or dirt on the sensor might prevent accurate readings.
+4. Power Supply Problems: If the instrument requires power (specific models) and it is not supplied correctly, it may result in zero readings.
+5. Temperature Effects: Operating outside the specified temperature range could affect the instrument's performance.
+
+Diagnostic repair steps:
+- Check for dirt or obstructions on the sensor.
+- Verify calibration and perform recalibration if necessary.
+- Inspect the internal components for damage or faults.
+- Ensure that the power supply is functioning properly (if applicable).
+- Test in controlled conditions to see if readings change.
+
+

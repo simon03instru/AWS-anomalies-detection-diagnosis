@@ -1,0 +1,163 @@
+Weather Data:
+
+Result:
+    {
+      "times": [
+        "2024-08-16T15:30",
+        "2024-08-16T15:45",
+        "2024-08-16T16:00",
+        "2024-08-16T16:15",
+        "2024-08-16T16:30"
+      ],
+      "temperature_2m": [
+        12.1,
+        12.1,
+        12.1,
+        12.1,
+        12.1
+      ],
+      "direct_radiation": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+
+    
+
+  1. **Vaisala HMP155 Calibration Error & Troubleshooting:** 1. Ensure proper wiring and connection to the data logger; 2. Check calibration factors; 3. Inspect for short circuits or broken connections; 4. Verify voltage output by testing with a light source.  
+
+**Kipp & Zonen CMP3 Calibration Error & Troubleshooting:** 1. Confirm wiring to the correct terminal; 2. Check impedance should be around 100 ohms plus cable resistance; 3. Measure voltage output; 4. Inspect sensor cable for damage; 5. Recalibrate every two years.
+
+  2. For troubleshooting calibration errors and sensor issues with the Vaisala HMP155 and Kipp & Zonen CMP3:
+
+1. **HMP155 Calibration Error (Vaisala HUMICAPâ 180R sensor):** Ensure the probe is properly calibrated using a USB connection, push buttons, or through the MI70 indicator. For humidity measurements, verify that the sensor is not affected by condensation or humidity saturation. A warmed probe may be necessary in high-humidity environments to ensure accurate readings. Regular calibration and maintenance are crucial for long-term stability.
+
+2. **CMP3 Calibration Error:** Refer to Kipp & Zonen's documentation for specific calibration procedures or troubleshooting tips, as details for the CMP3 were not provided in the context. Generally, check for environmental factors, probe cleanliness, and proper connections as foundational checks.
+
+  1. The Vaisala HMP155 has a low-temperature bias regarding its operational temperature range accuracy, while the Kipp & Zonen CMP3 pyranometer can experience false positives in its solar radiation measurements at night.
+
+  2. The Vaisala HMP155 has an operational temperature range of −80 to +60 °C (−112 to +140 °F) with an accuracy of ±(0.226 - 0.0028 × temperature) °C at −80 to +20 °C and ±(0.055 + 0.0057 × temperature) °C at +20 to +60 °C. Its low temperature bias can result in inaccuracies, especially below −40 °C.
+
+For the Kipp & Zonen CMP3 solar radiation sensor, there is a risk of night-time false positives when measuring solar radiation in the absence of sunlight or artificial light sources, which could lead to erroneous readings.
+
+
+  1. For the Vaisala HMP155, if temperature readings are stuck low, check for any wiring issues or sensor malfunctions. This sensor may also require recalibration if readings are consistently faulty.
+
+For the Kipp & Zonen CMP3 pyranometer showing high solar radiation at night, inspect the outer dome for ice or dew, as this can artificially increase readings. Ensure the sensor is clean and calibrate it if it has drifted over time. Regular maintenance, including checking sensor connections and cable conditions, is vital.
+
+  2. For the Vaisala HMP155 stuck low temperature readings, ensure that the probe is not affected by environmental factors such as condensation, which can impact its measured temperature. You may also want to check if the probe is properly calibrated and the sensor is functioning correctly within its operating limits (-80 to +60 °C). The use of an appropriate Stevenson screen can help in protecting the probe from radiation and precipitation, thus improving measurement accuracy.
+
+Regarding the Kipp & Zonen CMP3 measuring high solar radiation at night, the problem may stem from a malfunctioning sensor, or it could be incorrectly picking up stray light or reflections. Ensure that the sensor is properly installed and is free from dust or obstructions. If ongoing issues persist, consider servicing or replacing the device, as the CMP3 lacks advanced features like temperature correction found in higher models such as CMP6.
+
+
+  1. The operational range sensitivity of the Vaisala HMP155 temperature sensor and Kipp & Zonen CMP3 solar radiation sensor is not explicitly provided in the given context. However, it is mentioned that the CMP3 pyranometer requires a calibration that may drift over time and should be checked regularly for proper functioning. The sensitivity and operational range can typically be found in specific product documentation or technical datasheets for both sensors.
+
+  2. The operational range sensitivity for the Kipp & Zonen CMP3 solar radiation sensor is not explicitly stated in the provided context. However, it is noted that the sensitivity of the CMP6 and SMP6 models is 5 to 20 µV/W/m², which implies a similar operational sensitivity characteristic may be relevant for the CMP3 given their similar applications. The operational range for solar radiation measurement is generally up to 2000 W/m².
+
+The Vaisala HMP155 temperature sensor's operational range is not mentioned in the provided context, so specific sensitivity or operational range information is unavailable.
+
+
+  1. The operational range sensitivity specifications for the Kipp & Zonen CMP3 solar radiation sensor are not explicitly detailed in the provided context. However, it's noted that the calibration may drift over time due to exposure to radiation and recommends recalibration every two years to ensure accurate measurements. The sensitivity can also be affected by environmental conditions, such as the presence of dew or frost on the sensor dome.
+
+  2. The Kipp & Zonen CMP3 solar radiation sensor sensitivity specifications include a sensitivity of 5 to 20 µV/W/m², an expected output range of 0 to 1500 W/m², and a maximum operational irradiance of 2000 W/m². The sensor operates within a temperature range of -40 °C to +80 °C and has a relative humidity range from 0 to 100%. It offers a response time of less than 6 seconds for 63% response and less than 12 seconds for 95% response.
+
+
+  1. The operational temperature range and sensitivity specifications for the Vaisala HMP155 temperature sensor are not explicitly detailed in the provided context. However, it is noted that the HMP155 includes a Pt100 temperature sensor, which typically operates in a range of -200 °C to +850 °C with a sensitivity of approximately 0.1 °C. For precise specifications, it's recommended to refer to the manufacturer's documentation.
+
+  2. The Vaisala HMP155 temperature sensor has an operational temperature range of -80 to +60 °C (-112 to +140 °F). Its accuracy varies within this range, with specific values: ±(0.226 - 0.0028 × temperature) °C for -80 to +20 °C and ±(0.055 + 0.0057 × temperature) °C for +20 to +60 °C.
+
+  1. ### Troubleshooting Guide for Kipp & Zonen CMP3 Solar Radiation Sensor:
+
+**Common Failure Modes:**  
+1. **Unusually High Readings at Night:**  
+   - On clear, windless nights, the outer dome temperature may drop significantly, causing dew or frost to form on the dome, which can create false high readings due to enhanced diffusion of solar radiation.
+   - Icing on the dome can increase the pyranometer signal by up to 50% after sunrise.
+
+2. **Symptom: –9999 or Radiation Values Around 0:**  
+   - Ensure correct wiring and measurement range for the data logger.
+   - Measure impedance across sensor wires; low resistance may indicate a short circuit.
+
+3. **Symptom: Unreasonably High or Low Signal:**  
+   - Confirm the correct calibration factor is entered into the data logger.
+   - Inspect the condition of the sensor cable.
+
+4. **Unexpected Variations in Signal:**  
+   - Check for strong electromagnetic sources interfering with measurements.
+   - Inspect the sensor shield wire and cable connections.
+
+### Recommended Maintenance Actions:
+- **Daily/Weekly:** Inspect and clean the sensor dome to remove dirt, dust, or ice accumulation. Ensure there is no moisture inside the dome.
+- **Recalibration:** Recommended every two years to ensure accuracy; contact Campbell Scientific for this process.
+
+  2. **Troubleshooting Guides:**  
+1. **Check for Electrical Faults:** Ensure there are no shorts or damaged wiring in the sensor.  
+2. **Review Calibration:** Verify that the sensor is calibrated correctly according to ISO 9060 specifications.  
+3. **Inspect for Obstruction:** Ensure there are no physical obstructions around the sensor that may cause erroneous readings.  
+4. **Review Environmental Factors:** Check for dust or debris on the sensor surface that may affect performance.  
+5. **Temperature Effects:** Ensure the sensor is operating within its specified temperature range, as extreme temperatures can influence readings.
+
+**Common Failure Modes:**  
+1. **Sensor Saturation:** Exposure to excessive solar radiation may lead to saturation and incorrect high readings.
+2. **Electrical Interference:** Other electronic devices nearby may cause interference, leading to false readings.
+3. **Degraded Components:** Over time, internal components (e.g., thermopile, desiccant) may degrade and affect accuracy.
+4. **Improper Installation:** Incorrect installation angles or orientation can cause inaccurate readings.
+
+**Recommended Maintenance Actions:**  
+1. **Regular Cleaning:** Periodically clean the sensor to avoid buildup that can skew readings.
+2. **Check Desiccant:** For models that include desiccant, ensure it is replaced or maintained as specified (CMP6 has replaceable desiccant, SMP6 has a long-life internal option).
+3. **Calibration:** Perform regular calibrations to ensure the sensors provide accurate readings.
+4. **Systematic Testing:** Conduct periodic performance tests to ensure output is consistent with expected ranges.
+
+
+
+  1. ### Troubleshooting Guides for HMP155 Temperature Sensor:
+
+1. **Low Temperature Reading or Calibration Error:**
+   - Ensure the sensor is wired correctly to the analog input channels. 
+   - Check the voltage supply (should be 12V). 
+   - Verify the data logger settings and the range code corresponding to the measurement instructions.
+   - Check for possible contamination on the sensor tip or filter.
+
+2. **Symptoms of Incorrect Readings:**
+   - If readings show -9999, NAN, or 0%, check wiring for errors and correct voltage supply.
+   - If temperature readings are inaccurate, confirm that multiplier and offset parameters are set correctly.
+   - Inspect for water ingress or corrosion at connections.
+
+### Common Failure Modes:
+- Sensor contamination or debris affecting readings.
+- Electrical interference or inadequate power-up time.
+- Faults within the sensor element or improper wiring.
+
+### Recommended Maintenance Actions:
+- Monthly checks: ensure the radiation shield is clean and no salt or debris is present on the filter.
+- Change the probe filter annually or more frequently if contaminated.
+- Recalibrate the HMP155 annually to ensure accuracy of readings. 
+- Clean the probe with a mild detergent and soft cloth as needed.
+
+  2. ### Troubleshooting Guides for Vaisala HMP155 Temperature Sensor
+1. **Low Temperature Reading Issues**:
+   - **Check Sensor Condition**: Ensure the sensor is not damaged and is protected from environmental elements.
+   - **Calibration**: Verify that the sensor has been calibrated correctly. Recalibrate using a computer with USB or MI70 indicator if necessary.
+   - **Warmed Probe Functionality**: Ensure that the warmed humidity probe is functioning, as it prevents condensation that can affect readings.
+   - **Cable Connections**: Inspect all cable connections and integrity; replace if necessary.
+
+2. **Calibration Errors**:
+   - **Factory Calibration**: Check the calibration uncertainty specifications provided by the manufacturer (±0.6 %RH, ±1.0 %RH).
+   - **Use Correct Settings**: Ensure correct settings and environment for calibration.
+   - **Software Updates**: Ensure that the calibration software is updated to the latest version.
+   - **Environmental Factors**: Ensure that the calibration environment is stable and within the specified temperature range (−40°C to +60°C).
+
+### Common Failure Modes
+- **Sensor Contamination**: Moisture and dirt ingress can lead to inaccurate readings; ensure proper housing is used (IP66 rated).
+- **Power Supply Issues**: Insufficient voltage can lead to malfunction (minimum operating voltage is 7V for certain outputs).
+
+### Recommended Maintenance Actions
+- **Regular Calibration**: Recommended at least annually, or as per usage requirements.
+- **Inspect Housings**: Check the IP66 housing integrity to prevent environmental damage.
+- **Clean Probes**: Periodically clean the sintered Teflon filter to prevent buildup that may affect readings.
+- **Documentation**: Maintain log of calibration and service activities for compliance and performance tracking.
+
+

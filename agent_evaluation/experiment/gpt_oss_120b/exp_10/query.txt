@@ -1,0 +1,22 @@
+Analyze the following weather anomaly detected at AWS_DIY_UGM:
+
+Event Detection Time: 2024-08-15T20:00:00
+Station: AWS_DIY_UGM
+Location: UGM Yogyakarta, Indonesia
+Coordinates: Latitude -7.768469, Longitude 110.38192, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Rainfall
+  Value: 100.0
+  Sensor Brand: HYQUEST TB4
+  Trend Analysis: Rainfall sensor likely malfunction: 100 mm reported in a 10‑min interval while historical mean is 0 mm and max 0 mm. No concurrent pressure drop or temperature change, indicating a spurious spike. Confidence >80% that this is a sensor fault.
+
+Validation Timestamp: 2025-10-29T10:20:35.153954
+Correlation ID: anomaly-AWS_DIY_UGM-1761733235
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.

@@ -1,0 +1,41 @@
+R.M. Young Wind Monitor maintenance
+Preventive maintenance for R.M. Young Wind Monitor includes:
+
+-Checking the anemometer bearings and the potentiometer at least every second year. If the bearings are noisy or wind speed threshold increases above an acceptable level, replace the bearings.
+After replacing the bearings, update the maintenance information in the Web UI.
+-If the sensor measurement data looks suspicious after the maintenance operation, recalibrate the sensor.
+R.M. Young suggests that the anemometer bearings and the potentiometer be
+inspected at least every 24 months. Only a qualified technician should perform
+the replacement.
+Troubleshooting
+7.1 Wind Direction
+Symptom: -9999 or no change in direction
+1. Check that the sensor is wired to the Excitation and Single-Ended channel
+specified by the measurement instruction.
+2. Verify that the excitation voltage and Range code are correct for the
+datalogger type.
+3. Disconnect the sensor from the datalogger and use an ohn meter to check the
+potentiometer. Resistance should be about 10K ohms between the Blue and
+White wires. The resistance between either the Blue/Green or White/Green
+wires should vary between 1K to 11K depending on the vane position.
+Resistance when the vane is in the 5 degree dead band should be about 1 M
+ohm.
+Symptom: Incorrect wind direction
+1. Verify that the Excitation voltage, Range code, multiplier and offset
+parameters are correct for the datalogger type.
+2. Check orientation of sensor, as described in Section 3.
+7.2 Wind Speed
+Symptom: No wind speed
+1. Check that the sensor is wired to the Pulse channel specified by the Pulse
+count instruction.
+2. Disconnect the sensor from the datalogger and use an ohm meter to check
+the coil. The resistance between the red and black wires should be about 2075
+ohms. Infinite resistance indicates an open coil; low resistance indicates a
+shorted coil.
+3. Verify that the Configuration Code, and Multiplier and Offset parameters for
+the Pulse Count instruction are correct for the datalogger type.
+Symptom: Wind speed does not change
+1. For the dataloggers that are programmed with Edlog, the input location for
+wind speed is not updated if the datalogger is getting “Program Table
+Overruns.” Increase the execution interval (scan rate) to prevent overruns.
+

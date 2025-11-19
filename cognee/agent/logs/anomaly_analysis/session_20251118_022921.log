@@ -1,0 +1,9 @@
+======================================================================
+KAFKA WORKFORCE SESSION LOG
+======================================================================
+Session Start: 2025-11-18 02:29:21
+Kafka Broker: localhost:9092
+Topic: weather-anomalies
+Log Directory: /home/ubuntu/running/diagnosis_mas/agent/logs/anomaly_analysis
+======================================================================
+

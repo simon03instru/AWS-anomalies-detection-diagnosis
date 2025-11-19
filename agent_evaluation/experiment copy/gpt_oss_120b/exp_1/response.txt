@@ -1,0 +1,37 @@
+1. **Current Weather vs. Anomalous Reading**
+   - At the event time (2024‑08‑19T07:40:00 UTC) the ambient conditions at Yogyakarta (‑7.81665, 110.29481) were typical tropical weather: temperature ≈ 28.8 °C, relative humidity ≈ 59 %, no measurable precipitation, and a gentle wind (~20 km/h). The sensor reported a temperature of **‑9999 °C**, which is a sentinel value indicating a communication or hardware fault, not a real atmospheric measurement.
+
+2. **Operational Range Check**
+   - The Vaisala HMP155 temperature sensor is rated for –80 °C to +60 °C. A reading of –9999 °C is far outside this range and matches the known sentinel used for communication failures. Therefore the reading is **not** within the sensor’s operational limits, confirming a fault rather than an extreme weather event.
+
+3. **Troubleshooting Findings**
+   - Common causes for the –9999 °C sentinel include:
+     * Loose or damaged wiring (analog input, M12 connector, USB).
+     * Incorrect or insufficient power supply (sensor requires 7‑28 V DC, typically 12 V).
+     * Mismatched range code or SDI‑12 address settings on the data logger.
+     * Physical damage or contamination of the probe.
+     * Calibration or firmware issues.
+   - Recommended immediate checks:
+     1. Inspect and reseat all cables and connectors.
+     2. Measure the sensor supply voltage; ensure it is within the specified range.
+     3. Verify the data logger’s range code matches the sensor’s configuration (single‑ended vs. differential).
+     4. Confirm the SDI‑12 address (if used) is correctly set.
+     5. Visually examine the probe for wear, corrosion, or blockage; clean or replace if needed.
+     6. Run a calibration check with a Vaisala MI70 or equivalent and recalibrate if required.
+
+4. **Comprehensive Assessment & Actionable Recommendations**
+   - **Root Cause**: The –9999 °C value is a clear indicator of a communication failure rather than a meteorological anomaly. The most probable root causes are wiring/power issues or mis‑configuration of the logger.
+   - **Short‑Term Actions**:
+     * Perform the troubleshooting steps listed above.
+     * If the sensor continues to output the sentinel after wiring/power verification, replace the HMP155 unit.
+   - **Medium‑Term Actions**:
+     * Update the station’s maintenance log with the fault and corrective actions taken.
+     * Implement a periodic (e.g., monthly) visual inspection of sensor cabling and power connections.
+   - **Long‑Term Monitoring**:
+     * Enable automated alerts for sentinel values (‑9999 °C) so that future communication failures are flagged immediately.
+     * Consider adding a redundant temperature sensor (e.g., a second HMP155 or a different model) to provide backup data.
+
+5. **Correlation with Other Anomalies**
+   - No other sensor anomalies were reported for this event, so no cross‑sensor correlation is applicable.
+
+**Conclusion**: The temperature anomaly is a sensor‑specific fault confirmed by both the sentinel value and the mismatch with normal weather conditions. Following the outlined troubleshooting and maintenance steps will resolve the current issue and improve resilience against future communication failures.

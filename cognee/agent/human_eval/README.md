@@ -1,5 +1,7 @@
 # AWS Diagnosis System Evaluation Framework
 
+Evaluation Form : https://docs.google.com/forms/d/e/1FAIpQLSchy_KjY9p35ZUZLqacEPB8ulbdMLxn3KEODjNyjC2NBeHHpg/viewform?usp=dialog
+
 ## Overview
 
 This evaluation framework is designed to assess the performance of an Automatic Weather Station (AWS) multi-agent diagnosis system. The system consists of two main components working together to detect and diagnose sensor anomalies:

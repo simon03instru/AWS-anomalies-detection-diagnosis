@@ -1,0 +1,380 @@
+======================================================================
+RAGAS BATCH EVALUATION RESULTS (SEMANTIC CHUNKING)
+======================================================================
+Evaluation Date: 2025-10-29 16:33:07
+Total Duration: 12607.48 seconds (210.1 minutes)
+LLM Model: gpt-oss:120b
+Embedding Model: nomic-embed-text
+Metrics: Faithfulness, Relevancy
+Chunking Strategy: semantic
+Total Evaluations: 120
+======================================================================
+
+
+======================================================================
+FOLDER: gpt_oss_120b
+======================================================================
+
+
+Experiment 1:
+--------------------------------------------------
+  Run 1: Faithfulness=0.9778, Relevancy=0.8537, Average=0.9157 (contexts=8)
+  Run 2: Faithfulness=0.9778, Relevancy=0.8537, Average=0.9157 (contexts=8)
+
+
+Experiment 2:
+--------------------------------------------------
+  Run 1: Faithfulness=0.9434, Relevancy=0.7628, Average=0.853 (contexts=7)
+  Run 2: Faithfulness=0.9434, Relevancy=0.7628, Average=0.8531 (contexts=7)
+
+
+Experiment 3:
+--------------------------------------------------
+  Run 1: Faithfulness=0.5862, Relevancy=0.7682, Average=0.6772 (contexts=8)
+  Run 2: Faithfulness=0.5862, Relevancy=0.7682, Average=0.6772 (contexts=8)
+
+Experiment 4:
+--------------------------------------------------
+  Run 1: Faithfulness=0.7419, Relevancy=0.8169, Average=0.7794 (contexts=5)
+  Run 2: Faithfulness=0.7419, Relevancy=0.8169, Average=0.7794 (contexts=5)
+
+Experiment 5:
+--------------------------------------------------
+  Run 1: Faithfulness=0.4444, Relevancy=0.7856, Average=0.6150 (contexts=8)
+  Run 2: Faithfulness=0.4231, Relevancy=0.7856, Average=0.6043 (contexts=8)
+
+
+Experiment 6:
+--------------------------------------------------
+  Run 1: Faithfulness=0.8000, Relevancy=0.8920, Average=0.8460 (contexts=7)
+  Run 2: Faithfulness=0.8000, Relevancy=0.8920, Average=0.8460 (contexts=7)
+
+
+Experiment 7:
+--------------------------------------------------
+  Run 1: Faithfulness=0.9483, Relevancy=0.8008, Average=0.8745 (contexts=7)
+  Run 2: Faithfulness=0.9483, Relevancy=0.8008, Average=0.8745 (contexts=7)
+
+Experiment 8:
+--------------------------------------------------
+  Run 1: Faithfulness=0.6786, Relevancy=0.7268, Average=0.7027 (contexts=7)
+  Run 2: Faithfulness=0.6786, Relevancy=0.7268, Average=0.7027 (contexts=7)
+
+Experiment 9:
+--------------------------------------------------
+  Run 1: Faithfulness=0.7500, Relevancy=0.8147, Average=0.7823 (contexts=8)
+  Run 2: Faithfulness=0.7500, Relevancy=0.8147, Average=0.7823 (contexts=8)
+
+Experiment 10:
+--------------------------------------------------
+  Run 1: Faithfulness=0.7576, Relevancy=0.7244, Average=0.7410 (contexts=6)
+  Run 2: Faithfulness=0.7576, Relevancy=0.7244, Average=0.74109 (contexts=6)
+
+Experiment 11:
+--------------------------------------------------
+  Run 1: Faithfulness=0.9091, Relevancy=0.7851, Average=0.8471 (contexts=6)
+  Run 2: Faithfulness=0.9091, Relevancy=0.7851, Average=0.8471 (contexts=6)
+
+Experiment 12:
+--------------------------------------------------
+  Run 1: Faithfulness=0.8750, Relevancy=0.8364, Average=0.8557 (contexts=11)
+  Run 2: Faithfulness=0.8750, Relevancy=0.8364, Average=0.8557 (contexts=11)
+
+Experiment 13:
+--------------------------------------------------
+  Run 1: Faithfulness=0.7353, Relevancy=0.7915, Average=0.7634 (contexts=9)
+  Run 2: Faithfulness=0.7353, Relevancy=0.7915, Average=0.7634 (contexts=9)
+
+Experiment 14:
+--------------------------------------------------
+  Run 1: Faithfulness=0.6047, Relevancy=0.8828, Average=0.7437 (contexts=13)
+  Run 2: Faithfulness=0.6047, Relevancy=0.8828, Average=0.7437 (contexts=13)
+
+Experiment 15:
+--------------------------------------------------
+  Run 1: Faithfulness=0.5294, Relevancy=0.8402, Average=0.6848 (contexts=9)
+  Run 2: Faithfulness=0.5294, Relevancy=0.8402, Average=0.6848 (contexts=9)
+
+Experiment 16:
+--------------------------------------------------
+  Run 1: Faithfulness=0.3784, Relevancy=0.7773, Average=0.5778 (contexts=7)
+  Run 2: Faithfulness=0.3784, Relevancy=0.7773, Average=0.5778 (contexts=7)
+
+Experiment 17:
+--------------------------------------------------
+  Run 1: Faithfulness=0.6944, Relevancy=0.7847, Average=0.7396 (contexts=8)
+  Run 2: Faithfulness=0.6944, Relevancy=0.7847, Average=0.7396 (contexts=8)
+
+Experiment 18:
+--------------------------------------------------
+  Run 1: Faithfulness=0.5652, Relevancy=0.7854, Average=0.6753 (contexts=6)
+  Run 2: Faithfulness=0.5652, Relevancy=0.7854, Average=0.6753 (contexts=6)
+
+Experiment 19:
+--------------------------------------------------
+  Run 1: Faithfulness=0.7188, Relevancy=0.7816, Average=0.7502 (contexts=6)
+  Run 2: Faithfulness=0.7188, Relevancy=0.7816, Average=0.7502 (contexts=6)
+
+Experiment 20:
+--------------------------------------------------
+  Run 1: Faithfulness=0.6190, Relevancy=0.7950, Average=0.7070 (contexts=13)
+  Run 2: Faithfulness=0.5301, Relevancy=0.7950, Average=0.6626 (contexts=13)
+
+======================================================================
+FOLDER: gpt_oss_20b
+======================================================================
+
+Experiment 1:
+--------------------------------------------------
+  Run 1: Faithfulness=0.8750, Relevancy=0.7535, Average=0.8143 (contexts=12)
+  Run 2: Faithfulness=0.8750, Relevancy=0.7535, Average=0.8143 (contexts=12)
+
+Experiment 2:
+--------------------------------------------------
+  Run 1: Faithfulness=0.4412, Relevancy=0.7664, Average=0.6038 (contexts=7)
+  Run 2: Faithfulness=0.4412, Relevancy=0.7664, Average=0.6038 (contexts=7)
+
+Experiment 3:
+--------------------------------------------------
+  Run 1: Faithfulness=0.9111, Relevancy=0.8484, Average=0.8798 (contexts=14)
+  Run 2: Faithfulness=0.9111, Relevancy=0.8484, Average=0.8798 (contexts=14)
+
+Experiment 4:
+--------------------------------------------------
+  Run 1: Faithfulness=0.2857, Relevancy=0.7808, Average=0.5333 (contexts=10)
+  Run 2: Faithfulness=0.2143, Relevancy=0.7808, Average=0.4975 (contexts=10)
+
+Experiment 5:
+--------------------------------------------------
+  Run 1: Faithfulness=0.3158, Relevancy=0.7903, Average=0.5531 (contexts=12)
+  Run 2: Faithfulness=0.3158, Relevancy=0.7903, Average=0.5531 (contexts=12)
+
+Experiment 6:
+--------------------------------------------------
+  Run 1: Faithfulness=0.3810, Relevancy=0.7114, Average=0.5462 (contexts=18)
+  Run 2: Faithfulness=0.3810, Relevancy=0.7114, Average=0.5462 (contexts=18)
+
+Experiment 7:
+--------------------------------------------------
+  Run 1: Faithfulness=0.4815, Relevancy=0.8403, Average=0.6609 (contexts=6)
+  Run 2: Faithfulness=0.4815, Relevancy=0.8403, Average=0.6609 (contexts=6)
+
+Experiment 8:
+--------------------------------------------------
+  Run 1: Faithfulness=0.2500, Relevancy=0.8531, Average=0.5516 (contexts=16)
+  Run 2: Faithfulness=0.2500, Relevancy=0.8531, Average=0.5516 (contexts=16)
+
+Experiment 9:
+--------------------------------------------------
+  Run 1: Faithfulness=0.8696, Relevancy=0.7748, Average=0.8222 (contexts=16)
+  Run 2: Faithfulness=0.8696, Relevancy=0.7748, Average=0.8222 (contexts=16)
+
+Experiment 10:
+--------------------------------------------------
+  Run 1: Faithfulness=0.6111, Relevancy=0.7359, Average=0.6735 (contexts=15)
+  Run 2: Faithfulness=0.6667, Relevancy=0.7359, Average=0.7013 (contexts=15)
+
+Experiment 11:
+--------------------------------------------------
+  Run 1: Faithfulness=0.8889, Relevancy=0.6959, Average=0.7924 (contexts=12)
+  Run 2: Faithfulness=0.8889, Relevancy=0.6959, Average=0.7924 (contexts=12)
+
+Experiment 12:
+--------------------------------------------------
+  Run 1: Faithfulness=0.2727, Relevancy=0.8529, Average=0.5628 (contexts=17)
+  Run 2: Faithfulness=0.1818, Relevancy=0.8529, Average=0.5173 (contexts=17)
+
+Experiment 13:
+--------------------------------------------------
+  Run 1: Faithfulness=0.5417, Relevancy=0.8533, Average=0.6975 (contexts=17)
+  Run 2: Faithfulness=0.5417, Relevancy=0.8533, Average=0.6975 (contexts=17)
+
+Experiment 14:
+--------------------------------------------------
+  Run 1: Faithfulness=0.5000, Relevancy=0.8745, Average=0.6872 (contexts=13)
+  Run 2: Faithfulness=0.5294, Relevancy=0.8745, Average=0.7019 (contexts=13)
+
+Experiment 15:
+--------------------------------------------------
+  Run 1: Faithfulness=0.4643, Relevancy=0.8104, Average=0.6373 (contexts=14)
+  Run 2: Faithfulness=0.5000, Relevancy=0.8104, Average=0.6552 (contexts=14)
+
+Experiment 16:
+--------------------------------------------------
+  Run 1: Faithfulness=0.3684, Relevancy=0.7307, Average=0.5496 (contexts=15)
+  Run 2: Faithfulness=0.4211, Relevancy=0.7307, Average=0.5759 (contexts=15)
+
+Experiment 17:
+--------------------------------------------------
+  Run 1: Faithfulness=0.5417, Relevancy=0.8141, Average=0.6779 (contexts=9)
+  Run 2: Faithfulness=0.5417, Relevancy=0.8141, Average=0.6779 (contexts=9)
+
+Experiment 18:
+--------------------------------------------------
+  Run 1: Faithfulness=0.6800, Relevancy=0.8057, Average=0.7429 (contexts=14)
+  Run 2: Faithfulness=0.6800, Relevancy=0.8057, Average=0.7429 (contexts=14)
+
+Experiment 19:
+--------------------------------------------------
+  Run 1: Faithfulness=0.5769, Relevancy=0.8439, Average=0.7104 (contexts=11)
+  Run 2: Faithfulness=0.6154, Relevancy=0.8439, Average=0.7296 (contexts=11)
+
+Experiment 20:
+--------------------------------------------------
+  Run 1: Faithfulness=0.7812, Relevancy=0.7580, Average=0.7696 (contexts=20)
+  Run 2: Faithfulness=0.7812, Relevancy=0.7580, Average=0.7696 (contexts=20)
+
+======================================================================
+FOLDER: gpt_4_1_mini
+======================================================================
+
+
+Experiment 1:
+--------------------------------------------------
+  Run 1: Faithfulness=0.6429, Relevancy=0.8004, Average=0.7216 (contexts=8)
+  Run 2: Faithfulness=0.6429, Relevancy=0.8004, Average=0.7216 (contexts=8)
+
+Experiment 2:
+--------------------------------------------------
+  Run 1: Faithfulness=0.5854, Relevancy=0.8525, Average=0.7190 (contexts=12)
+  Run 2: Faithfulness=0.5882, Relevancy=0.8525, Average=0.7204 (contexts=12)
+
+Experiment 3:
+--------------------------------------------------
+  Run 1: Faithfulness=0.6471, Relevancy=0.8421, Average=0.7446 (contexts=20)
+  Run 2: Faithfulness=0.6471, Relevancy=0.8421, Average=0.7446 (contexts=20)
+
+Experiment 4:
+--------------------------------------------------
+  Run 1: Faithfulness=0.7037, Relevancy=0.8181, Average=0.7609 (contexts=17)
+  Run 2: Faithfulness=0.6897, Relevancy=0.8181, Average=0.7539 (contexts=17)
+
+Experiment 5:
+--------------------------------------------------
+  Run 1: Faithfulness=0.4643, Relevancy=0.8340, Average=0.6491 (contexts=20)
+  Run 2: Faithfulness=0.4667, Relevancy=0.8340, Average=0.6503 (contexts=20)
+
+Experiment 6:
+--------------------------------------------------
+  Run 1: Faithfulness=0.7368, Relevancy=0.8152, Average=0.7760 (contexts=20)
+  Run 2: Faithfulness=0.7368, Relevancy=0.8152, Average=0.7760 (contexts=20)
+
+Experiment 7:
+--------------------------------------------------
+  Run 1: Faithfulness=0.4118, Relevancy=0.8663, Average=0.6391 (contexts=11)
+  Run 2: Faithfulness=0.4118, Relevancy=0.8663, Average=0.6391 (contexts=11)
+
+Experiment 8:
+--------------------------------------------------
+  Run 1: Faithfulness=0.3750, Relevancy=0.8212, Average=0.5981 (contexts=20)
+  Run 2: Faithfulness=0.3750, Relevancy=0.8212, Average=0.5981 (contexts=20)
+
+Experiment 9:
+--------------------------------------------------
+  Run 1: Faithfulness=0.7188, Relevancy=0.8463, Average=0.7825 (contexts=20)
+  Run 2: Faithfulness=0.7188, Relevancy=0.8463, Average=0.7825 (contexts=20)
+
+Experiment 10:
+--------------------------------------------------
+  Run 1: Faithfulness=N/A, Relevancy=0.8402 [PARTIAL] (contexts=20)
+  Run 2: Faithfulness=N/A, Relevancy=0.8402 [PARTIAL] (contexts=20)
+
+Experiment 11:
+--------------------------------------------------
+  Run 1: Faithfulness=0.7143, Relevancy=0.8260, Average=0.7701 (contexts=18)
+  Run 2: Faithfulness=0.7143, Relevancy=0.8260, Average=0.7701 (contexts=18)
+
+Experiment 12:
+--------------------------------------------------
+  Run 1: Faithfulness=0.5556, Relevancy=0.8023, Average=0.6789 (contexts=8)
+  Run 2: Faithfulness=0.4706, Relevancy=0.8023, Average=0.6364 (contexts=8)
+
+Experiment 13:
+--------------------------------------------------
+  Run 1: Faithfulness=0.3750, Relevancy=0.8714, Average=0.6232 (contexts=20)
+  Run 2: Faithfulness=0.3750, Relevancy=0.8714, Average=0.6232 (contexts=20)
+
+Experiment 14:
+--------------------------------------------------
+  Run 1: Faithfulness=0.8966, Relevancy=0.8253, Average=0.8609 (contexts=20)
+  Run 2: Faithfulness=0.8966, Relevancy=0.8253, Average=0.8609 (contexts=20)
+
+Experiment 15:
+--------------------------------------------------
+  Run 1: Faithfulness=0.2381, Relevancy=0.8589, Average=0.5485 (contexts=20)
+  Run 2: Faithfulness=0.2381, Relevancy=0.8589, Average=0.5485 (contexts=20)
+
+Experiment 16:
+--------------------------------------------------
+  Run 1: Faithfulness=0.4643, Relevancy=0.8004, Average=0.6323 (contexts=20)
+  Run 2: Faithfulness=0.4643, Relevancy=0.8004, Average=0.6323 (contexts=20)
+
+Experiment 17:
+--------------------------------------------------
+  Run 1: Faithfulness=0.5741, Relevancy=0.8335, Average=0.7038 (contexts=20)
+  Run 2: Faithfulness=0.5741, Relevancy=0.8335, Average=0.7038 (contexts=20)
+
+Experiment 18:
+--------------------------------------------------
+  Run 1: Faithfulness=0.3684, Relevancy=0.8340, Average=0.6012 (contexts=16)
+  Run 2: Faithfulness=0.3684, Relevancy=0.8340, Average=0.6012 (contexts=16)
+
+Experiment 19:
+--------------------------------------------------
+  Run 1: Faithfulness=0.5926, Relevancy=0.8731, Average=0.7328 (contexts=20)
+  Run 2: Faithfulness=0.5926, Relevancy=0.8731, Average=0.7328 (contexts=20)
+
+Experiment 20:
+--------------------------------------------------
+  Run 1: Faithfulness=0.6957, Relevancy=0.8349, Average=0.7653 (contexts=20)
+  Run 2: Faithfulness=0.6957, Relevancy=0.8349, Average=0.7653 (contexts=20)
+
+
+======================================================================
+OVERALL STATISTICS
+======================================================================
+
+Total evaluations: 120
+  Successful: 118 (98.3%)
+  Partial: 2 (1.7%)
+  Failed: 0 (0.0%)
+
+Overall averages (successful only):
+  Faithfulness: 0.5698
+  Relevancy: 0.8094
+  Combined: 0.6896
+  Average Contexts: 12.8
+
+======================================================================
+CHUNKING STRATEGY GUIDE
+======================================================================
+
+Strategy Used: semantic
+
+Available Strategies:
+
+1. SEMANTIC (DEFAULT - RECOMMENDED)
+   Config: target_chunk_size=500 chars
+   Best for: Text with some structure (paragraphs, sections)
+   Splits at: double newlines → single newlines → natural breaks
+
+2. CHARACTER
+   Config: chunk_size=1000 chars
+   Best for: Completely unstructured/random text
+   Splits at: word boundaries after N characters
+
+3. SENTENCE
+   Config: sentences_per_chunk=5
+   Best for: Prose, articles, documentation
+   Splits at: sentence boundaries (. ! ?)
+
+4. SLIDING_WINDOW
+   Config: window_size=800, overlap=200 chars
+   Best for: Dense technical text, Q&A with distributed context
+   Preserves context across boundaries with overlap
+
+Max contexts per evaluation: 20
+
+======================================================================
+END OF REPORT
+======================================================================

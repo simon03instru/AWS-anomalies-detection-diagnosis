@@ -1,0 +1,1622 @@
+
+================================================================================
+DETAILED ANOMALY PROCESSING LOG
+================================================================================
+Anomaly ID: AWS_DIY_UGM_2024-08-15T20-10-00
+Event Type: WEATHER_ANOMALY_CONFIRMED
+Correlation ID: anomaly-AWS_DIY_UGM-1762150745
+Timestamp: 2025-11-03 06:19:06
+Log File: detailed_20251103_061906_004023_AWS_DIY_UGM.log
+================================================================================
+
+
+================================================================================
+ORIGINAL ANOMALY DATA
+================================================================================
+{
+  "event_type": "WEATHER_ANOMALY_CONFIRMED",
+  "timestamp": "2025-11-03T06:19:05.792193",
+  "source": "StationAgent-AWS_DIY_UGM",
+  "data": {
+    "timestamp": "2024-08-15T20:10:00",
+    "station_id": "AWS_DIY_UGM",
+    "station_metadata": {
+      "location": "UGM Yogyakarta, Indonesia",
+      "latitude": -7.768469,
+      "longitude": 110.38192,
+      "altitude": 48.0,
+      "sensor_info": {
+        "sr": {
+          "brand": "Kipp & Zonen CMP3",
+          "last_calibration": "2024-03-15"
+        }
+      }
+    },
+    "confirmed_anomalies": [
+      {
+        "parameter": "Solar Radiation",
+        "parameter_code": "sr",
+        "value": -9999.0,
+        "unit": "W/m\u00b2",
+        "sensor_brand": "Kipp & Zonen CMP3",
+        "sensor_range": "0-1500 W/m\u00b2",
+        "trend_analysis": "Invalid sentinel value -9999.0 W/m\u00b2 - sensor communication failure. Expected near 0 W/m\u00b2 at night. Correlation with temperature (tt) and wind speed (ws) broken, confirming sensor fault."
+      }
+    ],
+    "validation_timestamp": "2025-11-03T06:19:05.792172",
+    "has_trend_analysis": true
+  },
+  "correlation_id": "anomaly-AWS_DIY_UGM-1762150745"
+}
+================================================================================
+
+
+================================================================================
+WORKFORCE PROCESSING STARTED
+================================================================================
+Initial Query:
+Analyze the following weather anomaly detected at AWS_DIY_UGM:
+
+Event Detection Time: 2024-08-15T20:10:00
+Station: AWS_DIY_UGM
+Location: UGM Yogyakarta, Indonesia
+Coordinates: Latitude -7.768469, Longitude 110.38192, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Solar Radiation
+  Value: -9999.0
+  Sensor Brand: Kipp & Zonen CMP3
+  Trend Analysis: Invalid sentinel value -9999.0 W/m² - sensor communication failure. Expected near 0 W/m² at night. Correlation with temperature (tt) and wind speed (ws) broken, confirming sensor fault.
+
+Validation Timestamp: 2025-11-03T06:19:05.792172
+Correlation ID: anomaly-AWS_DIY_UGM-1762150745
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.
+================================================================================
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: get_weather
+--------------------------------------------------------------------------------
+Tool: get_weather
+Call Count: 1
+Timestamp: 06:19:44.104
+
+Keyword Arguments:
+    {
+      "end_time": "2024-08-15T14:10:00Z",
+      "latitude": -7.768469,
+      "longitude": 110.38192,
+      "parameters": [
+        "direct_radiation",
+        "temperature_2m",
+        "windspeed_10m",
+        "relative_humidity_2m"
+      ],
+      "start_time": "2024-08-15T12:10:00Z"
+    }
+
+Execution Time: 1.277 seconds
+Result Length: 181 characters
+
+Result:
+    {
+      "error": "Requested time range not found in API response. Available times: ['2024-08-15T00:00', '2024-08-15T00:15', '2024-08-15T00:30', '2024-08-15T00:45', '2024-08-15T01:00']..."
+    }
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: maintenance_search_maintenance_knowledge
+--------------------------------------------------------------------------------
+Tool: maintenance_search_maintenance_knowledge
+Call Count: 1
+Timestamp: 06:19:47.082
+
+Keyword Arguments:
+    {
+      "node_sets": [
+        "solar_radiation_sensor"
+      ],
+      "query": "Kipp & Zonen CMP3 communication failure sentinel -9999 troubleshooting diagnostic steps corrective actions"
+    }
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: sensor_search_sensor_knowledge
+--------------------------------------------------------------------------------
+Tool: sensor_search_sensor_knowledge
+Call Count: 1
+Timestamp: 06:19:49.970
+
+Keyword Arguments:
+    {
+      "node_sets": [
+        "solar_radiation_sensor"
+      ],
+      "query": "Kipp & Zonen CMP3 solar radiation sensor specifications measurement range typical nighttime values sentinel value -9999 handling"
+    }
+
+--------------------------------------------------------------------------------
+TOOL CALL #2: get_weather
+--------------------------------------------------------------------------------
+Tool: get_weather
+Call Count: 2
+Timestamp: 06:19:54.770
+
+Keyword Arguments:
+    {
+      "end_time": "2024-08-15T23:45:00Z",
+      "latitude": -7.768469,
+      "longitude": 110.38192,
+      "parameters": [
+        "direct_radiation",
+        "temperature_2m",
+        "windspeed_10m",
+        "relative_humidity_2m"
+      ],
+      "start_time": "2024-08-15T00:00:00Z"
+    }
+
+Execution Time: 1.221 seconds
+Result Length: 4051 characters
+
+Result:
+    {
+      "times": [
+        "2024-08-15T00:00",
+        "2024-08-15T00:15",
+        "2024-08-15T00:30",
+        "2024-08-15T00:45",
+        "2024-08-15T01:00",
+        "2024-08-15T01:15",
+        "2024-08-15T01:30",
+        "2024-08-15T01:45",
+        "2024-08-15T02:00",
+        "2024-08-15T02:15",
+        "2024-08-15T02:30",
+        "2024-08-15T02:45",
+        "2024-08-15T03:00",
+        "2024-08-15T03:15",
+        "2024-08-15T03:30",
+        "2024-08-15T03:45",
+        "2024-08-15T04:00",
+        "2024-08-15T04:15",
+        "2024-08-15T04:30",
+        "2024-08-15T04:45",
+        "2024-08-15T05:00",
+        "2024-08-15T05:15",
+        "2024-08-15T05:30",
+        "2024-08-15T05:45",
+        "2024-08-15T06:00",
+        "2024-08-15T06:15",
+        "2024-08-15T06:30",
+        "2024-08-15T06:45",
+        "2024-08-15T07:00",
+        "2024-08-15T07:15",
+        "2024-08-15T07:30",
+        "2024-08-15T07:45",
+        "2024-08-15T08:00",
+        "2024-08-15T08:15",
+        "2024-08-15T08:30",
+        "2024-08-15T08:45",
+        "2024-08-15T09:00",
+        "2024-08-15T09:15",
+        "2024-08-15T09:30",
+        "2024-08-15T09:45",
+        "2024-08-15T10:00",
+        "2024-08-15T10:15",
+        "2024-08-15T10:30",
+        "2024-08-15T10:45",
+        "2024-08-15T11:00",
+        "2024-08-15T11:15",
+        "2024-08-15T11:30",
+        "2024-08-15T11:45",
+        "2024-08-15T12:00",
+        "2024-08-15T12:15",
+        "2024-08-15T12:30",
+        "2024-08-15T12:45",
+        "2024-08-15T13:00",
+        "2024-08-15T13:15",
+        "2024-08-15T13:30",
+        "2024-08-15T13:45",
+        "2024-08-15T14:00",
+        "2024-08-15T14:15",
+        "2024-08-15T14:30",
+        "2024-08-15T14:45",
+        "2024-08-15T15:00",
+        "2024-08-15T15:15",
+        "2024-08-15T15:30",
+        "2024-08-15T15:45",
+        "2024-08-15T16:00",
+        "2024-08-15T16:15",
+        "2024-08-15T16:30",
+        "2024-08-15T16:45",
+        "2024-08-15T17:00",
+        "2024-08-15T17:15",
+        "2024-08-15T17:30",
+        "2024-08-15T17:45",
+        "2024-08-15T18:00",
+        "2024-08-15T18:15",
+        "2024-08-15T18:30",
+        "2024-08-15T18:45",
+        "2024-08-15T19:00",
+        "2024-08-15T19:15",
+        "2024-08-15T19:30",
+        "2024-08-15T19:45",
+        "2024-08-15T20:00",
+        "2024-08-15T20:15",
+        "2024-08-15T20:30",
+        "2024-08-15T20:45",
+        "2024-08-15T21:00",
+        "2024-08-15T21:15",
+        "2024-08-15T21:30",
+        "2024-08-15T21:45",
+        "2024-08-15T22:00",
+        "2024-08-15T22:15",
+        "2024-08-15T22:30",
+        "2024-08-15T22:45",
+        "2024-08-15T23:00",
+        "2024-08-15T23:15",
+        "2024-08-15T23:30",
+        "2024-08-15T23:45"
+      ],
+      "direct_radiation": [
+        67.0,
+        91.0,
+        118.0,
+        147.0,
+        180.0,
+        212.0,
+        244.0,
+        270.0,
+        287.0,
+        300.0,
+        313.0,
+        335.0,
+        367.0,
+        402.0,
+        431.0,
+        447.0,
+        447.0,
+        440.0,
+        434.0,
+        435.0,
+        440.0,
+        448.0,
+        454.0,
+        459.0,
+        466.0,
+        470.0,
+        464.0,
+        441.0,
+        402.0,
+        357.0,
+        317.0,
+        289.0,
+        270.0,
+        253.0,
+        233.0,
+        206.0,
+        178.0,
+        147.0,
+        115.0,
+        81.0,
+        47.0,
+        21.0,
+        6.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        14.0,
+        36.0,
+        60.0
+      ],
+      "temperature_2m": [
+        22.9,
+        23.2,
+        23.6,
+        24.0,
+        24.4,
+        24.9,
+        25.4,
+        25.9,
+        26.3,
+        26.8,
+        27.3,
+        27.8,
+        28.1,
+        28.5,
+        29.0,
+        29.3,
+        29.5,
+        29.8,
+        30.0,
+        30.1,
+        30.2,
+        30.2,
+        30.2,
+        30.2,
+        30.2,
+        30.2,
+        30.2,
+        30.2,
+        30.1,
+        29.9,
+        29.5,
+        29.2,
+        28.9,
+        28.6,
+        28.4,
+        28.2,
+        27.9,
+        27.6,
+        27.2,
+        26.9,
+        26.5,
+        26.1,
+        25.8,
+        25.4,
+        25.0,
+        24.8,
+        24.4,
+        24.1,
+        23.9,
+        23.7,
+        23.6,
+        23.5,
+        23.4,
+        23.2,
+        23.0,
+        22.8,
+        22.6,
+        22.5,
+        22.4,
+        22.2,
+        22.1,
+        22.1,
+        22.1,
+        22.1,
+        22.0,
+        22.0,
+        22.0,
+        21.9,
+        21.8,
+        21.6,
+        21.5,
+        21.3,
+        21.1,
+        21.0,
+        20.9,
+        20.8,
+        20.7,
+        20.6,
+        20.6,
+        20.6,
+        20.5,
+        20.5,
+        20.4,
+        20.3,
+        20.2,
+        20.1,
+        20.1,
+        20.0,
+        19.9,
+        19.8,
+        19.5,
+        19.4,
+        19.4,
+        19.7,
+        20.2,
+        20.7
+      ],
+      "windspeed_10m": [
+        7.1,
+        5.8,
+        4.3,
+        4.1,
+        4.8,
+        5.6,
+        6.1,
+        6.8,
+        7.2,
+        7.6,
+        8.4,
+        8.7,
+        9.1,
+        9.4,
+        10.1,
+        10.4,
+        11.2,
+        11.5,
+        12.3,
+        12.6,
+        13.4,
+        14.1,
+        15.2,
+        16.4,
+        17.2,
+        17.6,
+        17.7,
+        17.7,
+        17.8,
+        17.9,
+        18.4,
+        18.7,
+        18.8,
+        18.9,
+        18.9,
+        18.6,
+        18.3,
+        17.9,
+        17.1,
+        16.3,
+        15.5,
+        14.7,
+        13.4,
+        12.2,
+        10.9,
+        9.7,
+        8.8,
+        7.6,
+        6.5,
+        5.5,
+        5.0,
+        4.4,
+        4.1,
+        4.2,
+        4.3,
+        4.7,
+        5.2,
+        5.4,
+        5.5,
+        5.6,
+        5.6,
+        5.8,
+        5.5,
+        5.7,
+        5.7,
+        5.7,
+        5.9,
+        5.9,
+        5.9,
+        5.9,
+        5.9,
+        5.9,
+        5.9,
+        5.9,
+        5.9,
+        6.1,
+        5.9,
+        5.6,
+        5.9,
+        5.7,
+        5.7,
+        5.7,
+        5.5,
+        5.5,
+        5.5,
+        5.5,
+        5.3,
+        5.3,
+        5.3,
+        5.3,
+        5.6,
+        5.6,
+        5.6,
+        5.8,
+        5.9,
+        5.9
+      ],
+      "relative_humidity_2m": [
+        83,
+        82,
+        80,
+        78,
+        76,
+        74,
+        72,
+        69,
+        67,
+        65,
+        63,
+        61,
+        59,
+        57,
+        56,
+        54,
+        53,
+        52,
+        52,
+        51,
+        51,
+        51,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        51,
+        52,
+        54,
+        56,
+        57,
+        58,
+        58,
+        59,
+        59,
+        59,
+        60,
+        60,
+        61,
+        62,
+        63,
+        65,
+        66,
+        67,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        80,
+        81,
+        81,
+        81,
+        82,
+        82,
+        82,
+        82,
+        83,
+        83,
+        83,
+        83,
+        84,
+        84,
+        84,
+        84,
+        85,
+        85,
+        85,
+        85,
+        86,
+        86,
+        86,
+        86,
+        87,
+        87,
+        87,
+        87,
+        87,
+        87,
+        87,
+        87,
+        88,
+        88,
+        88,
+        87,
+        86,
+        84
+      ]
+    }
+--------------------------------------------------------------------------------
+
+
+Execution Time: 12.817 seconds
+Result Length: 712 characters
+
+Result:
+    The Kipp & Zonen CMP3 solar radiation sensor typically measures solar radiation, specifically irradiance. During nighttime, expected values may be near -9999 as a sentinel value indicating no valid data. To handle this sentinel value, check the wiring, ensure the correct range for the data logger, measure impedance, and verify sensor output.
+    
+    The Kipp & Zonen CMP3 solar radiation sensor is classified under ISO 9060:2018 standards, which ensure spectrally flat performance. Its measurement range is typically between -400 to 2000 W/m², with a maximum operational irradiance of 2000 W/m². Typical nighttime values would be near 0 W/m². The sentinel value for missing data is -9999, used for handling data gaps.
+--------------------------------------------------------------------------------
+
+
+Execution Time: 17.604 seconds
+Result Length: 2225 characters
+
+Result:
+    ### Troubleshooting Steps for Kipp & Zonen CMP3 Communication Failure Sentinel -9999
+    
+    1. **Check Wiring**: Ensure the sensor is wired to the correct terminal as per the measurement instruction.
+    2. **Verify Range**: Confirm that the range is correct for the data logger type being used.
+    3. **Measure Impedance**: Measure the impedance across the red and blue sensor wires. It should be around 100 ohms plus the cable resistance.
+       - If low, check for a short circuit.
+       - If lower than expected, investigate potential water ingress.
+       - If infinite, there’s likely a broken connection.
+    4. **Voltage Output Test**: Disconnect the sensor cable and check the voltage output. Position the sensor about 20 cm below a 60 W incandescent bulb; it should output approximately 2.5 mV. No voltage indicates a problem with the sensor.
+    
+    ### Corrective Actions
+    - If any wiring issues or short circuits are identified, correct them immediately.
+    - If resistance is low due to water ingress, dry the connections or replace damaged cables.
+    - For no voltage output, consider replacing the sensor or seeking further technical assistance.
+    
+    To troubleshoot the Kipp & Zonen CMP3 communication failure with a sentinel reading of -9999, follow these diagnostic steps:
+    
+    1. **Check Connections:** Ensure that all wiring and connectors are intact, secure, and free of corrosion.
+    2. **Inspect Power Supply:** Verify that the device is properly powered. Check for voltage levels as specified in the device manual.
+    3. **Calibration Check:** Run a calibration test to ensure the sensor is performing accurately and displaying the correct readings.
+    4. **Firmware Update:** Ensure that the device firmware is up-to-date and re-upload it if necessary.
+    5. **Sensor Integrity:** Verify the integrity of the sensor; look for any signs of damage or wear that may affect performance.
+    6. **Data Logger Configuration:** Ensure the data logger settings are correctly adjusted to receive data from the CMP3.
+    7. **Environmental Interference:** Check for environmental factors that could affect measurements, such as shading or reflections.
+    8. **Consult Manufacturer:** If the issue persists, contact Kipp & Zonen support for professional troubleshooting and guidance.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+STDOUT CAPTURE
+--------------------------------------------------------------------------------
+[33mWorker node e0eff610-b571-441f-956e-f689e542b4e3 (Weather data analysis) get task 48d78a96-14a0-4702-b793-6d9f9fae9a74.1: Retrieve the weather parameters (e.g., solar radiation, temperature, wind speed, cloud cover) for latitude -7.768469 and longitude 110.38192 on 2024-08-15 at 20:10 local time and summarize how the observed conditions compare to the reported solar radiation value of -9999 W/m².[39m
+[33mWorker node 2e23f941-c51b-4fc5-bedf-93afb0cef27f (Sensor specifications) get task 48d78a96-14a0-4702-b793-6d9f9fae9a74.2: Search the specifications for the Kipp & Zonen CMP3 solar radiation sensor, list its valid measurement range, typical nighttime values, and how sentinel values (such as -9999) are defined and handled.[39m
+[33mWorker node 7f1b7564-1ccd-419c-88c6-7378372db92f (Maintenance information) get task 48d78a96-14a0-4702-b793-6d9f9fae9a74.3: Find maintenance and troubleshooting information for the Kipp & Zonen CMP3 sensor related to communication failures and sentinel outputs, and outline recommended diagnostic steps and corrective actions.[39m
+   📝 Logged 2 chunks for query: 'Kipp & Zonen CMP3 solar radiation sensor specifica...'
+   📝 Logged 2 chunks for query: 'Kipp & Zonen CMP3 communication failure sentinel -...'
+======
+[32mResponse from Worker node e0eff610-b571-441f-956e-f689e542b4e3 (Weather data analysis):[39m
+
+[32mAt the AWS_DIY_UGM site (lat -7.768469, lon 110.38192) on 2024‑08‑15 at 20:10 local time (13:10 UTC) the satellite‑derived weather data show:
+- Direct solar radiation: **0 W/m²** (nighttime, as expected)
+- Air temperature: **23.4 °C**
+- Wind speed (10 m): **4.1 m/s**
+- Relative humidity: **75 %**
+
+The sensor reported a value of **‑9999 W/m²**, which is a sentinel indicating a communication or measurement failure. The observed conditions (zero radiation at night) are consistent with the expected natural background, confirming that the sensor’s negative reading is erroneous. The sensor is therefore outside its operational range for this event and requires maintenance (e.g., check power, data link, and sensor calibration). No other anomalies were detected in the accompanying temperature or wind data.
+
+**Assessment:** The anomaly is a clear sensor fault; the environment was clear night conditions with no solar input. Recommended actions: inspect the Kipp & Zonen CMP3 sensor, verify wiring and data acquisition system, and replace or recalibrate if necessary.[39m
+======
+[36m🎯 Task 48d78a96-14a0-4702-b793-6d9f9fae9a74.1 completed successfully.[39m
+======
+[32mResponse from Worker node 2e23f941-c51b-4fc5-bedf-93afb0cef27f (Sensor specifications):[39m
+
+[32mThe Kipp & Zonen CMP3 solar radiation sensor has a measurement range of approximately –400 W/m² to 2000 W/m² (maximum operational irradiance 2000 W/m²). During nighttime, valid readings are expected to be near 0 W/m². A sentinel value of –9999 is used to indicate missing or invalid data; when this value appears, it should be treated as a data gap and not as a physical measurement. Handling procedures include checking wiring, ensuring the data logger’s range settings are correct, and verifying sensor output to confirm the sentinel is not due to a sensor fault.[39m
+======
+[36m🎯 Task 48d78a96-14a0-4702-b793-6d9f9fae9a74.2 completed successfully.[39m
+======
+[32mResponse from Worker node 7f1b7564-1ccd-419c-88c6-7378372db92f (Maintenance information):[39m
+
+[32m**Kipp & Zonen CMP3 – Communication Failure / Sentinel –9999 Troubleshooting**
+
+1. **Check Wiring and Connections**
+   - Verify the sensor is wired to the correct terminal as per the measurement instruction.
+   - Ensure all connectors are secure, free of corrosion, and that the cable is not damaged.
+
+2. **Verify Data‑Logger Range and Configuration**
+   - Confirm the range setting matches the data logger type being used.
+   - Check that the data logger configuration is set to receive data from the CMP3.
+
+3. **Measure Impedance (Resistance) Across Sensor Wires**
+   - Expected value: ~100 Ω plus cable resistance.
+   - *Low resistance*: possible short circuit or water ingress – dry or replace affected cables.
+   - *Infinite resistance*: broken connection – inspect and repair wiring.
+
+4. **Voltage Output Test**
+   - Disconnect the sensor cable.
+   - Position the sensor ~20 cm below a 60 W incandescent bulb.
+   - Expected output: ~2.5 mV.
+   - No voltage indicates a faulty sensor; consider replacement.
+
+5. **Power Supply Check**
+   - Verify the sensor and logger are receiving the correct supply voltage as specified in the manual.
+
+6. **Calibration and Firmware**
+   - Run a calibration test to confirm sensor accuracy.
+   - Ensure firmware is up‑to‑date; re‑upload if necessary.
+
+7. **Environmental Inspection**
+   - Look for shading, reflections, or other interference that could affect readings.
+
+8. **Consult Manufacturer if Needed**
+   - If the above steps do not resolve the issue, contact Kipp & Zonen support for further assistance.
+
+**Corrective Actions**
+- Repair or replace any faulty wiring, connectors, or cables.
+- Dry or replace components affected by water ingress.
+- Replace the sensor if voltage output test fails.
+- Update firmware and re‑calibrate the system.
+- Adjust data‑logger settings to match sensor specifications.
+- Seek manufacturer support for unresolved communication failures.
+[39m
+======
+[36m🎯 Task 48d78a96-14a0-4702-b793-6d9f9fae9a74.3 completed successfully.[39m
+[33mWorker node e0eff610-b571-441f-956e-f689e542b4e3 (Weather data analysis) get task 48d78a96-14a0-4702-b793-6d9f9fae9a74.4: Based on the weather data, sensor specifications, and maintenance guidance, produce a comprehensive assessment of the anomaly, including whether the reading is physically plausible, likely sensor fault causes, any correlation with other parameters, and a set of actionable recommendations for the station.[39m
+======
+[32mResponse from Worker node e0eff610-b571-441f-956e-f689e542b4e3 (Weather data analysis):[39m
+
+[32m### Comprehensive Assessment of Solar Radiation Anomaly (AWS_DIY_UGM)
+
+**1. Current Weather Conditions (2024‑08‑15 20:10 local / 13:10 UTC)**
+- Direct solar radiation: **0 W/m²** (nighttime, no solar input)
+- Air temperature: **23.4 °C**
+- Wind speed (10 m): **4.1 m/s**
+- Relative humidity: **75 %**
+- Cloud cover: not directly provided but night conditions imply no solar contribution.
+
+**2. Plausibility of the Reported Value**
+- The sensor reported **‑9999 W/m²**, which is a sentinel value used by Kipp & Zonen CMP3 to flag missing or invalid data. 
+- Physically, solar radiation cannot be negative; the expected natural value at this time is ~0 W/m². Therefore the reading is **not physically plausible** and indicates a data‑acquisition fault rather than an atmospheric event.
+
+**3. Operational Range & Sensor Sensitivity**
+- CMP3 measurement range: **‑400 W/m² to 2000 W/m²** (maximum 2000 W/m²). Night‑time valid readings are near **0 W/m²**.
+- The sentinel **‑9999** lies far outside the sensor’s defined range and is reserved for communication or hardware failures. Hence the sensor output is **outside its operational range for this event**.
+
+**4. Correlation with Other Parameters**
+- Trend analysis notes a broken correlation between solar radiation, temperature, and wind speed. Under normal conditions, a drop in solar radiation at night coincides with stable temperature and modest wind; the abrupt sentinel disrupts this relationship, confirming a sensor fault.
+- No anomalies were observed in temperature or wind data, reinforcing that the issue is isolated to the solar sensor.
+
+**5. Troubleshooting Information (Kipp & Zonen CMP3)**
+| Step | Action | Expected Outcome |
+|------|--------|------------------|
+| 1. Wiring & Connections | Inspect connectors, ensure no corrosion or damage. | Secure, low‑resistance connections.
+| 2. Data‑Logger Configuration | Verify range settings match CMP3 specifications. | Correct data‑logger acceptance of sensor output.
+| 3. Impedance Test | Measure resistance across sensor leads (~100 Ω). | Low resistance → possible short; infinite → broken wire.
+| 4. Voltage Output Test | Illuminate sensor with a 60 W bulb; expect ~2.5 mV. | No voltage → faulty sensor.
+| 5. Power Supply Check | Confirm correct supply voltage to sensor/logger. | Stable voltage within spec.
+| 6. Calibration / Firmware | Run calibration routine; update firmware if needed. | Sensor reports within range.
+| 7. Environmental Inspection | Look for shading, water ingress, or debris. | Clean, unobstructed sensor.
+| 8. Manufacturer Support | Contact Kipp & Zonen if above steps fail. | Guidance or replacement.
+
+**6. Actionable Recommendations**
+1. **Immediate Data Handling**: Treat the ‑9999 value as a data gap; do not use it in analyses. Flag the timestamp in the database.
+2. **On‑Site Inspection** (within 1‑2 days):
+   - Verify all wiring and connectors for the CMP3 sensor.
+   - Measure lead resistance; repair or replace damaged cables.
+   - Check the power supply voltage at the logger and sensor.
+3. **Functional Test**: Perform the voltage output test with a known light source. If the sensor does not produce the expected ~2.5 mV, replace the CMP3 unit.
+4. **Data‑Logger Review**: Ensure the logger’s range setting includes the CMP3’s –400 W/m² lower limit and that it is configured to interpret ‑9999 as a sentinel.
+5. **Calibration & Firmware**: Run a calibration routine after any hardware repair and update firmware to the latest version.
+6. **Documentation**: Log the fault, steps taken, and outcome in the station maintenance record. Update the SOP to include a routine weekly check of sentinel occurrences.
+7. **Preventive Measures**:
+   - Schedule quarterly visual inspections of sensor housing to prevent water ingress.
+   - Implement automated alerts for sentinel values to trigger rapid response.
+8. **If Sensor Replacement is Needed**: Order a replacement CMP3, install following manufacturer guidelines, and perform a post‑installation validation (compare night‑time radiation to 0 W/m², verify correlation with temperature and wind).
+
+**7. Summary**
+- The ‑9999 W/m² reading is a clear sentinel indicating a communication or hardware failure of the Kipp & Zonen CMP3 solar radiation sensor.
+- Weather conditions at the time were consistent with a night‑time zero‑radiation environment, confirming the anomaly is not atmospheric.
+- Follow the outlined troubleshooting steps and recommended maintenance actions to restore reliable solar radiation measurements.
+
+*Task completed successfully.*[39m
+======
+[36m🎯 Task 48d78a96-14a0-4702-b793-6d9f9fae9a74.4 completed successfully.[39m
+
+--------------------------------------------------------------------------------
+
+
+================================================================================
+FINAL OUTPUT - SYNTHESIZED RESULT
+================================================================================
+--- Subtask 48d78a96-14a0-4702-b793-6d9f9fae9a74.1 Result ---
+At the AWS_DIY_UGM site (lat -7.768469, lon 110.38192) on 2024‑08‑15 at 20:10 local time (13:10 UTC) the satellite‑derived weather data show:
+- Direct solar radiation: **0 W/m²** (nighttime, as expected)
+- Air temperature: **23.4 °C**
+- Wind speed (10 m): **4.1 m/s**
+- Relative humidity: **75 %**
+
+The sensor reported a value of **‑9999 W/m²**, which is a sentinel indicating a communication or measurement failure. The observed conditions (zero radiation at night) are consistent with the expected natural background, confirming that the sensor’s negative reading is erroneous. The sensor is therefore outside its operational range for this event and requires maintenance (e.g., check power, data link, and sensor calibration). No other anomalies were detected in the accompanying temperature or wind data.
+
+**Assessment:** The anomaly is a clear sensor fault; the environment was clear night conditions with no solar input. Recommended actions: inspect the Kipp & Zonen CMP3 sensor, verify wiring and data acquisition system, and replace or recalibrate if necessary.
+
+--- Subtask 48d78a96-14a0-4702-b793-6d9f9fae9a74.2 Result ---
+The Kipp & Zonen CMP3 solar radiation sensor has a measurement range of approximately –400 W/m² to 2000 W/m² (maximum operational irradiance 2000 W/m²). During nighttime, valid readings are expected to be near 0 W/m². A sentinel value of –9999 is used to indicate missing or invalid data; when this value appears, it should be treated as a data gap and not as a physical measurement. Handling procedures include checking wiring, ensuring the data logger’s range settings are correct, and verifying sensor output to confirm the sentinel is not due to a sensor fault.
+
+--- Subtask 48d78a96-14a0-4702-b793-6d9f9fae9a74.3 Result ---
+**Kipp & Zonen CMP3 – Communication Failure / Sentinel –9999 Troubleshooting**
+
+1. **Check Wiring and Connections**
+   - Verify the sensor is wired to the correct terminal as per the measurement instruction.
+   - Ensure all connectors are secure, free of corrosion, and that the cable is not damaged.
+
+2. **Verify Data‑Logger Range and Configuration**
+   - Confirm the range setting matches the data logger type being used.
+   - Check that the data logger configuration is set to receive data from the CMP3.
+
+3. **Measure Impedance (Resistance) Across Sensor Wires**
+   - Expected value: ~100 Ω plus cable resistance.
+   - *Low resistance*: possible short circuit or water ingress – dry or replace affected cables.
+   - *Infinite resistance*: broken connection – inspect and repair wiring.
+
+4. **Voltage Output Test**
+   - Disconnect the sensor cable.
+   - Position the sensor ~20 cm below a 60 W incandescent bulb.
+   - Expected output: ~2.5 mV.
+   - No voltage indicates a faulty sensor; consider replacement.
+
+5. **Power Supply Check**
+   - Verify the sensor and logger are receiving the correct supply voltage as specified in the manual.
+
+6. **Calibration and Firmware**
+   - Run a calibration test to confirm sensor accuracy.
+   - Ensure firmware is up‑to‑date; re‑upload if necessary.
+
+7. **Environmental Inspection**
+   - Look for shading, reflections, or other interference that could affect readings.
+
+8. **Consult Manufacturer if Needed**
+   - If the above steps do not resolve the issue, contact Kipp & Zonen support for further assistance.
+
+**Corrective Actions**
+- Repair or replace any faulty wiring, connectors, or cables.
+- Dry or replace components affected by water ingress.
+- Replace the sensor if voltage output test fails.
+- Update firmware and re‑calibrate the system.
+- Adjust data‑logger settings to match sensor specifications.
+- Seek manufacturer support for unresolved communication failures.
+
+
+--- Subtask 48d78a96-14a0-4702-b793-6d9f9fae9a74.4 Result ---
+### Comprehensive Assessment of Solar Radiation Anomaly (AWS_DIY_UGM)
+
+**1. Current Weather Conditions (2024‑08‑15 20:10 local / 13:10 UTC)**
+- Direct solar radiation: **0 W/m²** (nighttime, no solar input)
+- Air temperature: **23.4 °C**
+- Wind speed (10 m): **4.1 m/s**
+- Relative humidity: **75 %**
+- Cloud cover: not directly provided but night conditions imply no solar contribution.
+
+**2. Plausibility of the Reported Value**
+- The sensor reported **‑9999 W/m²**, which is a sentinel value used by Kipp & Zonen CMP3 to flag missing or invalid data. 
+- Physically, solar radiation cannot be negative; the expected natural value at this time is ~0 W/m². Therefore the reading is **not physically plausible** and indicates a data‑acquisition fault rather than an atmospheric event.
+
+**3. Operational Range & Sensor Sensitivity**
+- CMP3 measurement range: **‑400 W/m² to 2000 W/m²** (maximum 2000 W/m²). Night‑time valid readings are near **0 W/m²**.
+- The sentinel **‑9999** lies far outside the sensor’s defined range and is reserved for communication or hardware failures. Hence the sensor output is **outside its operational range for this event**.
+
+**4. Correlation with Other Parameters**
+- Trend analysis notes a broken correlation between solar radiation, temperature, and wind speed. Under normal conditions, a drop in solar radiation at night coincides with stable temperature and modest wind; the abrupt sentinel disrupts this relationship, confirming a sensor fault.
+- No anomalies were observed in temperature or wind data, reinforcing that the issue is isolated to the solar sensor.
+
+**5. Troubleshooting Information (Kipp & Zonen CMP3)**
+| Step | Action | Expected Outcome |
+|------|--------|------------------|
+| 1. Wiring & Connections | Inspect connectors, ensure no corrosion or damage. | Secure, low‑resistance connections.
+| 2. Data‑Logger Configuration | Verify range settings match CMP3 specifications. | Correct data‑logger acceptance of sensor output.
+| 3. Impedance Test | Measure resistance across sensor leads (~100 Ω). | Low resistance → possible short; infinite → broken wire.
+| 4. Voltage Output Test | Illuminate sensor with a 60 W bulb; expect ~2.5 mV. | No voltage → faulty sensor.
+| 5. Power Supply Check | Confirm correct supply voltage to sensor/logger. | Stable voltage within spec.
+| 6. Calibration / Firmware | Run calibration routine; update firmware if needed. | Sensor reports within range.
+| 7. Environmental Inspection | Look for shading, water ingress, or debris. | Clean, unobstructed sensor.
+| 8. Manufacturer Support | Contact Kipp & Zonen if above steps fail. | Guidance or replacement.
+
+**6. Actionable Recommendations**
+1. **Immediate Data Handling**: Treat the ‑9999 value as a data gap; do not use it in analyses. Flag the timestamp in the database.
+2. **On‑Site Inspection** (within 1‑2 days):
+   - Verify all wiring and connectors for the CMP3 sensor.
+   - Measure lead resistance; repair or replace damaged cables.
+   - Check the power supply voltage at the logger and sensor.
+3. **Functional Test**: Perform the voltage output test with a known light source. If the sensor does not produce the expected ~2.5 mV, replace the CMP3 unit.
+4. **Data‑Logger Review**: Ensure the logger’s range setting includes the CMP3’s –400 W/m² lower limit and that it is configured to interpret ‑9999 as a sentinel.
+5. **Calibration & Firmware**: Run a calibration routine after any hardware repair and update firmware to the latest version.
+6. **Documentation**: Log the fault, steps taken, and outcome in the station maintenance record. Update the SOP to include a routine weekly check of sentinel occurrences.
+7. **Preventive Measures**:
+   - Schedule quarterly visual inspections of sensor housing to prevent water ingress.
+   - Implement automated alerts for sentinel values to trigger rapid response.
+8. **If Sensor Replacement is Needed**: Order a replacement CMP3, install following manufacturer guidelines, and perform a post‑installation validation (compare night‑time radiation to 0 W/m², verify correlation with temperature and wind).
+
+**7. Summary**
+- The ‑9999 W/m² reading is a clear sentinel indicating a communication or hardware failure of the Kipp & Zonen CMP3 solar radiation sensor.
+- Weather conditions at the time were consistent with a night‑time zero‑radiation environment, confirming the anomaly is not atmospheric.
+- Follow the outlined troubleshooting steps and recommended maintenance actions to restore reliable solar radiation measurements.
+
+*Task completed successfully.*
+
+
+Output Statistics:
+  - length: 8352
+  - word_count: 1250
+  - line_count: 113
+  - is_error: False
+================================================================================
+
+
+================================================================================
+DOCUMENT CHUNKS RETRIEVED FROM RAG
+================================================================================
+Total RAG Queries: 2
+Log File: chunk_retrieval_20251103_061813.jsonl
+--------------------------------------------------------------------------------
+
+
+Query #1:
+  Query: Kipp & Zonen CMP3 solar radiation sensor specifications measurement range typical nighttime values sentinel value -9999 handling
+  Dataset: sensor_knowledge
+  Node Sets: solar_radiation_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. CMP 3 Kipp and Zonen Pyranometer
+Maintenance/Recalibrations
+Inspect and clean the outer dome every week or so. Clean any accumulated
+dust or debris off the dome and pyranometer body using a soft cloth dampened
+with water or alcohol. Check that there is no condensation within the dome.
+Check the data returned from the sensor as it will show the first indication of a
+fault. When doing this you should be aware of several expected phenomena
+that can cause strange measurements. In particular on clear, windless nights the
+outer dome temperature of horizontally placed pyranometers can fall as low as
+the dew point temperature of the air, due to infrared radiation exchange with
+the cold sky. (The effective sky temperature can be 30 °C lower than the
+ground temperature, which results in an infrared emission of –150 W/m2). If
+this happens, dew, glazed frost or hoar frost can be precipitated on the top of
+the outer dome and can stay there for several hours in the morning. An ice cap
+on the dome is a strong diffuser and can increase the pyranometer signal by up
+to 50% in the first hours after sunrise.
+The calibration of the CMP3 may drift with time and exposure to radiation.
+Campbell Scientific recommends recalibrating every two years. The sensor
+should be returned to Campbell Scientific, the manufacturer, or a calibration
+lab with facilities to calibrate radiation sensors
+
+Troubleshooting
+Symptom: –9999 or radiation values around 0
+1. Check that the sensor is wired to the terminal that is specified by the
+measurement instruction.
+2. Verify that the range is correct for the data logger type.
+3. Measure the impedance across the red and blue sensor wires. This should
+be around 100 ohms plus the cable resistance (typically 0.1 ohm/m). If the
+resistance is very low there may be a short circuit (check the wiring).
+Resistances somewhat lower than expected could be due to water ingress
+into the sensor or enclosure connectors. If the resistance is infinite, there is
+a broken connection (check the wiring).
+4. Disconnect the sensor cable and check the voltage output from the sensor.
+With the sensor located 20 cm (8 inches) below a 60 W incandescent light
+bulb, the voltage should be approximately 2.5 mV. No voltage indicates a
+problem with the sensor.
+Symptom: sensor signal is unrealistically high or low
+1. Check that the right calibration factor has been properly entered into the
+data logger program. Please note that each sensor has its own individual
+calibration factor.
+2. Check the condition of the sensor cable.
+Symptom: sensor signal shows unexpected variations
+1. 2. Check for the presence of strong sources of electromagnetic radiation
+(radar, radio).
+Check the condition and the connection of the sensor shield wire.
+3. Check the condition of the sensor cable.
+
+
+
+CMP6, CMP10, CMP11, CMP21 Kipp and Zonen Maintenance
+
+Maintenance
+Every week, physically inspect the pyranometer to ensure that:
+• Dome is free of dirt, condensation, and ice. Remove accumulated dust,
+condensation, or ice from the dome and pyranometer body by using a soft
+cloth dampened with water or alcohol (FIGURE 8-1).
+• The drying cartridge in the CMP6, CMP11, and CMP21 have orange and
+opaque desiccant granules (Section 8.1.1, Changing the Desiccant (p. 16)).
+• Mounting is secure.
+• Pyranometer is level or is at the correct angle.
+• Cables are in good condition.
+
+Changing the Desiccant
+The CMP10 has an internal drying cartridge that will last for at least ten years
+if the housing is not opened. This significantly minimizes maintenance.
+The drying cartridge of the CMP6, CMP11, and CMP21 uses desiccant that
+needs to be periodically replaced. The silica gel desiccant granules in the
+drying cartridge should be orange and opaque. Replace the desiccant granules
+when they become translucent (normally after several months). Refill packs of
+desiccant are shipped with the pyranometer and can be purchased from
+Campbell Scientific. The drying cartridge uses the content of one refill pack.
+FIGURE 8-2 shows the replacement process.
+When changing the desiccant, ensure that:
+• Surfaces touching the rubber O-ring are clean. Dirt, in combination with
+water, can cause corrosion, harming it.
+• Rubber O-ring is coated with silicon grease or petroleum jelly. The grease
+coating improves the O-ring seal.
+• Drying cartridge is tightly threaded into the pyranometer body.
+
+Check Sensor Output
+Check the data returned from the sensor as it will show the first indication of a
+fault. However, several expected phenomena can cause strange measurements.
+In particular, on clear, windless nights the outer dome temperature of
+horizontally placed pyranometers can fall as low as the dew point temperature
+of the air, due to infrared radiation exchange with the cold sky. (The effective
+sky temperature can be 30 °C lower than the ground temperature, which results
+in an infrared emission of –150 W•m–2). If this happens, dew, glazed frost or
+hoar frost can form on the top of the outer dome and can stay there for several
+hours in the morning. An ice cap on the dome is a strong diffuser and can
+increase the pyranometer signal by up to 50% in the first hours after sunrise.
+
+Recalibration
+The calibration of the pyranometer may drift with time and exposure to
+radiation. Campbell Scientific recommends recalibrating every two years. The
+sensor should be returned to Campbell Scientific for recalibration. Refer to the
+Assistance page for information on returning the pyranometer to Campbell
+Scientific for recalibration.
+
+Troubleshooting
+Symptom: NAN, –9999, or radiation values around 0
+1. Check that the sensor is wired to the differential terminal specified by the
+measurement instruction.
+2. Verify that the range code is correct for the data logger type.
+3. Measure the impedance across the white and black sensor wires. This
+should be around 100 ohms plus the cable resistance (typically 0.1
+ohm•m–1). If the resistance is low, there may be a short circuit (check the
+wiring). Resistances somewhat lower than expected could be due to water
+ingress into the sensor or enclosure connectors. If the resistance is infinite,
+there is a broken connection (check the wiring).
+4. Disconnect the sensor cable and check the voltage output from the sensor.
+With the sensor located 8 inches below a 60 W incandescent light bulb the
+voltage should be approximately 2.5 mV. No voltage indicates a problem
+with the sensor.
+Symptom: sensor signal is unrealistically high or low
+1. Check that the right calibration factor has been properly entered into the
+data logger program. Please note that each sensor has its own individual
+calibration factor.
+2. Check the condition of the sensor cable.
+Symptom: sensor signal shows unexpected variations
+1. Check for the presence of strong sources of electromagnetic radiation,
+such as radar or radio interference.
+2. Check the condition and the connection of the sensor shield wire.
+3. Check the condition of the sensor cable.
+
+    2. Page 1:
+ISO 9060 Spectrally Flat Class B
+Extremely robust construction
+Active temperature correction
+Analog and digital outputs
+5 years warranty
+Applications
+CMP6 | SMP6 
+ISO 9060 & IEC 61724 Class B
+Fully compliant with ISO 9060:2018 spectrally flat Class 
+B specifications, the CMP6 and SMP6 deliver excellent 
+spectral absorption and long-term stability characteristics. 
+Compared to the CMP3 & SMP3 models, these instruments 
+provide improved performance due to the increased thermal 
+mass and the double glass dome construction. 
+Minimized maintenance
+The CMP6 and SMP6 are robust pyranometers that have 
+been designed to provide high quality measurements with 
+little maintenance needs. The CMP6 has an easy-to-remove 
+drying cartridge filled with easy-to-replace desiccant that is 
+supplied in convenient refill packets. In contrast, the SMP6 
+is fitted with a maintenance-free internal desiccant that 
+lasts at least 10 years. 
+Analog or digital outputs
+The CMP6 does not require any power. Incoming solar 
+radiation generates a continuous millivolt output, which 
+is converted in a data logger to irradiance in W/m² using 
+the calibrated sensitivity. For easy integration into SCADA 
+systems the SMP6 has Modbus ® RTU RS-485 serial 
+communication, plus an amplified analog output. The 
+sensitivity is stored inside for standardized outputs and it 
+features improved response time and digital temperature 
+compensation.
+5 years warranty
+All pyranometers from Kipp & Zonen come with a 5-year 
+warranty and we have service and calibration centers 
+around the world.
+Solar Monitoring for PV
+Weather Services
+Hydrological Networks
+Agriculture
+Pyranometer 
+For reliable Class B measurement of solar irradiance
+an OTT HydroMet brand
+
+Page 2:
+OTT HydroMet GmbH    |       euinfo@otthydromet.com    |    www.otthydromet.com
+Technical Specifications
+Classification to ISO 9060:2018
+Sensitivity
+Impedance
+Expected output range (0 to 1500 W/m²)
+Maximum operational irradiance
+Analogue output • V-version
+Analogue output range • V-version*
+Analogue output • A-version
+Analogue output range • A-version*
+Serial output
+Serial output range
+Response time (63 %)
+Response time (95 %)
+Spectral range (20 % points)
+Spectral range (50 % points)
+Zero offsets (unventilated)
+(a) thermal radiation (at 200 W/m²)
+(b) temperature change (5 K/h)
+(c) total zero offset
+Non-stability (change/year)
+Non-linearity (100 to 1000 W/m²)
+Directional response
+(up to 80° with 1000 W/m² beam)
+Spectral selectivity (350 to 1500 nm)
+Tilt response (0° to 180° at 1000 W/m²)
+Temperature response
+Field of view
+Accuracy of bubble level
+Power consumption (at 12 VDC)
+Supply voltage
+Software, Windows™
+Detector type
+Operating temperature range
+Storage temperature range
+Humidity range
+MTBF (Mean Time Between Failures) 
+Ingress Protection (IP) rating
+Recommended applications
+Spectrally Flat Class B
+5 to 20 µV/W/m²
+20 to 200 Ω
+0 to 30 mV
+2000 W/m²
+-
+-
+-
+-
+-
+-
+< 6 s
+< 12 s
+270 to 3000 nm
+285 to 2800 nm
+< ±8 W/m²
+< ±2 W/m²
+< ±10 W/m²
+< ±1%
+< ±1%
+< ±20 W/m²
+< ±3%
+< ±1%
+< ±2% (-10 to +40°C)
+180°
+±0.1°
+-
+-
+-
+Thermopile
+-40 °C to +80 °C
+-40 °C to +80 °C
+0 to 100%
+> 10 years
+IP67
+Good quality measurements for hydrology networks, 
+greenhouse climate control
+CMP6
+Spectrally Flat Class B
+-
+-
+-
+2000 W/m²
+0 to 1 V
+-200 to 2000 W/m²
+4 to 20 mA
+0 to 1600 W/m²
+RS-485 Modbus® RTU
+-400 to 2000 W/m²
+< 1.5 s
+< 12 s
+270 to 3000 nm
+285 to 2800 nm
+< ±8 W/m²
+< ±2 W/m²
+< ±10 W/m²
+< ±1%
+< ±1%
+< ±15 W/m²
+< ±3%
+< ±1%
+< ±2% (-10 to +40°C)
+< ±4% (-40 to +70°C)
+180°
+±0.1°
+V-version: 55 mW
+A-version: 100 mW
+5 to 30 VDC
+SmartExplorer Software, for configuration,
+test and data logging
+Thermopile
+-40 °C to +70 °C
+-40 °C to +80 °C
+0 to 100%
+> 10 years
+IP67
+Good quality measurements for hydrology networks, 
+greenhouse climate control
+SMP6
+Diameter x height
+Diffusor height
+Cable length
+150 x 92.5 mm
+68 mm
+10, 25, or 50 m 
+CMP6
+150 x 92.5 mm
+68 mm
+10, 25, or 50 m
+SMP6Dimensions
+* adjustable with SmartExplorer Software  |  Note: The performance specifications quoted are worst-case and/or maximum values
+an OTT HydroMet brand
+
+
+
+Query #2:
+  Query: Kipp & Zonen CMP3 communication failure sentinel -9999 troubleshooting diagnostic steps corrective actions
+  Dataset: maintenance_knowledge
+  Node Sets: solar_radiation_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. CMP 3 Kipp and Zonen Pyranometer
+Maintenance/Recalibrations
+Inspect and clean the outer dome every week or so. Clean any accumulated
+dust or debris off the dome and pyranometer body using a soft cloth dampened
+with water or alcohol. Check that there is no condensation within the dome.
+Check the data returned from the sensor as it will show the first indication of a
+fault. When doing this you should be aware of several expected phenomena
+that can cause strange measurements. In particular on clear, windless nights the
+outer dome temperature of horizontally placed pyranometers can fall as low as
+the dew point temperature of the air, due to infrared radiation exchange with
+the cold sky. (The effective sky temperature can be 30 °C lower than the
+ground temperature, which results in an infrared emission of –150 W/m2). If
+this happens, dew, glazed frost or hoar frost can be precipitated on the top of
+the outer dome and can stay there for several hours in the morning. An ice cap
+on the dome is a strong diffuser and can increase the pyranometer signal by up
+to 50% in the first hours after sunrise.
+The calibration of the CMP3 may drift with time and exposure to radiation.
+Campbell Scientific recommends recalibrating every two years. The sensor
+should be returned to Campbell Scientific, the manufacturer, or a calibration
+lab with facilities to calibrate radiation sensors
+
+Troubleshooting
+Symptom: –9999 or radiation values around 0
+1. Check that the sensor is wired to the terminal that is specified by the
+measurement instruction.
+2. Verify that the range is correct for the data logger type.
+3. Measure the impedance across the red and blue sensor wires. This should
+be around 100 ohms plus the cable resistance (typically 0.1 ohm/m). If the
+resistance is very low there may be a short circuit (check the wiring).
+Resistances somewhat lower than expected could be due to water ingress
+into the sensor or enclosure connectors. If the resistance is infinite, there is
+a broken connection (check the wiring).
+4. Disconnect the sensor cable and check the voltage output from the sensor.
+With the sensor located 20 cm (8 inches) below a 60 W incandescent light
+bulb, the voltage should be approximately 2.5 mV. No voltage indicates a
+problem with the sensor.
+Symptom: sensor signal is unrealistically high or low
+1. Check that the right calibration factor has been properly entered into the
+data logger program. Please note that each sensor has its own individual
+calibration factor.
+2. Check the condition of the sensor cable.
+Symptom: sensor signal shows unexpected variations
+1. 2. Check for the presence of strong sources of electromagnetic radiation
+(radar, radio).
+Check the condition and the connection of the sensor shield wire.
+3. Check the condition of the sensor cable.
+
+
+
+CMP6, CMP10, CMP11, CMP21 Kipp and Zonen Maintenance
+
+Maintenance
+Every week, physically inspect the pyranometer to ensure that:
+• Dome is free of dirt, condensation, and ice. Remove accumulated dust,
+condensation, or ice from the dome and pyranometer body by using a soft
+cloth dampened with water or alcohol (FIGURE 8-1).
+• The drying cartridge in the CMP6, CMP11, and CMP21 have orange and
+opaque desiccant granules (Section 8.1.1, Changing the Desiccant (p. 16)).
+• Mounting is secure.
+• Pyranometer is level or is at the correct angle.
+• Cables are in good condition.
+
+Changing the Desiccant
+The CMP10 has an internal drying cartridge that will last for at least ten years
+if the housing is not opened. This significantly minimizes maintenance.
+The drying cartridge of the CMP6, CMP11, and CMP21 uses desiccant that
+needs to be periodically replaced. The silica gel desiccant granules in the
+drying cartridge should be orange and opaque. Replace the desiccant granules
+when they become translucent (normally after several months). Refill packs of
+desiccant are shipped with the pyranometer and can be purchased from
+Campbell Scientific. The drying cartridge uses the content of one refill pack.
+FIGURE 8-2 shows the replacement process.
+When changing the desiccant, ensure that:
+• Surfaces touching the rubber O-ring are clean. Dirt, in combination with
+water, can cause corrosion, harming it.
+• Rubber O-ring is coated with silicon grease or petroleum jelly. The grease
+coating improves the O-ring seal.
+• Drying cartridge is tightly threaded into the pyranometer body.
+
+Check Sensor Output
+Check the data returned from the sensor as it will show the first indication of a
+fault. However, several expected phenomena can cause strange measurements.
+In particular, on clear, windless nights the outer dome temperature of
+horizontally placed pyranometers can fall as low as the dew point temperature
+of the air, due to infrared radiation exchange with the cold sky. (The effective
+sky temperature can be 30 °C lower than the ground temperature, which results
+in an infrared emission of –150 W•m–2). If this happens, dew, glazed frost or
+hoar frost can form on the top of the outer dome and can stay there for several
+hours in the morning. An ice cap on the dome is a strong diffuser and can
+increase the pyranometer signal by up to 50% in the first hours after sunrise.
+
+Recalibration
+The calibration of the pyranometer may drift with time and exposure to
+radiation. Campbell Scientific recommends recalibrating every two years. The
+sensor should be returned to Campbell Scientific for recalibration. Refer to the
+Assistance page for information on returning the pyranometer to Campbell
+Scientific for recalibration.
+
+Troubleshooting
+Symptom: NAN, –9999, or radiation values around 0
+1. Check that the sensor is wired to the differential terminal specified by the
+measurement instruction.
+2. Verify that the range code is correct for the data logger type.
+3. Measure the impedance across the white and black sensor wires. This
+should be around 100 ohms plus the cable resistance (typically 0.1
+ohm•m–1). If the resistance is low, there may be a short circuit (check the
+wiring). Resistances somewhat lower than expected could be due to water
+ingress into the sensor or enclosure connectors. If the resistance is infinite,
+there is a broken connection (check the wiring).
+4. Disconnect the sensor cable and check the voltage output from the sensor.
+With the sensor located 8 inches below a 60 W incandescent light bulb the
+voltage should be approximately 2.5 mV. No voltage indicates a problem
+with the sensor.
+Symptom: sensor signal is unrealistically high or low
+1. Check that the right calibration factor has been properly entered into the
+data logger program. Please note that each sensor has its own individual
+calibration factor.
+2. Check the condition of the sensor cable.
+Symptom: sensor signal shows unexpected variations
+1. Check for the presence of strong sources of electromagnetic radiation,
+such as radar or radio interference.
+2. Check the condition and the connection of the sensor shield wire.
+3. Check the condition of the sensor cable.
+
+    2. Page 1:
+ISO 9060 Spectrally Flat Class B
+Extremely robust construction
+Active temperature correction
+Analog and digital outputs
+5 years warranty
+Applications
+CMP6 | SMP6 
+ISO 9060 & IEC 61724 Class B
+Fully compliant with ISO 9060:2018 spectrally flat Class 
+B specifications, the CMP6 and SMP6 deliver excellent 
+spectral absorption and long-term stability characteristics. 
+Compared to the CMP3 & SMP3 models, these instruments 
+provide improved performance due to the increased thermal 
+mass and the double glass dome construction. 
+Minimized maintenance
+The CMP6 and SMP6 are robust pyranometers that have 
+been designed to provide high quality measurements with 
+little maintenance needs. The CMP6 has an easy-to-remove 
+drying cartridge filled with easy-to-replace desiccant that is 
+supplied in convenient refill packets. In contrast, the SMP6 
+is fitted with a maintenance-free internal desiccant that 
+lasts at least 10 years. 
+Analog or digital outputs
+The CMP6 does not require any power. Incoming solar 
+radiation generates a continuous millivolt output, which 
+is converted in a data logger to irradiance in W/m² using 
+the calibrated sensitivity. For easy integration into SCADA 
+systems the SMP6 has Modbus ® RTU RS-485 serial 
+communication, plus an amplified analog output. The 
+sensitivity is stored inside for standardized outputs and it 
+features improved response time and digital temperature 
+compensation.
+5 years warranty
+All pyranometers from Kipp & Zonen come with a 5-year 
+warranty and we have service and calibration centers 
+around the world.
+Solar Monitoring for PV
+Weather Services
+Hydrological Networks
+Agriculture
+Pyranometer 
+For reliable Class B measurement of solar irradiance
+an OTT HydroMet brand
+
+Page 2:
+OTT HydroMet GmbH    |       euinfo@otthydromet.com    |    www.otthydromet.com
+Technical Specifications
+Classification to ISO 9060:2018
+Sensitivity
+Impedance
+Expected output range (0 to 1500 W/m²)
+Maximum operational irradiance
+Analogue output • V-version
+Analogue output range • V-version*
+Analogue output • A-version
+Analogue output range • A-version*
+Serial output
+Serial output range
+Response time (63 %)
+Response time (95 %)
+Spectral range (20 % points)
+Spectral range (50 % points)
+Zero offsets (unventilated)
+(a) thermal radiation (at 200 W/m²)
+(b) temperature change (5 K/h)
+(c) total zero offset
+Non-stability (change/year)
+Non-linearity (100 to 1000 W/m²)
+Directional response
+(up to 80° with 1000 W/m² beam)
+Spectral selectivity (350 to 1500 nm)
+Tilt response (0° to 180° at 1000 W/m²)
+Temperature response
+Field of view
+Accuracy of bubble level
+Power consumption (at 12 VDC)
+Supply voltage
+Software, Windows™
+Detector type
+Operating temperature range
+Storage temperature range
+Humidity range
+MTBF (Mean Time Between Failures) 
+Ingress Protection (IP) rating
+Recommended applications
+Spectrally Flat Class B
+5 to 20 µV/W/m²
+20 to 200 Ω
+0 to 30 mV
+2000 W/m²
+-
+-
+-
+-
+-
+-
+< 6 s
+< 12 s
+270 to 3000 nm
+285 to 2800 nm
+< ±8 W/m²
+< ±2 W/m²
+< ±10 W/m²
+< ±1%
+< ±1%
+< ±20 W/m²
+< ±3%
+< ±1%
+< ±2% (-10 to +40°C)
+180°
+±0.1°
+-
+-
+-
+Thermopile
+-40 °C to +80 °C
+-40 °C to +80 °C
+0 to 100%
+> 10 years
+IP67
+Good quality measurements for hydrology networks, 
+greenhouse climate control
+CMP6
+Spectrally Flat Class B
+-
+-
+-
+2000 W/m²
+0 to 1 V
+-200 to 2000 W/m²
+4 to 20 mA
+0 to 1600 W/m²
+RS-485 Modbus® RTU
+-400 to 2000 W/m²
+< 1.5 s
+< 12 s
+270 to 3000 nm
+285 to 2800 nm
+< ±8 W/m²
+< ±2 W/m²
+< ±10 W/m²
+< ±1%
+< ±1%
+< ±15 W/m²
+< ±3%
+< ±1%
+< ±2% (-10 to +40°C)
+< ±4% (-40 to +70°C)
+180°
+±0.1°
+V-version: 55 mW
+A-version: 100 mW
+5 to 30 VDC
+SmartExplorer Software, for configuration,
+test and data logging
+Thermopile
+-40 °C to +70 °C
+-40 °C to +80 °C
+0 to 100%
+> 10 years
+IP67
+Good quality measurements for hydrology networks, 
+greenhouse climate control
+SMP6
+Diameter x height
+Diffusor height
+Cable length
+150 x 92.5 mm
+68 mm
+10, 25, or 50 m 
+CMP6
+150 x 92.5 mm
+68 mm
+10, 25, or 50 m
+SMP6Dimensions
+* adjustable with SmartExplorer Software  |  Note: The performance specifications quoted are worst-case and/or maximum values
+an OTT HydroMet brand
+
+
+================================================================================
+
+================================================================================
+
+
+================================================================================
+PROCESSING SUMMARY
+================================================================================
+Total Processing Time: 118.14 seconds
+Total Errors: 0
+
+Agent Call Statistics:
+
+Tool Call Statistics:
+  - get_weather: 2 calls
+  - maintenance_search_maintenance_knowledge: 1 calls
+  - sensor_search_sensor_knowledge: 1 calls
+================================================================================
+
+END OF LOG
+================================================================================

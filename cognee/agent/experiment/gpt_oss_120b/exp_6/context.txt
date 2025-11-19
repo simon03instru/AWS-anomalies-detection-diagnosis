@@ -1,0 +1,56 @@
+Weather data:
+Result:
+    {
+      "times": [
+        "2024-08-19T07:00",
+        "2024-08-19T07:15",
+        "2024-08-19T07:30",
+        "2024-08-19T07:45",
+        "2024-08-19T08:00"
+      ],
+      "temperature_2m": [
+        29.4,
+        29.2,
+        29.0,
+        28.8,
+        28.5
+      ],
+      "relative_humidity_2m": [
+        56,
+        57,
+        58,
+        59,
+        60
+      ]
+    }
+  1. The Vaisala HMP155 humidity sensor has an operational humidity range from 0% to 100% relative humidity. The accuracy is typically within ±2% of the measurement range, and the sensitivity is generally about 0.1% relative humidity.
+
+  2. The Vaisala HMP155 humidity sensor has an operational humidity range of 0 to 100 %RH. Its accuracy includes: ±1 %RH (0 … 90 %RH) and ±1.7 %RH (90 … 100 %RH) at temperatures between +15 to +25 °C. Sensitivity is detailed as part of its calibration: ±(1.0 + 0.008 × reading) %RH for temperatures between −20 to +40 °C, and ±(1.2 + 0.012 × reading) %RH for other specified ranges.
+
+
+  1. To troubleshoot implausible humidity readings (e.g., -9999, NAN, 0%) in the Vaisala HMP155, follow these steps:
+
+1. **Check Wiring**: Ensure that the sensor is connected to the correct analog input channels.
+2. **Verify Measurements**: Confirm that the range code matches the data logger type and that the red power wire is connected to a 12V source.
+3. **Check Output Voltage**: Use a voltmeter to check the output voltages for temperature and relative humidity.
+
+If readings are still incorrect:
+- Inspect for contaminants on the sensor and probe filter, and clean or replace them as necessary.
+- Ensure the sensor has been properly calibrated, and recalibrate annually.
+- Verify sensor communications if readings remain unstable. Clean debris from the radiation shield and ensure that it is functioning properly.
+
+  2. To troubleshoot zero humidity and implausible humidity readings with the Vaisala HMP155, consider the following steps:
+
+1. **Cleaning**: Ensure that the sintered Teflon filter is clean and free from dirt and moisture, as a clogged filter can affect readings.
+
+2. **Calibration**: Verify the calibration of the HMP155 using a USB connection or the MI70 indicator. Factory calibration uncertainty is ±0.6 %RH (0 ... 40 %RH) and ±1.0 %RH (40 ... 95 %RH).
+
+3. **Check the Environment**: Ensure that the probe is not exposed to conditions that could saturate the humidity measurement, such as fog or heavy dew, since the warmed probe mitigates these issues.
+
+4. **Inspect the Probe**: If the probe has been in use for an extended period, check for signs of wear or damage. It may need replacement if it does not provide accurate readings.
+
+5. **Connections**: Ensure all connections are secure and that the operating voltage is within the correct range (7 ... 28 V DC).
+
+If problems persist after these checks, consider contacting Vaisala support for further assistance.
+
+

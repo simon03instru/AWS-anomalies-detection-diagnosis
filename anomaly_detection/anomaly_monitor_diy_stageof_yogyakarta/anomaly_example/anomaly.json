@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-10-14T04:42:36.239425",
+  "anomaly_score": 0.164157,
+  "weather_data": {
+    "ws": 1.5,
+    "tt": -999,
+    "pp": 995.9151
+  },
+  "top_3_contributing_features": [
+    {"name": "ws", "score": 0.820793},
+    {"name": "tt", "score": 0.117164},
+    {"name": "pp", "score": 0.10762}
+  ]
+}

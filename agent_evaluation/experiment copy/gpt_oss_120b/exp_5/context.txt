@@ -1,0 +1,71 @@
+Weather data:
+Result:
+    {
+      "times": [
+        "2024-08-19T07:00",
+        "2024-08-19T07:15",
+        "2024-08-19T07:30",
+        "2024-08-19T07:45",
+        "2024-08-19T08:00"
+      ],
+      "temperature_2m": [
+        29.4,
+        29.2,
+        29.0,
+        28.8,
+        28.5
+      ],
+      "direct_radiation": [
+        576.0,
+        536.0,
+        492.0,
+        451.0,
+        409.0
+      ],
+      "relative_humidity_2m": [
+        56,
+        57,
+        58,
+        59,
+        60
+      ],
+      "windspeed_10m": [
+        20.0,
+        20.0,
+        20.1,
+        20.1,
+        20.1
+      ],
+      "surface_pressure": [
+        993.9,
+        993.8,
+        993.7,
+        993.6,
+        993.6
+      ]
+    }
+
+
+
+  1. To troubleshoot the Kipp & Zonen CMP3 communication failure signaling -9999 or radiation values around 0, follow these steps:
+
+1. Check that the sensor is wired correctly to the specified terminal.
+2. Verify the range code matches the data logger type.
+3. Measure impedance across the red and blue sensor wires; it should be around 100 ohms plus cable resistance. Low resistance may indicate a short circuit, while infinite resistance suggests a broken connection.
+4. Disconnect the sensor cable and check the voltage output; it should be approximately 2.5 mV when the sensor is below a 60 W incandescent light bulb. No voltage indicates a sensor problem.
+
+  2. To troubleshoot the Kipp & Zonen CMP3 communication failure indicated by sentinel -9999, check the following common issues:
+
+1. **Connections**: Ensure all cables are securely connected. 
+2. **Power Supply**: Verify that the CMP3 is receiving the correct voltage. 
+3. **Output Checks**: Assess if the analog or digital outputs are functioning properly.
+4. **Sensor Integrity**: Inspect the pyranometer for any physical damage or environmental factors affecting its operation.
+5. **Software Settings**: Check the configuration settings in the data logging or SCADA system to confirm correct communication parameters.
+6. **Sensor Replacement**: If all else fails, consider the possibility that the CMP3 may need replacement or professional servicing.
+
+
+  1. The Kipp & Zonen CMP3 pyranometer is designed to measure solar radiation, and the nominal operating range allows for reliable readings. Its maintenance includes weekly inspections and checks. The recommended recalibration frequency is every two years due to potential drift in calibration. The measurement resolution limits are not explicitly stated in the provided context, but general troubleshooting advice includes checking wiring, ensuring correct range settings, and verifying the calibration factors.
+
+  2. The Kipp & Zonen CMP3 pyranometer has a nominal operating range of 0 to 2000 W/m² with measurement resolution limits of 5 to 20 µV/W/m², and it follows the specifications of ISO 9060 class B.
+
+

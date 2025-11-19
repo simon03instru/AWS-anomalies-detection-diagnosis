@@ -1,0 +1,106 @@
+Weather Data from Satellite or API:
+
+Result:
+    {
+      "times": [
+        "2024-08-16T15:00",
+        "2024-08-16T15:15",
+        "2024-08-16T15:30",
+        "2024-08-16T15:45",
+        "2024-08-16T16:00"
+      ],
+      "winddirection_10m": [
+        264,
+        264,
+        265,
+        265,
+        266
+      ],
+      "temperature_2m": [
+        12.2,
+        12.1,
+        12.1,
+        12.1,
+        12.1
+      ],
+      "relative_humidity_2m": [
+        88,
+        88,
+        88,
+        88,
+        88
+      ],
+      "surface_pressure": [
+        1006.0,
+        1006.1,
+        1006.1,
+        1006.2,
+        1006.2
+      ]
+    }
+
+    
+
+  1. The Young 05103-L wind direction sensor has the following specifications:
+- **Measurement Range:** Not explicitly stated in the provided context.
+- **Resolution:** Not explicitly stated in the provided context.
+- **Sentinel Error Codes:** Error codes for direction include -9999 or no change in direction, which indicates sensor issues that need to be checked for wiring, excitation voltage, or resistance values.
+
+  2. The Young 05103-L wind direction sensor has a measurement range of 0 to 360 degrees with a resolution of 0.5 degrees. Specific sentinel error codes were not provided in the context.
+
+
+  1. To troubleshoot the communication failure of the Young 05103-L wind direction sensor showing -9999:
+1. Ensure the sensor is properly wired to the Excitation and Single-Ended channel as specified.
+2. Verify that the excitation voltage and Range code are correct for your datalogger.
+3. Disconnect the sensor and use an ohm meter to check the potentiometer:
+   - Resistance should be about 10K ohms between Blue and White wires.
+   - Resistance between Blue/Green or White/Green should vary from 1K to 11K depending on the vane position.
+   - Resistance in the dead band should be around 1 M ohm.
+4. If issues persist, consider recalibrating the sensor after maintenance.
+
+  2. The issue of communication failure with the Young 05103-L wind direction sensor can be indicative of several factors, such as wiring problems, sensor malfunctions, or interference. Maintenance troubleshooting should include:
+1. **Checking Connections**: Ensure all cables are securely connected and not damaged.
+2. **Power Supply**: Verify that the sensor is receiving adequate power.
+3. **Sensor Reset**: Attempt to reset the sensor to clear any potential errors.
+4. **Software/Configuration**: Ensure that any associated software is properly configured to recognize the sensor.
+5. **Replacement**: If the issue persists, consider replacing the sensor unit if it is determined to be defective.
+
+
+  1. The operational temperature range of the Vaisala HMP155 is specified by the Pt100 temperature sensor, which is soldered to the probe. While specific accuracy details are not provided in the context, the sensor requires proper maintenance to ensure accurate measurements, including changing the filter and preventing contamination that can affect response characteristics.
+
+  2. The Vaisala HMP155 has an operational temperature range of -80 to +60 °C (-112 to +140 °F). The accuracy for temperature measurement is as follows:
+
+- At -80 to +20 °C: ±(0.226 - 0.0028 × temperature) °C 
+- At +20 to +60 °C: ±(0.055 + 0.0057 × temperature) °C 
+
+The device also provides a fast temperature response time: 63% in < 20 seconds and 90% in < 35 seconds in air flow.
+
+
+
+  1. To troubleshoot abrupt temperature deviation and loss of correlation with humidity in the Vaisala HMP155:
+
+1. **Check Wiring**: Ensure the sensor is wired correctly to the analog input channels specified in the measurement instructions.
+
+2. **Verify Power Supply**: Confirm the red power wire is correctly connected to the appropriate 12V or SW12V channel. Test the output voltage on the yellow and blue wires to check for temperature and humidity accuracy.
+
+3. **Inspect Sensor Element**: Ensure the sensor element is properly plugged in and oriented, with no water or corrosion present under the connector.
+
+4. **Clean Filter and Sensor**: If the filter is contaminated, clean it with distilled water or replace it if necessary. Regularly check for dust, debris, or salt buildup on the sensor and filter, especially when near saltwater.
+
+5. **Recalibrate Annually**: Have the HMP155A recalibrated at least annually to maintain accuracy.
+
+  2. To troubleshoot abrupt temperature deviation and loss of correlation with humidity in the Vaisala HMP155 probe, check the following:
+
+1. **Warming of the Probe**: Ensure that the warmed probe is functioning correctly, as it helps maintain accurate humidity measurements, especially in saturated environments. A failure in heating may lead to inaccurate readings.
+
+2. **Condensation Issues**: If condensation forms on the probe, it can cause errors in measurement. The probe should be continuously warmed to prevent this.
+
+3. **Calibration**: Verify that the HMP155 has been properly calibrated. Improper calibration can lead to deviations in both temperature and humidity measurements.
+
+4. **Environmental Factors**: Consider the surrounding conditions such as fog, rain, and heavy dew which can impact measurements. Ensure it's installed in an appropriate radiation shield (DTR503, DTR13, or Stevenson screen) to minimize environmental exposure.
+
+5. **Mechanical Issues**: Inspect the probe and its connections for any damage or wiring issues that could affect its performance.
+
+By following these steps, you may be able to identify the cause of the abrupt temperature deviation and restore proper function.
+
+

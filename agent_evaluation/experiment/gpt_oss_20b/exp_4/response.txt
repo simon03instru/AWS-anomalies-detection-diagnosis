@@ -1,0 +1,18 @@
+
+The weather data for UGM Yogyakarta (lat -7.768469, lon 110.38192) around the event time (2024‑08‑15 20:00 UTC) shows a stable, dry, tropical environment: temperature ~20.5 °C, wind speed ~5.7 m s⁻¹, wind direction ~325°, relative humidity ~86 %, and no precipitation. The anomalous wind‑direction reading of 999.0° is clearly outside the valid 0–360° range and indicates a sensor fault rather than a real meteorological event.
+
+**Operational‑range check**: The Young 05103‑L sensor is designed for 0–360° wind direction. A value of 999.0° is a sentinel error code, confirming the sensor is not reporting valid data. The other parameters (temperature, wind speed, humidity) are within expected ranges for this location and time.
+
+**Troubleshooting & maintenance**:
+1. **Check sensor wiring and connectors** – loose or corroded contacts can trigger error codes.
+2. **Verify firmware and calibration** – ensure the sensor firmware is up‑to‑date and that the calibration settings match the local wind‑direction range.
+3. **Replace the sensor** – if wiring and firmware are correct, the sensor likely has a hardware fault and should be replaced.
+4. **Implement a watchdog routine** – add software checks to flag sentinel values (e.g., >360°) and trigger an automatic alert.
+
+**Actionable recommendations**:
+- Immediately replace the Young 05103‑L wind‑direction sensor.
+- Re‑calibrate the new sensor and run a short validation period (24 h) to confirm correct operation.
+- Update the station’s maintenance log with the fault details and replacement date.
+- Schedule a quarterly review of all anemometer sensors to pre‑empt similar failures.
+
+No other anomalies were detected, so no correlation analysis is required.

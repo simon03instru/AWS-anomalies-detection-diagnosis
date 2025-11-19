@@ -1,0 +1,27 @@
+**Assessment Report – AWS_DIY_STAGEOF_YOGYAKARTA (Event 2024‑08‑19 07:40 UTC)**
+
+1. **Weather Context**
+   - Satellite‑derived conditions at 07:45 UTC: 28.8 °C, 59 % RH, 451 W m⁻² solar radiation.
+   - The sensor recorded 0.92 °C, a drop of ~27.9 °C from expected temperature, confirming a clear sensor fault.
+
+2. **Sensor Specifications**
+   - Vaisala HMP155 operational range: –80 °C to +60 °C – 0.92 °C is well within range.
+   - Sensitivity: ±(0.055 + 0.0057 × T) °C – capable of detecting 30 °C deviations; the 30 °C anomaly is well above the sensor’s resolution.
+
+3. **Maintenance & Troubleshooting**
+   - Wiring and connections should be verified (correct analog input, 12 V power, secure cables).
+   - Output voltage on temperature (yellow) and humidity (blue) wires should be measured and converted to °C and %RH.
+   - Inspect and clean the probe filter and sensor element; replace filter if contaminated.
+   - Recalibrate the HMP155 annually using the USB/MI70 interface.
+   - Ensure the probe is installed in an appropriate shield (e.g., DTR503) and within the specified environmental limits.
+   - If issues persist after these steps, consult Vaisala technical documentation or contact support.
+
+4. **Actionable Recommendations**
+   - **Immediate**: Perform wiring check, voltage measurement, and filter inspection.
+   - **Short‑term**: Recalibrate the sensor and clean the sensor element.
+   - **Long‑term**: Schedule annual recalibration, maintain a log of sensor performance, and replace the probe if contamination or corrosion is detected.
+   - **Monitoring**: After maintenance, compare sensor readings to satellite data for at least 24 h to confirm resolution of the anomaly.
+
+**Conclusion**: The anomalous low temperature reading is attributable to a sensor fault rather than a meteorological event. The sensor operates within its specified range and has adequate sensitivity. Following the outlined maintenance steps should restore accurate temperature and humidity measurements.
+
+Only one anomaly (low temperature) was reported for AWS_DIY_STAGEOF_YOGYAKARTA. No additional anomalies were found in the available data, so no correlation or common cause analysis can be performed. It is recommended to continue monitoring the station for further anomalies and to compare any new events with this temperature fault to identify potential patterns.

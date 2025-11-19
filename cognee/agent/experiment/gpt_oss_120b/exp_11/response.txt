@@ -1,0 +1,36 @@
+
+**Current Weather (2024‑08‑15 20:10 UTC, UGM Yogyakarta)**
+- Temperature: 20.5 °C
+- Surface pressure: 995.0 hPa (within the normal 995‑996 hPa range for the Vaisala PTB110)
+- Relative humidity: 86 %
+- Wind: 5.7 m s⁻¹ from 325° (north‑west)
+
+**Anomalous Sensor Reading**
+- Reported pressure: –9999.0 hPa – a sentinel value used by the PTB110 to indicate a communication failure or dead sensor. It is far outside any realistic atmospheric pressure and does not reflect the actual conditions.
+
+**Sensor Specification & Operational Range**
+- The PTB110 is designed for surface pressures around 950‑1050 hPa with typical accuracy of ±0.5 hPa. The –9999.0 hPa value is not a valid measurement; it signals a fault.
+
+**Troubleshooting Guidance (from Vaisala documentation)**
+1. Verify power supply voltage and continuity.
+2. Inspect and reseat all wiring (RS‑485/Serial, ground, shielding).
+3. Confirm data‑logger configuration (baud rate, address, data format) matches the sensor.
+4. Query the sensor’s diagnostic interface for error codes/status flags.
+5. Perform a loop‑back or substitute a known‑good sensor to isolate wiring vs. sensor failure.
+6. Check ambient temperature/humidity limits for the sensor housing.
+
+**Comprehensive Assessment**
+- The satellite‑derived weather data shows normal atmospheric conditions; the pressure anomaly is purely a sensor‑hardware/communication issue.
+- The sentinel value indicates the PTB110 is either unpowered, has a broken data link, or has suffered internal failure.
+- No correlation with temperature, wind, or humidity can be established because the pressure sensor is non‑functional.
+
+**Actionable Recommendations**
+1. **Immediate Inspection** – Power down the AWS unit, verify voltage at the PTB110, and reseat all connectors.
+2. **Diagnostic Test** – Use the sensor’s diagnostic command set to read status flags; if errors persist, proceed to step 3.
+3. **Reset/ Firmware** – Perform a sensor reset and, if applicable, update the firmware of the data logger.
+4. **Replace Sensor** – If diagnostics confirm internal failure, replace the PTB110 with a calibrated unit.
+5. **Cross‑Check Future Data** – Implement an automated alert that flags any pressure reading of –9999.0 hPa or values outside 950‑1050 hPa, prompting rapid verification against nearby official stations or satellite data.
+6. **Preventive Maintenance** – Schedule quarterly visual inspections of wiring and power supplies, and an annual calibration check of the pressure sensor.
+7. **Documentation** – Log the fault, corrective actions taken, and update the maintenance record to aid future troubleshooting.
+
+By following these steps the pressure data stream can be restored to reliable operation, and future anomalies will be detected and addressed promptly.

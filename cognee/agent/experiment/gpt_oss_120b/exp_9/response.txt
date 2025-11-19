@@ -1,0 +1,18 @@
+Assessment:
+- Current weather at AWS_DIY_UGM on 2024-08-15 20:00 UTC was 20.5 °C, wind speed 5.7 m/s, and relative humidity 86 %. These values are typical for Yogyakarta at that time and do not indicate any extreme conditions that could explain a wind‑direction reading of –9999°.
+- The Young 05103‑L wind‑direction sensor’s valid range is 0–360° (0.5° resolution) and uses –9999 as a sentinel for communication or sensor errors. The reported –9999° is therefore outside the operational range and confirms a sensor fault rather than an atmospheric anomaly.
+- Trend analysis already flagged the reading as an invalid sentinel with >99% confidence of sensor failure.
+
+Recommendations:
+1. **Immediate Inspection** – Verify all wiring and connectors to the sensor (excitation and signal lines) for damage, corrosion, or loose contacts.
+2. **Datalogger Settings** – Confirm that the excitation voltage and range code on the data logger match the sensor specifications.
+3. **Potentiometer Test** – Disconnect the sensor and measure resistance of the Blue‑White (≈10 kΩ) and Blue‑Green/White‑Green (1 kΩ‑11 kΩ) leads; replace the potentiometer if values are out of spec.
+4. **Bearing Check** – Inspect the precision ball bearings for wear or noise; replace bearings if any abnormal play or sound is detected (recommended every 24 months).
+5. **Grounding** – Ensure proper earth grounding of the wind monitor to eliminate static‑induced errors.
+6. **Re‑calibration** – After corrective actions, recalibrate the sensor using a calibrated vane‑angle bench (e.g., Model 18112) and verify output against a known reference.
+7. **Documentation** – Log all maintenance steps, test results, and any parts replaced for future trend analysis.
+
+Potential Correlations:
+- No other anomalies (e.g., temperature, humidity, wind speed) were reported for the same timestamp, and the weather conditions were normal. Therefore, the wind‑direction fault appears isolated to the sensor hardware/communication chain rather than being driven by external environmental factors.
+
+Overall, the evidence points to a sensor communication failure. Following the above troubleshooting and maintenance actions should restore reliable wind‑direction measurements.

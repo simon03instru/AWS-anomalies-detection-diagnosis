@@ -1,0 +1,68 @@
+Weather Data:
+Result:
+    {
+      "times": [
+        "2024-10-21T08:00",
+        "2024-10-21T08:15"
+      ],
+      "temperature_2m": [
+        32.8,
+        32.7
+      ],
+      "relative_humidity_2m": [
+        51,
+        52
+      ],
+      "surface_pressure": [
+        1003.8,
+        1003.7
+      ]
+    }
+
+
+  1. The context provided does not contain specific information related to the Vaisala HMP155 sensor specifications and operational range. It discusses the maintenance and operation of the PTB110 sensor and the BaroVUE 10, not the HMP155.
+
+  2. The Vaisala HMP155 sensor specifications and operational range are not directly provided in the context. However, it is related to the Vaisala Barocap Digital Barometer PTB210, which operates under specific humidity conditions and supports a certain temperature range.
+
+
+  1. To troubleshoot zero humidity reading issues with the Vaisala HMP155 sensor, follow these steps:
+
+1. **Check Wiring**:
+   - Ensure the sensor is wired to the correct analog input channels as per the measurement instructions.
+   - Verify that the red power wire is connected to the appropriate power channel (12V or SW12V).
+
+2. **Measure Output Voltage**:
+   - Power the sensor and use a voltmeter to check output voltage for relative humidity (blue wire) and temperature (yellow wire). The expected ranges correspond to mV calculations for %RH and °C.
+
+3. **Sensor Cleaning and Maintenance**:
+   - If the sensor is exposed to dust or salt, clean the filter and sensor element. Clean the probe with mild detergent and ensure the filter is free from contaminants.
+   - Change the probe filter if it appears contaminated or worn.
+
+4. **Environmental Factors**:
+   - Ensure no salt or debris is affecting the radiation shield. Inspect and clean monthly if necessary.
+
+5. **Calibration**:
+   - Consider recalibrating the sensor annually for accurate readings.
+
+6. **Other Troubleshooting**:
+   - If the relative humidity displays strange values like –9999 or NAN, check the SDI-12 communication and verify that no water or corrosion is present at the sensor connections.
+   
+By following these procedures, you can address zero humidity reading issues for the Vaisala HMP155 sensor.
+
+  2. To troubleshoot zero humidity reading issues with the Vaisala HMP155 sensor, consider the following maintenance procedures:
+
+1. **Check the Sensor Environment**: Ensure that the sensor is not experiencing conditions that can affect readings, such as fog, mist, rain, or heavy dew. The HMP155 is equipped with a warmed probe to mitigate these effects, but prolonged exposure can lead to inaccuracies.
+
+2. **Inspect the Sintered Teflon Filter**: Ensure that the protective filter is clean and not obstructed, as a dirty filter can prevent accurate readings.
+
+3. **Calibration**: Verify that the sensor is properly calibrated. Calibrate using a USB connection or the MI70 indicator if you suspect inaccuracies.
+
+4. **Warmed Probe Functionality**: Ensure the warmed probe feature is operating correctly, as it helps to keep the humidity level inside the sensor head below ambient levels, preventing condensation.
+
+5. **Environmental Conditions**: Ensure the sensor is installed in an appropriate location, protected from direct sunlight or precipitation to maintain sensor longevity and accuracy.
+
+6. **Electrical Connections**: Check the electrical connections and verify the operating voltage is within the required range (7 - 28 V DC) for proper functioning.
+
+By following these steps, you can effectively troubleshoot and maintain the HMP155 sensor for accurate humidity readings.
+
+

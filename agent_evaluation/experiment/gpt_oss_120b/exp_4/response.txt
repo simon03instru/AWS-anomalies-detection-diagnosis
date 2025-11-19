@@ -1,0 +1,41 @@
+### Comprehensive Assessment of Wind Direction Anomaly at AWS_DIY_UGM (2024-08-15T20:00:00 UTC)
+
+**1. Current Weather Conditions vs. Anomalous Reading**
+- Satellite‑derived wind direction: **325°** (north‑west) – a valid bearing within the 0‑360° range.
+- Wind speed: 5.7 m s⁻¹, temperature 20.5 °C, surface pressure 995 hPa, relative humidity 86 % – all typical for Yogyakarta at that time.
+- **Sensor reported wind direction: 999°** – far outside the physical range and identified as a sentinel value.
+
+**Conclusion:** The atmospheric conditions do not support a 999° reading; the value is a clear sensor error.
+
+**2. Sensor Operational Range & Sensitivity**
+- Young 05103‑L wind‑direction sensor output range: **0–360°**.
+- Resolution (sensitivity): **0.5°**.
+- A value of **999°** exceeds the operational limits, confirming a fault rather than a legitimate measurement.
+
+**3. Likely Causes (per maintenance documentation)**
+- Loose or damaged wiring to excitation/signal leads.
+- Incorrect excitation voltage or range‑code settings.
+- Faulty internal potentiometer (resistance out of spec).
+- Firmware or datalogger software communication issue.
+- Physical damage to the vane or housing.
+
+**4. Immediate Maintenance Actions**
+1. **Visual Inspection** – Secure all connectors, check for corrosion or broken wires.
+2. **Excitation Verification** – Confirm voltage and range code match the sensor’s requirements.
+3. **Power‑Cycle** – Restart the datalogger and sensor to clear transient communication glitches.
+4. **Potentiometer Test** – Measure resistance (≈10 kΩ between Blue & White; 1‑11 kΩ on other pairs, ~1 MΩ in dead‑band). Replace sensor if out of spec.
+5. **Re‑Calibration** – Follow Young’s calibration procedure after any hardware adjustment.
+6. **Firmware/Software Update** – Apply the latest datalogger firmware and sensor driver patches.
+7. **Replace if Needed** – If the above steps do not resolve the sentinel value, procure a replacement Young 05103‑L unit.
+
+**5. Ongoing Monitoring & Preventive Measures**
+- **Automated Alert**: Configure the AWS system to flag any wind‑direction reading >360° or equal to 999° and generate an immediate maintenance ticket.
+- **Redundancy**: Consider adding a secondary wind‑direction sensor (different manufacturer) to cross‑validate critical measurements.
+- **Routine Checks**: Schedule quarterly visual and electrical inspections, and semi‑annual calibration checks.
+- **Log Review**: Periodically review sensor logs for intermittent spikes or communication time‑outs that may precede a failure.
+- **Documentation**: Record all maintenance actions, test results, and part replacements in the station’s maintenance log for traceability.
+
+**6. Summary**
+The wind‑direction anomaly is a sensor‑level fault indicated by the sentinel value 999°, not a meteorological event. The sensor is operating outside its designed range, and the most probable causes are wiring, excitation, or internal potentiometer issues. By following the outlined immediate actions and implementing the recommended monitoring strategy, the station can quickly restore reliable wind‑direction data and reduce future downtime.
+
+**Status:** Issue diagnosed, corrective plan defined, and ready for implementation.

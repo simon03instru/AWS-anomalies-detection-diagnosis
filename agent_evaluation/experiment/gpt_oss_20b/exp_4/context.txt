@@ -1,0 +1,131 @@
+Weather Data:
+Result:
+    {
+      "times": [
+        "2024-08-15T19:00",
+        "2024-08-15T19:15",
+        "2024-08-15T19:30",
+        "2024-08-15T19:45",
+        "2024-08-15T20:00",
+        "2024-08-15T20:15",
+        "2024-08-15T20:30",
+        "2024-08-15T20:45",
+        "2024-08-15T21:00"
+      ],
+      "temperature_2m": [
+        20.7,
+        20.6,
+        20.6,
+        20.6,
+        20.5,
+        20.5,
+        20.4,
+        20.3,
+        20.2
+      ],
+      "precipitation": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "relative_humidity_2m": [
+        85,
+        85,
+        86,
+        86,
+        86,
+        86,
+        87,
+        87,
+        87
+      ],
+      "windspeed_10m": [
+        5.9,
+        5.6,
+        5.9,
+        5.7,
+        5.7,
+        5.7,
+        5.5,
+        5.5,
+        5.5
+      ],
+      "direct_radiation": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "winddirection_10m": [
+        317,
+        320,
+        322,
+        325,
+        325,
+        325,
+        328,
+        328,
+        328
+      ],
+      "surface_pressure": [
+        994.9,
+        994.9,
+        994.9,
+        995.0,
+        995.0,
+        995.0,
+        994.9,
+        994.9,
+        994.9
+      ]
+    }
+
+  1. The output range sensitivity for the R.M. Young 05103-L wind direction sensor specifications includes: 
+- Resistance between Blue and White wires: approximately 10K ohms. 
+- Resistance between Blue/Green or White/Green wires: varies between 1K to 11K depending on vane position. 
+- Resistance in the 5-degree dead band: about 1 M ohm.
+
+  2. The Young 05103-L wind direction sensor has an output range of 0 to 360 degrees with a sensitivity resolution of 0.5 degrees.
+
+
+
+  1. To troubleshoot the Young 05103-L sensor with a sentinel value of 999 for wind direction, follow these steps:
+1. Check wiring to ensure the sensor is connected to the correct Excitation and Single-Ended channels.
+2. Verify that the excitation voltage and the Range code match the datalogger specifications.
+3. Disconnect the sensor and measure the potentiometer resistance:
+   - Should be about 10K ohms between Blue and White wires.
+   - Resistance between Blue/Green or White/Green should vary (1K to 11K depending on the vane position).
+   - In the 5-degree deadband, resistance should be about 1 M ohm.
+4. If issues persist, recalibrate the sensor as suggested in maintenance procedures.
+
+  2. To troubleshoot the Young 05103-L sensor communication failure or hardware fault indicating a sentinel value of 999 for wind direction, you can take the following maintenance actions:
+
+1. **Check Connections**: Inspect all wiring and connections to ensure they are secure and not damaged.
+2. **Power Cycle**: Turn off the device, wait for a few moments, and then power it back on to reset the system.
+3. **Sensor Calibration**: Ensure the sensor is calibrated correctly; refer to the manufacturer's instructions for calibration procedures.
+4. **Software Update**: Check for any firmware updates from the manufacturer that might fix known issues.
+5. **Inspect for Physical Damage**: Assess the sensor for any visible signs of damage that may impair its function.
+6. **Contact Manufacturer**: If the issue persists, contact R. M. Young Company for further support or to inquire about repair options.
+
+
+  1. The operational range specifications for the Young 05103-L wind direction sensor are not explicitly mentioned in the provided context. However, it suggests that preventive maintenance checks on components such as the anemometer bearings and potentiometer are necessary for accurate measurements, which implies the importance of maintaining the sensor for optimal operation.
+
+  2. The operational range specifications for the Young 05103 wind direction sensor are a wind direction measurement range of 0 to 360 degrees with a resolution of 0.5 degrees.
+
+
+  1. If the Young 05103-L sensor is showing a sentinel value of 999.0°, this indicates a potential issue rather than a calibration problem. Possible causes include power issues, faulty wiring, data logger programming errors, or a physical missing sensor. To troubleshoot, ensure the sensor is properly wired and connected to the correct channels as per the measurement instructions, check the power supply, and verify the configuration settings of the data logger. If the problem persists, perform the necessary inspections and testing (e.g., using a multimeter for resistance checks).
+
+  2. The Young 05103-L sensor showing a sentinel value of 999.0° indicates a potential issue with the wind monitor, typically related to calibration or component malfunction. Troubleshooting should include checking the sensor connections, inspecting for mechanical obstruction, ensuring the potentiometer is properly adjusted, and verifying that the device is powered correctly. If the problem persists, consulting the manufacturer's manual or contacting R.M. Young Company for support may be necessary.
+
+

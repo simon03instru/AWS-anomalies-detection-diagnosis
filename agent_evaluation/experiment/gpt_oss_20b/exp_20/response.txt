@@ -1,0 +1,30 @@
+The investigation confirms that the two anomalies detected at AWS_DKI_KebunBibit are almost certainly due to sensor faults rather than genuine meteorological extremes.
+
+1. **Current Weather Context**
+   - Temperature: ~16 °C (satellite data)
+   - Wind direction: ~200° (southerly)
+   - Relative humidity: 73–74 %
+   - Wind speed: 8–9 m s⁻¹
+   These values are normal for the time of day and location, and they differ markedly from the anomalous sensor readings.
+
+2. **Sensor Operational Ranges**
+   - *Young 05103‑L wind‑direction sensor*: 0–360° range; sentinel value –9999.0 indicates a communication failure. The reported –9999.0 is outside the valid range.
+   - *Vaisala HMP155 temperature sensor*: operational range –80 °C to +60 °C with ±0.215 °C accuracy at 28 °C. A 13 °C drop from the 10‑minute mean (28.1 °C to 15.0 °C) is far beyond expected variance, signalling a malfunction.
+
+3. **Troubleshooting & Maintenance Recommendations**
+   - **Wind‑direction sensor**: Verify wiring, power supply, and firmware. Replace or recalibrate the Young 05103‑L unit if communication cannot be restored.
+   - **Temperature/humidity sensor**: Inspect wiring, check range codes, verify power supply, and perform an annual recalibration. Clean the probe filter and radiation shield, and ensure the warming feature is operational.
+   - **General station health**: Conduct a full sensor health check, including power distribution, data logger firmware, and communication interfaces. Cross‑check readings with nearby stations or ground observations.
+   - **Routine maintenance**: Schedule comprehensive maintenance every 6 months to prevent recurrence.
+
+4. **Correlation Analysis**
+   Both anomalies share common root causes: sensor malfunction, communication or wiring faults, and potential power supply issues. No evidence suggests a meteorological event caused the readings.
+
+**Actionable Summary**
+   1. Replace or recalibrate the wind‑direction sensor.
+   2. Inspect, clean, and recalibrate the temperature/humidity sensor.
+   3. Verify power and communication integrity for all sensors.
+   4. Cross‑validate with external observations.
+   5. Implement a 6‑month maintenance schedule.
+
+These steps will restore accurate data collection and reduce the likelihood of future false anomaly detections.

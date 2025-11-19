@@ -1,0 +1,20 @@
+
+At 2024‑08‑15 T03:30 UTC (10:30 ICT) the satellite‑derived data show a temperature of about 29 °C, relative humidity around 56 %, and direct solar radiation of roughly 431 W m⁻². The anomaly report lists a solar‑radiation reading of 0 W m⁻² at the same instant. The observed radiation is more than 400 W m⁻² higher than the anomalous value, indicating a clear sensor fault rather than a genuine atmospheric event.
+
+The Kipp & Zonen CMP3 pyranometer’s operating range sensitivity is defined by ISO 9060:2018 and is affected by thermal radiation and temperature changes. Typical zero‑reading behavior is an offset caused by thermal radiation (~200 W m⁻²) and temperature drift (~5 K h⁻¹). A measured value of 0 W m⁻² during daylight is outside the normal operating range and usually indicates a sensor fault, wiring issue, or calibration problem. Therefore, the 0 W m⁻² reading is not within expected operational limits and warrants troubleshooting and recalibration.
+
+
+Causes of zero solar radiation readings in a Kipp & Zonen CMP3 pyranometer include:
+1. Wiring problems or short circuits.
+2. Incorrect measurement range or calibration factor.
+3. Water ingress or condensation inside the dome.
+4. Physical obstructions such as dirt, ice, or debris on the sensor.
+5. Sensor fault or internal failure.
+
+Recommended maintenance actions:
+1. Inspect and clean the sensor dome and optical window to remove dirt, ice, or condensation.
+2. Check all wiring connections for integrity, proper impedance, and secure attachment.
+3. Verify the calibration factor entered in the data logger matches the sensor’s specification.
+4. Recalibrate the sensor every two years as per manufacturer guidance.
+5. Perform routine output checks for abnormal signals and replace the sensor if faults persist.
+6. If the sensor continues to give zero readings after cleaning, wiring, and recalibration, consider replacing the CMP3 with a newer model such as the CMP6 or SMP6 for improved reliability.

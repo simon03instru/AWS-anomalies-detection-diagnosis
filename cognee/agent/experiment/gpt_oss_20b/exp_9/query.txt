@@ -1,0 +1,22 @@
+Analyze the following weather anomaly detected at AWS_DIY_UGM:
+
+Event Detection Time: 2024-08-15T20:00:00
+Station: AWS_DIY_UGM
+Location: UGM Yogyakarta, Indonesia
+Coordinates: Latitude -7.768469, Longitude 110.38192, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Wind Direction
+  Value: -9999.0
+  Sensor Brand: Young 05103-L
+  Trend Analysis: Invalid sentinel value -9999.0°, outside valid 0-360° range. Immediate sensor communication failure detected. No correlation needed. Confidence >99% that wind direction sensor is faulty.
+
+Validation Timestamp: 2025-10-29T10:07:33.510263
+Correlation ID: anomaly-AWS_DIY_UGM-1761732453
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.

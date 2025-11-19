@@ -1,0 +1,22 @@
+Analyze the following weather anomaly detected at AWS_DIY_UGM:
+
+Event Detection Time: 2024-08-15T03:30:00
+Station: AWS_DIY_UGM
+Location: UGM Yogyakarta, Indonesia
+Coordinates: Latitude -7.768469, Longitude 110.38192, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Solar Radiation
+  Value: 0.0
+  Sensor Brand: Kipp & Zonen CMP3
+  Trend Analysis: Solar radiation sensor reading 0 W/m² at 10:30 local (daytime) while historical mean ~36 W/m², max 719 W/m². Sudden drop to zero suggests sensor malfunction. Correlation with temperature unavailable but deviation >3σ from typical daytime values.
+
+Validation Timestamp: 2025-10-28T03:46:03.267545
+Correlation ID: anomaly-AWS_DIY_UGM-1761623163
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.

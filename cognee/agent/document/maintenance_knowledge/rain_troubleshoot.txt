@@ -1,0 +1,28 @@
+
+
+CONTOH KASUS 1
+--------------
+Contoh Kasus: Tipping bucket menghasilkan pembacaan sangat tinggi dalam 10 menit
+
+Diagnosis: Kesahan Pembacaan Sensor Hujan atau gangguan pada tipping bucket
+
+Troubleshooting:
+1. Periksa apakah kabel dari reed switch terhubung ke sumber daya 12 V; 
+2. Periksa apakah seeling dilakukan kalibrasi jalan atau anomali terdeteksi; 
+3. ---
+
+Rekomendasi:
+Lakukan Pengecekan Sensor Hujan, Data Logger dan sumber daya; Pastikan lingkungan sensor terlindung dari tidak terjadi vandalisme; Lengkapi sensor hujan dengan kapur barus
+
+
+CONTOH KASUS 2
+--------------
+Contoh Kasus: tidak ada output di tipping bucket
+
+Diagnosis: reedswitch bermasalah
+
+Troubleshooting:
+gunakan buzzer untuk cek output tipping bucket, tipping bucket ada 2 port output jika output sebelum nya rusak bisa gunakan output lainnya
+
+Rekomendasi:
+gunakan tipping bucket seperti hyquest yg memeliki 2 output

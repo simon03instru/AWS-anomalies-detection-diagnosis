@@ -1,0 +1,10 @@
+
+The analysis of the weather anomaly at AWS_DIY_UGM on 2024-08-15T20:10:00 UTC reveals a sudden drop in relative humidity to 30%, which is significantly lower than the typical 76% ±2% for this location and time. Satellite-based weather data around this time shows relative humidity consistently around 86-87%, temperature near 20.5°C, zero precipitation, and zero direct solar radiation, all consistent with normal nighttime conditions. The temperature and solar radiation values align with expectations, and there is no rainfall recorded, which supports the conclusion that the environment was stable and typical.
+
+The Vaisala HMP155 sensor used for measuring relative humidity operates reliably within 0-100% RH with an accuracy of ±1% RH in typical conditions. The sudden drop to 30% RH is outside the expected environmental variation and likely indicates a sensor malfunction rather than an actual atmospheric event.
+
+Common causes for such sensor anomalies include wiring issues, power supply problems, contamination or obstruction of the probe filter, malfunction of the sensor's warming feature, improper installation or shielding, and the need for recalibration. Maintenance recommendations include verifying wiring and power supply, checking output voltages, inspecting and cleaning or replacing the probe filter, ensuring proper installation and shielding, confirming the warming feature is operational, allowing sufficient power-up time, and performing annual recalibration.
+
+Given the broken expected correlation pattern between relative humidity, temperature, and solar radiation, and the stable environmental conditions, the most plausible cause is sensor fault. Immediate actions should focus on sensor diagnostics and maintenance using the checklist provided. If the sensor is confirmed faulty, replacement or recalibration is advised to restore accurate measurements.
+
+In summary, the anomaly is best explained by sensor malfunction rather than environmental factors. Prompt maintenance and verification will prevent future erroneous data and ensure reliable monitoring at AWS_DIY_UGM.

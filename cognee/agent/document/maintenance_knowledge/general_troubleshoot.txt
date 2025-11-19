@@ -1,0 +1,141 @@
+CONTOH KASUS 1
+--------------
+Contoh Kasus: Satu set peralatan OFF
+
+Diagnosis: Kesalahan terjadi pada power supply
+
+Troubleshooting:
+1. Kemungkinan kondisi baterai drop; 
+2. Kondisi Wiring (pada Solar Panel terjadi Solar Panel terjadi masalah).
+
+Rekomendasi:
+Segera lakukan pengecekan pada power supply terutama pada baterai dan panel surya
+
+
+CONTOH KASUS 2
+--------------
+Contoh Kasus: Site off
+
+Diagnosis: baterai drop
+
+Troubleshooting:
+cek nilai tegangan baterai raw data, hubungi penjaga untuk mengakses reulator untuk melihat historical tegangan
+
+Rekomendasi:
+pada regulator gunakan output dev algoritm (lengna range 9-11 untuk menjaga kesehatan baterai
+
+
+CONTOH KASUS 3
+--------------
+Contoh Kasus: Alat mati total dan tidak beroperasi
+
+Diagnosis: perangkat catu daya bermasalah
+
+Troubleshooting:
+1. Cek tegangan baterai, apakah baterai mengalami drop tegangan dan tidak dapat mengisi ulang; 
+2. Periksa seluruh jalur pengkabelan daya (solar panel, baterai, regulator) apakah ada yang terputus; 
+3. Periksa regulator apakah masih dalam keadaan baik dan dapat mengalirkan daya dari solar panel ke baterai untuk pengisian daya
+
+Rekomendasi:
+Segera lakukan pengantian pada perangkat yang rusak agar alat dapat beroperasi kembali secara normal.
+
+
+CONTOH KASUS 4
+--------------
+Contoh Kasus: Data tidak terkirim ke server
+
+Diagnosis: Kesalahan terjadi pada modem
+
+Troubleshooting:
+1. Kemungkinan pada wiring port adaptor power supply pada modem
+
+Rekomendasi:
+Segera lakukan pengecekan atau penggantian modem dan port powersupply
+
+
+CONTOH KASUS 5
+--------------
+Contoh Kasus: Site off
+
+Diagnosis: Peralatan tidak mendapat sinyal dari modem
+
+Troubleshooting:
+restart alat dengan cara menurunkna MCB
+
+Rekomendasi:
+pada site harus terpasang MCB untuk memudahkan restart peralatan
+
+
+CONTOH KASUS 6
+--------------
+Contoh Kasus: Komunikasi pada peralatan mengalami kendala
+
+Diagnosis: Permasalahan pada modem ataupun kartu M2M
+
+Troubleshooting:
+1. Kemungkinan modem dalam keadaan mati, cek catu daya untuk memastikan; 
+2. Periksa apakan server modem sudah tepat, cek dan sesuaikan APN dengan katu yang digunakan (M2M -> M2NAWS8NKG, GSM biasa -> internet); 
+3. Apabila kartu yang bermasalah, segera komunikasikan dengan pihak terkait dan cari nomor kartu
+
+Rekomendasi:
+Lakukan pemeriksaan menggunakan VPN untuk memastikan tidak ada kendala program dan segera hubungi penjaga alat untuk memastikan kondisi modem dan laingan di lapangan
+
+
+CONTOH KASUS 7
+--------------
+Contoh Kasus: Lampu indikator pada logger berwarna merah menyala
+
+Diagnosis: Program hilang pada logger
+
+Troubleshooting:
+remote site menggunakan VPN, para aplikasi loggernet bisa masuk pada decoing utility atau pada connect, dan upload program
+
+Rekomendasi:
+pastikan untuk standby memantan site dan simpan program yang digunakan untuk mengantiaspasi kehilangan program berutang
+
+
+CONTOH KASUS 8
+--------------
+Contoh Kasus: Datalogger Datataker mengalami stuck
+
+Diagnosis: RTC tidak berjalan karena baterai CMOS terkendata, program pada datataker hilang/bermasalah
+
+Troubleshooting:
+1. Lakukan restart pada alat dini pastikan alat dapat beroperasi kembali dengan normal; 
+2. Cek program pada datalogger apakah terhapus atau mengalami perubahan; 
+3. Buka baterai CMOS pada datataker dan pastikan masih dalam keadaan baik, apabila rusak segera diganti
+
+Rekomendasi:
+Cek berkala melalui VPN dan hubungi penjaga untuk mengetahui kondisi langsung. Segera lakukan penggantian datalogger apabila terjadi berulang-ulang
+
+
+CONTOH KASUS 9
+--------------
+Contoh Kasus: Seluruh data berheinti mengirim (mirip kasus "Mati Total"). Namun saat dicek ke lokasi, voltase pri normal , lampu modem menyala normal, lagi data logger tidak update).
+
+Diagnosis: 
+1. Firmware Hang : Program utama di data logger macet total. 
+2. Memory Leak : Ada bug dalam pemrograman sehingga memori (RAM) logger penuh.
+
+Troubleshooting:
+1. Lakukan Hard Reset / Power Cycle pada data logger (matikan paksa, tunggu 30 detik, nyalakan lagi) 
+2. Periksa log file internal data logger (jika adat)untuk mencari pesan Error terakhir sebelum hang. 
+3. Periksa versi firmware. Apakah ini versi lama yang diketahui berntiku bug ?
+
+Rekomendasi:
+Update Firmware data logger ke versi stabil terbaru dan pabrikian untuk memperbaiki bug.
+
+
+CONTOH KASUS 10
+---------------
+Contoh Kasus: Datalogger tidak merekam data dengan benar
+
+Diagnosis: Kesalahan program ataupun perangkat daya
+
+Troubleshooting:
+1. Lakukan pengeceakan program ter-inject dengan benar dalam datalogger, apabila terhapus atau belum telah input ulang; 
+2. Periksa apakah isi program sudah tepat; 
+3. Apabila datalogger dalam keadaan baik, periksa catu daya
+
+Rekomendasi:
+Lakukan pemeriksaan program secara berkala melalui oepem VPN untuk mensiapkan program tidak sempurnus, terutama saat alat berberapa kali mengalami offline

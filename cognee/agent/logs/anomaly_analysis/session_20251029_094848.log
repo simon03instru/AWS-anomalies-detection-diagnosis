@@ -1,0 +1,12 @@
+======================================================================
+KAFKA WORKFORCE SESSION LOG - MULTI-LLM
+======================================================================
+Session Start: 2025-10-29 09:48:48
+Kafka Broker: localhost:9092
+Topic: weather-anomalies
+Log Directory: /home/ubuntu/running/cognee/agent/logs/anomaly_analysis
+LLMs: GPT OSS 20B
+======================================================================
+
+[2025-10-29 09:49:31] New anomaly from AWS_DIY_STAGEOF_YOGYAKARTA - 1 parameter(s): Temperature
+[2025-10-29 09:51:02] SUCCESS (gpt_oss_20b): AWS_DIY_STAGEOF_YOGYAKARTA - 89.37s - 1 anomalies

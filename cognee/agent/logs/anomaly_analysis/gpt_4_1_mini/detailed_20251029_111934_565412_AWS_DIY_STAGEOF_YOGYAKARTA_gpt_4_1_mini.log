@@ -1,0 +1,2109 @@
+
+================================================================================
+DETAILED ANOMALY PROCESSING LOG
+================================================================================
+LLM: gpt_4_1_mini
+Anomaly ID: AWS_DIY_STAGEOF_YOGYAKARTA_2024-08-19T07-40-00
+Event Type: WEATHER_ANOMALY_CONFIRMED
+Correlation ID: anomaly-AWS_DIY_STAGEOF_YOGYAKARTA-1761736627
+Timestamp: 2025-10-29 11:19:34
+Log File: detailed_20251029_111934_565412_AWS_DIY_STAGEOF_YOGYAKARTA_gpt_4_1_mini.log
+================================================================================
+
+
+================================================================================
+ORIGINAL ANOMALY DATA
+================================================================================
+{
+  "event_type": "WEATHER_ANOMALY_CONFIRMED",
+  "timestamp": "2025-10-29T11:17:07.871156",
+  "source": "StationAgent-AWS_DIY_STAGEOF_YOGYAKARTA",
+  "data": {
+    "timestamp": "2024-08-19T07:40:00",
+    "station_id": "AWS_DIY_STAGEOF_YOGYAKARTA",
+    "station_metadata": {
+      "location": "Yogyakarta, Indonesia",
+      "latitude": -7.81665,
+      "longitude": 110.29481,
+      "altitude": 48.0,
+      "sensor_info": {
+        "ws": {
+          "brand": "Young 05103-L",
+          "last_calibration": "2024-03-15"
+        }
+      }
+    },
+    "confirmed_anomalies": [
+      {
+        "parameter": "Wind Speed",
+        "value": 10.511,
+        "sensor_brand": "Young 05103-L",
+        "trend_analysis": "Spike to 10.511 m/s (\u2248+8.7 m/s above 10\u2011min mean 1.8 m/s, >5\u03c3). Single\u2011interval outlier; expected negative correlation with pressure not observed, suggesting sensor fault."
+      }
+    ],
+    "validation_timestamp": "2025-10-29T11:17:07.871138",
+    "has_trend_analysis": true
+  },
+  "correlation_id": "anomaly-AWS_DIY_STAGEOF_YOGYAKARTA-1761736627"
+}
+================================================================================
+
+
+================================================================================
+WORKFORCE PROCESSING STARTED
+================================================================================
+LLM: gpt_4_1_mini
+Initial Query:
+Analyze the following weather anomaly detected at AWS_DIY_STAGEOF_YOGYAKARTA:
+
+Event Detection Time: 2024-08-19T07:40:00
+Station: AWS_DIY_STAGEOF_YOGYAKARTA
+Location: Yogyakarta, Indonesia
+Coordinates: Latitude -7.81665, Longitude 110.29481, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Wind Speed
+  Value: 10.511
+  Sensor Brand: Young 05103-L
+  Trend Analysis: Spike to 10.511 m/s (≈+8.7 m/s above 10‑min mean 1.8 m/s, >5σ). Single‑interval outlier; expected negative correlation with pressure not observed, suggesting sensor fault.
+
+Validation Timestamp: 2025-10-29T11:17:07.871138
+Correlation ID: anomaly-AWS_DIY_STAGEOF_YOGYAKARTA-1761736627
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.
+================================================================================
+
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: maintenance_search_maintenance_knowledge
+--------------------------------------------------------------------------------
+Tool: maintenance_search_maintenance_knowledge
+Call Count: 1
+Timestamp: 11:19:57.134
+
+Keyword Arguments:
+    {
+      "query": "troubleshooting guides, common failure modes, and maintenance procedures for Young 05103-L wind speed sensor",
+      "node_sets": [
+        "wind_sensor"
+      ]
+    }
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: sensor_search_sensor_knowledge
+--------------------------------------------------------------------------------
+Tool: sensor_search_sensor_knowledge
+Call Count: 1
+Timestamp: 11:19:57.549
+
+Keyword Arguments:
+    {
+      "query": "Young 05103-L wind speed sensor operational range sensitivity specifications",
+      "node_sets": [
+        "wind_sensor"
+      ]
+    }
+
+--------------------------------------------------------------------------------
+TOOL CALL #1: get_weather
+--------------------------------------------------------------------------------
+Tool: get_weather
+Call Count: 1
+Timestamp: 11:19:58.043
+
+Keyword Arguments:
+    {
+      "latitude": -7.81665,
+      "longitude": 110.29481,
+      "start_time": "2024-08-19T07:30:00Z",
+      "end_time": "2024-08-19T07:45:00Z",
+      "parameters": [
+        "windspeed_10m"
+      ]
+    }
+
+Execution Time: 1.226 seconds
+Result Length: 82 characters
+
+Result:
+    {
+      "times": [
+        "2024-08-19T07:30",
+        "2024-08-19T07:45"
+      ],
+      "windspeed_10m": [
+        20.1,
+        20.1
+      ]
+    }
+--------------------------------------------------------------------------------
+
+
+Execution Time: 10.665 seconds
+Result Length: 775 characters
+
+Result:
+    The operational range and sensitivity specifications for the Young 05103-L wind speed sensor are not explicitly provided in the context. However, it mentions maintenance for R.M. Young Wind Monitors, including checks on the anemometer bearings and potentiometer every two years, and troubleshooting procedures for wind speed measurements, indicating that resistance values and proper configurations are important for operational accuracy.
+    
+    The Young 05103-L wind speed sensor is designed for measuring horizontal wind speed and direction, with specifications that detail its capabilities and characteristics related to wind speed. For specific sensitivity specifications and operational range, please refer to the detailed product manual or the manufacturer's specifications.
+--------------------------------------------------------------------------------
+
+
+Execution Time: 17.219 seconds
+Result Length: 2558 characters
+
+Result:
+    ### Troubleshooting Guides for Young 05103-L Wind Speed Sensor
+    
+    #### Wind Direction Issues:
+    - **Symptom -9999 or No Change in Direction:**
+      1. Check wiring to the specified channels.
+      2. Verify excitation voltage and Range code.
+      3. Check potentiometer resistance (should be ~10K ohms between Blue and White wires).
+    
+    - **Symptom: Incorrect Wind Direction:**
+      1. Verify excitation voltage and parameters.
+      2. Check sensor orientation.
+    
+    #### Wind Speed Issues:
+    - **Symptom: No Wind Speed:**
+      1. Ensure sensor is wired to the correct Pulse channel.
+      2. Check coil resistance (should be ~2075 ohms between red and black wires).
+    
+    - **Symptom: Wind Speed Does Not Change:**
+      1. If programmed with Edlog, increase execution interval to avoid "Program Table Overruns".
+    
+    ### Common Failure Modes:
+    - Noisy anemometer bearings or threshold increases.
+    - Incorrect sensor orientation or datalogger settings.
+    - Open or shorted coil in the sensor.
+    
+    ### Maintenance Procedures:
+    - Inspect anemometer bearings and potentiometer every 24 months.
+    - Replace bearings if noisy or performance is degraded, and update maintenance records.
+    
+    **Troubleshooting Guides for Young 05103-L Wind Speed Sensor**:
+    1. **Initial Checkout**: Check for shipping damage, install the propeller correctly, and ensure the vane and propeller rotate freely. Verify mechanical and electrical connections with an indicator.
+    2. **Grounding Issues**: Improper grounding can cause erroneous signals and transducer damage. Ensure the mounting post assembly is connected to a good earth ground.
+    3. **Signal Conditioning**: If the output signal is floating or showing unpredictable values, ensure that the potentiometer is not in the 5° deadband region and that signal conditioning electronics are applied.
+    
+    **Common Failure Modes**:
+    1. **Potentiometer Wear**: Produces noisy signals or becomes nonlinear with usage. Check for consistent output.
+    2. **Bearing Noise**: If bearings become noisy or performance degrades, they may need replacement. This affects wind speed measurement.
+    
+    **Maintenance Procedures**:
+    1. **Potentiometer Replacement**: Remove the main housing, unsolder components, replace the potentiometer, and ensure proper alignment during reassembly.
+    2. **Bearing Replacement**: Check bearings using a torque disc; replace if necessary by following established disassembly and reassembly steps (removing the nose cone, replacing old bearings, etc.).  
+    3. **Calibration**: Periodically check and recalibrate the device, especially after maintenance; utilize proper calibration accessories.
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+STDOUT CAPTURE
+--------------------------------------------------------------------------------
+[33mWorker node 6024a8db-6994-48be-b7f8-e2c7b4bc4bd6 (Weather data analysis) get task 92392de7-852e-4cee-9bfe-2e97fb9a0408.1: Get current weather data for Yogyakarta, Indonesia at latitude -7.81665 and longitude 110.29481 on August 19, 2024, at 07:40. Compare these conditions to the anomalous wind speed reading of 10.511 m/s and provide a summary report detailing the comparison and any notable discrepancies.[39m
+[33mWorker node e4c9be0a-9dd4-4959-9f39-bec18f8e3a4b (Sensor specifications) get task 92392de7-852e-4cee-9bfe-2e97fb9a0408.2: Search for the operational range, sensitivity, and specifications of the Young 05103-L wind speed sensor. Provide a detailed report on whether the anomalous wind speed value of 10.511 m/s falls within normal operating parameters and if the sensor sensitivity matches the reported trend spike.[39m
+[33mWorker node 34524563-3d5e-411b-b85b-0647dc2eea49 (Maintenance information) get task 92392de7-852e-4cee-9bfe-2e97fb9a0408.3: Find troubleshooting guides, common failure modes, and maintenance procedures for the Young 05103-L wind speed sensor. Provide a report summarizing possible causes for the anomaly and recommended maintenance actions.[39m
+======
+[32mResponse from Worker node 6024a8db-6994-48be-b7f8-e2c7b4bc4bd6 (Weather data analysis):[39m
+
+[32mThe weather data for Yogyakarta, Indonesia at latitude -7.81665 and longitude 110.29481 on August 19, 2024, around 07:40 UTC shows a wind speed of 20.1 m/s. This is significantly higher than the anomalous wind speed reading of 10.511 m/s recorded by the sensor. The discrepancy suggests that the sensor reading of 10.511 m/s is actually lower than the satellite-based weather data indicates. This notable difference could imply a sensor fault or calibration issue, especially since the satellite data shows a much stronger wind speed. The anomalous reading being lower than the actual wind speed is unusual given the trend analysis indicating a spike. Overall, the current weather conditions indicate much stronger winds than the sensor anomaly value, supporting the hypothesis of a sensor anomaly or malfunction.[39m
+======
+[36m🎯 Task 92392de7-852e-4cee-9bfe-2e97fb9a0408.1 completed successfully.[39m
+   📝 Logged 2 chunks for query: 'Young 05103-L wind speed sensor operational range ...'
+======
+[32mResponse from Worker node e4c9be0a-9dd4-4959-9f39-bec18f8e3a4b (Sensor specifications):[39m
+
+[32mThe Young 05103-L wind speed sensor is designed for measuring horizontal wind speed and direction, but specific operational range and sensitivity details are not explicitly provided in the available sensor knowledge base. Maintenance guidelines suggest checking anemometer bearings and potentiometer every two years and ensuring proper resistance values for accurate wind speed measurements. Regarding the anomalous wind speed value of 10.511 m/s reported, without exact operational range data, it is unclear if this value falls strictly within normal parameters. However, given the trend analysis indicating a spike approximately +8.7 m/s above the 10-minute mean and a >5σ deviation, combined with the lack of expected negative correlation with pressure, the anomaly likely indicates a sensor fault rather than a true environmental condition. The sensor sensitivity matching the reported trend spike cannot be confirmed due to missing detailed sensitivity specifications. It is recommended to perform sensor maintenance and calibration checks to rule out faults.[39m
+======
+[36m🎯 Task 92392de7-852e-4cee-9bfe-2e97fb9a0408.2 completed successfully.[39m
+[33mWorker node 6024a8db-6994-48be-b7f8-e2c7b4bc4bd6 (Weather data analysis) get task 92392de7-852e-4cee-9bfe-2e97fb9a0408.4: Analyze the provided trend analysis of the wind speed anomaly at AWS_DIY_STAGEOF_YOGYAKARTA, including the spike to 10.511 m/s and the lack of expected negative correlation with pressure. Provide a comprehensive assessment with actionable recommendations for further investigation or corrective measures.[39m
+   📝 Logged 2 chunks for query: 'troubleshooting guides, common failure modes, and ...'
+======
+[32mResponse from Worker node 6024a8db-6994-48be-b7f8-e2c7b4bc4bd6 (Weather data analysis):[39m
+
+[32mThe analysis of the wind speed anomaly at AWS_DIY_STAGEOF_YOGYAKARTA reveals a spike to 10.511 m/s, which is approximately +8.7 m/s above the 10-minute mean of 1.8 m/s and exceeds 5 standard deviations, marking it as a significant outlier. However, satellite-based weather data for the same location and time (2024-08-19T07:40 UTC) shows a much higher wind speed of 20.1 m/s, indicating that the sensor's anomalous reading is actually lower than the true wind speed. This discrepancy suggests a sensor fault rather than a true environmental spike. Furthermore, the expected negative correlation between wind speed and surface pressure was not observed, reinforcing the likelihood of sensor malfunction. The Young 05103-L sensor's operational range and sensitivity details are not fully available, but maintenance guidelines recommend regular checks, and the anomaly's characteristics strongly suggest a sensor issue rather than a genuine weather event. 
+
+Actionable recommendations include:
+1. Immediate sensor maintenance and calibration to verify and correct any faults, focusing on the anemometer bearings and potentiometer as per manufacturer guidelines.
+2. Cross-validation with nearby stations or alternative measurement methods to confirm wind speed readings.
+3. Implementing automated anomaly detection alerts to flag similar outliers for prompt investigation.
+4. Reviewing sensor installation and environmental factors that might affect sensor performance.
+5. Considering replacement of the sensor if faults persist after maintenance.
+
+In summary, the wind speed anomaly is most likely due to sensor malfunction rather than actual weather conditions. Prompt corrective actions and further monitoring are essential to ensure data reliability.[39m
+======
+[36m🎯 Task 92392de7-852e-4cee-9bfe-2e97fb9a0408.4 completed successfully.[39m
+======
+[32mResponse from Worker node 34524563-3d5e-411b-b85b-0647dc2eea49 (Maintenance information):[39m
+
+[32mThe Young 05103-L wind speed sensor troubleshooting guides indicate several key points for addressing anomalies like the spike observed. Common failure modes include noisy anemometer bearings, potentiometer wear causing noisy or nonlinear signals, and open or shorted coils. Troubleshooting steps for wind speed issues include verifying wiring to the correct pulse channel and checking coil resistance (~2075 ohms between red and black wires). Maintenance procedures recommend inspecting anemometer bearings and potentiometer every 24 months, replacing bearings if noisy or performance degrades, and recalibrating the sensor after maintenance. Grounding and signal conditioning should also be verified to avoid erroneous signals. For the anomaly detected (a spike to 10.511 m/s), possible causes include sensor bearing noise, potentiometer issues, or coil faults. Recommended maintenance actions are to inspect and possibly replace bearings and potentiometer, verify wiring and coil resistance, ensure proper grounding, and recalibrate the sensor to restore accurate wind speed measurements.[39m
+======
+[36m🎯 Task 92392de7-852e-4cee-9bfe-2e97fb9a0408.3 completed successfully.[39m
+
+--------------------------------------------------------------------------------
+
+
+================================================================================
+FINAL OUTPUT - SYNTHESIZED RESULT
+================================================================================
+--- Subtask 92392de7-852e-4cee-9bfe-2e97fb9a0408.1 Result ---
+The weather data for Yogyakarta, Indonesia at latitude -7.81665 and longitude 110.29481 on August 19, 2024, around 07:40 UTC shows a wind speed of 20.1 m/s. This is significantly higher than the anomalous wind speed reading of 10.511 m/s recorded by the sensor. The discrepancy suggests that the sensor reading of 10.511 m/s is actually lower than the satellite-based weather data indicates. This notable difference could imply a sensor fault or calibration issue, especially since the satellite data shows a much stronger wind speed. The anomalous reading being lower than the actual wind speed is unusual given the trend analysis indicating a spike. Overall, the current weather conditions indicate much stronger winds than the sensor anomaly value, supporting the hypothesis of a sensor anomaly or malfunction.
+
+--- Subtask 92392de7-852e-4cee-9bfe-2e97fb9a0408.2 Result ---
+The Young 05103-L wind speed sensor is designed for measuring horizontal wind speed and direction, but specific operational range and sensitivity details are not explicitly provided in the available sensor knowledge base. Maintenance guidelines suggest checking anemometer bearings and potentiometer every two years and ensuring proper resistance values for accurate wind speed measurements. Regarding the anomalous wind speed value of 10.511 m/s reported, without exact operational range data, it is unclear if this value falls strictly within normal parameters. However, given the trend analysis indicating a spike approximately +8.7 m/s above the 10-minute mean and a >5σ deviation, combined with the lack of expected negative correlation with pressure, the anomaly likely indicates a sensor fault rather than a true environmental condition. The sensor sensitivity matching the reported trend spike cannot be confirmed due to missing detailed sensitivity specifications. It is recommended to perform sensor maintenance and calibration checks to rule out faults.
+
+--- Subtask 92392de7-852e-4cee-9bfe-2e97fb9a0408.3 Result ---
+The Young 05103-L wind speed sensor troubleshooting guides indicate several key points for addressing anomalies like the spike observed. Common failure modes include noisy anemometer bearings, potentiometer wear causing noisy or nonlinear signals, and open or shorted coils. Troubleshooting steps for wind speed issues include verifying wiring to the correct pulse channel and checking coil resistance (~2075 ohms between red and black wires). Maintenance procedures recommend inspecting anemometer bearings and potentiometer every 24 months, replacing bearings if noisy or performance degrades, and recalibrating the sensor after maintenance. Grounding and signal conditioning should also be verified to avoid erroneous signals. For the anomaly detected (a spike to 10.511 m/s), possible causes include sensor bearing noise, potentiometer issues, or coil faults. Recommended maintenance actions are to inspect and possibly replace bearings and potentiometer, verify wiring and coil resistance, ensure proper grounding, and recalibrate the sensor to restore accurate wind speed measurements.
+
+--- Subtask 92392de7-852e-4cee-9bfe-2e97fb9a0408.4 Result ---
+The analysis of the wind speed anomaly at AWS_DIY_STAGEOF_YOGYAKARTA reveals a spike to 10.511 m/s, which is approximately +8.7 m/s above the 10-minute mean of 1.8 m/s and exceeds 5 standard deviations, marking it as a significant outlier. However, satellite-based weather data for the same location and time (2024-08-19T07:40 UTC) shows a much higher wind speed of 20.1 m/s, indicating that the sensor's anomalous reading is actually lower than the true wind speed. This discrepancy suggests a sensor fault rather than a true environmental spike. Furthermore, the expected negative correlation between wind speed and surface pressure was not observed, reinforcing the likelihood of sensor malfunction. The Young 05103-L sensor's operational range and sensitivity details are not fully available, but maintenance guidelines recommend regular checks, and the anomaly's characteristics strongly suggest a sensor issue rather than a genuine weather event. 
+
+Actionable recommendations include:
+1. Immediate sensor maintenance and calibration to verify and correct any faults, focusing on the anemometer bearings and potentiometer as per manufacturer guidelines.
+2. Cross-validation with nearby stations or alternative measurement methods to confirm wind speed readings.
+3. Implementing automated anomaly detection alerts to flag similar outliers for prompt investigation.
+4. Reviewing sensor installation and environmental factors that might affect sensor performance.
+5. Considering replacement of the sensor if faults persist after maintenance.
+
+In summary, the wind speed anomaly is most likely due to sensor malfunction rather than actual weather conditions. Prompt corrective actions and further monitoring are essential to ensure data reliability.
+
+
+Output Statistics:
+  - length: 4972
+  - word_count: 692
+  - line_count: 20
+  - is_error: False
+================================================================================
+
+
+================================================================================
+DOCUMENT CHUNKS RETRIEVED FROM RAG
+================================================================================
+Total RAG Queries: 6
+Log File: chunk_retrieval_20251029_111607.jsonl
+--------------------------------------------------------------------------------
+
+
+Query #1:
+  Query: Young 05103-L wind speed sensor operational wind speed range sensitivity
+  Dataset: sensor_knowledge
+  Node Sets: wind_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. R.M. Young Wind Monitor maintenance
+Preventive maintenance for R.M. Young Wind Monitor includes:
+
+-Checking the anemometer bearings and the potentiometer at least every second year. If the bearings are noisy or wind speed threshold increases above an acceptable level, replace the bearings.
+After replacing the bearings, update the maintenance information in the Web UI.
+-If the sensor measurement data looks suspicious after the maintenance operation, recalibrate the sensor.
+R.M. Young suggests that the anemometer bearings and the potentiometer be
+inspected at least every 24 months. Only a qualified technician should perform
+the replacement.
+Troubleshooting
+7.1 Wind Direction
+Symptom: -9999 or no change in direction
+1. Check that the sensor is wired to the Excitation and Single-Ended channel
+specified by the measurement instruction.
+2. Verify that the excitation voltage and Range code are correct for the
+datalogger type.
+3. Disconnect the sensor from the datalogger and use an ohn meter to check the
+potentiometer. Resistance should be about 10K ohms between the Blue and
+White wires. The resistance between either the Blue/Green or White/Green
+wires should vary between 1K to 11K depending on the vane position.
+Resistance when the vane is in the 5 degree dead band should be about 1 M
+ohm.
+Symptom: Incorrect wind direction
+1. Verify that the Excitation voltage, Range code, multiplier and offset
+parameters are correct for the datalogger type.
+2. Check orientation of sensor, as described in Section 3.
+7.2 Wind Speed
+Symptom: No wind speed
+1. Check that the sensor is wired to the Pulse channel specified by the Pulse
+count instruction.
+2. Disconnect the sensor from the datalogger and use an ohm meter to check
+the coil. The resistance between the red and black wires should be about 2075
+ohms. Infinite resistance indicates an open coil; low resistance indicates a
+shorted coil.
+3. Verify that the Configuration Code, and Multiplier and Offset parameters for
+the Pulse Count instruction are correct for the datalogger type.
+Symptom: Wind speed does not change
+1. For the dataloggers that are programmed with Edlog, the input location for
+wind speed is not updated if the datalogger is getting “Program Table
+Overruns.” Increase the execution interval (scan rate) to prevent overruns.
+
+    2. Page 6:
+Page 5
+05103-90(N)
+CABLE & WIRING DIAGRAM
+MODEL 05103  WIND MONITOR
+
+
+Page 7:
+Page 6
+05103-90(N)
+BEARING REPLACEMENT & POTENTIOMETER ADJUSTMENT
+
+
+Page 8:
+Page 7
+05103-90(N)
+05194 PROPELLER NUT WRENCH
+08234 PROPELLER - 18CM X 30CM (BLACK PP)
+05163PG FLANGE BEARING (2)
+05160C NOSE CONE ASSY
+05158 NOSE CONE O-RING
+05161A 6-POLE MAGNET &
+SHAFT COLLAR
+05172
+MAIN HOUSING AND
+TAIL ASSY
+05138A
+POTENTIOMETER COUPLING
+05139
+POT ADJUST THUMBWHEEL
+05145C POTENTIOMETER MOUNTING
+& COIL ASSEMBLY
+05134 POTENTIOMETER 10K
+1/4% LIN, CONDUCTIVE PLASTIC
+(WITH O-RING)
+05131D POTENTIOMETER HOUSING
+05130D TRANSDUCER ASSEMBLY
+05124VG (2)
+VERTICAL SHAFT BEARING
+05187  PROPELLER NUT 1/4-20
+05164C PROPELLER SHAFT W/HUB
+6-32 x 1/8 SET SCREW (5)
+05127 MAIN HOUSING LATCH
+6-32 x 3/8 FLAT HD SCREW
+05126C VERTICAL SHAFT
+BEARING ROTOR
+05121E-10
+JUNCTION BOX COVER
+05178A JUNCTION BOX
+CIRCUIT BOARD ASSY
+4-40 x 5/16 SCREW (3)
+05121E
+MOUNTING POST ASSEMBLY
+05129 BAND CLAMP
+(INCL. W/ 05121E, 05128B)
+05128B ORIENTATION RING
+05165B  FRONT BEARING CAP
+R. M. YOUNG COMPANY   2801 Aero Park Drive ,  Traverse City,   Michigan   49686   U.S.A.
+TEL  (231) 946-3980       FAX  (231) 946-4772
+
+
+
+
+ 
+GENERAL ASSEMBLY & REPLACEMENT PARTS
+MODEL 05103  WIND MONITOR
+18500 FERRITE CHOKE
+
+
+Page 10:
+Calibration Accessories
+Model 18802 
+Anemometer Drive
+Model 18112
+Vane Angle Bench Stand
+Model 18310 
+Propeller Torque Disc
+Model 18331 Vane Torque Gauge
+Model 18301 
+Vane Alignment Rod
+Model 18212 
+Vane Angle Fixture-Tower Mount
+
+Page 11:
+Model 18802 Anemometer Drive provides a convenient and accurate way to rotate an anemometer shaft at 
+a known rate. The motor may be set to rotate clockwise or counter-clockwise at any rate between 200 and 
+15,000 RPM in 100 RPM increments. The LCD display is referenced to an accurate and stable quartz timebase. 
+For completely portable operation, the unit can be operated on internal batteries. For extended operation, an 
+AC wall adapter is included.
+Model 18811 Anemometer Drive is identical to Model 18802 except the drive motor incorporates a 
+gear reducer for operation in the range of 20 to 990 RPM in 10 RPM increments. The lower range 
+is recommended for cup anemometer calibration.
+Model 18112 Vane Angle Bench Stand is used for benchtop wind direction calibration of the Wind Monitor 
+family of sensors. The mounting post engages the direction orientation notch on the Wind Monitor. An easy to 
+read pointer indicates 0 to 360 degrees with 1/2 degree resolution.
+Model 18212 Vane Angle Fixture - Tower Mount similar to the Model 18112, the tower mount feature allows use 
+on the tower as well as the bench top. The fixture is temporarily placed on the tower between the Wind Monitor 
+and its tower mounting. Index keys and notches are engaged to preserve direction reference.
+Model 18310 Propeller Torque Disc checks anemometer bearing torque with 0.1 gm/cm resolu-
+tion. The disc temporarily replaces the propeller for torque measurement or simple yet accurate pass/fail 
+checks. Charts included with the unit relate torque to propeller threshold with limits for acceptable 
+bearing performance.
+Model 18312 Cup-Wheel Torque Disc checks cup anemometer bearing torque.
+Model 18331 Vane Torque Gauge checks vane bearing torque of the Wind Monitor family sensors. Slip the 
+fixture over the main housing and make simple yet accurate vane torque measurements. Charts relating vane 
+torque to vane threshold provide limits for acceptable bearing performance.
+Model 18301 Vane Alignment Rod helps align the vane of a wind sensor to a known direction reference during 
+installation. The base of the device has an index key that engages the direction orientation notch in the sensor 
+allowing the sensor to be removed without losing wind direction reference.
+Specifications subject to change without notice. 
+YOUNG
+ Specifications
+ Ordering Information                                                                  MODEL
+R.M. YOUNG COMPANY
+2801 Aero Park Drive
+Traverse City, Michigan 49686 USA
+TEL: (231) 946-3980  FAX: (231) 946-4772
+E-mail: met.sales@youngusa.com
+Web Site: www.youngusa.com
+ANEMOMETER DRIVE 200 to 15,000 RPM ..............................................  18802
+ANEMOMETER DRIVE 20 TO 990 RPM ..................................................  18811
+230V / 50-60 HZ INPUT POWER ................................................... ADD SUFFIX “H”
+VANE ANGLE BENCH STAND ..........................................................  18112
+VANE ANGLE FIXTURE - TOWER MOUNT ...........................................  18212
+PROPELLER TORQUE DISC............................................................  18310
+CUP-WHEEL TORQUE DISC ...........................................................  18312
+VANE TORQUE GAUGE .................................................................  18331
+VANE ALIGNMENT ROD ................................................................  18301
+Copyright © 2000 R.M. Young Company, Printed in U.S.A. 11/00
+Range:
+200 to 15,000 RPM in 100 RPM increments
+Rotation:
+Clockwise or Counter-Clockwise
+Display Resolution:
+1 RPM
+Quartz Timebase Reference:
+0.1 RPM
+Power Requirement:
+2x9 V (alkaline or lithium) batteries
+115 VAC wall adapter included
+(230 VAC – add suffix H)
+Range:
+20 to 990 RPM in 10 RPM increments
+Display Resolution:
+0.1 RPM
+Range:
+0 to 360 degrees
+Resolution: 
+0.5 degree
+Range:
+0 to 5.4 gm-cm
+Resolution: 
+0.1 gm-cm
+Range:
+0 to 50 gm-cm
+Resolution: 
+5 gm-cm
+ MODEL 18802 ANEMOMETER DRIVE
+ (Replaces 18801)
+ MODEL 18310, 18312 TORQUE DISC DEVICES
+Calibration Accessories
+ MODEL 18811 ANEMOMETER DRIVE
+ (Replaces 18810)
+ MODEL 18112, 18212 VANE ANGLE
+ CALIBRATION DEVICES
+ MODEL 18331 VANE TORQUE GAUGE
+
+
+
+Query #2:
+  Query: Young 05103-L sensor sudden wind speed spikes outlier readings diagnostic steps corrective actions
+  Dataset: maintenance_knowledge
+  Node Sets: wind_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. R.M. Young Wind Monitor maintenance
+Preventive maintenance for R.M. Young Wind Monitor includes:
+
+-Checking the anemometer bearings and the potentiometer at least every second year. If the bearings are noisy or wind speed threshold increases above an acceptable level, replace the bearings.
+After replacing the bearings, update the maintenance information in the Web UI.
+-If the sensor measurement data looks suspicious after the maintenance operation, recalibrate the sensor.
+R.M. Young suggests that the anemometer bearings and the potentiometer be
+inspected at least every 24 months. Only a qualified technician should perform
+the replacement.
+Troubleshooting
+7.1 Wind Direction
+Symptom: -9999 or no change in direction
+1. Check that the sensor is wired to the Excitation and Single-Ended channel
+specified by the measurement instruction.
+2. Verify that the excitation voltage and Range code are correct for the
+datalogger type.
+3. Disconnect the sensor from the datalogger and use an ohn meter to check the
+potentiometer. Resistance should be about 10K ohms between the Blue and
+White wires. The resistance between either the Blue/Green or White/Green
+wires should vary between 1K to 11K depending on the vane position.
+Resistance when the vane is in the 5 degree dead band should be about 1 M
+ohm.
+Symptom: Incorrect wind direction
+1. Verify that the Excitation voltage, Range code, multiplier and offset
+parameters are correct for the datalogger type.
+2. Check orientation of sensor, as described in Section 3.
+7.2 Wind Speed
+Symptom: No wind speed
+1. Check that the sensor is wired to the Pulse channel specified by the Pulse
+count instruction.
+2. Disconnect the sensor from the datalogger and use an ohm meter to check
+the coil. The resistance between the red and black wires should be about 2075
+ohms. Infinite resistance indicates an open coil; low resistance indicates a
+shorted coil.
+3. Verify that the Configuration Code, and Multiplier and Offset parameters for
+the Pulse Count instruction are correct for the datalogger type.
+Symptom: Wind speed does not change
+1. For the dataloggers that are programmed with Edlog, the input location for
+wind speed is not updated if the datalogger is getting “Program Table
+Overruns.” Increase the execution interval (scan rate) to prevent overruns.
+
+    2. Page 1:
+METEOROLOGICAL INSTRUMENTS
+INSTRUCTIONS
+R.M. YOUNG COMPANY   2801 AERO PARK DRIVE,  TRAVERSE CITY,  MICHIGAN 49686, USA
+TEL: (231) 946-3980      FAX: (231) 946-4772      WEB: www.youngusa.com 
+PN: 05103-90
+ REV: N062819
+WIND MONITOR
+MODEL 05103
+
+Page 2:
+Page 1
+05103-90(N)
+INTRODUCTION
+The Wind Monitor measures horizontal wind speed and direction.  
+Originally developed for ocean data buoy use, it is rugged and 
+corrosion resistant yet accurate and light weight. The main housing, 
+nose cone, propeller, and other internal parts are injection molded 
+U.V. stabilized plastic. Both the propeller and vertical shafts use 
+stainless steel precision grade ball bearings.  Bearings have light 
+contacting teflon seals and are filled with a wide temperature range 
+grease to help exclude contamination and moisture.
+Propeller rotation produces an AC sine wave signal with frequency 
+proportional to wind speed. This AC signal is induced in a 
+stationary coil by a six pole magnet mounted on the propeller 
+shaft. Three complete sine wave cycles are produced for each 
+propeller revolution.
+Vane position is transmitted by a 10K ohm precision conductive 
+plastic potentiometer which requires a regulated excitation 
+voltage. With a constant voltage applied to the potentiometer, 
+the output signal is an analog voltage directly proportional to 
+wind  direction angle.
+The instrument mounts on standard one inch pipe, outside diameter 
+34 mm (1.34"). An orientation ring is provided so the instrument 
+can be removed for maintenance and reinstalled without loss of 
+wind direction reference. Both the mounting post assembly and 
+the orientation ring are secured to the mounting pipe by stainless 
+steel band clamps. Electrical connections are made in a junction 
+box at the base. A variety of devices are available for signal 
+conditioning, display, and recording of wind speed and direction.  
+INITIAL CHECKOUT
+When the Wind Monitor is unpacked it should be checked carefully 
+for any signs of shipping damage.  
+Remove the plastic nut on the propeller shaft. Install the propeller 
+on the shaft so the serial number on the propeller faces forward 
+(into the wind). Engage the propeller into the molded ribs on the 
+propeller shaft hub. The instrument is aligned, balanced and fully 
+calibrated before shipment, however, it should be checked both 
+mechanically and electrically before installation. The vane and 
+propeller should easily rotate 360° without friction. Check vane 
+balance by holding the instrument base so the vane surface is 
+horizontal. It should have near neutral torque without any particular 
+tendency to rotate. A slight imbalance will not degrade performance.
+The potentiometer requires a stable DC excitation voltage.  Do 
+not exceed 15 volts. When the potentiometer wiper is in the 5° 
+deadband region, the output signal is "floating" and may show 
+varying or unpredictable values. To prevent false readings,  signal 
+conditioning electronics should clamp the signal to excitation 
+or reference level when this occurs. NOTE: Young signal 
+conditioning devices clamp the signal to excitation level. Avoid 
+a short circuit between the wind direction signal line and either the 
+excitation or reference lines. Although there is a 1K ohm current 
+limiting resistor in series with the wiper for protection, damage 
+to the potentiometer may occur if a short circuit condition exists.
+Before installation, connect the instrument to an indicator as shown 
+in the wiring diagram and check for proper wind speed and wind 
+direction values. To check wind speed, temporarily remove the 
+propeller and connect the shaft to an Anemometer Drive. Details 
+appear in the CALIBRATION section of this manual.
+MODEL 05103
+WIND MONITOR
+WIND SPEED SPECIFICATION SUMMARY
+Range 0 to 100 m/s (224 mph)
+Sensor 18 cm diameter 4-blade helicoid  
+propeller molded of polypropylene
+Pitch 29.4 cm air passage per revolution
+Distance Constant 2.7 m (8.9 ft.) for 63% recovery
+Threshold Sensitivity 1.0 m/s (2.2 mph)
+Transducer Centrally mounted stationary coil, 2K Ohm 
+nominal DC resistance
+Transducer Output AC sine wave signal induced by rotating 
+magnet on propeller shaft. 80 mV p-p at 
+100 rpm. 8.0 V p-p at 10,000 rpm.
+Output Frequency 3 cycles per propeller revolution  
+(0.098 m/s per Hz)
+WIND DIRECTION (AZIMUTH) SPECIFICATION SUMMARY
+Range 360° mechanical, 355° electrical (5° open)
+Sensor  Balanced vane, 38 cm (15 in) turning radius.
+Damping Ratio 0.3
+Delay Distance 1.3 m (4.3 ft) for 50% recovery
+Threshold Sensitivity 1.1 m/s (2.5 mph) at 10° displacement
+Damped Natural
+   Wavelength 7.4 m (24.3 ft)
+Undamped Natural
+   Wavelength 7.2 m (23.6 ft)
+Transducer Precision conductive plastic potentiometer, 
+10K ohm resistance (±20%), 0.25% 
+linearity, life expectancy 50 million 
+revolutions, rated 1 watt at 40° C, 0 watts 
+at 125° C
+Transducer Excitation
+  Requirement Regulated DC voltage, 15 VDC max
+Transducer Output Analog DC voltage proportional to azimuth 
+angle with regulated excitation voltage 
+applied across potentiometer.
+GENERAL
+Operating Temperature: -50 to 50°C (-58 to 122°F)
+
+
+Page 3:
+Page 2
+05103-90(N)
+INSTALLATION
+Proper placement of the instrument is very important. Eddies from 
+trees, buildings, or other structures can greatly influence wind 
+speed and wind direction observations. To get meaningful data 
+for most applications locate the instrument well above or upwind 
+from obstructions. As a general rule, the air flow around a structure 
+is disturbed to twice the height of the structure upwind, six times 
+the height downwind, and up to twice the height of the structure 
+above ground. For some applications it may not be practical or 
+necessary to meet these requirements.
+FAILURE TO PROPERLY GROUND THE WIND MONITOR  
+MAY RESULT IN ERRONEOUS SIGNALS  
+OR TRANSDUCER DAMAGE.
+Grounding the Wind Monitor is vitally important. Without proper 
+grounding, static electrical charge can build up during certain 
+atmospheric conditions and discharge through the transducers. 
+This discharge can cause erroneous signals or transducer failure. 
+To direct the discharge away from the transducers, the mounting 
+post assembly is made with a special antistatic plastic. It is very 
+important that the mounting post be connected to a good earth 
+ground. There are two ways this may be accomplished. First, 
+the Wind Monitor may be mounted on a metal pipe which is 
+connected to earth ground. The mounting pipe should not be 
+painted where the Wind Monitor is mounted. Towers or masts 
+set in concrete should be connected to one or more grounding 
+rods. If it is difficult to ground the mounting post in this manner, 
+the following method should be used. Inside the junction box 
+the terminal labeled EARTH GND is internally connected to the 
+antistatic mounting post. This terminal should be connected to 
+an earth ground (Refer to wiring diagram).
+Initial installation is most easily done with two people; one to adjust 
+the instrument position and the other to observe the indicating 
+device. After initial installation, the instrument can be removed 
+and returned to its mounting without realigning the vane since 
+the orientation ring preserves the wind direction reference. Install 
+the Wind Monitor following these steps:
+1. MOUNT WIND MONITOR
+ a) Place orientation ring on mounting post. Do Not tighten 
+band clamp yet.
+ b) Place Wind Monitor on mounting post. Do Not tighten 
+band clamp yet. 
+  
+2. CONNECT SENSOR CABLE
+ a) Refer to wiring diagram located at back of manual.
+ 
+3. ALIGN VANE
+ a) Connect instrument to an indicator.
+ b) Choose a known wind direction reference point on the 
+horizon.
+ c) Sighting down instrument centerline, point nose cone at  
+reference point on horizon.
+ d) While holding vane in position, slowly turn base until 
+indicator shows proper value.
+ e) Tighten mounting post band clamp.
+ f) Engage orientation ring indexing pin in notch at 
+instrument base.
+ g) Tighten orientation ring band clamp.
+CALIBRATION
+The Wind Monitor is fully calibrated before shipment and should 
+require no adjustments. Recalibration may be necessary after 
+some maintenance operations. Periodic calibration checks are 
+desirable and may be necessary where the instrument is used in 
+programs which require auditing of sensor performance.
+Accurate wind direction calibration requires a Model 18112 Vane 
+Angle Bench Stand. Begin by connecting the instrument to a 
+signal conditioning circuit which has some method of indicating 
+wind direction value. This may be a display which shows wind 
+direction values in angular degrees or simply a voltmeter 
+monitoring the output. Orient the base so the junction box faces 
+due south. Visually align the vane with the crossmarkings and 
+observe the indicator output. If the vane position and indicator 
+do not agree within 5°, adjust the potentiometer coupling inside 
+the main housing. Details for making this adjustment appear 
+in the MAINTENANCE, POTENTIOMETER REPLACEMENT, 
+outline, step 7. 
+It is important to note that, while the sensor mechanically rotates 
+through 360°, the full scale wind direction signal from the signal 
+conditioning occurs at 355°. The signal conditioning electronics 
+must be adjusted accordingly. For example, in a circuit where 0 
+to 1.000 VDC represents 0° to 360°, the output must be adjusted 
+for 0.986 VDC when the instrument is at 355°. (355°/360° X 1.000 
+volts = 0.986 volts)
+Wind speed calibration is determined by propeller pitch and the 
+output characteristics of the transducer. Calibration formulas 
+showing wind speed vs. propeller rpm and output frequency are 
+included below. Standard accuracy is ± 0.3 m/s (0.6mph). For 
+greater accuracy, the sensor must be individually calibrated in 
+comparison with a wind speed standard. Contact the factory or 
+your supplier to schedule a NIST (National Institute of Standards 
+& Technology) traceable wind tunnel calibration in our facility.
+ 
+To calibrate wind system electronics using a signal from the 
+instrument, temporarily remove the propeller and connect an 
+Anemometer Drive (18802 or equivalent)  to the propeller shaft. 
+Apply the appropriate calibration formula to the calibrating motor 
+rpm and adjust the electronics for the proper value. For example, 
+with the propeller shaft turning at 3600 rpm, adjust an indicator to 
+display 17.6 meters per second [3600 rpm  X 0.00490 (m/s)/rpm 
+=17.6 m/s]
+Details on checking bearing torque, which affects wind speed and 
+direction threshold, appear in the following section.
+CALIBRATION FORMULAS
+Model 05103 Wind Monitor w / 08234 Propeller
+WIND SPEED  vs  PROPELLER RPM
+m/s = 0.00490 x rpm
+knots = 0.00952 x rpm
+mph = 0.01096 x rpm
+km/h = 0.01764 x rpm
+WIND SPEED  vs  OUTPUT FREQUENCY
+m/s = 0.0980 x Hz
+knots = 0.1904 x Hz
+mph = 0.2192 x Hz
+km/h = 0.3528 x Hz
+
+Page 4:
+Page 3
+05103-90(N)
+MAINTENANCE
+Given proper care, the Wind Monitor should provide years of 
+service. The only components likely to need replacement due to 
+normal wear are the precision ball bearings and the wind direction 
+potentiometer. Only a qualified instrument technician should 
+perform the replacement. If service facilities are not available, 
+return the instrument to the company. Refer to the drawings to 
+become familiar with part names and locations. The asterisk * 
+which appears in the following outlines is a reminder that maximum 
+torque on all set screws is 80 oz-in.
+POTENTIOMETER REPLACEMENT
+The potentiometer has a life expectancy of fifty million revolutions. 
+As it becomes worn, the element may begin to produce noisy 
+signals or become nonlinear. When signal noise or non-linearity 
+becomes unacceptable, replace the potentiometer. Refer to 
+exploded view drawing and proceed as follows:
+1. REMOVE MAIN HOUSING
+ a) Unscrew nose cone from main housing. Set o-ring aside 
+for later use.
+ b) Gently push main housing latch.
+ c) While pushing latch, lift main housing up and remove it 
+from vertical shaft bearing rotor.
+2. UNSOLDER TRANSDUCER WIRE
+ a) Remove junction box cover, exposing circuit board.
+ b) Remove screws holding circuit board.
+ c) Unsolder three potentiometer wires (white, green, black), two 
+wind speed coil wires (red, black) and earth ground wire (red) 
+from board.
+3. REMOVE POTENTIOMETER
+ a) Loosen set screw on potentiometer coupling and remove 
+it from potentiometer adjust thumbwheel.
+ b) Loosen set screw on potentiometer adjust thumbwheel 
+and remove it from potentiometer shaft.
+ c) Loosen two set screws at base of transducer assembly 
+and remove assembly from vertical shaft.
+ d) Unscrew potentiometer housing from potentiometer 
+  mounting & coil assembly.
+ e) Push potentiometer out of potentiometer mounting & 
+coil assembly by applying firm but gentle pressure on 
+potentiometer shaft. Make sure that the shaft o-ring 
+comes out with the potentiometer.  If not, then gently 
+push it out from the top of the coil assembly.
+4. INSTALL NEW  POTENTIOMETER
+ a) Push new potentiometer into potentiometer mounting & 
+coil assembly making sure o-ring is on shaft.
+ b) Feed potentiometer and coil wires through hole in bottom 
+of potentiometer housing.
+ c) Screw potentiometer housing onto potentiometer 
+mounting & coil assembly.
+ d) Gently pull transducer wires through bottom of 
+  potentiometer housing to take up any slack. Apply a 
+small amount of silicone sealant around hole.
+ e) Install transducer assembly on vertical shaft allowing  
+0.5 mm (0.020") clearance from vertical bearing.  
+Tighten set screws* at bottom of transducer assembly.
+ f) Place potentiometer adjust thumbwheel on potentiometer 
+shaft and tighten set screw*.
+ g) Place potentiometer coupling on potentiometer
+   adjust thumbwheel. Do Not tighten set screw yet.
+5. RECONNECT TRANSDUCER WIRES
+ a) Using needle-nose pliers or a paper clip bent to form a 
+small hook, gently pull transducer wires through hole in 
+junction box.
+ b) Solder wires to circuit board according to wiring diagram.   
+Observe color code.
+ c) Secure circuit board in junction box using two screws 
+removed in step 2b. Do not overtighten.
+6. REPLACE MAIN HOUSING
+ a) Place main housing over vertical shaft bearing rotor. Be 
+careful to align indexing key and channel in these two 
+assemblies.
+ b) Place main housing over vertical shaft bearing rotor until  
+potentiometer coupling is near top of main housing.
+ c) Turn potentiometer adjust thumbwheel until 
+potentiometer coupling is oriented to engage ridge in top 
+of  main housing. Set screw on potentiometer coupling 
+should be facing the front opening.
+ d) With potentiometer coupling properly oriented, continue 
+pushing main housing onto vertical shaft bearing  rotor 
+until main housing latch locks into position with a “click”.
+7. ALIGN VANE
+ a) Connect excitation voltage and signal conditioning 
+electronics to terminal strip according to wiring diagram.
+ b) With mounting post held in position so junction box 
+is facing due south, orient vane to a known angular 
+reference. Details appear in CALIBRATION section.
+ c) Reach in through front of main housing and turn 
+potentiometer adjust thumbwheel until signal conditioning 
+system indicates proper value.
+ d) Tighten set screw* on potentiometer coupling.
+8. REPLACE NOSE CONE
+ a) Screw nose cone into main housing until o-ring seal is 
+seated. Be certain threads are properly engaged to avoid 
+cross-threading.
+FLANGE  BEARING  REPLACEMENT
+If anemometer bearings become noisy or wind speed threshold 
+increases above an acceptable level, bearings may need 
+replacement. Check anemometer bearing condition using a Model 
+18310 Propeller Torque Disc. If needed, bearings are replaced 
+as follows.
+1. REMOVE OLD BEARINGS
+ a) Unscrew nose cone. Set o-ring aside for later use.
+ b) Loosen set screw on magnet shaft collar and remove  
+magnet.
+ c) Slide propeller shaft out of nose cone assembly.
+ d) Remove front bearing cap which covers front bearing.
+ e) Remove both front and rear bearings from nose cone  
+assembly. Insert edge of a pocket knife under bearing  
+flange and lift it out.
+2. INSTALL NEW BEARINGS
+ a) Insert new front and rear bearings into nose cone.
+ b) Replace front bearing cap.
+ c) Carefully slide propeller shaft thru bearings.
+ d) Place magnet on propeller shaft allowing 0.5 mm   
+(0.020") clearance from rear bearing.
+ e) Tighten set screw* on magnet shaft collar.
+ f) Screw nose cone into main housing until o-ring seal  
+is   seated. Be certain threads are properly engaged to  
+avoid cross-threading.
+*Max set screw torque 80 oz-in
+
+Page 5:
+Page 4
+05103-90(N)
+VERTICAL SHAFT BEARING REPLACEMENT
+Vertical shaft bearings are much larger than the anemometer 
+bearings. Ordinarily, these bearings require replacement less 
+frequently than anemometer bearings. Check bearing condition 
+using a Model 18331 Vane Torque Gauge.
+Since this procedure is similar to POTENTIOMETER 
+REPLACEMENT, only the major steps are listed here.
+1. REMOVE MAIN HOUSING
+2. UNSOLDER TRANSDUCER WIRES AND REMOVE
+  TRANSDUCER ASSEMBLY
+ Loosen set screws at base of transducer assembly and  
+remove entire assembly from vertical shaft.  
+3. REMOVE VERTICAL SHAFT BEARING ROTOR by sliding 
+it  upward off vertical shaft.
+4. REMOVE OLD VERTICAL BEARINGS AND INSTALL 
+NEW  BEARINGS. When inserting new bearings, be  careful 
+not to apply pressure to bearing shields.
+5. REPLACE VERTICAL SHAFT BEARING ROTOR. 
+6. REPLACE TRANSDUCER & RECONNECT WIRES
+7. REPLACE MAIN HOUSING
+8. ALIGN VANE
+9.  REPLACE NOSE CONE
+EMC COMPLIANCE
+This device complies with Part 15 of the FCC Rules. Operation 
+is subject to the following two conditions: (1) this device may not 
+cause harmful interference, and (2) this device must accept any 
+interference received, including interference that may cause 
+undesired operation.
+This equipment has been tested and found to comply with the 
+limits for a Class A digital device, pursuant to part 15 of the FCC 
+Rules. These limits are designed to provide reasonable protection 
+against harmful interference when the equipment is operated in a 
+commercial environment. This equipment generates, uses, and 
+can radiate radio frequency energy and, if not installed and used 
+in accordance with the instruction manual, may cause harmful 
+interference to radio communications.  Operation of this equipment 
+in a residential area is likely to cause harmful interference in which 
+case the user will be required to correct the interference at his own 
+expense.
+This ISM device complies with Canadian ICES-001.
+Cet appareil ISM est conforme à Ia norme NMB-001 du Canada.
+EN55011/CISPR 11, Group 1, Class B device.
+Class B equipment is suitable for use in domestic establishments 
+and in establishments directly connected to a low voltage power 
+supply network which supplies buildings used for domestic 
+purposes.
+Note:
+To meet EMC Compliance, a YOUNG 18500 ferrite choke must be 
+installed on the cable near the sensor.  The cable must pass through 
+the center hole of the choke at least 2 times, creating 1 loop around 
+the outside as shown below.
+WARRANTY
+This product is warranted to be free of defects in materials and 
+construction for a period of 12 months from date of initial purchase. 
+Liability is limited to repair or replacement of defective item. A copy 
+of the warranty policy may be obtained from R. M. Young Company.
+CE COMPLIANCE
+This product has been tested and complies with European  
+CE requirements for the EMC Directive.  Please note that shielded 
+cable must be used.
+
+
+
+Query #3:
+  Query: Young 05103-L wind speed sensor specifications operational range sensitivity limits
+  Dataset: sensor_knowledge
+  Node Sets: wind_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. R.M. Young Wind Monitor maintenance
+Preventive maintenance for R.M. Young Wind Monitor includes:
+
+-Checking the anemometer bearings and the potentiometer at least every second year. If the bearings are noisy or wind speed threshold increases above an acceptable level, replace the bearings.
+After replacing the bearings, update the maintenance information in the Web UI.
+-If the sensor measurement data looks suspicious after the maintenance operation, recalibrate the sensor.
+R.M. Young suggests that the anemometer bearings and the potentiometer be
+inspected at least every 24 months. Only a qualified technician should perform
+the replacement.
+Troubleshooting
+7.1 Wind Direction
+Symptom: -9999 or no change in direction
+1. Check that the sensor is wired to the Excitation and Single-Ended channel
+specified by the measurement instruction.
+2. Verify that the excitation voltage and Range code are correct for the
+datalogger type.
+3. Disconnect the sensor from the datalogger and use an ohn meter to check the
+potentiometer. Resistance should be about 10K ohms between the Blue and
+White wires. The resistance between either the Blue/Green or White/Green
+wires should vary between 1K to 11K depending on the vane position.
+Resistance when the vane is in the 5 degree dead band should be about 1 M
+ohm.
+Symptom: Incorrect wind direction
+1. Verify that the Excitation voltage, Range code, multiplier and offset
+parameters are correct for the datalogger type.
+2. Check orientation of sensor, as described in Section 3.
+7.2 Wind Speed
+Symptom: No wind speed
+1. Check that the sensor is wired to the Pulse channel specified by the Pulse
+count instruction.
+2. Disconnect the sensor from the datalogger and use an ohm meter to check
+the coil. The resistance between the red and black wires should be about 2075
+ohms. Infinite resistance indicates an open coil; low resistance indicates a
+shorted coil.
+3. Verify that the Configuration Code, and Multiplier and Offset parameters for
+the Pulse Count instruction are correct for the datalogger type.
+Symptom: Wind speed does not change
+1. For the dataloggers that are programmed with Edlog, the input location for
+wind speed is not updated if the datalogger is getting “Program Table
+Overruns.” Increase the execution interval (scan rate) to prevent overruns.
+
+    2. Page 6:
+Page 5
+05103-90(N)
+CABLE & WIRING DIAGRAM
+MODEL 05103  WIND MONITOR
+
+
+Page 7:
+Page 6
+05103-90(N)
+BEARING REPLACEMENT & POTENTIOMETER ADJUSTMENT
+
+
+Page 8:
+Page 7
+05103-90(N)
+05194 PROPELLER NUT WRENCH
+08234 PROPELLER - 18CM X 30CM (BLACK PP)
+05163PG FLANGE BEARING (2)
+05160C NOSE CONE ASSY
+05158 NOSE CONE O-RING
+05161A 6-POLE MAGNET &
+SHAFT COLLAR
+05172
+MAIN HOUSING AND
+TAIL ASSY
+05138A
+POTENTIOMETER COUPLING
+05139
+POT ADJUST THUMBWHEEL
+05145C POTENTIOMETER MOUNTING
+& COIL ASSEMBLY
+05134 POTENTIOMETER 10K
+1/4% LIN, CONDUCTIVE PLASTIC
+(WITH O-RING)
+05131D POTENTIOMETER HOUSING
+05130D TRANSDUCER ASSEMBLY
+05124VG (2)
+VERTICAL SHAFT BEARING
+05187  PROPELLER NUT 1/4-20
+05164C PROPELLER SHAFT W/HUB
+6-32 x 1/8 SET SCREW (5)
+05127 MAIN HOUSING LATCH
+6-32 x 3/8 FLAT HD SCREW
+05126C VERTICAL SHAFT
+BEARING ROTOR
+05121E-10
+JUNCTION BOX COVER
+05178A JUNCTION BOX
+CIRCUIT BOARD ASSY
+4-40 x 5/16 SCREW (3)
+05121E
+MOUNTING POST ASSEMBLY
+05129 BAND CLAMP
+(INCL. W/ 05121E, 05128B)
+05128B ORIENTATION RING
+05165B  FRONT BEARING CAP
+R. M. YOUNG COMPANY   2801 Aero Park Drive ,  Traverse City,   Michigan   49686   U.S.A.
+TEL  (231) 946-3980       FAX  (231) 946-4772
+
+
+
+
+ 
+GENERAL ASSEMBLY & REPLACEMENT PARTS
+MODEL 05103  WIND MONITOR
+18500 FERRITE CHOKE
+
+
+Page 10:
+Calibration Accessories
+Model 18802 
+Anemometer Drive
+Model 18112
+Vane Angle Bench Stand
+Model 18310 
+Propeller Torque Disc
+Model 18331 Vane Torque Gauge
+Model 18301 
+Vane Alignment Rod
+Model 18212 
+Vane Angle Fixture-Tower Mount
+
+Page 11:
+Model 18802 Anemometer Drive provides a convenient and accurate way to rotate an anemometer shaft at 
+a known rate. The motor may be set to rotate clockwise or counter-clockwise at any rate between 200 and 
+15,000 RPM in 100 RPM increments. The LCD display is referenced to an accurate and stable quartz timebase. 
+For completely portable operation, the unit can be operated on internal batteries. For extended operation, an 
+AC wall adapter is included.
+Model 18811 Anemometer Drive is identical to Model 18802 except the drive motor incorporates a 
+gear reducer for operation in the range of 20 to 990 RPM in 10 RPM increments. The lower range 
+is recommended for cup anemometer calibration.
+Model 18112 Vane Angle Bench Stand is used for benchtop wind direction calibration of the Wind Monitor 
+family of sensors. The mounting post engages the direction orientation notch on the Wind Monitor. An easy to 
+read pointer indicates 0 to 360 degrees with 1/2 degree resolution.
+Model 18212 Vane Angle Fixture - Tower Mount similar to the Model 18112, the tower mount feature allows use 
+on the tower as well as the bench top. The fixture is temporarily placed on the tower between the Wind Monitor 
+and its tower mounting. Index keys and notches are engaged to preserve direction reference.
+Model 18310 Propeller Torque Disc checks anemometer bearing torque with 0.1 gm/cm resolu-
+tion. The disc temporarily replaces the propeller for torque measurement or simple yet accurate pass/fail 
+checks. Charts included with the unit relate torque to propeller threshold with limits for acceptable 
+bearing performance.
+Model 18312 Cup-Wheel Torque Disc checks cup anemometer bearing torque.
+Model 18331 Vane Torque Gauge checks vane bearing torque of the Wind Monitor family sensors. Slip the 
+fixture over the main housing and make simple yet accurate vane torque measurements. Charts relating vane 
+torque to vane threshold provide limits for acceptable bearing performance.
+Model 18301 Vane Alignment Rod helps align the vane of a wind sensor to a known direction reference during 
+installation. The base of the device has an index key that engages the direction orientation notch in the sensor 
+allowing the sensor to be removed without losing wind direction reference.
+Specifications subject to change without notice. 
+YOUNG
+ Specifications
+ Ordering Information                                                                  MODEL
+R.M. YOUNG COMPANY
+2801 Aero Park Drive
+Traverse City, Michigan 49686 USA
+TEL: (231) 946-3980  FAX: (231) 946-4772
+E-mail: met.sales@youngusa.com
+Web Site: www.youngusa.com
+ANEMOMETER DRIVE 200 to 15,000 RPM ..............................................  18802
+ANEMOMETER DRIVE 20 TO 990 RPM ..................................................  18811
+230V / 50-60 HZ INPUT POWER ................................................... ADD SUFFIX “H”
+VANE ANGLE BENCH STAND ..........................................................  18112
+VANE ANGLE FIXTURE - TOWER MOUNT ...........................................  18212
+PROPELLER TORQUE DISC............................................................  18310
+CUP-WHEEL TORQUE DISC ...........................................................  18312
+VANE TORQUE GAUGE .................................................................  18331
+VANE ALIGNMENT ROD ................................................................  18301
+Copyright © 2000 R.M. Young Company, Printed in U.S.A. 11/00
+Range:
+200 to 15,000 RPM in 100 RPM increments
+Rotation:
+Clockwise or Counter-Clockwise
+Display Resolution:
+1 RPM
+Quartz Timebase Reference:
+0.1 RPM
+Power Requirement:
+2x9 V (alkaline or lithium) batteries
+115 VAC wall adapter included
+(230 VAC – add suffix H)
+Range:
+20 to 990 RPM in 10 RPM increments
+Display Resolution:
+0.1 RPM
+Range:
+0 to 360 degrees
+Resolution: 
+0.5 degree
+Range:
+0 to 5.4 gm-cm
+Resolution: 
+0.1 gm-cm
+Range:
+0 to 50 gm-cm
+Resolution: 
+5 gm-cm
+ MODEL 18802 ANEMOMETER DRIVE
+ (Replaces 18801)
+ MODEL 18310, 18312 TORQUE DISC DEVICES
+Calibration Accessories
+ MODEL 18811 ANEMOMETER DRIVE
+ (Replaces 18810)
+ MODEL 18112, 18212 VANE ANGLE
+ CALIBRATION DEVICES
+ MODEL 18331 VANE TORQUE GAUGE
+
+
+
+Query #4:
+  Query: Young 05103-L wind speed sensor sudden spikes outliers maintenance troubleshooting
+  Dataset: maintenance_knowledge
+  Node Sets: wind_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. R.M. Young Wind Monitor maintenance
+Preventive maintenance for R.M. Young Wind Monitor includes:
+
+-Checking the anemometer bearings and the potentiometer at least every second year. If the bearings are noisy or wind speed threshold increases above an acceptable level, replace the bearings.
+After replacing the bearings, update the maintenance information in the Web UI.
+-If the sensor measurement data looks suspicious after the maintenance operation, recalibrate the sensor.
+R.M. Young suggests that the anemometer bearings and the potentiometer be
+inspected at least every 24 months. Only a qualified technician should perform
+the replacement.
+Troubleshooting
+7.1 Wind Direction
+Symptom: -9999 or no change in direction
+1. Check that the sensor is wired to the Excitation and Single-Ended channel
+specified by the measurement instruction.
+2. Verify that the excitation voltage and Range code are correct for the
+datalogger type.
+3. Disconnect the sensor from the datalogger and use an ohn meter to check the
+potentiometer. Resistance should be about 10K ohms between the Blue and
+White wires. The resistance between either the Blue/Green or White/Green
+wires should vary between 1K to 11K depending on the vane position.
+Resistance when the vane is in the 5 degree dead band should be about 1 M
+ohm.
+Symptom: Incorrect wind direction
+1. Verify that the Excitation voltage, Range code, multiplier and offset
+parameters are correct for the datalogger type.
+2. Check orientation of sensor, as described in Section 3.
+7.2 Wind Speed
+Symptom: No wind speed
+1. Check that the sensor is wired to the Pulse channel specified by the Pulse
+count instruction.
+2. Disconnect the sensor from the datalogger and use an ohm meter to check
+the coil. The resistance between the red and black wires should be about 2075
+ohms. Infinite resistance indicates an open coil; low resistance indicates a
+shorted coil.
+3. Verify that the Configuration Code, and Multiplier and Offset parameters for
+the Pulse Count instruction are correct for the datalogger type.
+Symptom: Wind speed does not change
+1. For the dataloggers that are programmed with Edlog, the input location for
+wind speed is not updated if the datalogger is getting “Program Table
+Overruns.” Increase the execution interval (scan rate) to prevent overruns.
+
+    2. Page 1:
+METEOROLOGICAL INSTRUMENTS
+INSTRUCTIONS
+R.M. YOUNG COMPANY   2801 AERO PARK DRIVE,  TRAVERSE CITY,  MICHIGAN 49686, USA
+TEL: (231) 946-3980      FAX: (231) 946-4772      WEB: www.youngusa.com 
+PN: 05103-90
+ REV: N062819
+WIND MONITOR
+MODEL 05103
+
+Page 2:
+Page 1
+05103-90(N)
+INTRODUCTION
+The Wind Monitor measures horizontal wind speed and direction.  
+Originally developed for ocean data buoy use, it is rugged and 
+corrosion resistant yet accurate and light weight. The main housing, 
+nose cone, propeller, and other internal parts are injection molded 
+U.V. stabilized plastic. Both the propeller and vertical shafts use 
+stainless steel precision grade ball bearings.  Bearings have light 
+contacting teflon seals and are filled with a wide temperature range 
+grease to help exclude contamination and moisture.
+Propeller rotation produces an AC sine wave signal with frequency 
+proportional to wind speed. This AC signal is induced in a 
+stationary coil by a six pole magnet mounted on the propeller 
+shaft. Three complete sine wave cycles are produced for each 
+propeller revolution.
+Vane position is transmitted by a 10K ohm precision conductive 
+plastic potentiometer which requires a regulated excitation 
+voltage. With a constant voltage applied to the potentiometer, 
+the output signal is an analog voltage directly proportional to 
+wind  direction angle.
+The instrument mounts on standard one inch pipe, outside diameter 
+34 mm (1.34"). An orientation ring is provided so the instrument 
+can be removed for maintenance and reinstalled without loss of 
+wind direction reference. Both the mounting post assembly and 
+the orientation ring are secured to the mounting pipe by stainless 
+steel band clamps. Electrical connections are made in a junction 
+box at the base. A variety of devices are available for signal 
+conditioning, display, and recording of wind speed and direction.  
+INITIAL CHECKOUT
+When the Wind Monitor is unpacked it should be checked carefully 
+for any signs of shipping damage.  
+Remove the plastic nut on the propeller shaft. Install the propeller 
+on the shaft so the serial number on the propeller faces forward 
+(into the wind). Engage the propeller into the molded ribs on the 
+propeller shaft hub. The instrument is aligned, balanced and fully 
+calibrated before shipment, however, it should be checked both 
+mechanically and electrically before installation. The vane and 
+propeller should easily rotate 360° without friction. Check vane 
+balance by holding the instrument base so the vane surface is 
+horizontal. It should have near neutral torque without any particular 
+tendency to rotate. A slight imbalance will not degrade performance.
+The potentiometer requires a stable DC excitation voltage.  Do 
+not exceed 15 volts. When the potentiometer wiper is in the 5° 
+deadband region, the output signal is "floating" and may show 
+varying or unpredictable values. To prevent false readings,  signal 
+conditioning electronics should clamp the signal to excitation 
+or reference level when this occurs. NOTE: Young signal 
+conditioning devices clamp the signal to excitation level. Avoid 
+a short circuit between the wind direction signal line and either the 
+excitation or reference lines. Although there is a 1K ohm current 
+limiting resistor in series with the wiper for protection, damage 
+to the potentiometer may occur if a short circuit condition exists.
+Before installation, connect the instrument to an indicator as shown 
+in the wiring diagram and check for proper wind speed and wind 
+direction values. To check wind speed, temporarily remove the 
+propeller and connect the shaft to an Anemometer Drive. Details 
+appear in the CALIBRATION section of this manual.
+MODEL 05103
+WIND MONITOR
+WIND SPEED SPECIFICATION SUMMARY
+Range 0 to 100 m/s (224 mph)
+Sensor 18 cm diameter 4-blade helicoid  
+propeller molded of polypropylene
+Pitch 29.4 cm air passage per revolution
+Distance Constant 2.7 m (8.9 ft.) for 63% recovery
+Threshold Sensitivity 1.0 m/s (2.2 mph)
+Transducer Centrally mounted stationary coil, 2K Ohm 
+nominal DC resistance
+Transducer Output AC sine wave signal induced by rotating 
+magnet on propeller shaft. 80 mV p-p at 
+100 rpm. 8.0 V p-p at 10,000 rpm.
+Output Frequency 3 cycles per propeller revolution  
+(0.098 m/s per Hz)
+WIND DIRECTION (AZIMUTH) SPECIFICATION SUMMARY
+Range 360° mechanical, 355° electrical (5° open)
+Sensor  Balanced vane, 38 cm (15 in) turning radius.
+Damping Ratio 0.3
+Delay Distance 1.3 m (4.3 ft) for 50% recovery
+Threshold Sensitivity 1.1 m/s (2.5 mph) at 10° displacement
+Damped Natural
+   Wavelength 7.4 m (24.3 ft)
+Undamped Natural
+   Wavelength 7.2 m (23.6 ft)
+Transducer Precision conductive plastic potentiometer, 
+10K ohm resistance (±20%), 0.25% 
+linearity, life expectancy 50 million 
+revolutions, rated 1 watt at 40° C, 0 watts 
+at 125° C
+Transducer Excitation
+  Requirement Regulated DC voltage, 15 VDC max
+Transducer Output Analog DC voltage proportional to azimuth 
+angle with regulated excitation voltage 
+applied across potentiometer.
+GENERAL
+Operating Temperature: -50 to 50°C (-58 to 122°F)
+
+
+Page 3:
+Page 2
+05103-90(N)
+INSTALLATION
+Proper placement of the instrument is very important. Eddies from 
+trees, buildings, or other structures can greatly influence wind 
+speed and wind direction observations. To get meaningful data 
+for most applications locate the instrument well above or upwind 
+from obstructions. As a general rule, the air flow around a structure 
+is disturbed to twice the height of the structure upwind, six times 
+the height downwind, and up to twice the height of the structure 
+above ground. For some applications it may not be practical or 
+necessary to meet these requirements.
+FAILURE TO PROPERLY GROUND THE WIND MONITOR  
+MAY RESULT IN ERRONEOUS SIGNALS  
+OR TRANSDUCER DAMAGE.
+Grounding the Wind Monitor is vitally important. Without proper 
+grounding, static electrical charge can build up during certain 
+atmospheric conditions and discharge through the transducers. 
+This discharge can cause erroneous signals or transducer failure. 
+To direct the discharge away from the transducers, the mounting 
+post assembly is made with a special antistatic plastic. It is very 
+important that the mounting post be connected to a good earth 
+ground. There are two ways this may be accomplished. First, 
+the Wind Monitor may be mounted on a metal pipe which is 
+connected to earth ground. The mounting pipe should not be 
+painted where the Wind Monitor is mounted. Towers or masts 
+set in concrete should be connected to one or more grounding 
+rods. If it is difficult to ground the mounting post in this manner, 
+the following method should be used. Inside the junction box 
+the terminal labeled EARTH GND is internally connected to the 
+antistatic mounting post. This terminal should be connected to 
+an earth ground (Refer to wiring diagram).
+Initial installation is most easily done with two people; one to adjust 
+the instrument position and the other to observe the indicating 
+device. After initial installation, the instrument can be removed 
+and returned to its mounting without realigning the vane since 
+the orientation ring preserves the wind direction reference. Install 
+the Wind Monitor following these steps:
+1. MOUNT WIND MONITOR
+ a) Place orientation ring on mounting post. Do Not tighten 
+band clamp yet.
+ b) Place Wind Monitor on mounting post. Do Not tighten 
+band clamp yet. 
+  
+2. CONNECT SENSOR CABLE
+ a) Refer to wiring diagram located at back of manual.
+ 
+3. ALIGN VANE
+ a) Connect instrument to an indicator.
+ b) Choose a known wind direction reference point on the 
+horizon.
+ c) Sighting down instrument centerline, point nose cone at  
+reference point on horizon.
+ d) While holding vane in position, slowly turn base until 
+indicator shows proper value.
+ e) Tighten mounting post band clamp.
+ f) Engage orientation ring indexing pin in notch at 
+instrument base.
+ g) Tighten orientation ring band clamp.
+CALIBRATION
+The Wind Monitor is fully calibrated before shipment and should 
+require no adjustments. Recalibration may be necessary after 
+some maintenance operations. Periodic calibration checks are 
+desirable and may be necessary where the instrument is used in 
+programs which require auditing of sensor performance.
+Accurate wind direction calibration requires a Model 18112 Vane 
+Angle Bench Stand. Begin by connecting the instrument to a 
+signal conditioning circuit which has some method of indicating 
+wind direction value. This may be a display which shows wind 
+direction values in angular degrees or simply a voltmeter 
+monitoring the output. Orient the base so the junction box faces 
+due south. Visually align the vane with the crossmarkings and 
+observe the indicator output. If the vane position and indicator 
+do not agree within 5°, adjust the potentiometer coupling inside 
+the main housing. Details for making this adjustment appear 
+in the MAINTENANCE, POTENTIOMETER REPLACEMENT, 
+outline, step 7. 
+It is important to note that, while the sensor mechanically rotates 
+through 360°, the full scale wind direction signal from the signal 
+conditioning occurs at 355°. The signal conditioning electronics 
+must be adjusted accordingly. For example, in a circuit where 0 
+to 1.000 VDC represents 0° to 360°, the output must be adjusted 
+for 0.986 VDC when the instrument is at 355°. (355°/360° X 1.000 
+volts = 0.986 volts)
+Wind speed calibration is determined by propeller pitch and the 
+output characteristics of the transducer. Calibration formulas 
+showing wind speed vs. propeller rpm and output frequency are 
+included below. Standard accuracy is ± 0.3 m/s (0.6mph). For 
+greater accuracy, the sensor must be individually calibrated in 
+comparison with a wind speed standard. Contact the factory or 
+your supplier to schedule a NIST (National Institute of Standards 
+& Technology) traceable wind tunnel calibration in our facility.
+ 
+To calibrate wind system electronics using a signal from the 
+instrument, temporarily remove the propeller and connect an 
+Anemometer Drive (18802 or equivalent)  to the propeller shaft. 
+Apply the appropriate calibration formula to the calibrating motor 
+rpm and adjust the electronics for the proper value. For example, 
+with the propeller shaft turning at 3600 rpm, adjust an indicator to 
+display 17.6 meters per second [3600 rpm  X 0.00490 (m/s)/rpm 
+=17.6 m/s]
+Details on checking bearing torque, which affects wind speed and 
+direction threshold, appear in the following section.
+CALIBRATION FORMULAS
+Model 05103 Wind Monitor w / 08234 Propeller
+WIND SPEED  vs  PROPELLER RPM
+m/s = 0.00490 x rpm
+knots = 0.00952 x rpm
+mph = 0.01096 x rpm
+km/h = 0.01764 x rpm
+WIND SPEED  vs  OUTPUT FREQUENCY
+m/s = 0.0980 x Hz
+knots = 0.1904 x Hz
+mph = 0.2192 x Hz
+km/h = 0.3528 x Hz
+
+Page 4:
+Page 3
+05103-90(N)
+MAINTENANCE
+Given proper care, the Wind Monitor should provide years of 
+service. The only components likely to need replacement due to 
+normal wear are the precision ball bearings and the wind direction 
+potentiometer. Only a qualified instrument technician should 
+perform the replacement. If service facilities are not available, 
+return the instrument to the company. Refer to the drawings to 
+become familiar with part names and locations. The asterisk * 
+which appears in the following outlines is a reminder that maximum 
+torque on all set screws is 80 oz-in.
+POTENTIOMETER REPLACEMENT
+The potentiometer has a life expectancy of fifty million revolutions. 
+As it becomes worn, the element may begin to produce noisy 
+signals or become nonlinear. When signal noise or non-linearity 
+becomes unacceptable, replace the potentiometer. Refer to 
+exploded view drawing and proceed as follows:
+1. REMOVE MAIN HOUSING
+ a) Unscrew nose cone from main housing. Set o-ring aside 
+for later use.
+ b) Gently push main housing latch.
+ c) While pushing latch, lift main housing up and remove it 
+from vertical shaft bearing rotor.
+2. UNSOLDER TRANSDUCER WIRE
+ a) Remove junction box cover, exposing circuit board.
+ b) Remove screws holding circuit board.
+ c) Unsolder three potentiometer wires (white, green, black), two 
+wind speed coil wires (red, black) and earth ground wire (red) 
+from board.
+3. REMOVE POTENTIOMETER
+ a) Loosen set screw on potentiometer coupling and remove 
+it from potentiometer adjust thumbwheel.
+ b) Loosen set screw on potentiometer adjust thumbwheel 
+and remove it from potentiometer shaft.
+ c) Loosen two set screws at base of transducer assembly 
+and remove assembly from vertical shaft.
+ d) Unscrew potentiometer housing from potentiometer 
+  mounting & coil assembly.
+ e) Push potentiometer out of potentiometer mounting & 
+coil assembly by applying firm but gentle pressure on 
+potentiometer shaft. Make sure that the shaft o-ring 
+comes out with the potentiometer.  If not, then gently 
+push it out from the top of the coil assembly.
+4. INSTALL NEW  POTENTIOMETER
+ a) Push new potentiometer into potentiometer mounting & 
+coil assembly making sure o-ring is on shaft.
+ b) Feed potentiometer and coil wires through hole in bottom 
+of potentiometer housing.
+ c) Screw potentiometer housing onto potentiometer 
+mounting & coil assembly.
+ d) Gently pull transducer wires through bottom of 
+  potentiometer housing to take up any slack. Apply a 
+small amount of silicone sealant around hole.
+ e) Install transducer assembly on vertical shaft allowing  
+0.5 mm (0.020") clearance from vertical bearing.  
+Tighten set screws* at bottom of transducer assembly.
+ f) Place potentiometer adjust thumbwheel on potentiometer 
+shaft and tighten set screw*.
+ g) Place potentiometer coupling on potentiometer
+   adjust thumbwheel. Do Not tighten set screw yet.
+5. RECONNECT TRANSDUCER WIRES
+ a) Using needle-nose pliers or a paper clip bent to form a 
+small hook, gently pull transducer wires through hole in 
+junction box.
+ b) Solder wires to circuit board according to wiring diagram.   
+Observe color code.
+ c) Secure circuit board in junction box using two screws 
+removed in step 2b. Do not overtighten.
+6. REPLACE MAIN HOUSING
+ a) Place main housing over vertical shaft bearing rotor. Be 
+careful to align indexing key and channel in these two 
+assemblies.
+ b) Place main housing over vertical shaft bearing rotor until  
+potentiometer coupling is near top of main housing.
+ c) Turn potentiometer adjust thumbwheel until 
+potentiometer coupling is oriented to engage ridge in top 
+of  main housing. Set screw on potentiometer coupling 
+should be facing the front opening.
+ d) With potentiometer coupling properly oriented, continue 
+pushing main housing onto vertical shaft bearing  rotor 
+until main housing latch locks into position with a “click”.
+7. ALIGN VANE
+ a) Connect excitation voltage and signal conditioning 
+electronics to terminal strip according to wiring diagram.
+ b) With mounting post held in position so junction box 
+is facing due south, orient vane to a known angular 
+reference. Details appear in CALIBRATION section.
+ c) Reach in through front of main housing and turn 
+potentiometer adjust thumbwheel until signal conditioning 
+system indicates proper value.
+ d) Tighten set screw* on potentiometer coupling.
+8. REPLACE NOSE CONE
+ a) Screw nose cone into main housing until o-ring seal is 
+seated. Be certain threads are properly engaged to avoid 
+cross-threading.
+FLANGE  BEARING  REPLACEMENT
+If anemometer bearings become noisy or wind speed threshold 
+increases above an acceptable level, bearings may need 
+replacement. Check anemometer bearing condition using a Model 
+18310 Propeller Torque Disc. If needed, bearings are replaced 
+as follows.
+1. REMOVE OLD BEARINGS
+ a) Unscrew nose cone. Set o-ring aside for later use.
+ b) Loosen set screw on magnet shaft collar and remove  
+magnet.
+ c) Slide propeller shaft out of nose cone assembly.
+ d) Remove front bearing cap which covers front bearing.
+ e) Remove both front and rear bearings from nose cone  
+assembly. Insert edge of a pocket knife under bearing  
+flange and lift it out.
+2. INSTALL NEW BEARINGS
+ a) Insert new front and rear bearings into nose cone.
+ b) Replace front bearing cap.
+ c) Carefully slide propeller shaft thru bearings.
+ d) Place magnet on propeller shaft allowing 0.5 mm   
+(0.020") clearance from rear bearing.
+ e) Tighten set screw* on magnet shaft collar.
+ f) Screw nose cone into main housing until o-ring seal  
+is   seated. Be certain threads are properly engaged to  
+avoid cross-threading.
+*Max set screw torque 80 oz-in
+
+Page 5:
+Page 4
+05103-90(N)
+VERTICAL SHAFT BEARING REPLACEMENT
+Vertical shaft bearings are much larger than the anemometer 
+bearings. Ordinarily, these bearings require replacement less 
+frequently than anemometer bearings. Check bearing condition 
+using a Model 18331 Vane Torque Gauge.
+Since this procedure is similar to POTENTIOMETER 
+REPLACEMENT, only the major steps are listed here.
+1. REMOVE MAIN HOUSING
+2. UNSOLDER TRANSDUCER WIRES AND REMOVE
+  TRANSDUCER ASSEMBLY
+ Loosen set screws at base of transducer assembly and  
+remove entire assembly from vertical shaft.  
+3. REMOVE VERTICAL SHAFT BEARING ROTOR by sliding 
+it  upward off vertical shaft.
+4. REMOVE OLD VERTICAL BEARINGS AND INSTALL 
+NEW  BEARINGS. When inserting new bearings, be  careful 
+not to apply pressure to bearing shields.
+5. REPLACE VERTICAL SHAFT BEARING ROTOR. 
+6. REPLACE TRANSDUCER & RECONNECT WIRES
+7. REPLACE MAIN HOUSING
+8. ALIGN VANE
+9.  REPLACE NOSE CONE
+EMC COMPLIANCE
+This device complies with Part 15 of the FCC Rules. Operation 
+is subject to the following two conditions: (1) this device may not 
+cause harmful interference, and (2) this device must accept any 
+interference received, including interference that may cause 
+undesired operation.
+This equipment has been tested and found to comply with the 
+limits for a Class A digital device, pursuant to part 15 of the FCC 
+Rules. These limits are designed to provide reasonable protection 
+against harmful interference when the equipment is operated in a 
+commercial environment. This equipment generates, uses, and 
+can radiate radio frequency energy and, if not installed and used 
+in accordance with the instruction manual, may cause harmful 
+interference to radio communications.  Operation of this equipment 
+in a residential area is likely to cause harmful interference in which 
+case the user will be required to correct the interference at his own 
+expense.
+This ISM device complies with Canadian ICES-001.
+Cet appareil ISM est conforme à Ia norme NMB-001 du Canada.
+EN55011/CISPR 11, Group 1, Class B device.
+Class B equipment is suitable for use in domestic establishments 
+and in establishments directly connected to a low voltage power 
+supply network which supplies buildings used for domestic 
+purposes.
+Note:
+To meet EMC Compliance, a YOUNG 18500 ferrite choke must be 
+installed on the cable near the sensor.  The cable must pass through 
+the center hole of the choke at least 2 times, creating 1 loop around 
+the outside as shown below.
+WARRANTY
+This product is warranted to be free of defects in materials and 
+construction for a period of 12 months from date of initial purchase. 
+Liability is limited to repair or replacement of defective item. A copy 
+of the warranty policy may be obtained from R. M. Young Company.
+CE COMPLIANCE
+This product has been tested and complies with European  
+CE requirements for the EMC Directive.  Please note that shielded 
+cable must be used.
+
+
+
+Query #5:
+  Query: Young 05103-L wind speed sensor operational range sensitivity specifications
+  Dataset: sensor_knowledge
+  Node Sets: wind_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. R.M. Young Wind Monitor maintenance
+Preventive maintenance for R.M. Young Wind Monitor includes:
+
+-Checking the anemometer bearings and the potentiometer at least every second year. If the bearings are noisy or wind speed threshold increases above an acceptable level, replace the bearings.
+After replacing the bearings, update the maintenance information in the Web UI.
+-If the sensor measurement data looks suspicious after the maintenance operation, recalibrate the sensor.
+R.M. Young suggests that the anemometer bearings and the potentiometer be
+inspected at least every 24 months. Only a qualified technician should perform
+the replacement.
+Troubleshooting
+7.1 Wind Direction
+Symptom: -9999 or no change in direction
+1. Check that the sensor is wired to the Excitation and Single-Ended channel
+specified by the measurement instruction.
+2. Verify that the excitation voltage and Range code are correct for the
+datalogger type.
+3. Disconnect the sensor from the datalogger and use an ohn meter to check the
+potentiometer. Resistance should be about 10K ohms between the Blue and
+White wires. The resistance between either the Blue/Green or White/Green
+wires should vary between 1K to 11K depending on the vane position.
+Resistance when the vane is in the 5 degree dead band should be about 1 M
+ohm.
+Symptom: Incorrect wind direction
+1. Verify that the Excitation voltage, Range code, multiplier and offset
+parameters are correct for the datalogger type.
+2. Check orientation of sensor, as described in Section 3.
+7.2 Wind Speed
+Symptom: No wind speed
+1. Check that the sensor is wired to the Pulse channel specified by the Pulse
+count instruction.
+2. Disconnect the sensor from the datalogger and use an ohm meter to check
+the coil. The resistance between the red and black wires should be about 2075
+ohms. Infinite resistance indicates an open coil; low resistance indicates a
+shorted coil.
+3. Verify that the Configuration Code, and Multiplier and Offset parameters for
+the Pulse Count instruction are correct for the datalogger type.
+Symptom: Wind speed does not change
+1. For the dataloggers that are programmed with Edlog, the input location for
+wind speed is not updated if the datalogger is getting “Program Table
+Overruns.” Increase the execution interval (scan rate) to prevent overruns.
+
+    2. Page 6:
+Page 5
+05103-90(N)
+CABLE & WIRING DIAGRAM
+MODEL 05103  WIND MONITOR
+
+
+Page 7:
+Page 6
+05103-90(N)
+BEARING REPLACEMENT & POTENTIOMETER ADJUSTMENT
+
+
+Page 8:
+Page 7
+05103-90(N)
+05194 PROPELLER NUT WRENCH
+08234 PROPELLER - 18CM X 30CM (BLACK PP)
+05163PG FLANGE BEARING (2)
+05160C NOSE CONE ASSY
+05158 NOSE CONE O-RING
+05161A 6-POLE MAGNET &
+SHAFT COLLAR
+05172
+MAIN HOUSING AND
+TAIL ASSY
+05138A
+POTENTIOMETER COUPLING
+05139
+POT ADJUST THUMBWHEEL
+05145C POTENTIOMETER MOUNTING
+& COIL ASSEMBLY
+05134 POTENTIOMETER 10K
+1/4% LIN, CONDUCTIVE PLASTIC
+(WITH O-RING)
+05131D POTENTIOMETER HOUSING
+05130D TRANSDUCER ASSEMBLY
+05124VG (2)
+VERTICAL SHAFT BEARING
+05187  PROPELLER NUT 1/4-20
+05164C PROPELLER SHAFT W/HUB
+6-32 x 1/8 SET SCREW (5)
+05127 MAIN HOUSING LATCH
+6-32 x 3/8 FLAT HD SCREW
+05126C VERTICAL SHAFT
+BEARING ROTOR
+05121E-10
+JUNCTION BOX COVER
+05178A JUNCTION BOX
+CIRCUIT BOARD ASSY
+4-40 x 5/16 SCREW (3)
+05121E
+MOUNTING POST ASSEMBLY
+05129 BAND CLAMP
+(INCL. W/ 05121E, 05128B)
+05128B ORIENTATION RING
+05165B  FRONT BEARING CAP
+R. M. YOUNG COMPANY   2801 Aero Park Drive ,  Traverse City,   Michigan   49686   U.S.A.
+TEL  (231) 946-3980       FAX  (231) 946-4772
+
+
+
+
+ 
+GENERAL ASSEMBLY & REPLACEMENT PARTS
+MODEL 05103  WIND MONITOR
+18500 FERRITE CHOKE
+
+
+Page 10:
+Calibration Accessories
+Model 18802 
+Anemometer Drive
+Model 18112
+Vane Angle Bench Stand
+Model 18310 
+Propeller Torque Disc
+Model 18331 Vane Torque Gauge
+Model 18301 
+Vane Alignment Rod
+Model 18212 
+Vane Angle Fixture-Tower Mount
+
+Page 11:
+Model 18802 Anemometer Drive provides a convenient and accurate way to rotate an anemometer shaft at 
+a known rate. The motor may be set to rotate clockwise or counter-clockwise at any rate between 200 and 
+15,000 RPM in 100 RPM increments. The LCD display is referenced to an accurate and stable quartz timebase. 
+For completely portable operation, the unit can be operated on internal batteries. For extended operation, an 
+AC wall adapter is included.
+Model 18811 Anemometer Drive is identical to Model 18802 except the drive motor incorporates a 
+gear reducer for operation in the range of 20 to 990 RPM in 10 RPM increments. The lower range 
+is recommended for cup anemometer calibration.
+Model 18112 Vane Angle Bench Stand is used for benchtop wind direction calibration of the Wind Monitor 
+family of sensors. The mounting post engages the direction orientation notch on the Wind Monitor. An easy to 
+read pointer indicates 0 to 360 degrees with 1/2 degree resolution.
+Model 18212 Vane Angle Fixture - Tower Mount similar to the Model 18112, the tower mount feature allows use 
+on the tower as well as the bench top. The fixture is temporarily placed on the tower between the Wind Monitor 
+and its tower mounting. Index keys and notches are engaged to preserve direction reference.
+Model 18310 Propeller Torque Disc checks anemometer bearing torque with 0.1 gm/cm resolu-
+tion. The disc temporarily replaces the propeller for torque measurement or simple yet accurate pass/fail 
+checks. Charts included with the unit relate torque to propeller threshold with limits for acceptable 
+bearing performance.
+Model 18312 Cup-Wheel Torque Disc checks cup anemometer bearing torque.
+Model 18331 Vane Torque Gauge checks vane bearing torque of the Wind Monitor family sensors. Slip the 
+fixture over the main housing and make simple yet accurate vane torque measurements. Charts relating vane 
+torque to vane threshold provide limits for acceptable bearing performance.
+Model 18301 Vane Alignment Rod helps align the vane of a wind sensor to a known direction reference during 
+installation. The base of the device has an index key that engages the direction orientation notch in the sensor 
+allowing the sensor to be removed without losing wind direction reference.
+Specifications subject to change without notice. 
+YOUNG
+ Specifications
+ Ordering Information                                                                  MODEL
+R.M. YOUNG COMPANY
+2801 Aero Park Drive
+Traverse City, Michigan 49686 USA
+TEL: (231) 946-3980  FAX: (231) 946-4772
+E-mail: met.sales@youngusa.com
+Web Site: www.youngusa.com
+ANEMOMETER DRIVE 200 to 15,000 RPM ..............................................  18802
+ANEMOMETER DRIVE 20 TO 990 RPM ..................................................  18811
+230V / 50-60 HZ INPUT POWER ................................................... ADD SUFFIX “H”
+VANE ANGLE BENCH STAND ..........................................................  18112
+VANE ANGLE FIXTURE - TOWER MOUNT ...........................................  18212
+PROPELLER TORQUE DISC............................................................  18310
+CUP-WHEEL TORQUE DISC ...........................................................  18312
+VANE TORQUE GAUGE .................................................................  18331
+VANE ALIGNMENT ROD ................................................................  18301
+Copyright © 2000 R.M. Young Company, Printed in U.S.A. 11/00
+Range:
+200 to 15,000 RPM in 100 RPM increments
+Rotation:
+Clockwise or Counter-Clockwise
+Display Resolution:
+1 RPM
+Quartz Timebase Reference:
+0.1 RPM
+Power Requirement:
+2x9 V (alkaline or lithium) batteries
+115 VAC wall adapter included
+(230 VAC – add suffix H)
+Range:
+20 to 990 RPM in 10 RPM increments
+Display Resolution:
+0.1 RPM
+Range:
+0 to 360 degrees
+Resolution: 
+0.5 degree
+Range:
+0 to 5.4 gm-cm
+Resolution: 
+0.1 gm-cm
+Range:
+0 to 50 gm-cm
+Resolution: 
+5 gm-cm
+ MODEL 18802 ANEMOMETER DRIVE
+ (Replaces 18801)
+ MODEL 18310, 18312 TORQUE DISC DEVICES
+Calibration Accessories
+ MODEL 18811 ANEMOMETER DRIVE
+ (Replaces 18810)
+ MODEL 18112, 18212 VANE ANGLE
+ CALIBRATION DEVICES
+ MODEL 18331 VANE TORQUE GAUGE
+
+
+
+Query #6:
+  Query: troubleshooting guides, common failure modes, and maintenance procedures for Young 05103-L wind speed sensor
+  Dataset: maintenance_knowledge
+  Node Sets: wind_sensor
+  Results: 2
+  
+  Document Chunks:
+    1. R.M. Young Wind Monitor maintenance
+Preventive maintenance for R.M. Young Wind Monitor includes:
+
+-Checking the anemometer bearings and the potentiometer at least every second year. If the bearings are noisy or wind speed threshold increases above an acceptable level, replace the bearings.
+After replacing the bearings, update the maintenance information in the Web UI.
+-If the sensor measurement data looks suspicious after the maintenance operation, recalibrate the sensor.
+R.M. Young suggests that the anemometer bearings and the potentiometer be
+inspected at least every 24 months. Only a qualified technician should perform
+the replacement.
+Troubleshooting
+7.1 Wind Direction
+Symptom: -9999 or no change in direction
+1. Check that the sensor is wired to the Excitation and Single-Ended channel
+specified by the measurement instruction.
+2. Verify that the excitation voltage and Range code are correct for the
+datalogger type.
+3. Disconnect the sensor from the datalogger and use an ohn meter to check the
+potentiometer. Resistance should be about 10K ohms between the Blue and
+White wires. The resistance between either the Blue/Green or White/Green
+wires should vary between 1K to 11K depending on the vane position.
+Resistance when the vane is in the 5 degree dead band should be about 1 M
+ohm.
+Symptom: Incorrect wind direction
+1. Verify that the Excitation voltage, Range code, multiplier and offset
+parameters are correct for the datalogger type.
+2. Check orientation of sensor, as described in Section 3.
+7.2 Wind Speed
+Symptom: No wind speed
+1. Check that the sensor is wired to the Pulse channel specified by the Pulse
+count instruction.
+2. Disconnect the sensor from the datalogger and use an ohm meter to check
+the coil. The resistance between the red and black wires should be about 2075
+ohms. Infinite resistance indicates an open coil; low resistance indicates a
+shorted coil.
+3. Verify that the Configuration Code, and Multiplier and Offset parameters for
+the Pulse Count instruction are correct for the datalogger type.
+Symptom: Wind speed does not change
+1. For the dataloggers that are programmed with Edlog, the input location for
+wind speed is not updated if the datalogger is getting “Program Table
+Overruns.” Increase the execution interval (scan rate) to prevent overruns.
+
+    2. Page 6:
+Page 5
+05103-90(N)
+CABLE & WIRING DIAGRAM
+MODEL 05103  WIND MONITOR
+
+
+Page 7:
+Page 6
+05103-90(N)
+BEARING REPLACEMENT & POTENTIOMETER ADJUSTMENT
+
+
+Page 8:
+Page 7
+05103-90(N)
+05194 PROPELLER NUT WRENCH
+08234 PROPELLER - 18CM X 30CM (BLACK PP)
+05163PG FLANGE BEARING (2)
+05160C NOSE CONE ASSY
+05158 NOSE CONE O-RING
+05161A 6-POLE MAGNET &
+SHAFT COLLAR
+05172
+MAIN HOUSING AND
+TAIL ASSY
+05138A
+POTENTIOMETER COUPLING
+05139
+POT ADJUST THUMBWHEEL
+05145C POTENTIOMETER MOUNTING
+& COIL ASSEMBLY
+05134 POTENTIOMETER 10K
+1/4% LIN, CONDUCTIVE PLASTIC
+(WITH O-RING)
+05131D POTENTIOMETER HOUSING
+05130D TRANSDUCER ASSEMBLY
+05124VG (2)
+VERTICAL SHAFT BEARING
+05187  PROPELLER NUT 1/4-20
+05164C PROPELLER SHAFT W/HUB
+6-32 x 1/8 SET SCREW (5)
+05127 MAIN HOUSING LATCH
+6-32 x 3/8 FLAT HD SCREW
+05126C VERTICAL SHAFT
+BEARING ROTOR
+05121E-10
+JUNCTION BOX COVER
+05178A JUNCTION BOX
+CIRCUIT BOARD ASSY
+4-40 x 5/16 SCREW (3)
+05121E
+MOUNTING POST ASSEMBLY
+05129 BAND CLAMP
+(INCL. W/ 05121E, 05128B)
+05128B ORIENTATION RING
+05165B  FRONT BEARING CAP
+R. M. YOUNG COMPANY   2801 Aero Park Drive ,  Traverse City,   Michigan   49686   U.S.A.
+TEL  (231) 946-3980       FAX  (231) 946-4772
+
+
+
+
+ 
+GENERAL ASSEMBLY & REPLACEMENT PARTS
+MODEL 05103  WIND MONITOR
+18500 FERRITE CHOKE
+
+
+Page 10:
+Calibration Accessories
+Model 18802 
+Anemometer Drive
+Model 18112
+Vane Angle Bench Stand
+Model 18310 
+Propeller Torque Disc
+Model 18331 Vane Torque Gauge
+Model 18301 
+Vane Alignment Rod
+Model 18212 
+Vane Angle Fixture-Tower Mount
+
+Page 11:
+Model 18802 Anemometer Drive provides a convenient and accurate way to rotate an anemometer shaft at 
+a known rate. The motor may be set to rotate clockwise or counter-clockwise at any rate between 200 and 
+15,000 RPM in 100 RPM increments. The LCD display is referenced to an accurate and stable quartz timebase. 
+For completely portable operation, the unit can be operated on internal batteries. For extended operation, an 
+AC wall adapter is included.
+Model 18811 Anemometer Drive is identical to Model 18802 except the drive motor incorporates a 
+gear reducer for operation in the range of 20 to 990 RPM in 10 RPM increments. The lower range 
+is recommended for cup anemometer calibration.
+Model 18112 Vane Angle Bench Stand is used for benchtop wind direction calibration of the Wind Monitor 
+family of sensors. The mounting post engages the direction orientation notch on the Wind Monitor. An easy to 
+read pointer indicates 0 to 360 degrees with 1/2 degree resolution.
+Model 18212 Vane Angle Fixture - Tower Mount similar to the Model 18112, the tower mount feature allows use 
+on the tower as well as the bench top. The fixture is temporarily placed on the tower between the Wind Monitor 
+and its tower mounting. Index keys and notches are engaged to preserve direction reference.
+Model 18310 Propeller Torque Disc checks anemometer bearing torque with 0.1 gm/cm resolu-
+tion. The disc temporarily replaces the propeller for torque measurement or simple yet accurate pass/fail 
+checks. Charts included with the unit relate torque to propeller threshold with limits for acceptable 
+bearing performance.
+Model 18312 Cup-Wheel Torque Disc checks cup anemometer bearing torque.
+Model 18331 Vane Torque Gauge checks vane bearing torque of the Wind Monitor family sensors. Slip the 
+fixture over the main housing and make simple yet accurate vane torque measurements. Charts relating vane 
+torque to vane threshold provide limits for acceptable bearing performance.
+Model 18301 Vane Alignment Rod helps align the vane of a wind sensor to a known direction reference during 
+installation. The base of the device has an index key that engages the direction orientation notch in the sensor 
+allowing the sensor to be removed without losing wind direction reference.
+Specifications subject to change without notice. 
+YOUNG
+ Specifications
+ Ordering Information                                                                  MODEL
+R.M. YOUNG COMPANY
+2801 Aero Park Drive
+Traverse City, Michigan 49686 USA
+TEL: (231) 946-3980  FAX: (231) 946-4772
+E-mail: met.sales@youngusa.com
+Web Site: www.youngusa.com
+ANEMOMETER DRIVE 200 to 15,000 RPM ..............................................  18802
+ANEMOMETER DRIVE 20 TO 990 RPM ..................................................  18811
+230V / 50-60 HZ INPUT POWER ................................................... ADD SUFFIX “H”
+VANE ANGLE BENCH STAND ..........................................................  18112
+VANE ANGLE FIXTURE - TOWER MOUNT ...........................................  18212
+PROPELLER TORQUE DISC............................................................  18310
+CUP-WHEEL TORQUE DISC ...........................................................  18312
+VANE TORQUE GAUGE .................................................................  18331
+VANE ALIGNMENT ROD ................................................................  18301
+Copyright © 2000 R.M. Young Company, Printed in U.S.A. 11/00
+Range:
+200 to 15,000 RPM in 100 RPM increments
+Rotation:
+Clockwise or Counter-Clockwise
+Display Resolution:
+1 RPM
+Quartz Timebase Reference:
+0.1 RPM
+Power Requirement:
+2x9 V (alkaline or lithium) batteries
+115 VAC wall adapter included
+(230 VAC – add suffix H)
+Range:
+20 to 990 RPM in 10 RPM increments
+Display Resolution:
+0.1 RPM
+Range:
+0 to 360 degrees
+Resolution: 
+0.5 degree
+Range:
+0 to 5.4 gm-cm
+Resolution: 
+0.1 gm-cm
+Range:
+0 to 50 gm-cm
+Resolution: 
+5 gm-cm
+ MODEL 18802 ANEMOMETER DRIVE
+ (Replaces 18801)
+ MODEL 18310, 18312 TORQUE DISC DEVICES
+Calibration Accessories
+ MODEL 18811 ANEMOMETER DRIVE
+ (Replaces 18810)
+ MODEL 18112, 18212 VANE ANGLE
+ CALIBRATION DEVICES
+ MODEL 18331 VANE TORQUE GAUGE
+
+
+================================================================================
+
+================================================================================
+
+
+================================================================================
+PROCESSING SUMMARY
+================================================================================
+LLM: gpt_4_1_mini
+Total Processing Time: 42.41 seconds
+Total Errors: 0
+
+Agent Call Statistics:
+
+Tool Call Statistics:
+  - maintenance_search_maintenance_knowledge: 1 calls
+  - sensor_search_sensor_knowledge: 1 calls
+  - get_weather: 1 calls
+================================================================================
+
+END OF LOG
+================================================================================

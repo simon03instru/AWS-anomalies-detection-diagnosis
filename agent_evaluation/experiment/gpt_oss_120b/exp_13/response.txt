@@ -1,0 +1,32 @@
+
+**Comprehensive Evaluation of the Relative Humidity Anomaly (2024‑08‑19 07:40 UTC)**
+
+1. **Current Weather Context**
+   - Satellite‑based model data at the anomaly time shows temperature ≈ 29 °C (≈ 1 °C lower than the sensor’s 30.92 °C) and relative humidity ≈ 58‑59 % (far below the sensor’s reported 100 %).
+   - Precipitation is 0 mm, matching the sensor’s rain report.  The surrounding environment therefore did not support saturation; a true 100 % RH reading is physically implausible.
+
+2. **Sensor Specification Assessment**
+   - The Vaisala HMP155 operates from 0‑100 % RH, but its accuracy near saturation is ±1.7 % RH and its resolution cannot reliably hold a perfectly stable 100 % value.
+   - The observed exact 100 % reading, combined with a temperature that is higher than expected for that humidity, exceeds the sensor’s realistic performance envelope and aligns with the trend analysis flagging a likely fault.
+
+3. **Troubleshooting & Maintenance Guidance**
+   - Common failure modes that produce a constant 100 % reading include:
+     * Wiring or power‑supply issues
+     * Clogged or contaminated Teflon filter/probe
+     * Sensor element degradation or moisture ingress
+     * Calibration drift or internal temperature‑sensor fault
+   - Recommended diagnostic steps:
+     1. Verify correct wiring and secure connections; check for corrosion.
+     2. Measure supply voltage (7‑28 V DC) and signal voltages at the sensor terminals.
+     3. Inspect the probe for condensation, dust, or damage; clean or replace the sintered filter if needed.
+     4. Compare the sensor’s internal temperature reading with a reference; abnormal values suggest a temperature‑sensor fault.
+     5. Review calibration status and perform a recalibration using the USB interface or push‑button routine.
+     6. Cross‑check output against a calibrated hygrometer; if discrepancy persists, replace the sensor element or the entire HMP155 unit.
+
+4. **Actionable Recommendations**
+   - **Immediate Response**: Flag the humidity data as unreliable in the data stream and exclude it from any operational decisions. Notify the station operator of the suspected sensor fault.
+   - **Further Monitoring**: Deploy a temporary reference hygrometer (if available) to capture RH for the next 24‑48 h while diagnostics are performed. Continue to monitor temperature and precipitation from the satellite model to confirm consistency.
+   - **Sensor Servicing**: Follow the diagnostic steps above. Prioritize checking power and wiring, then clean/replace the probe filter. If the sensor still reports 100 % after recalibration, schedule a replacement of the HMP155 unit.
+   - **Documentation**: Record the anomaly, diagnostic actions taken, and any corrective measures in the maintenance log. Update the sensor calibration record after service.
+
+**Conclusion**: The combination of satellite weather data, sensor specifications, and known failure modes strongly indicates a sensor fault rather than a genuine atmospheric event. Implement the immediate response and maintenance actions to restore accurate humidity measurements and prevent future false alarms.

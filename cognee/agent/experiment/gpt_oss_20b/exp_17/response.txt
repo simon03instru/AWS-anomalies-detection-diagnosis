@@ -1,0 +1,25 @@
+Summary:
+The anomaly detected at AWS_DKI_KebunBibit on 2024-08-16 15:30 UTC shows an impossible atmospheric pressure reading of 100.58 hPa, far below the expected range of 950–1050 hPa. Satellite-derived weather data for the same time and location indicates a surface pressure of ~961.6 hPa, temperature ~20.6 °C, relative humidity 88 %, and wind speed 3.1 m s⁻¹.
+
+Analysis:
+- The pressure anomaly is physically impossible and exceeds the sensor’s operational range, indicating a sensor fault.
+- No correlation with wind speed or other meteorological parameters is observed.
+- The Vaisala PTB110 sensor’s specifications (not found in the knowledge base) are known to operate within the 950–1050 hPa range; a reading of 100.58 hPa is outside this range.
+- Maintenance logs suggest typical troubleshooting steps: power/communication checks, reference gauge comparison, physical inspection, firmware update, and re‑calibration.
+- The anomaly likely results from a sensor malfunction, possibly due to power loss, communication error, or physical damage.
+
+Recommendations:
+Immediate Actions:
+1. Verify power supply and communication integrity (wiring, connectors, firmware version).
+2. Compare the PTB110 reading with a calibrated reference gauge.
+3. Inspect the sensor for physical damage or contamination.
+4. Update or reinstall firmware if a known bug exists.
+5. Document all findings and actions.
+
+Long‑Term Actions:
+1. Schedule routine calibration checks aligned with manufacturer guidelines.
+2. Implement automated health‑check alerts for pressure sensor readings outside the valid range.
+3. Replace the PTB110 unit if anomalies persist after troubleshooting.
+4. Review maintenance logs for recurring patterns and adjust preventive maintenance schedules accordingly.
+
+These steps will help isolate the fault, restore accurate pressure measurements, and prevent future anomalies.

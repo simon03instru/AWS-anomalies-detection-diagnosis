@@ -1,0 +1,22 @@
+Analyze the following weather anomaly detected at AWS_DKI_TAMAN_MINI:
+
+Event Detection Time: 2024-10-21T08:00:00
+Station: AWS_DKI_TAMAN_MINI
+Location: TMII, Indonesia
+Coordinates: Latitude -6.305489, Longitude 106.89966, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Atmospheric Pressure
+  Value: -9999.0
+  Sensor Brand: BaroVue
+  Trend Analysis: No analysis available
+
+Validation Timestamp: 2025-10-27T00:51:42.792538
+Correlation ID: anomaly-AWS_DKI_TAMAN_MINI-1761526302
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.

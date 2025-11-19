@@ -1,0 +1,36 @@
+Assessment Report on 0% Relative Humidity Anomaly at AWS_DIY_UGM on August 15, 2024, 20:00 UTC
+
+1. Overview of the Anomaly:
+At 20:00 UTC on August 15, 2024, the AWS_DIY_UGM station recorded a relative humidity (RH) value of 0%, which is physically implausible given the environmental context. The Vaisala HMP155 sensor reported this anomaly, which is a sudden and drastic deviation from typical nighttime RH values.
+
+2. Weather Data Context:
+- Satellite-based weather data for the same time and location indicate RH values around 86-87%, consistent with typical tropical nighttime conditions.
+- Historical data show RH values at night generally range between 70-80%, with temperature around 20.5°C, supporting a high humidity environment.
+- The temperature trend correlates well with expected RH levels, showing no unusual fluctuations that would justify a 0% RH reading.
+
+3. Sensor Specifications and Operational Range:
+- The Vaisala HMP155 sensor operates from 0 to 100 %RH with high accuracy and is capable of detecting low humidity levels.
+- A 0% reading is within the sensor's operational range but is highly unlikely under the observed environmental conditions.
+- The sensor sensitivity aligns with the expected measurement range, indicating the anomaly is not due to sensor limitations.
+
+4. Possible Causes of the Anomaly:
+Based on troubleshooting guides and common failure modes for the Vaisala HMP155 sensor, potential causes for the 0% RH reading include:
+- Incorrect wiring or connection issues.
+- Power supply problems, such as missing or unstable 12V supply.
+- Contamination or blockage of the sensor’s sintered Teflon filter.
+- Calibration drift or sensor malfunction.
+- Environmental interference like condensation or physical damage.
+
+5. Recommended Maintenance and Investigation Actions:
+- Verify all wiring connections and ensure correct range code settings.
+- Confirm stable and correct power supply to the sensor.
+- Inspect and clean the sensor probe and filter; replace the filter if necessary.
+- Conduct a thorough visual inspection for physical damage or environmental contamination.
+- Recalibrate the sensor to check for calibration drift.
+- Review installation conditions, including the radiation shield and probe placement.
+- Monitor sensor output closely after maintenance to confirm resolution.
+
+6. Conclusion:
+The 0% relative humidity reading at AWS_DIY_UGM on August 15, 2024, at 20:00 UTC is almost certainly due to sensor malfunction rather than an actual atmospheric condition. The environmental data and sensor specifications strongly support this conclusion. Immediate maintenance and troubleshooting as outlined above are recommended to restore accurate sensor performance and prevent future anomalies.
+
+This comprehensive assessment should guide field technicians and station managers in addressing the anomaly effectively.

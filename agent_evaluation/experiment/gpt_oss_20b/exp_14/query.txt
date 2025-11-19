@@ -1,0 +1,22 @@
+Analyze the following weather anomaly detected at AWS_DIY_STAGEOF_YOGYAKARTA:
+
+Event Detection Time: 2024-08-19T07:40:00
+Station: AWS_DIY_STAGEOF_YOGYAKARTA
+Location: Yogyakarta, Indonesia
+Coordinates: Latitude -7.81665, Longitude 110.29481, Altitude 48.0m
+
+1 Confirmed Anomaly with Trend Analysis:
+Anomaly #1: Wind Speed
+  Value: 10.511
+  Sensor Brand: Young 05103-L
+  Trend Analysis: Spike to 10.511 m/s (≈+8.7 m/s above 10‑min mean 1.8 m/s, >5σ). Single‑interval outlier; expected negative correlation with pressure not observed, suggesting sensor fault.
+
+Validation Timestamp: 2025-10-29T11:17:07.871138
+Correlation ID: anomaly-AWS_DIY_STAGEOF_YOGYAKARTA-1761736627
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.

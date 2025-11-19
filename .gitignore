@@ -39,13 +39,13 @@ ENV/
 Thumbs.db
 
 # File
-*.csv
-*.db
-*.json
-*.pkl
-*.txt
-*.log
-*.pth
+
+
+
+
+
+
+
 
 # Ignore specific files
 /src/config.py

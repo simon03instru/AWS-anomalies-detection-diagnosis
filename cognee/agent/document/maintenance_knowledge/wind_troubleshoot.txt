@@ -1,0 +1,35 @@
+CONTOH KASUS 1
+--------------
+Contoh Kasus: Sensor arah dan kecepatan angin "mati total". Data terbaca invalid (.999) atau tidak ada data sama sekali.
+
+Diagnosis: 
+1. Lonjakan listrik (petir) merusak komponen elektronik internal sensor. 
+2. Korosi (jamur hijau, karat putih) pada pin konektor kabel sehubungan arus/kekuatan sinyal menurun. 
+3. Kabel sensor putus atau terkelupas (misalnya, digigit hewan pengerat).
+
+Troubleshooting:
+1. Lepas dan periksa konektor kabel (di sisi sensor dan sisi data logger). Apakah ada korosi, pin bengkok, atau basah? 
+2. Lakukan inspeksi visual di sepanjang jalur kabel. Cari bekas gigitan, kabel terkelupas, terjepit, atau putus. 
+3. Jika ada multimeter, lakukan tes kontinuitas kabel.
+
+Rekomendasi:
+1. Jika ada korosi, bersihkan pin konektor (gunakan contact cleaner atau amplas halus). Keringkan dan pasang kembali dengan seal terpasang rapi. 
+2. Jika kabel putus, sambung/gembali (dengan soldering) dan isolasi kembali (dengan heat shrink) setiap unit kabel/sensor. 
+3. Jika konektor dan kabel baik namun sensor tetap mati, kemungkinan besar sensor rusak internal (akibat petir). Lakukan penggantian unit sensor.
+
+
+CONTOH KASUS 2
+--------------
+Contoh Kasus: Kecepatan angin terbaca 0 m/s secara konstan, namun arah angin terus berubah-ubah. Atau sebaliknya
+
+Diagnosis: 
+1. Bearing (tahel) pada cup anemometer (kecepatan) atau wind vane (arah) macet/rusak. 
+2. Halangan fisik (sarang burung, benang layangan).
+
+Troubleshooting:
+1. Periksa visual sensor angin. Apakah ada kotoran, sarang burung, atau benang yang menghalangi putaran? 
+2. Jika aman, coba putar cup atau vane secara manual. Apakah terasa berat atau macet? 
+3. Periksa kabel, pastikan tidak terpelintir akibat putaran vane (jika model sensor tidak slip-ring).
+
+Rekomendasi:
+Bersihkan halangan fisik pada sensor. Gunakan WD untuk melonggarkan bagian yang macet atau minyak 3. Jika bearing rusak, lakukan penggantian unit sensor angin.

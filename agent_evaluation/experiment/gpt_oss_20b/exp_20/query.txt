@@ -1,0 +1,26 @@
+Analyze the following weather anomaly detected at AWS_DKI_KebunBibit:
+
+Event Detection Time: 2024-08-16T15:30:00
+Station: AWS_DKI_KebunBibit
+Location: Cibubur, Indonesia
+Coordinates: Latitude -34.9285, Longitude 138.6007, Altitude 48.0m
+
+2 Confirmed Anomalies with Trend Analysis:
+Anomaly #1: Wind Direction
+  Value: -9999.0
+  Sensor Brand: Young 05103-L
+  Trend Analysis: Invalid sentinel value -9999.0° - sensor communication failure. Immediate fault.
+Anomaly #2: Temperature
+  Value: 15.0
+  Sensor Brand: Vaisala HMP155
+  Trend Analysis: Temperature dropped 13°C below 10‑minute mean (28.1°C) – >3σ deviation, abrupt spike, correlation with humidity broken, suggests sensor malfunction.
+
+Validation Timestamp: 2025-10-29T11:58:34.741770
+Correlation ID: anomaly-AWS_DKI_KebunBibit-1761739114
+
+Please investigate further:
+1. What are the current weather conditions at this location and how do they compare to the anomalous readings?
+2. Are these sensor readings within the operational range of the equipment? Is the sensor sensitivity matched to the reported trend?
+3. Check if there's any troubleshooting information that might explain these anomalies or sensor output and what maintenance actions should be recommended.
+4. Consider the trend analysis provided and provide a comprehensive assessment with actionable recommendations.
+5. If multiple anomalies are present, analyze potential correlations or common causes.

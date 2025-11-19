@@ -1,0 +1,18 @@
+The satellite‑derived weather data for UGM Yogyakarta (lat -7.7685, lon 110.3819) around the event time (2024‑08‑15 20:00 UTC) shows a stable, dry, mild evening: temperature 20.5 °C, relative humidity 86 %, wind speed 5.7 m s⁻¹ from the northwest (≈ 325°), and a surface pressure of about 995 hPa. No precipitation or solar radiation was recorded.
+
+
+The sensor reported a pressure of –9999.0 hPa, which is a sentinel value used by many instruments to indicate a missing or corrupted reading. This value is physically impossible and far outside the operational range of the Vaisala PTB110 (300–1100 hPa). The actual pressure from the satellite is 995 hPa, well within the sensor’s range.
+
+- The PTB110’s pressure range is 300–1100 hPa; 995 hPa is normal.
+- The sentinel value –9999.0 hPa is outside this range and indicates a fault.
+
+1. **Check sensor wiring and connectors** – loose or corroded contacts can cause communication loss.
+2. **Verify power supply** – ensure the sensor receives a stable 24 V (or 5 V for some models) and that the battery backup is functional.
+3. **Inspect firmware** – outdated firmware may misinterpret data; update to the latest version.
+4. **Calibrate the sensor** – perform a pressure calibration against a reference barometer.
+5. **Replace the sensor** – if the above steps do not resolve the issue, the PTB110 likely has a hardware fault and should be replaced.
+
+
+The anomaly is a clear indicator of a sensor communication or hardware failure rather than a genuine atmospheric event. The surrounding meteorological conditions are typical for the region and time of day, confirming that the pressure reading was not affected by extreme weather. Immediate action should focus on hardware diagnostics and replacement to restore reliable data collection.
+
+**No additional anomalies** were detected in the provided data set, so no further correlation analysis is required.

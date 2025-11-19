@@ -1,0 +1,92 @@
+Weather Data:
+Result:
+    {
+      "times": [
+        "2024-10-21T00:00",
+        "2024-10-21T00:15",
+        "2024-10-21T00:30",
+        "2024-10-21T00:45",
+        "2024-10-21T01:00",
+        "2024-10-21T01:15",
+        "2024-10-21T01:30",
+        "2024-10-21T01:45",
+        "2024-10-21T02:00"
+      ],
+      "temperature_2m": [
+        27.0,
+        27.5,
+        28.0,
+        28.5,
+        29.0,
+        29.5,
+        29.9,
+        30.2,
+        30.6
+      ],
+      "relative_humidity_2m": [
+        72,
+        70,
+        68,
+        66,
+        64,
+        63,
+        62,
+        61,
+        60
+      ],
+      "surface_pressure": [
+        1007.9,
+        1008.1,
+        1008.2,
+        1008.3,
+        1008.4,
+        1008.4,
+        1008.4,
+        1008.4,
+        1008.3
+      ],
+      "windspeed_10m": [
+        4.2,
+        5.1,
+        6.4,
+        7.7,
+        8.9,
+        9.7,
+        10.0,
+        10.6,
+        10.7
+      ],
+      "winddirection_10m": [
+        149,
+        141,
+        133,
+        127,
+        122,
+        117,
+        111,
+        108,
+        104
+      ]
+    }
+
+  1. The BaroVue 10 atmospheric pressure sensor requires regular maintenance, including desiccant replacement and sensor card recalibration. Its valid pressure measurement range is not explicitly stated in the provided context. Error codes and invalid readings may occur, indicated by pressure and temperature values returned as NAN; this could be due to improper insertion of the sensor card, incorrect wiring, or mismatched SDI-12 addresses. The device also assesses measurement quality, and a poor quality metric suggests the need for factory calibration.
+
+  2. The Vaisala Barocap Digital Barometer PTB210 has a valid pressure measurement range of 500 to 1100 hPa and 50 to 1100 hPa, with various analog output scalings. Error codes or invalid readings could arise from issues such as non-linearity (±0.10 to ±0.20 hPa), hysteresis (±0.05 to ±0.10 hPa), repeatability (±0.05 to ±0.10 hPa), and calibration uncertainty (±0.07 to ±0.20 hPa) based on different classes of accuracy. It's designed for harsh environments with IP65 protection and operational reliability to measure barometric pressure.
+
+
+
+  1. To troubleshoot the BaroVue pressure sensor returning a -9999.0 reading:
+1. **Check Connections**: Ensure the sensor card is fully inserted and correctly oriented. Verify connections of the white, red, and black wires.
+2. **Voltage Check**: Use a digital voltmeter to check the supply voltage, connecting the red wire to a non-switched 12V terminal if necessary.
+3. **SDI-12 Address**: Confirm that the BaroVUE 10's SDI-12 address matches the configuration used.
+4. **Replace Sensor Card**: If readings remain erroneous, consider replacing the sensor card, following anti-static precautions during the process.  
+5. **Calibration**: If data quality is poor, recalibration may be needed; ideally, send the sensor card to Campbell Scientific for calibration.
+
+  2. To troubleshoot a BaroVue pressure sensor displaying a -9999.0 reading, follow these steps:
+1. **Calibration Check**: Ensure the sensor is calibrated correctly, as it significantly affects accuracy.
+2. **Firmware Update**: Check if the sensor's firmware is up-to-date; an update may resolve bugs causing incorrect readings.
+3. **Pressure Range**: Verify if the sensor is operating within its specified pressure range; exceeding this may cause erroneous readings.
+4. **Physical Inspection**: Inspect the sensor for any signs of damage or environmental factors affecting its operation.
+5. **Replacement**: If troubleshooting fails, consider replacing the sensor.
+
+

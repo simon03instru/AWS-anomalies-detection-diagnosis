@@ -1,0 +1,11 @@
+
+The anomaly at AWS_DIY_UGM on 2024-08-15T20:00:00 UTC is a clear sensor failure: the wind direction reading of -9999.0° is a sentinel value outside the valid 0–360° range. 
+Weather data for the same time shows a wind direction of 325°, wind speed of 5.7 m/s, temperature 20.5 °C, and no precipitation, indicating calm, dry conditions that would not drive a sensor error. 
+The Young 05103‑L wind direction sensor is designed for 0–360° with a 1.1 m/s sensitivity per 10° and typical ±20 % resistance error; the sentinel value is not a normal error mode. 
+Maintenance logs and troubleshooting steps point to wiring, voltage, potentiometer, grounding, or mechanical blockage as common causes. Recommended actions: 
+1) Inspect and verify wiring and excitation voltage; 
+2) Measure potentiometer resistance to confirm it falls within expected ranges; 
+3) Check for short circuits or loose connections in the junction box; 
+4) Ensure proper grounding; 
+5) Verify the vane rotates freely and is free of debris; 
+6) If issues persist, recalibrate the sensor or replace the potentiometer or bearings. These steps should resolve the erroneous reading and restore reliable wind direction data.

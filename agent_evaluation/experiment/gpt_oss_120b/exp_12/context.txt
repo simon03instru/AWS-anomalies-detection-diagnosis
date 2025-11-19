@@ -1,0 +1,114 @@
+Weather Data from Satellite or API:
+
+
+Result:
+    {
+      "times": [
+        "2024-08-15T19:00",
+        "2024-08-15T19:15",
+        "2024-08-15T19:30",
+        "2024-08-15T19:45",
+        "2024-08-15T20:00",
+        "2024-08-15T20:15",
+        "2024-08-15T20:30",
+        "2024-08-15T20:45",
+        "2024-08-15T21:00"
+      ],
+      "relative_humidity_2m": [
+        85,
+        85,
+        86,
+        86,
+        86,
+        86,
+        87,
+        87,
+        87
+      ],
+      "temperature_2m": [
+        20.7,
+        20.6,
+        20.6,
+        20.6,
+        20.5,
+        20.5,
+        20.4,
+        20.3,
+        20.2
+      ],
+      "direct_radiation": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "precipitation": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+
+  1. To troubleshoot abrupt humidity drop failures in the Vaisala HMP155 humidity sensor, follow these steps:
+
+1. **Check Wiring:** Ensure the sensor is wired to the correct analog input channels according to the measurement instructions.
+2. **Verify Power Supply:** Make sure the red power wire is correctly connected to a 12V or SW12V channel. Use a voltmeter to check the output voltage for temperature and relative humidity.
+3. **Inspect the Probe and Filter:** Examine the probe for secure mounting, check the radiation shield for intactness, and clean or replace the filter if it is contaminated.
+4. **Keep Sensor Clean:** Regularly clean the sensor and shield to prevent debris or salt buildup that can affect readings.
+5. **Check for Contamination:** If measurements are inaccurate, consider contamination of the sensor element; clean it with distilled water if needed.
+6. **Recalibrate Annually:** It’s recommended to recalibrate the HMP155 annually to maintain accuracy.
+
+  2. To troubleshoot abrupt humidity drop failures in the Vaisala HMP155 humidity sensor, consider the following potential failure modes based on the context of the device:
+
+1. **Warmed Probe Issues:** If the warmed probe fails to function correctly, condensation may form on the sensor, leading to inaccurate humidity readings.
+
+2. **Environmental Factors:** High humidity environments (fog, mist, rain) can affect measurements. Ensure the sensor is protected from these conditions, possibly by verifying the sintered Teflon filter and ensuring that no moisture is entering the probe.
+
+3. **Calibration Problems:** Check if the probe is calibrated correctly, as a significant calibration drift can lead to abrupt changes in readings.
+
+4. **Electrical Connection Issues:** Inspect the USB and electrical connections for any faults or interruptions that might affect the sensor's performance.
+
+5. **Chemical Purge Sensitivity:** If using the chemical purge option, make sure it's functioning properly, as chemicals can impact the sensor's accuracy.
+
+6. **Sensor Damage:** Physically inspect the sensor for any damage or wear that could lead to failure in humidity measurement.
+
+By addressing these factors, you can help diagnose and potentially rectify the abrupt humidity drop issue.
+
+  1. **Vaisala HMP155 Humidity Sensor Specifications:**
+
+- **Operational Humidity Range:** Specific range not provided in the context.
+- **Accuracy:** Typical drift is less than 1% per year in cleaner environments; can be higher in polluted air. Specific accuracy values not mentioned.
+- **Response Time:** Changes when the probe filter is contaminated, resulting in longer response times.
+- **Recommended Operating Conditions:** Minimal maintenance required. Check monthly for debris on the radiation shield and filter. Recalibrate annually. Avoid exposure to pollutants and maintain clean conditions.
+
+  2. **Vaisala HMP155 Humidity Sensor Specifications**
+
+- **Operational Humidity Range:** 0 to 100 %RH
+- **Accuracy:** 
+  - ±0.6 %RH (0 … 40 %RH)
+  - ±1.0 %RH (40 … 95 %RH)
+  - At +15 … +25 °C: ±1 %RH (0 … 90 %RH), ±1.7 %RH (90 … 100 %RH)
+  - Varies with temperature conditions (see detailed specs)
+- **Response Time:** 
+  - 63%: 20 seconds
+  - 90%: 60 seconds
+- **Recommended Operating Conditions:** 
+  - Operating Temperature: -80 to +60 °C
+  - Storage Temperature: -80 to +60 °C
+  - Operating Humidity: 0 to 100 %RH
+  - IP Rating: IP66
+
+This sensor is designed for demanding outdoor applications and provides reliable measurements even in harsh environments.
+
+

@@ -1,0 +1,13 @@
+======================================================================
+KAFKA WORKFORCE SESSION LOG
+======================================================================
+Session Start: 2025-11-03 01:39:01
+Kafka Broker: localhost:9092
+Topic: weather-anomalies
+Log Directory: /home/ubuntu/running/cognee/agent/logs/anomaly_analysis
+======================================================================
+
+[2025-11-03 01:42:36] New anomaly from AWS_DKI_KebunBibit - 1 parameter(s): Atmospheric Pressure
+[2025-11-03 01:46:19] SUCCESS: AWS_DKI_KebunBibit - 222.79s - 1 anomalies
+[2025-11-03 01:50:27] New anomaly from AWS_DKI_KebunBibit - 2 parameter(s): Relative Humidity, Temperature
+[2025-11-03 01:53:07] SUCCESS: AWS_DKI_KebunBibit - 160.62s - 2 anomalies
