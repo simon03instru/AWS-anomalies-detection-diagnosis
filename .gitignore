@@ -1,22 +1,12 @@
 .env
 .env.local
-*.db
 __pycache__/
 
-# Model checkpoints
-.pth
-.ckpt
-.h5
 
 # Environment variables
 .env
 .env.local
 
-# Database files
-*.db
-*.sqlite
-*.sqlite3
-data/weather_data.db
 
 # Python
 __pycache__/
@@ -38,16 +28,3 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# File
-
-
-
-
-
-
-
-
-# Ignore specific files
-/src/config.py
-/src/train.py
-/src/evaluate.py

@@ -182,7 +182,7 @@ REQUIRE_AUTHENTICATION=true
 - ✅ Real-time anomaly detection using Anomaly Transformer
 - ✅ Sliding window processing (configurable)
 - ✅ Local AI agent with reasoning chains
-- ✅ MQTT event publishing
+- ✅ Kafka event publishing
 - ✅ Comprehensive logging (scores + thought processes)
 - ✅ Synthetic anomaly testing
 
@@ -198,6 +198,7 @@ REQUIRE_AUTHENTICATION=true
 ## 🧪 Testing & Evaluation
 
 ### Station Performance Testing
+Example:
 ```bash
 cd anomaly_detection/station_diy_stageof_yogyakarta/src
 python evaluate.py \
