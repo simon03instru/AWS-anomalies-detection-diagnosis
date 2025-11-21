@@ -1,4 +1,4 @@
-# Weather Anomaly Detection Multi-Agent System
+# Automatic Weather Anomaly Detection Multi-Agent System
 
 A distributed multi-agent system for real-time weather station monitoring, anomaly detection, and intelligent diagnostics using CAMEL AI framework and Anomaly Transformer models.
 
