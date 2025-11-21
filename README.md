@@ -65,11 +65,10 @@ weather-anomaly-detection/
 ├── README.md                          # This file
 ├── LICENSE
 ├── .gitignore
-├── requirements.txt                   # Consolidated dependencies (optional)
 │
 ├── anomaly_detection/ # Station-Level Components
 │   ├── README.md                      # Station setup guide
-│   ├── station_001/
+│   ├── station_001/                   # remote station
 │   │   ├── README.md                  # Station-specific instructions
 │   │   ├── checkpoints/               # Trained models
 │   │   ├── data/                      # Station database
@@ -83,21 +82,15 @@ weather-anomaly-detection/
 |   └── Analyze Anomaly (Threshold calculation)
 │
 ├── cognee/                            # Central Diagnosis Agent
-│   ├── README.md                      # Diagnosis agent guide
-│   ├── agent/
-│   │   ├── central_agent.py
-│   │   ├── prompt_template.py
-│   │   ├── tools.py
-│   │   └── document/                  # Knowledge base
-│   ├── interactive_workforce.py
-│   ├── requirements.txt
-│   └── .env.example
-│
-└── docs/                              # Additional documentation
-    ├── INSTALLATION.md
-    ├── DEPLOYMENT.md
-    ├── API_REFERENCE.md
-    └── EVALUATION.md
+    ├── README.md                      # Diagnosis agent guide
+    ├── agent/
+    │   ├── central_agent.py
+    │   ├── prompt_template.py
+    │   ├── tools.py
+    │   └── document/                  # Knowledge document
+    |   └── interactive_workforce.py
+    ├── requirements.txt
+    └── .env.example
 ```
 
 ---

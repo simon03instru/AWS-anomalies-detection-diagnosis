@@ -20,7 +20,6 @@ cognee/
 ├── README.md                          # This file
 ├── requirements.txt                   # Dependencies
 ├── .env.example                       # Environment template
-├── .env                               # Your configuration (gitignored)
 │
 ├── agent/
 │   ├── central_agent.py               # Main agent implementation
@@ -29,20 +28,20 @@ cognee/
 │   ├── cognee_direct_tools.py         # Knowledge base access tools
 │   │
 │   └── document/                      # Knowledge Base Documents
-│       ├── maintenance_knowledge/
-│       │   ├── pressure_maintenance.txt
-│       │   ├── temperature_sensor_guide.txt
-│       │   ├── humidity_calibration.txt
-│       │   ├── wind_sensor_maintenance.txt
-│       │   └── general_troubleshooting.txt
-│       │
-│       └── sensor_specifications/
-│           ├── ....
-│
-├── interactive_workforce.py           # Knowledge base management UI
-├── logs/
-    ├── detailed_event.log
-
+|    │    ├── maintenance_knowledge/
+|    │    │   ├── pressure_maintenance.txt
+|    │    │   ├── temperature_sensor_guide.txt
+|    │    │   ├── humidity_calibration.txt
+|    │    │   ├── wind_sensor_maintenance.txt
+|    │    │   └── general_troubleshooting.txt
+|    │    │
+|    │    └── sensor_specifications/
+|    │        ├── ....
+|    │
+|    ├── interactive_workforce.py           # Knowledge base management UI
+|    ├── logs/
+|        └── detailed_event.log
+├── cognee /                              # cognee dependencies (location of the constructed knowledge base *(graph db + relational db + metadata documents))
 ```
 
 ---
