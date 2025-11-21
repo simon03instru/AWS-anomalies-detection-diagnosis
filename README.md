@@ -3,7 +3,6 @@
 A distributed multi-agent system for real-time weather station monitoring, anomaly detection, and intelligent diagnostics using CAMEL AI framework and Anomaly Transformer models.
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![CAMEL AI](https://img.shields.io/badge/CAMEL--AI-0.2.1-orange)](https://github.com/camel-ai/camel)
 
 ---
