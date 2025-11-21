@@ -283,15 +283,9 @@ Contributions are welcome! Please:
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
 ## 📧 Contact
-**Email**: a1932040@adelaide.edu.au
-**Institution**: University of Adelaide  
+- **Email**: a1932040@adelaide.edu.au
+- **Institution**: University of Adelaide  
 ---
 
 ## 🙏 Acknowledgments
