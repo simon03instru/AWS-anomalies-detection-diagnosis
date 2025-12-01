@@ -107,5 +107,5 @@ Key settings:
 
 Install development dependencies:
 ```bash
-pip install -r requirements-dev.txt
+pip install -r requirements.txt
 ```
