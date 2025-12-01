@@ -251,16 +251,3 @@ python main.py
 
 ---
 
-## 📧 Contact
-- **Email**: a1932040@adelaide.edu.au
-- **Institution**: University of Adelaide  
----
-
-## 🙏 Acknowledgments
-- Centre for Research on Engineering Software Technologies - [https://crest-centre.net](https://crest-centre.net)
-- BMKG (Indonesia's Meteorological Agency) - [https://awscenter.bmkg.go.id]
-- CAMEL AI Framework - [https://github.com/camel-ai/camel](https://github.com/camel-ai/camel)
-- Cognee Knowledge Base - [https://github.com/topoteretes/cognee](https://github.com/topoteretes/cognee)
-- Anomaly Transformer - [https://arxiv.org/abs/2110.02642]
-
----
