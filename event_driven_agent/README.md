@@ -109,22 +109,3 @@ Install development dependencies:
 ```bash
 pip install -r requirements-dev.txt
 ```
-
-Run tests:
-```bash
-pytest
-```
-
-Format code:
-```bash
-black .
-```
-
-## License
-
-MIT License
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-"""
