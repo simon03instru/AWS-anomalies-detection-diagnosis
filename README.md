@@ -220,7 +220,7 @@ python evaluate.py \
 - **Faithfulness**: ANOVA revealed GPT-OSS 120B and GPT-4.1 Mini performed comparably (p = 0.417)
 - **Relevance**: Kruskal-Wallis showed GPT-4.1 Mini significantly outperformed both GPT-OSS models (p < 0.001)
 
-### Expert Evaluation
+### Domain Feedback (Likert Scale)
 
 - **Diagnostic Accuracy**: Mean score 4.2/5.0
 - **Maintenance Quality**: Mean score 4.1/5.0
