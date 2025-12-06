@@ -1,0 +1,435 @@
+{
+  "timestamp": "2025-11-07T02:18:07.032081",
+  "metrics": {
+    "overall": {
+      "accuracy": 0.9833,
+      "precision": 1.0,
+      "recall": 0.9583,
+      "f1_score": 0.9787,
+      "total_cases": 20,
+      "total_true_positives": 23,
+      "total_false_positives": 0,
+      "total_false_negatives": 1,
+      "total_true_negatives": 36
+    },
+    "per_feature": {
+      "rr": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "true_positives": 2,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "true_negatives": 1
+      },
+      "tt": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "true_positives": 5,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "true_negatives": 14
+      },
+      "sr": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "true_positives": 4,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "true_negatives": 2
+      },
+      "wd": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1_score": 0.6667,
+        "true_positives": 1,
+        "false_positives": 0,
+        "false_negatives": 1,
+        "true_negatives": 1
+      },
+      "ws": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "true_positives": 5,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "true_negatives": 6
+      },
+      "pp": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "true_positives": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "true_negatives": 2
+      },
+      "rh": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "true_positives": 5,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "true_negatives": 10
+      }
+    },
+    "detailed_results": [
+      {
+        "case_id": "1",
+        "true_anomalies": [
+          "rh",
+          "tt"
+        ],
+        "predicted_anomalies": [
+          "rh",
+          "tt"
+        ],
+        "true_positives": [
+          "rh",
+          "tt"
+        ],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "ws"
+        ]
+      },
+      {
+        "case_id": "2",
+        "true_anomalies": [
+          "tt"
+        ],
+        "predicted_anomalies": [
+          "tt"
+        ],
+        "true_positives": [
+          "tt"
+        ],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "rh",
+          "ws"
+        ]
+      },
+      {
+        "case_id": "3",
+        "true_anomalies": [
+          "rh",
+          "tt"
+        ],
+        "predicted_anomalies": [
+          "rh",
+          "tt"
+        ],
+        "true_positives": [
+          "rh",
+          "tt"
+        ],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "ws"
+        ]
+      },
+      {
+        "case_id": "4",
+        "true_anomalies": [
+          "tt"
+        ],
+        "predicted_anomalies": [
+          "tt"
+        ],
+        "true_positives": [
+          "tt"
+        ],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "rh",
+          "sr"
+        ]
+      },
+      {
+        "case_id": "5",
+        "true_anomalies": [
+          "sr"
+        ],
+        "predicted_anomalies": [
+          "sr"
+        ],
+        "true_positives": [
+          "sr"
+        ],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "rh",
+          "tt"
+        ]
+      },
+      {
+        "case_id": "6",
+        "true_anomalies": [
+          "sr",
+          "ws"
+        ],
+        "predicted_anomalies": [
+          "sr",
+          "ws"
+        ],
+        "true_positives": [
+          "sr",
+          "ws"
+        ],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "tt"
+        ]
+      },
+      {
+        "case_id": "7",
+        "true_anomalies": [
+          "sr",
+          "tt",
+          "ws"
+        ],
+        "predicted_anomalies": [
+          "sr",
+          "tt",
+          "ws"
+        ],
+        "true_positives": [
+          "sr",
+          "tt",
+          "ws"
+        ],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": []
+      },
+      {
+        "case_id": "8",
+        "true_anomalies": [
+          "sr",
+          "ws"
+        ],
+        "predicted_anomalies": [
+          "sr",
+          "ws"
+        ],
+        "true_positives": [
+          "sr",
+          "ws"
+        ],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "tt"
+        ]
+      },
+      {
+        "case_id": "9",
+        "true_anomalies": [
+          "rh"
+        ],
+        "predicted_anomalies": [
+          "rh"
+        ],
+        "true_positives": [
+          "rh"
+        ],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "pp",
+          "tt"
+        ]
+      },
+      {
+        "case_id": "10",
+        "true_anomalies": [],
+        "predicted_anomalies": [],
+        "true_positives": [],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "rh",
+          "tt",
+          "ws"
+        ]
+      },
+      {
+        "case_id": "11",
+        "true_anomalies": [
+          "rh"
+        ],
+        "predicted_anomalies": [
+          "rh"
+        ],
+        "true_positives": [
+          "rh"
+        ],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "pp",
+          "tt"
+        ]
+      },
+      {
+        "case_id": "12",
+        "true_anomalies": [
+          "wd",
+          "ws"
+        ],
+        "predicted_anomalies": [
+          "wd",
+          "ws"
+        ],
+        "true_positives": [
+          "wd",
+          "ws"
+        ],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "tt"
+        ]
+      },
+      {
+        "case_id": "13",
+        "true_anomalies": [
+          "wd",
+          "ws"
+        ],
+        "predicted_anomalies": [
+          "ws"
+        ],
+        "true_positives": [
+          "ws"
+        ],
+        "false_positives": [],
+        "false_negatives": [
+          "wd"
+        ],
+        "true_negatives": [
+          "tt"
+        ]
+      },
+      {
+        "case_id": "14",
+        "true_anomalies": [
+          "rh"
+        ],
+        "predicted_anomalies": [
+          "rh"
+        ],
+        "true_positives": [
+          "rh"
+        ],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "tt",
+          "ws"
+        ]
+      },
+      {
+        "case_id": "15",
+        "true_anomalies": [],
+        "predicted_anomalies": [],
+        "true_positives": [],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "rh",
+          "tt",
+          "ws"
+        ]
+      },
+      {
+        "case_id": "16",
+        "true_anomalies": [
+          "rr"
+        ],
+        "predicted_anomalies": [
+          "rr"
+        ],
+        "true_positives": [
+          "rr"
+        ],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "rh",
+          "tt"
+        ]
+      },
+      {
+        "case_id": "17",
+        "true_anomalies": [],
+        "predicted_anomalies": [],
+        "true_positives": [],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "rh",
+          "tt",
+          "wd"
+        ]
+      },
+      {
+        "case_id": "18",
+        "true_anomalies": [
+          "pp",
+          "rr"
+        ],
+        "predicted_anomalies": [
+          "pp",
+          "rr"
+        ],
+        "true_positives": [
+          "pp",
+          "rr"
+        ],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "rh"
+        ]
+      },
+      {
+        "case_id": "19",
+        "true_anomalies": [],
+        "predicted_anomalies": [],
+        "true_positives": [],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "rh",
+          "rr",
+          "tt"
+        ]
+      },
+      {
+        "case_id": "20",
+        "true_anomalies": [],
+        "predicted_anomalies": [],
+        "true_positives": [],
+        "false_positives": [],
+        "false_negatives": [],
+        "true_negatives": [
+          "rh",
+          "sr",
+          "tt"
+        ]
+      }
+    ]
+  }
+}
